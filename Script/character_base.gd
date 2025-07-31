@@ -1,4 +1,4 @@
-extends CharacterBody2D
+extends Node2D
 class_name Character_Base
 
 @export var target_manager: Character_Targeting 

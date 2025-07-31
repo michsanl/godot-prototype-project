@@ -1,8 +1,14 @@
-extends Node
+extends Node2D
 class_name Character_Targeting
 
-var target: Character_Base = null
+signal on_target_changed(new_target)
+
+var current_target: Character_Base
 
 func set_target(new_target: Character_Base) -> void:
-	target = new_target
-	print (owner, " Target is: ", new_target.name)
+	current_target = new_target
+	on_target_changed.emit(current_target)
+
+func remove_target():
+	current_target = null
+	on_target_changed.emit(current_target)
