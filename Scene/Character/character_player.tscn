@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://b3whippw3cwep"]
+
+[ext_resource type="PackedScene" uid="uid://bek3derprev18" path="res://Scene/Character/character_base.tscn" id="1_1x2aq"]
+[ext_resource type="PackedScene" uid="uid://yd3i6ur6uykr" path="res://Scene/Ability/ability_strike.tscn" id="2_ri57w"]
+
+[node name="character_player" instance=ExtResource("1_1x2aq")]
+
+[node name="ability_strike" parent="character_ability" index="0" instance=ExtResource("2_ri57w")]
+
+[node name="Sprite2D" parent="." index="4"]
+flip_h = false

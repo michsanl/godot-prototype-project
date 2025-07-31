@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://b28rulxha5ms0"]
+
+[ext_resource type="Script" uid="uid://be3jnj2hg5i38" path="res://Script/Character Component/Character Ability/ability.gd" id="1_xnmf1"]
+[ext_resource type="Script" uid="uid://c4f1qvfs0m4l0" path="res://Script/Character Component/Character Ability/ability_token.gd" id="2_876ki"]
+
+[node name="ability_base" type="Node" node_paths=PackedStringArray("ability_token")]
+script = ExtResource("1_xnmf1")
+ability_token = [NodePath("ability_token_1"), NodePath("ability_token_2"), NodePath("ability_token_3")]
+
+[node name="ability_token_1" type="Node" parent="."]
+script = ExtResource("2_876ki")
+
+[node name="ability_token_2" type="Node" parent="."]
+script = ExtResource("2_876ki")
+
+[node name="ability_token_3" type="Node" parent="."]
+script = ExtResource("2_876ki")

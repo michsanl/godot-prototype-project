@@ -1,0 +1,44 @@
+[gd_scene load_steps=7 format=3 uid="uid://bek3derprev18"]
+
+[ext_resource type="Texture2D" uid="uid://cem8kmd0lrwrh" path="res://Art/BossAngela.png" id="1_12lhm"]
+[ext_resource type="Script" uid="uid://c7c2x0t6jjupk" path="res://Script/character_base.gd" id="1_y5alb"]
+[ext_resource type="Script" uid="uid://buot45h215ftp" path="res://Script/Character Component/character_targeting.gd" id="2_1upvv"]
+[ext_resource type="Script" uid="uid://di50c51to3xax" path="res://Script/Character Component/character_stat.gd" id="2_yop1s"]
+[ext_resource type="Script" uid="uid://dm4auyugtcvs4" path="res://Script/Character Component/character_ability.gd" id="3_ouw7k"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1uydq"]
+
+[node name="character_base" type="CharacterBody2D" node_paths=PackedStringArray("target_manager", "character_stat", "character_ability")]
+script = ExtResource("1_y5alb")
+target_manager = NodePath("character_targeting")
+character_stat = NodePath("character_stat")
+character_ability = NodePath("character_ability")
+
+[node name="character_stat" type="Node" parent="."]
+script = ExtResource("2_yop1s")
+
+[node name="character_targeting" type="Node" parent="."]
+script = ExtResource("2_1upvv")
+
+[node name="targeting_UI" type="Line2D" parent="character_targeting"]
+default_color = Color(0.1812, 0.1812, 0.1812, 1)
+sharp_limit = 0.0
+round_precision = 32
+
+[node name="character_ability" type="Node" parent="."]
+script = ExtResource("3_ouw7k")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_1uydq")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("1_12lhm")
+flip_h = true
+
+[node name="Button" type="Button" parent="."]
+offset_left = -25.0
+offset_top = -116.0
+offset_right = 26.0
+offset_bottom = -70.0
+text = "?"

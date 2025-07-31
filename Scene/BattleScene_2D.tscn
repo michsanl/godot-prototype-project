@@ -1,0 +1,67 @@
+[gd_scene load_steps=8 format=3 uid="uid://do3uwy2gicsls"]
+
+[ext_resource type="Texture2D" uid="uid://c8sf5t0u0e5qn" path="res://Art/KeterFloorBattleStage.jpg" id="1_mtylr"]
+[ext_resource type="Script" uid="uid://ca131f6h2pd4o" path="res://Script/Phase Manager/battle_phase_manager.gd" id="2_mtm51"]
+[ext_resource type="Script" uid="uid://c4mwu4ngi61wx" path="res://Script/Phase Manager/strategy_phase_manager.gd" id="3_t0dor"]
+[ext_resource type="Script" uid="uid://bmp3a5hkmsqv0" path="res://Script/Phase Manager/combat_phase_manager.gd" id="4_xdkpq"]
+[ext_resource type="PackedScene" uid="uid://bsa7fd3dlwl5f" path="res://Scene/button.tscn" id="5_8qtd0"]
+[ext_resource type="PackedScene" uid="uid://bvg3pyy64wc86" path="res://Scene/Character/character_enemy.tscn" id="6_8rj7f"]
+[ext_resource type="PackedScene" uid="uid://b3whippw3cwep" path="res://Scene/Character/character_player.tscn" id="7_4v0j5"]
+
+[node name="BattleScene_2D" type="Node2D"]
+
+[node name="KeterFloorBattleStage" type="Sprite2D" parent="."]
+position = Vector2(578, 334)
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("1_mtylr")
+
+[node name="battle_scene_manager" type="Node" parent="."]
+script = ExtResource("2_mtm51")
+
+[node name="strategy_phase_manager" type="Node" parent="battle_scene_manager" node_paths=PackedStringArray("player_characters", "enemy_characters")]
+script = ExtResource("3_t0dor")
+player_characters = [NodePath("../../battle_character/character_player")]
+enemy_characters = [NodePath("../../battle_character/character_enemy")]
+
+[node name="combat_phase_manager" type="Node" parent="battle_scene_manager" node_paths=PackedStringArray("player_characters", "enemy_characters")]
+script = ExtResource("4_xdkpq")
+player_characters = [NodePath("../../battle_character/character_player")]
+enemy_characters = [NodePath("../../battle_character/character_enemy")]
+
+[node name="debug_button" type="Node" parent="."]
+
+[node name="strateg_button" parent="debug_button" instance=ExtResource("5_8qtd0")]
+offset_left = 261.0
+offset_top = 25.0
+offset_right = 384.0
+offset_bottom = 91.0
+text = "Strategy"
+
+[node name="combat_button" parent="debug_button" instance=ExtResource("5_8qtd0")]
+offset_left = 536.0
+offset_top = 29.0
+offset_right = 659.0
+offset_bottom = 95.0
+text = "Combat"
+target_state = 1
+
+[node name="resolve_button" parent="debug_button" instance=ExtResource("5_8qtd0")]
+offset_left = 785.0
+offset_top = 24.0
+offset_right = 908.0
+offset_bottom = 90.0
+text = "Resolve"
+target_state = 2
+
+[node name="battle_character" type="Node" parent="."]
+
+[node name="character_enemy" parent="battle_character" instance=ExtResource("6_8rj7f")]
+position = Vector2(456, 351)
+
+[node name="character_player" parent="battle_character" instance=ExtResource("7_4v0j5")]
+position = Vector2(750, 353)
+
+[connection signal="strategy_phase_started" from="battle_scene_manager" to="battle_scene_manager/strategy_phase_manager" method="set_player_and_enemy_target"]
+[connection signal="pressed" from="debug_button/strateg_button" to="battle_scene_manager" method="set_battle_state_to_strategy"]
+[connection signal="pressed" from="debug_button/combat_button" to="battle_scene_manager" method="set_battle_state_to_combat"]
+[connection signal="pressed" from="debug_button/resolve_button" to="battle_scene_manager" method="set_battle_state_to_resolve"]

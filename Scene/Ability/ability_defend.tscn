@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=3 uid="uid://b4iah72hhg45f"]
+
+[ext_resource type="PackedScene" uid="uid://b28rulxha5ms0" path="res://Scene/Ability/ability_base.tscn" id="1_lfeom"]
+
+[node name="ability_defend" instance=ExtResource("1_lfeom")]
+
+[node name="ability_token_1" parent="." index="0"]
+token_type = 2
+max = 2
+
+[node name="ability_token_2" parent="." index="1"]
+token_type = 2
+max = 2
+
+[node name="ability_token_3" parent="." index="2"]
+token_type = 2
+max = 2
