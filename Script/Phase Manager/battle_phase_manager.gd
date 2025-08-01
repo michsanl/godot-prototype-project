@@ -7,6 +7,9 @@ enum battle_state {BATTLE_STRATEGY, BATTLE_COMBAT, BATTLE_RESOLVE}
 signal strategy_phase_started
 signal combat_phase_started
 signal resolve_phase_started
+signal on_strategy_exit
+signal on_combat_exit
+signal on_resolve_exit
 
 func _ready() -> void:
 	print("started")
@@ -21,14 +24,20 @@ func set_battle_state_to_resolve():
 	set_battle_state(battle_state.BATTLE_RESOLVE)
 
 func set_battle_state(new_state: battle_state) -> void:
-	current_state = new_state
 	match current_state:
 		battle_state.BATTLE_STRATEGY:
-			print("strategy phase begin")
+			on_strategy_exit.emit()
+		battle_state.BATTLE_COMBAT:
+			on_combat_exit.emit()
+		battle_state.BATTLE_RESOLVE:
+			on_resolve_exit.emit()
+	
+	current_state = new_state
+	
+	match current_state:
+		battle_state.BATTLE_STRATEGY:
 			strategy_phase_started.emit()
 		battle_state.BATTLE_COMBAT:
-			print("combat phase begin")
 			combat_phase_started.emit()
 		battle_state.BATTLE_RESOLVE:
-			print("resolve phase begin")
 			resolve_phase_started.emit()

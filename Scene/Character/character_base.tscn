@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://bek3derprev18"]
+[gd_scene load_steps=8 format=3 uid="uid://bek3derprev18"]
 
 [ext_resource type="Texture2D" uid="uid://cem8kmd0lrwrh" path="res://Art/BossAngela.png" id="1_12lhm"]
 [ext_resource type="Script" uid="uid://c7c2x0t6jjupk" path="res://Script/character_base.gd" id="1_y5alb"]
@@ -7,9 +7,13 @@
 [ext_resource type="Script" uid="uid://dm4auyugtcvs4" path="res://Script/Character Component/character_ability.gd" id="3_ouw7k"]
 [ext_resource type="Script" uid="uid://bdshlelctktgb" path="res://Script/trajectory_ui.gd" id="4_utumv"]
 
+[sub_resource type="Curve" id="Curve_utumv"]
+_data = [Vector2(0, 0.271636), 0.0, 0.0, 0, 0, Vector2(0.496466, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.206603), 0.0, 0.0, 0, 0]
+point_count = 3
+
 [node name="character_base" type="Node2D" node_paths=PackedStringArray("target_manager", "character_stat", "character_ability")]
 script = ExtResource("1_y5alb")
-target_manager = NodePath("")
+target_manager = NodePath("character_targeting")
 character_stat = NodePath("character_stat")
 character_ability = NodePath("character_ability")
 
@@ -19,10 +23,13 @@ script = ExtResource("2_yop1s")
 [node name="character_ability" type="Node" parent="."]
 script = ExtResource("3_ouw7k")
 
-[node name="character_targeting" type="Node2D" parent="."]
+[node name="character_targeting" type="Node2D" parent="." node_paths=PackedStringArray("trajectory_ui")]
+position = Vector2(0, -95)
 script = ExtResource("2_1upvv")
+trajectory_ui = NodePath("trajectory_UI")
 
 [node name="trajectory_UI" type="Line2D" parent="character_targeting"]
+width_curve = SubResource("Curve_utumv")
 default_color = Color(0.1812, 0.1812, 0.1812, 1)
 sharp_limit = 0.0
 round_precision = 32
@@ -40,3 +47,8 @@ offset_right = 26.0
 offset_bottom = -70.0
 text = "?"
 metadata/_edit_use_anchors_ = true
+
+[connection signal="strategy_enter" from="." to="character_targeting" method="_on_character_base_strategy_enter"]
+[connection signal="strategy_exit" from="." to="character_targeting" method="_on_character_base_strategy_exit"]
+[connection signal="on_target_changed" from="character_targeting" to="character_targeting/trajectory_UI" method="handle_target_set"]
+[connection signal="on_target_clear" from="character_targeting" to="character_targeting/trajectory_UI" method="handle_target_clear"]

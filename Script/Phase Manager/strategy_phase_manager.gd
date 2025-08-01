@@ -10,9 +10,21 @@ func set_player_and_enemy_target() -> void:
 
 func set_player_character_target() -> void:
 	for player in player_characters:
-		player.target_manager.set_target(enemy_characters.pick_random())
+		player.handle_strategy_enter(enemy_characters.pick_random())
 		
 func set_enemy_character_target() -> void:
 	for enemy in enemy_characters:
-		enemy.target_manager.set_target(player_characters.pick_random())
+		enemy.handle_strategy_enter(player_characters.pick_random())
 #endregion
+
+func remove_player_and_enemy_target() -> void:
+	remove_player_character_target()
+	remove_enemy_character_target()
+
+func remove_player_character_target() -> void:
+	for player in player_characters:
+		player.handle_strategy_exit()
+		
+func remove_enemy_character_target() -> void:
+	for enemy in enemy_characters:
+		enemy.handle_strategy_exit()

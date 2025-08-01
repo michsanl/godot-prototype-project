@@ -10,20 +10,20 @@
 
 [node name="BattleScene_2D" type="Node2D"]
 
-[node name="Camera2D" type="Camera2D" parent="."]
-
 [node name="KeterFloorBattleStage" type="Sprite2D" parent="."]
-position = Vector2(-39, 23)
-scale = Vector2(0.6, 0.6)
+y_sort_enabled = true
+scale = Vector2(0.62, 0.62)
 texture = ExtResource("1_mtylr")
+
+[node name="Camera2D" type="Camera2D" parent="."]
 
 [node name="battle_scene_manager" type="Node" parent="."]
 script = ExtResource("2_mtm51")
 
 [node name="strategy_phase_manager" type="Node" parent="battle_scene_manager" node_paths=PackedStringArray("player_characters", "enemy_characters")]
 script = ExtResource("3_t0dor")
-player_characters = [null]
-enemy_characters = [null]
+player_characters = [NodePath("../../battle_character/character_player")]
+enemy_characters = [NodePath("../../battle_character/character_enemy")]
 
 [node name="combat_phase_manager" type="Node" parent="battle_scene_manager" node_paths=PackedStringArray("player_characters", "enemy_characters")]
 script = ExtResource("4_xdkpq")
@@ -55,16 +55,15 @@ offset_bottom = -229.0
 text = "Resolve"
 target_state = 2
 
-[node name="battle_character" type="Node" parent="."]
+[node name="battle_character" type="Node2D" parent="."]
 
-[node name="character_enemy" parent="battle_character" node_paths=PackedStringArray("target_manager") instance=ExtResource("6_8rj7f")]
-position = Vector2(-184, 15)
-target_manager = NodePath("character_targeting")
+[node name="character_enemy" parent="battle_character" instance=ExtResource("6_8rj7f")]
+position = Vector2(-330, 51)
 
-[node name="character_player" parent="battle_character" node_paths=PackedStringArray("target_manager") instance=ExtResource("7_4v0j5")]
-position = Vector2(232, 2)
-target_manager = NodePath("character_targeting")
+[node name="character_player" parent="battle_character" instance=ExtResource("7_4v0j5")]
+position = Vector2(369, 66)
 
+[connection signal="on_strategy_exit" from="battle_scene_manager" to="battle_scene_manager/strategy_phase_manager" method="remove_player_and_enemy_target"]
 [connection signal="strategy_phase_started" from="battle_scene_manager" to="battle_scene_manager/strategy_phase_manager" method="set_player_and_enemy_target"]
 [connection signal="pressed" from="debug_button/strateg_button" to="battle_scene_manager" method="set_battle_state_to_strategy"]
 [connection signal="pressed" from="debug_button/combat_button" to="battle_scene_manager" method="set_battle_state_to_combat"]
