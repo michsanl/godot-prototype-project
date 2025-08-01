@@ -1,0 +1,9 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://db0mt25wfatl4"]
+
+[ext_resource type="Script" uid="uid://2ytid1uivak6" path="res://Script/Resource/ability_stats.gd" id="1_nd07u"]
+
+[resource]
+script = ExtResource("1_nd07u")
+max_hp = 0
+attack = 0
+speed = 0.0
