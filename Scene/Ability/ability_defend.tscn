@@ -1,17 +1,13 @@
-[gd_scene load_steps=2 format=3 uid="uid://b4iah72hhg45f"]
+[gd_scene load_steps=5 format=3 uid="uid://b4iah72hhg45f"]
 
 [ext_resource type="PackedScene" uid="uid://b28rulxha5ms0" path="res://Scene/Ability/ability_base.tscn" id="1_lfeom"]
+[ext_resource type="Script" uid="uid://2ytid1uivak6" path="res://Script/Resource/ability_stats.gd" id="2_vge1o"]
+[ext_resource type="Script" uid="uid://cv7oukxoksshd" path="res://Script/Resource/ability_token.gd" id="3_60fht"]
+
+[sub_resource type="Resource" id="Resource_s60eg"]
+script = ExtResource("2_vge1o")
+token = Array[ExtResource("3_60fht")]([])
+metadata/_custom_type_script = "uid://2ytid1uivak6"
 
 [node name="ability_defend" instance=ExtResource("1_lfeom")]
-
-[node name="ability_token_1" parent="." index="0"]
-token_type = 2
-max = 2
-
-[node name="ability_token_2" parent="." index="1"]
-token_type = 2
-max = 2
-
-[node name="ability_token_3" parent="." index="2"]
-token_type = 2
-max = 2
+ability_stats = SubResource("Resource_s60eg")

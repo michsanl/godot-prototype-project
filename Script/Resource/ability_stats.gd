@@ -1,7 +1,5 @@
-class_name CharacterStats
+@icon("res://Art/Ability_Icon.png")
+class_name AbilityStats
 extends Resource
 
-
-@export var max_hp: int
-@export var attack: int
-@export var speed: float
+@export var token: Array[AbilityToken]
