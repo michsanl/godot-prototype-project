@@ -1,15 +1,15 @@
 extends Node
 class_name Character_Stat
 
-@export var health_point: int
+@export var health_point: int = 10
 @export var dice_point: int
 
-func _ready() -> void:
-	randomize_dice_point()
-	randomize_health_point()
-	
+var current_health: int
+
 func randomize_dice_point():
 	dice_point = randi_range(1, 10)
-	
-func randomize_health_point():
-	health_point = randi_range(1, 10)
+	print(get_parent().name, " dice points are: ", dice_point)
+
+
+func setup_health_point():
+	current_health = health_point

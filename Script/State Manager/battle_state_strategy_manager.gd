@@ -16,19 +16,19 @@ func clear_player_and_enemy_target() -> void:
 
 func _set_player_character_target() -> void:
 	for player in player_characters:
-		player.handle_strategy_enter(enemy_characters.pick_random())
+		player.character_targeting.set_target(enemy_characters.pick_random())
 
 
 func _set_enemy_character_target() -> void:
 	for enemy in enemy_characters:
-		enemy.handle_strategy_enter(player_characters.pick_random())
+		enemy.character_targeting.set_target(player_characters.pick_random())
 
 
 func _clear_player_character_target() -> void:
 	for player in player_characters:
-		player.handle_strategy_exit()
+		player.character_targeting.remove_target()
 
 
 func _clear_enemy_character_target() -> void:
 	for enemy in enemy_characters:
-		enemy.handle_strategy_exit()
+		enemy.character_targeting.remove_target()
