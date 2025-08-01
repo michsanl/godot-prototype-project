@@ -1,14 +1,15 @@
+class_name CharacterBase
 extends Node2D
-class_name Character_Base
+
 
 @export var character_targeting: CharacterTargeting 
 @export var character_stat: Character_Stat 
-@export var character_ability: Character_Ability
+@export var character_ability_manager: CharacterAbilityManager
 
-signal strategy_enter(target: Character_Base)
+signal strategy_enter(target: CharacterBase)
 signal strategy_exit
 
-func handle_strategy_enter(new_target: Character_Base):
+func handle_strategy_enter(new_target: CharacterBase):
 	strategy_enter.emit(new_target)
 
 func handle_strategy_exit():

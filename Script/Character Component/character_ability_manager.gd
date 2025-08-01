@@ -1,5 +1,5 @@
+class_name CharacterAbilityManager
 extends Node
-class_name Character_Ability
 
 @export var ability_stats: Array[AbilityStats]
 
@@ -7,7 +7,10 @@ var abilities: Array[Ability] = []
 
 func _ready() -> void:
 	setup_ability()
-	print(get_parent().name, " abilities are: " ,abilities)
+
+
+func get_random_ability() -> Ability:
+	return abilities.pick_random()
 
 
 func setup_ability():

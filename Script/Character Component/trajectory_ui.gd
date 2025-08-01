@@ -50,7 +50,7 @@ func _setup_trajectory_coordinate():
 
 
 func _get_target_position():
-	var target: Character_Base = character_targeting.current_target
+	var target: CharacterBase = character_targeting.current_aim_target
 	var target_position: Vector2 = to_local(target.global_position)
 	return target_position
 

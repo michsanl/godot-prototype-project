@@ -4,23 +4,23 @@
 [ext_resource type="Script" uid="uid://c7c2x0t6jjupk" path="res://Script/Character Component/character_base.gd" id="1_y5alb"]
 [ext_resource type="Script" uid="uid://buot45h215ftp" path="res://Script/Character Component/character_targeting.gd" id="2_1upvv"]
 [ext_resource type="Script" uid="uid://di50c51to3xax" path="res://Script/Character Component/character_stat.gd" id="2_yop1s"]
-[ext_resource type="Script" uid="uid://dm4auyugtcvs4" path="res://Script/Character Component/character_ability.gd" id="3_ouw7k"]
+[ext_resource type="Script" uid="uid://dm4auyugtcvs4" path="res://Script/Character Component/character_ability_manager.gd" id="3_ouw7k"]
 [ext_resource type="Script" uid="uid://bdshlelctktgb" path="res://Script/Character Component/trajectory_ui.gd" id="4_utumv"]
 
 [sub_resource type="Curve" id="Curve_utumv"]
 _data = [Vector2(0, 0.271636), 0.0, 0.0, 0, 0, Vector2(0.496466, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.206603), 0.0, 0.0, 0, 0]
 point_count = 3
 
-[node name="character_base" type="Node2D" node_paths=PackedStringArray("character_targeting", "character_stat", "character_ability")]
+[node name="character_base" type="Node2D" node_paths=PackedStringArray("character_targeting", "character_stat", "character_ability_manager")]
 script = ExtResource("1_y5alb")
 character_targeting = NodePath("character_targeting")
 character_stat = NodePath("character_stat")
-character_ability = NodePath("character_ability")
+character_ability_manager = NodePath("character_ability_manager")
 
 [node name="character_stat" type="Node" parent="."]
 script = ExtResource("2_yop1s")
 
-[node name="character_ability" type="Node" parent="."]
+[node name="character_ability_manager" type="Node" parent="."]
 script = ExtResource("3_ouw7k")
 
 [node name="character_targeting" type="Node2D" parent="."]

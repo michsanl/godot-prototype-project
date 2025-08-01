@@ -1,7 +1,7 @@
 extends Node
 
-@export var player_characters: Array[Character_Base] = []
-@export var enemy_characters: Array[Character_Base] = []
+@export var player_characters: Array[CharacterBase] = []
+@export var enemy_characters: Array[CharacterBase] = []
 
 
 func set_player_and_enemy_target() -> void:
@@ -17,11 +17,13 @@ func clear_player_and_enemy_target() -> void:
 func _set_player_character_target() -> void:
 	for player in player_characters:
 		player.character_targeting.set_target(enemy_characters.pick_random())
+		player.character_stat.randomize_dice_point()
 
 
 func _set_enemy_character_target() -> void:
 	for enemy in enemy_characters:
 		enemy.character_targeting.set_target(player_characters.pick_random())
+		enemy.character_stat.randomize_dice_point()
 
 
 func _clear_player_character_target() -> void:

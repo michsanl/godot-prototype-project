@@ -6,5 +6,5 @@
 
 [node name="character_enemy" instance=ExtResource("1_7ar5a")]
 
-[node name="character_ability" parent="." index="1"]
-ability_stats = Array[ExtResource("2_77u64")]([ExtResource("3_3uv1s"), ExtResource("3_3uv1s")])
+[node name="character_ability_manager" parent="." index="1"]
+ability_stats = Array[ExtResource("2_77u64")]([ExtResource("3_3uv1s")])
