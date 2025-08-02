@@ -1,15 +1,16 @@
+class_name StrategyStateManager
 extends Node
 
 @export var player_characters: Array[CharacterBase] = []
 @export var enemy_characters: Array[CharacterBase] = []
 
 
-func set_player_and_enemy_target() -> void:
+func handle_strategy_state_enter() -> void:
 	_set_player_character_target()
 	_set_enemy_character_target()
 
 
-func clear_player_and_enemy_target() -> void:
+func handle_strategy_state_exit() -> void:
 	_clear_player_character_target()
 	_clear_enemy_character_target()
 

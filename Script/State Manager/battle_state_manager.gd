@@ -1,15 +1,29 @@
+class_name StateManager
 extends Node
 
-signal strategy_phase_started
-signal combat_phase_started
-signal resolve_phase_started
-signal strategy_phase_ended
-signal combat_phase_ended
-signal resolve_phase_ended
+enum BattleState { NOTSET, STRATEGY, COMBAT, RESOLVE }
 
-enum BattleState { STRATEGY, COMBAT, RESOLVE }
+@export var strategy_state_manager: StrategyStateManager
+@export var combat_state_manager: CombatStateManager
 
 var _current_state: BattleState
+
+
+func _on_combat_state_manager_combat_ended() -> void:
+	change_state_to_resolve()
+
+
+func _on_strategy_button_pressed() -> void:
+	change_state_to_strategy()
+
+
+func _on_combat_button_pressed() -> void:
+	change_state_to_combat()
+
+
+func _on_resolve_button_pressed() -> void:
+	change_state_to_resolve()
+
 
 func change_state_to_strategy():
 	_change_state(BattleState.STRATEGY)
@@ -30,14 +44,18 @@ func _change_state(new_state: BattleState) -> void:
 	_enter_state()
 
 
-func _exit_state() -> void:
+func _enter_state() -> void:
 	match _current_state:
+		BattleState.NOTSET:
+			return
 		BattleState.STRATEGY:
-			strategy_phase_ended.emit()
+			strategy_state_manager.handle_strategy_state_enter()
+			return
 		BattleState.COMBAT:
-			combat_phase_ended.emit()
+			combat_state_manager.handle_combat_state_enter()
+			return
 		BattleState.RESOLVE:
-			resolve_phase_ended.emit()
+			return
 
 
 func _set_state(new_state: BattleState) -> void:
@@ -45,12 +63,16 @@ func _set_state(new_state: BattleState) -> void:
 	print("Battle state changed to: ", BattleState.keys()[new_state])
 
 
-func _enter_state() -> void:
+func _exit_state() -> void:
 	match _current_state:
+		BattleState.NOTSET:
+			return
 		BattleState.STRATEGY:
-			strategy_phase_started.emit()
+			strategy_state_manager.handle_strategy_state_exit()
+			return
 		BattleState.COMBAT:
-			combat_phase_started.emit()
+			combat_state_manager.handle_combat_state_exit()
+			return
 		BattleState.RESOLVE:
-			resolve_phase_started.emit()
+			return
 #endregion
