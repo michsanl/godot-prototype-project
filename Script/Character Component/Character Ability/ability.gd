@@ -1,7 +1,7 @@
-extends Node
 class_name Ability
+extends Node
 
-@export var ability_token: Array[Ability_Token]
+@export var ability_stats: AbilityStats
 
 
 #func _ready() -> void:

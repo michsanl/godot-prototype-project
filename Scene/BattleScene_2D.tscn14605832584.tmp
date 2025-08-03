@@ -2,8 +2,8 @@
 
 [ext_resource type="Texture2D" uid="uid://c8sf5t0u0e5qn" path="res://Art/KeterFloorBattleStage.jpg" id="1_mtylr"]
 [ext_resource type="Script" uid="uid://ca131f6h2pd4o" path="res://Script/State Manager/battle_state_manager.gd" id="2_mtm51"]
-[ext_resource type="Script" uid="uid://c4mwu4ngi61wx" path="res://Script/State Manager/strategy_state_manager.gd" id="3_t0dor"]
-[ext_resource type="Script" uid="uid://bmp3a5hkmsqv0" path="res://Script/State Manager/state_manager.gd" id="4_xdkpq"]
+[ext_resource type="Script" uid="uid://c4mwu4ngi61wx" path="res://Script/State Manager/battle_state_strategy_manager.gd" id="3_t0dor"]
+[ext_resource type="Script" uid="uid://bmp3a5hkmsqv0" path="res://Script/State Manager/battle_state_combat_manager.gd" id="4_xdkpq"]
 [ext_resource type="PackedScene" uid="uid://bsa7fd3dlwl5f" path="res://Scene/button.tscn" id="5_8qtd0"]
 [ext_resource type="PackedScene" uid="uid://bvg3pyy64wc86" path="res://Scene/Character/character_enemy.tscn" id="6_8rj7f"]
 [ext_resource type="PackedScene" uid="uid://b3whippw3cwep" path="res://Scene/Character/character_player.tscn" id="7_4v0j5"]
@@ -17,22 +17,22 @@ texture = ExtResource("1_mtylr")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 
-[node name="state_manager" type="Node" parent="."]
+[node name="battle_state_manager" type="Node" parent="."]
 script = ExtResource("2_mtm51")
 
-[node name="strategy_state_manager" type="Node" parent="state_manager" node_paths=PackedStringArray("player_characters", "enemy_characters")]
+[node name="battle_state_strategy_manager" type="Node" parent="battle_state_manager" node_paths=PackedStringArray("player_characters", "enemy_characters")]
 script = ExtResource("3_t0dor")
 player_characters = [NodePath("../../battle_character/character_player")]
 enemy_characters = [NodePath("../../battle_character/character_enemy")]
 
-[node name="combat_state_manager" type="Node" parent="state_manager" node_paths=PackedStringArray("player_characters", "enemy_characters")]
+[node name="battle_state_combat_manager" type="Node" parent="battle_state_manager" node_paths=PackedStringArray("player_characters", "enemy_characters")]
 script = ExtResource("4_xdkpq")
 player_characters = [NodePath("../../battle_character/character_player")]
 enemy_characters = [NodePath("../../battle_character/character_enemy")]
 
 [node name="debug_button" type="Node2D" parent="."]
 
-[node name="strategy_button" parent="debug_button" instance=ExtResource("5_8qtd0")]
+[node name="strateg_button" parent="debug_button" instance=ExtResource("5_8qtd0")]
 offset_left = -291.0
 offset_top = -298.0
 offset_right = -168.0
@@ -61,7 +61,10 @@ position = Vector2(-330, 51)
 [node name="character_player" parent="battle_character" instance=ExtResource("7_4v0j5")]
 position = Vector2(369, 66)
 
-[connection signal="combat_ended" from="state_manager/combat_state_manager" to="state_manager" method="_on_combat_state_manager_combat_ended"]
-[connection signal="pressed" from="debug_button/strategy_button" to="state_manager" method="_on_strategy_button_pressed"]
-[connection signal="pressed" from="debug_button/combat_button" to="state_manager" method="_on_combat_button_pressed"]
-[connection signal="pressed" from="debug_button/resolve_button" to="state_manager" method="_on_resolve_button_pressed"]
+[connection signal="combat_phase_ended" from="battle_state_manager" to="battle_state_manager/battle_state_combat_manager" method="_on_battle_state_manager_combat_phase_ended"]
+[connection signal="combat_phase_started" from="battle_state_manager" to="battle_state_manager/battle_state_combat_manager" method="_on_battle_state_manager_combat_phase_started"]
+[connection signal="strategy_phase_ended" from="battle_state_manager" to="battle_state_manager/battle_state_strategy_manager" method="clear_player_and_enemy_target"]
+[connection signal="strategy_phase_started" from="battle_state_manager" to="battle_state_manager/battle_state_strategy_manager" method="set_player_and_enemy_target"]
+[connection signal="pressed" from="debug_button/strateg_button" to="battle_state_manager" method="change_state_to_strategy"]
+[connection signal="pressed" from="debug_button/combat_button" to="battle_state_manager" method="change_state_to_combat"]
+[connection signal="pressed" from="debug_button/resolve_button" to="battle_state_manager" method="change_state_to_resolve"]
