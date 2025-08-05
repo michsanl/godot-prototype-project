@@ -17,21 +17,21 @@ func handle_strategy_state_exit() -> void:
 
 func _set_player_character_target() -> void:
 	for player in player_characters:
-		player.character_targeting.set_target(enemy_characters.pick_random())
-		player.character_stat.randomize_dice_point()
+		player.set_target(enemy_characters.pick_random())
+		player.randomize_dice_point()
 
 
 func _set_enemy_character_target() -> void:
 	for enemy in enemy_characters:
-		enemy.character_targeting.set_target(player_characters.pick_random())
-		enemy.character_stat.randomize_dice_point()
+		enemy.set_target(player_characters.pick_random())
+		enemy.randomize_dice_point()
 
 
 func _clear_player_character_target() -> void:
 	for player in player_characters:
-		player.character_targeting.remove_target()
+		player.remove_aim_target()
 
 
 func _clear_enemy_character_target() -> void:
 	for enemy in enemy_characters:
-		enemy.character_targeting.remove_target()
+		enemy.remove_aim_target()

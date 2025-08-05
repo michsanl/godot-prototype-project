@@ -1,121 +1,78 @@
-class_name CombatStateManager
+class_name StateManager
 extends Node
 
-signal combat_ended
+enum BattleState { NOTSET, STRATEGY, COMBAT, RESOLVE }
 
-@export var player_characters: Array[CharacterBase] = []
-@export var enemy_characters: Array[CharacterBase] = []
+@export var strategy_state_manager: StrategyStateManager
+@export var combat_state_manager: CombatStateManager
 
-var combat_participants: Array[CharacterBase] = []
-
-
-func handle_combat_state_enter() -> void:
-	_setup_combat_participant()
-	_sort_combat_participant_by_highest_speed()
-	_process_combat_by_highest_speed()
+var _current_state: BattleState
 
 
-func handle_combat_state_exit() -> void:
-	pass
+func _on_combat_state_manager_combat_ended() -> void:
+	change_state_to_resolve()
 
 
-#region Primary Methods
-func _setup_combat_participant():
-	_gather_combat_participant_from(player_characters)
-	_gather_combat_participant_from(enemy_characters)
+func _on_strategy_button_pressed() -> void:
+	change_state_to_strategy()
 
 
-func _process_combat_by_highest_speed():
-	while has_combat_participant(combat_participants):
-		var attacker = get_highest_speed_character(combat_participants)
-		var target = get_target_character(attacker)
-		
-		if (is_attacking_each_other(attacker, target)):
-			_process_two_sided_attack(attacker, target)
-			_erase_combat_participant(attacker)
-			_erase_combat_participant(target)
-		else:
-			_process_one_sided_attack(attacker, target)
-			_erase_combat_participant(attacker)
-	
-	combat_ended.emit()
+func _on_combat_button_pressed() -> void:
+	change_state_to_combat()
 
 
-func _process_two_sided_attack(a: CharacterBase, b:CharacterBase):
-	var a_ability: Ability = a.character_ability_manager.get_random_ability()
-	var b_ability: Ability = b.character_ability_manager.get_random_ability()
-	var a_tokens: Array[AbilityToken] = a_ability.ability_stats.token.duplicate()
-	var b_tokens: Array[AbilityToken] = b_ability.ability_stats.token.duplicate()
-	
-	while has_token(a_tokens) or has_token(b_tokens):
-		if has_token(a_tokens) and has_token(b_tokens):
-			print("A and B clash")
-			a_tokens.pop_front()
-			b_tokens.pop_front()
-		elif has_token(a_tokens):
-			print("A hitting B")
-			a_tokens.pop_front()
-		elif has_token(b_tokens):
-			print("B hitting A")
-			b_tokens.pop_front()
+func _on_resolve_button_pressed() -> void:
+	change_state_to_resolve()
 
 
-func _process_one_sided_attack(attacker: CharacterBase, target: CharacterBase):
-	var selected_ability:= attacker.character_ability_manager.get_random_ability()
-	var attacker_tokens:= selected_ability.ability_stats.token.duplicate()
-	
-	while has_token(attacker_tokens):
-		attacker_tokens.pop_front()
+func change_state_to_strategy():
+	_change_state(BattleState.STRATEGY)
 
 
-func apply_token_effect(attacker: CharacterBase, target:CharacterBase, token: AbilityToken):
-	var min_value: int = token.min
-	var max_value: int = token.min
-	var final_value: int = range(min_value, max_value + 1).pick_random()
-#endregion
+func change_state_to_combat():
+	_change_state(BattleState.COMBAT)
 
 
-func _gather_combat_participant_from(character_pool: Array[CharacterBase]):
-	for character in character_pool:
-		if character.character_targeting.current_target != null:
-			combat_participants.append(character)
+func change_state_to_resolve():
+	_change_state(BattleState.RESOLVE)
 
 
-func _erase_combat_participant(character: CharacterBase):
-	combat_participants.erase(character)
+#region State Change Region
+func _change_state(new_state: BattleState) -> void:
+	_exit_state()
+	_set_state(new_state)
+	_enter_state()
 
 
-func _clear_combat_participant():
-	combat_participants.clear()
+func _enter_state() -> void:
+	match _current_state:
+		BattleState.NOTSET:
+			return
+		BattleState.STRATEGY:
+			strategy_state_manager.handle_strategy_state_enter()
+			return
+		BattleState.COMBAT:
+			combat_state_manager.handle_combat_state_enter()
+			return
+		BattleState.RESOLVE:
+			return
 
 
-func _sort_combat_participant_by_highest_speed():
-	combat_participants.sort_custom(sort_ascending_character_dice)
+func _set_state(new_state: BattleState) -> void:
+	_current_state = new_state
+	print("Battle state changed to: ", BattleState.keys()[new_state])
 
 
-#region Helper Methods
-func has_combat_participant(characer_pool: Array[CharacterBase]) -> bool:
-	return not characer_pool.is_empty()
-
-
-func has_token(token_pool: Array[AbilityToken]) -> bool:
-	return not token_pool.is_empty()
-
-
-func get_target_character(character: CharacterBase) -> CharacterBase:
-	return character.character_targeting.current_target
-
-
-func get_highest_speed_character(character_pool: Array[CharacterBase]) -> CharacterBase:
-	return character_pool[0] #  Use this after sorting the pool
-
-
-func is_attacking_each_other(a: CharacterBase, b: CharacterBase) -> bool:
-	var a_targets_b : bool = a.character_targeting.current_target == b
-	var b_targets_a : bool = b.character_targeting.current_target == a
-	return a_targets_b && b_targets_a
-
-
-func sort_ascending_character_dice(a: CharacterBase, b: CharacterBase) -> bool:
-	return a.character_stat.dice_point > b.character_stat.dice_point
+func _exit_state() -> void:
+	match _current_state:
+		BattleState.NOTSET:
+			return
+		BattleState.STRATEGY:
+			strategy_state_manager.handle_strategy_state_exit()
+			return
+		BattleState.COMBAT:
+			combat_state_manager.handle_combat_state_exit()
+			return
+		BattleState.RESOLVE:
+			return
 #endregion
