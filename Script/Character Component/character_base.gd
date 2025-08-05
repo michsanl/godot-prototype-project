@@ -9,8 +9,30 @@ extends Node2D
 signal strategy_enter(target: CharacterBase)
 signal strategy_exit
 
+
 func handle_strategy_enter(new_target: CharacterBase):
 	strategy_enter.emit(new_target)
 
+
 func handle_strategy_exit():
 	strategy_exit.emit()
+
+
+func randomize_dice_point() -> void:
+	character_stat.randomize_dice_point()
+
+
+func set_target(new_target: CharacterBase) -> void:
+	character_targeting.set_target(new_target)
+
+
+func set_aim_target(new_target: CharacterBase) -> void:
+	character_targeting.set_aim_target(new_target)
+
+
+func remove_target() -> void:
+	character_targeting.remove_target()
+
+
+func remove_aim_target() -> void:
+	character_targeting.remove_aim_target()

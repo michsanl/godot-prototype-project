@@ -1,9 +1,9 @@
 [gd_scene load_steps=8 format=3 uid="uid://do3uwy2gicsls"]
 
 [ext_resource type="Texture2D" uid="uid://c8sf5t0u0e5qn" path="res://Art/KeterFloorBattleStage.jpg" id="1_mtylr"]
-[ext_resource type="Script" uid="uid://ca131f6h2pd4o" path="res://Script/State Manager/battle_state_manager.gd" id="2_mtm51"]
+[ext_resource type="Script" uid="uid://ca131f6h2pd4o" path="res://Script/State Manager/state_manager.gd" id="2_mtm51"]
 [ext_resource type="Script" uid="uid://c4mwu4ngi61wx" path="res://Script/State Manager/strategy_state_manager.gd" id="3_t0dor"]
-[ext_resource type="Script" uid="uid://bmp3a5hkmsqv0" path="res://Script/State Manager/state_manager.gd" id="4_xdkpq"]
+[ext_resource type="Script" uid="uid://bmp3a5hkmsqv0" path="res://Script/State Manager/combat_state_manager.gd" id="4_xdkpq"]
 [ext_resource type="PackedScene" uid="uid://bsa7fd3dlwl5f" path="res://Scene/button.tscn" id="5_8qtd0"]
 [ext_resource type="PackedScene" uid="uid://bvg3pyy64wc86" path="res://Scene/Character/character_enemy.tscn" id="6_8rj7f"]
 [ext_resource type="PackedScene" uid="uid://b3whippw3cwep" path="res://Scene/Character/character_player.tscn" id="7_4v0j5"]
@@ -17,8 +17,10 @@ texture = ExtResource("1_mtylr")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 
-[node name="state_manager" type="Node" parent="."]
+[node name="state_manager" type="Node" parent="." node_paths=PackedStringArray("strategy_state_manager", "combat_state_manager")]
 script = ExtResource("2_mtm51")
+strategy_state_manager = NodePath("strategy_state_manager")
+combat_state_manager = NodePath("combat_state_manager")
 
 [node name="strategy_state_manager" type="Node" parent="state_manager" node_paths=PackedStringArray("player_characters", "enemy_characters")]
 script = ExtResource("3_t0dor")

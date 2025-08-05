@@ -15,15 +15,6 @@ func _process(delta: float) -> void:
 		_draw_trajectory_to_mouse()
 
 
-func _on_character_targeting_target_changed() -> void:
-	_setup_trajectory_coordinate()
-	_draw_trajectory()
-
-
-func _on_character_targeting_target_removed() -> void:
-	line.clear_points()
-
-
 func _draw_trajectory():
 	for i in range(trajectory_segments + 1):
 		var t := i / float(trajectory_segments) 
@@ -59,3 +50,16 @@ func _get_mouse_position():
 	var global_position = get_viewport().get_camera_2d().get_global_mouse_position()
 	var local_position = to_local(global_position)
 	return local_position
+
+
+func _clear_trajectory():
+	line.clear_points()
+
+
+func _on_character_targeting_aim_target_added() -> void:
+	_setup_trajectory_coordinate()
+	_draw_trajectory()
+	
+	
+func _on_character_targeting_aim_target_removed() -> void:
+	_clear_trajectory()
