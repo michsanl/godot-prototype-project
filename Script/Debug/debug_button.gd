@@ -8,7 +8,6 @@ extends Node2D
 
 @export var player_character: CharacterBase
 @export var enemy_character: CharacterBase
-@export var move_duration: float
 
 
 func _on_strategy_button_pressed() -> void:
@@ -24,4 +23,4 @@ func _on_resolve_button_pressed() -> void:
 
 
 func _on_move_button_pressed() -> void:
-	player_character.move_position(enemy_character, move_duration)
+	player_character.approach_target_two_sided(enemy_character)

@@ -31,11 +31,11 @@ func _process_combat_by_highest_speed():
 		var target = get_target_character(attacker)
 		
 		if (is_attacking_each_other(attacker, target)):
-			_process_two_sided_attack(attacker, target)
+			await _process_two_sided_attack(attacker, target)
 			_erase_combat_participant(attacker)
 			_erase_combat_participant(target)
 		else:
-			_process_one_sided_attack(attacker, target)
+			await _process_one_sided_attack(attacker, target)
 			_erase_combat_participant(attacker)
 	
 	combat_ended.emit()
@@ -50,13 +50,21 @@ func _process_two_sided_attack(a: CharacterBase, b:CharacterBase):
 	while has_token(a_tokens) or has_token(b_tokens):
 		if has_token(a_tokens) and has_token(b_tokens):
 			print("A and B clash")
+			a.approach_target_two_sided(b)
+			await b.approach_target_two_sided(a)
+			a.reset_position()
+			b.reset_position()
 			a_tokens.pop_front()
 			b_tokens.pop_front()
 		elif has_token(a_tokens):
 			print("A hitting B")
+			await a.approach_target_one_sided(b)
+			a.reset_position()
 			a_tokens.pop_front()
 		elif has_token(b_tokens):
 			print("B hitting A")
+			await b.approach_target_one_sided(a)
+			b.reset_position()
 			b_tokens.pop_front()
 
 
@@ -65,6 +73,8 @@ func _process_one_sided_attack(attacker: CharacterBase, target: CharacterBase):
 	var attacker_tokens:= selected_ability.ability_stats.token.duplicate()
 	
 	while has_token(attacker_tokens):
+		await attacker.approach_target_two_sided(target)
+		attacker.reset_position()
 		attacker_tokens.pop_front()
 
 
@@ -113,7 +123,7 @@ func get_highest_speed_character(character_pool: Array[CharacterBase]) -> Charac
 func is_attacking_each_other(a: CharacterBase, b: CharacterBase) -> bool:
 	var a_targets_b : bool = a.character_targeting.current_target == b
 	var b_targets_a : bool = b.character_targeting.current_target == a
-	return a_targets_b && b_targets_a
+	return a_targets_b and b_targets_a
 
 
 func sort_ascending_character_dice(a: CharacterBase, b: CharacterBase) -> bool:
