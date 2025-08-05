@@ -33,12 +33,14 @@ script = ExtResource("4_xdkpq")
 player_characters = [NodePath("../../battle_character/character_player")]
 enemy_characters = [NodePath("../../battle_character/character_enemy")]
 
-[node name="debug_button" type="Node2D" parent="." node_paths=PackedStringArray("state_manager", "strategy_button", "combat_button", "resolve_button")]
+[node name="debug_button" type="Node2D" parent="." node_paths=PackedStringArray("state_manager", "strategy_button", "combat_button", "resolve_button", "player_character", "enemy_character")]
 script = ExtResource("5_mtm51")
 state_manager = NodePath("../state_manager")
 strategy_button = NodePath("strategy_button")
 combat_button = NodePath("combat_button")
 resolve_button = NodePath("resolve_button")
+player_character = NodePath("../battle_character/character_player")
+enemy_character = NodePath("../battle_character/character_enemy")
 
 [node name="strategy_button" parent="debug_button" instance=ExtResource("5_8qtd0")]
 offset_left = -291.0
@@ -61,13 +63,20 @@ offset_right = 293.0
 offset_bottom = -229.0
 text = "Resolve"
 
+[node name="move_button" type="Button" parent="debug_button"]
+offset_left = -512.0
+offset_top = -287.0
+offset_right = -380.0
+offset_bottom = -217.0
+text = "Move"
+
 [node name="battle_character" type="Node2D" parent="."]
 
 [node name="character_enemy" parent="battle_character" instance=ExtResource("6_8rj7f")]
-position = Vector2(-330, 51)
+position = Vector2(-247, 42)
 
 [node name="character_player" parent="battle_character" instance=ExtResource("7_4v0j5")]
-position = Vector2(369, 66)
+position = Vector2(300, 47)
 
 [connection signal="combat_ended" from="state_manager/combat_state_manager" to="state_manager" method="_on_combat_state_manager_combat_ended"]
 [connection signal="pressed" from="debug_button/strategy_button" to="state_manager" method="_on_strategy_button_pressed"]
@@ -76,3 +85,4 @@ position = Vector2(369, 66)
 [connection signal="pressed" from="debug_button/combat_button" to="debug_button" method="_on_combat_button_pressed"]
 [connection signal="pressed" from="debug_button/resolve_button" to="state_manager" method="_on_resolve_button_pressed"]
 [connection signal="pressed" from="debug_button/resolve_button" to="debug_button" method="_on_resolve_button_pressed"]
+[connection signal="pressed" from="debug_button/move_button" to="debug_button" method="_on_move_button_pressed"]
