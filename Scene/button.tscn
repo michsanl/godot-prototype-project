@@ -1,9 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://bsa7fd3dlwl5f"]
-
-[ext_resource type="Script" uid="uid://bttv64spjr6jr" path="res://Script/Debug/button.gd" id="1_r04n3"]
+[gd_scene format=3 uid="uid://bsa7fd3dlwl5f"]
 
 [node name="Button" type="Button"]
 offset_right = 123.0
 offset_bottom = 66.0
 text = "1"
-script = ExtResource("1_r04n3")
