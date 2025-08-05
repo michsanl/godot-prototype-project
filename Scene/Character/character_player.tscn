@@ -6,8 +6,8 @@
 
 [node name="character_player" instance=ExtResource("1_1x2aq")]
 
-[node name="character_ability_manager" parent="." index="1"]
+[node name="character_ability_manager" parent="." index="2"]
 ability_stats = Array[ExtResource("2_0qf7x")]([ExtResource("3_72dmb")])
 
-[node name="Sprite2D" parent="." index="3"]
+[node name="Sprite2D" parent="." index="4"]
 flip_h = false
