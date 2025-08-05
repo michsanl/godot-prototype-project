@@ -9,22 +9,6 @@ enum BattleState { NOTSET, STRATEGY, COMBAT, RESOLVE }
 var _current_state: BattleState
 
 
-func _on_combat_state_manager_combat_ended() -> void:
-	change_state_to_resolve()
-
-
-func _on_strategy_button_pressed() -> void:
-	change_state_to_strategy()
-
-
-func _on_combat_button_pressed() -> void:
-	change_state_to_combat()
-
-
-func _on_resolve_button_pressed() -> void:
-	change_state_to_resolve()
-
-
 func change_state_to_strategy():
 	_change_state(BattleState.STRATEGY)
 
@@ -76,3 +60,7 @@ func _exit_state() -> void:
 		BattleState.RESOLVE:
 			return
 #endregion
+
+
+func _on_combat_state_manager_combat_ended() -> void:
+	change_state_to_resolve()
