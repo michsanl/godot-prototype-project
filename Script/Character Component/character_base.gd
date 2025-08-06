@@ -19,6 +19,7 @@ func handle_strategy_exit():
 	strategy_exit.emit()
 
 
+#region Character Movement 
 func approach_target_one_sided(target: CharacterBase):
 	await character_movement.approach_target_one_sided(self, target)
 
@@ -29,12 +30,10 @@ func approach_target_two_sided(target: CharacterBase):
 
 func reset_position():
 	self.position = initial_position
+#endregion
 
 
-func randomize_dice_point() -> void:
-	character_stat.randomize_dice_point()
-
-
+#region Character Targeting
 func set_target(new_target: CharacterBase) -> void:
 	character_targeting.set_target(new_target)
 
@@ -49,3 +48,8 @@ func remove_target() -> void:
 
 func remove_aim_target() -> void:
 	character_targeting.remove_aim_target()
+#endregion
+
+
+func randomize_dice_point() -> void:
+	character_stat.randomize_dice_point()
