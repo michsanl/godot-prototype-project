@@ -50,23 +50,27 @@ func _process_two_sided_attack(a: CharacterBase, b:CharacterBase):
 	while has_token(a_tokens) or has_token(b_tokens):
 		if has_token(a_tokens) and has_token(b_tokens):
 			print("A and B clash")
-			a.approach_target_two_sided(b)
-			await b.approach_target_two_sided(a)
+			await _move_character_to_each_other(a, b)
+			await _process_two_sided_token_attack(a_tokens[0], b_tokens[0])
 			a.reset_position()
 			b.reset_position()
 			a_tokens.pop_front()
 			b_tokens.pop_front()
+			await get_tree().create_timer(1.0).timeout
 		elif has_token(a_tokens):
 			print("A hitting B")
-			await a.approach_target_one_sided(b)
+			await _move_character_to_target(a, b)
+			await _process_one_sided_token_attack(a_tokens[0])
 			a.reset_position()
 			a_tokens.pop_front()
+			await get_tree().create_timer(1.0).timeout
 		elif has_token(b_tokens):
 			print("B hitting A")
-			await b.approach_target_one_sided(a)
+			await _move_character_to_target(b, a)
+			await _process_one_sided_token_attack(b_tokens[0])
 			b.reset_position()
 			b_tokens.pop_front()
-
+			await get_tree().create_timer(1.0).timeout
 
 func _process_one_sided_attack(attacker: CharacterBase, target: CharacterBase):
 	var selected_ability:= attacker.character_ability_manager.get_random_ability()
@@ -77,12 +81,29 @@ func _process_one_sided_attack(attacker: CharacterBase, target: CharacterBase):
 		attacker.reset_position()
 		attacker_tokens.pop_front()
 
+func _process_two_sided_token_attack(attacker: AbilityToken, target: AbilityToken):
+	await get_tree().create_timer(0.25).timeout
+	var attacker_value: int = attacker.get_token_value()
+	var target_value: int = target.get_token_value()
+	print("Attacker token value: ", attacker_value)
+	print("Target token value: ", target_value)
+	await get_tree().create_timer(0.25).timeout
 
-func apply_token_effect(attacker: CharacterBase, target:CharacterBase, token: AbilityToken):
-	var min_value: int = token.min
-	var max_value: int = token.min
-	var final_value: int = range(min_value, max_value + 1).pick_random()
+func _process_one_sided_token_attack(attacker: AbilityToken):
+	await get_tree().create_timer(0.25).timeout
+	var attacker_value: int = attacker.get_token_value()
+	print("Attacker token value: ", attacker_value)
+	await get_tree().create_timer(0.25).timeout
 #endregion
+
+
+func _move_character_to_each_other(a: CharacterBase, b:CharacterBase):
+	a.approach_target_two_sided(b)
+	await b.approach_target_two_sided(a)
+
+
+func _move_character_to_target(a: CharacterBase, target:CharacterBase):
+	await a.approach_target_one_sided(target)
 
 
 func _gather_combat_participant_from(character_pool: Array[CharacterBase]):
