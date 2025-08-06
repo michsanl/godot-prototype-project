@@ -28,10 +28,8 @@ script = ExtResource("3_t0dor")
 player_characters = [NodePath("../../battle_character/character_player")]
 enemy_characters = [NodePath("../../battle_character/character_enemy")]
 
-[node name="combat_state_manager" type="Node" parent="state_manager" node_paths=PackedStringArray("player_characters", "enemy_characters")]
+[node name="combat_state_manager" type="Node" parent="state_manager"]
 script = ExtResource("4_xdkpq")
-player_characters = [NodePath("../../battle_character/character_player")]
-enemy_characters = [NodePath("../../battle_character/character_enemy")]
 
 [node name="debug_button" type="Node2D" parent="." node_paths=PackedStringArray("state_manager", "strategy_button", "combat_button", "resolve_button", "player_character", "enemy_character")]
 script = ExtResource("5_mtm51")

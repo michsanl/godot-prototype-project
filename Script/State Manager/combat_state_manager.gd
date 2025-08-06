@@ -77,7 +77,8 @@ func _process_one_sided_attack(attacker: CharacterBase, target: CharacterBase):
 	var attacker_tokens:= selected_ability.ability_stats.token.duplicate()
 	
 	while has_token(attacker_tokens):
-		await attacker.approach_target_two_sided(target)
+		await _process_one_sided_token_attack(attacker_tokens[0])
+		await _move_character_to_target(attacker, target)
 		attacker.reset_position()
 		attacker_tokens.pop_front()
 
@@ -89,12 +90,16 @@ func _process_two_sided_token_attack(attacker: AbilityToken, target: AbilityToke
 	print("Target token value: ", target_value)
 	await get_tree().create_timer(0.25).timeout
 
-func _process_one_sided_token_attack(attacker: AbilityToken):
+func _process_one_sided_token_attack(attacker_token: AbilityToken):
 	await get_tree().create_timer(0.25).timeout
-	var attacker_value: int = attacker.get_token_value()
-	print("Attacker token value: ", attacker_value)
+	var token_value: int = _get_token_value(attacker_token)
+	print("Attacker token value: ", token_value)
 	await get_tree().create_timer(0.25).timeout
 #endregion
+
+
+func _get_token_value(token: AbilityToken) -> int:
+	return token.get_token_value()
 
 
 func _move_character_to_each_other(a: CharacterBase, b:CharacterBase):
