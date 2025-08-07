@@ -8,6 +8,7 @@ signal strategy_exit
 @export var character_stat: Character_Stat 
 @export var character_ability_manager: CharacterAbilityManager
 @export var character_movement: CharacterMovement
+@export var character_visual: CharacterVisual
 
 @onready var initial_position: Vector2 = self.position
 

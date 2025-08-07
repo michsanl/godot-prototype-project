@@ -5,9 +5,9 @@ extends Node
 @export var offset: float = 55.0
 
 
-func move_position(character: CharacterBase, destination: Vector2):
+func move_position(this_character: CharacterBase, destination: Vector2):
 	var tween: Tween = create_tween()
-	tween.tween_property(character, "position", destination, move_duration).set_ease(Tween.EASE_IN_OUT)
+	tween.tween_property(this_character, "position", destination, move_duration).set_ease(Tween.EASE_IN_OUT)
 	await tween.finished
 
 
@@ -17,6 +17,7 @@ func approach_target_one_sided(character: CharacterBase, target: CharacterBase):
 	tween.tween_property(character, "position", final_position, move_duration).set_ease(Tween.EASE_IN_OUT)
 	await tween.finished
 	await get_tree().create_timer(1.0).timeout
+
 
 func approach_target_two_sided(character: CharacterBase, target: CharacterBase):
 	var final_position: Vector2 = get_meeting_poition(character, target) + get_half_offset(character, target)
