@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://cv2sxbkdyre5e"]
+
+[ext_resource type="PackedScene" uid="uid://b3whippw3cwep" path="res://Scene/Character/character_player.tscn" id="1_l4a16"]
+
+[node name="DebugCharacterAction" type="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="character_player" parent="." node_paths=PackedStringArray("character_movement") instance=ExtResource("1_l4a16")]
+character_movement = NodePath("character_movement")

@@ -1,0 +1,49 @@
+[gd_resource type="Resource" script_class="CharacterSpriteResource" load_steps=16 format=3 uid="uid://dk6rkmhtx4p5w"]
+
+[ext_resource type="Texture2D" uid="uid://ct7f5x1u1u8tb" path="res://Art/Argalia/Blunt.png" id="1_j3w4t"]
+[ext_resource type="Texture2D" uid="uid://ds1wpyt7pxg2w" path="res://Art/Argalia/Block.png" id="1_xg3w4"]
+[ext_resource type="Texture2D" uid="uid://re21adg108e" path="res://Art/Argalia/Damaged.png" id="2_8cymd"]
+[ext_resource type="Texture2D" uid="uid://bvhrtxfhua38n" path="res://Art/Argalia/Pierce.png" id="4_x872y"]
+[ext_resource type="Texture2D" uid="uid://cb6xmtvlll1qn" path="res://Art/Argalia/Default.png" id="4_xg3w4"]
+[ext_resource type="Script" uid="uid://cnwyefkrn1hor" path="res://Script/Resource/Visual/character_sprite_resource.gd" id="5_shtgw"]
+[ext_resource type="Texture2D" uid="uid://3ud1cwsaxwof" path="res://Art/Argalia/Move.png" id="5_x872y"]
+[ext_resource type="Texture2D" uid="uid://cx2t8by66ebej" path="res://Art/Argalia/Slash.png" id="6_eiwgj"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j3w4t"]
+atlas = ExtResource("1_xg3w4")
+region = Rect2(-184, 339, 897, 680)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kfvxo"]
+atlas = ExtResource("1_j3w4t")
+region = Rect2(0, 376, 2048, 648)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8cymd"]
+atlas = ExtResource("2_8cymd")
+region = Rect2(-96, 458, 882, 560)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xg3w4"]
+atlas = ExtResource("4_xg3w4")
+region = Rect2(-267, 1318, 887, 726)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t60vj"]
+atlas = ExtResource("5_x872y")
+region = Rect2(-320, 434, 1296, 586)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t63oh"]
+atlas = ExtResource("4_x872y")
+region = Rect2(8, 232, 1624, 792)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8k1x3"]
+atlas = ExtResource("6_eiwgj")
+region = Rect2(11, 51, 971, 963)
+
+[resource]
+script = ExtResource("5_shtgw")
+default_sprite = SubResource("AtlasTexture_xg3w4")
+slash_sprite = SubResource("AtlasTexture_8k1x3")
+pierce_sprite = SubResource("AtlasTexture_t63oh")
+blunt_sprite = SubResource("AtlasTexture_kfvxo")
+move_sprite = SubResource("AtlasTexture_t60vj")
+block_sprite = SubResource("AtlasTexture_j3w4t")
+damaged_sprite = SubResource("AtlasTexture_8cymd")

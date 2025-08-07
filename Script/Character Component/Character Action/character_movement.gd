@@ -4,6 +4,13 @@ extends Node
 @export var move_duration: float = 0.25
 @export var offset: float = 55.0
 
+
+func move_position(character: CharacterBase, destination: Vector2):
+	var tween: Tween = create_tween()
+	tween.tween_property(character, "position", destination, move_duration).set_ease(Tween.EASE_IN_OUT)
+	await tween.finished
+
+
 func approach_target_one_sided(character: CharacterBase, target: CharacterBase):
 	var final_position: Vector2 = get_target_adjacent_position(character, target)
 	var tween: Tween = create_tween()
