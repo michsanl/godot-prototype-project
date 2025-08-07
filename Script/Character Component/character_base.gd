@@ -11,13 +11,6 @@ signal strategy_exit
 
 @onready var initial_position: Vector2 = self.position
 
-func handle_strategy_enter(new_target: CharacterBase):
-	strategy_enter.emit(new_target)
-
-
-func handle_strategy_exit():
-	strategy_exit.emit()
-
 
 #region Character Movement 
 func approach_target_one_sided(target: CharacterBase):
