@@ -39,7 +39,6 @@ script = ExtResource("2_ptqjd")
 script = ExtResource("4_g08oy")
 sprite_node = NodePath("../../Sprite2D")
 sprite_resource = ExtResource("5_ylsyo")
-debug_visual = 2
 
 [node name="character_stat" type="Node" parent="."]
 script = ExtResource("2_yop1s")
