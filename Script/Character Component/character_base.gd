@@ -7,19 +7,20 @@ signal strategy_exit
 @export var character_targeting: CharacterTargeting 
 @export var character_stat: Character_Stat 
 @export var character_ability_manager: CharacterAbilityManager
+@export var character_action: CharacterAction
 @export var character_movement: CharacterMovement
 @export var character_visual: CharacterVisual
 
 @onready var initial_position: Vector2 = self.position
 
 
-#region Character Movement 
+#region Character Action
 func approach_target_one_sided(target: CharacterBase):
-	await character_movement.approach_target_one_sided(self, target)
+	await character_action.perform_approach_target_one_sided(self, target)
 
 
 func approach_target_two_sided(target: CharacterBase):
-	await character_movement.approach_target_two_sided(self, target)
+	await character_action.perform_approach_target_two_sided(self, target)
 
 
 func reset_position():

@@ -9,7 +9,8 @@ signal combat_ended
 
 var combat_participants: Array[CharacterBase] = []
 var ability_pool: Array[Ability] = []
-
+var a_token_pool: Array[AbilityToken] = []
+var b_token_pool: Array[AbilityToken] = []
 
 func _ready() -> void:
 	setup_ability()
@@ -48,8 +49,8 @@ func _process_combat_by_highest_speed():
 
 
 func _process_two_sided_attack(a: CharacterBase, b:CharacterBase):
-	var a_token_pool: Array[AbilityToken] = ability_pool[0].ability_stats.token.duplicate()
-	var b_token_pool: Array[AbilityToken] = ability_pool[1].ability_stats.token.duplicate()
+	a_token_pool = ability_pool[0].ability_stats.token.duplicate()
+	b_token_pool = ability_pool[1].ability_stats.token.duplicate()
 	
 	while has_token(a_token_pool) or has_token(b_token_pool):
 		if has_token(a_token_pool) and has_token(b_token_pool):
@@ -81,8 +82,8 @@ func _process_one_sided_attack(attacker: CharacterBase, target: CharacterBase):
 	var attacker_tokens:= selected_ability.ability_stats.token.duplicate()
 	
 	while has_token(attacker_tokens):
-		await _process_one_sided_token_attack(attacker_tokens[0])
 		await _move_character_to_target(attacker, target)
+		await _process_one_sided_token_attack(attacker_tokens[0])
 		attacker.reset_position()
 		attacker_tokens.pop_front()
 
@@ -92,13 +93,13 @@ func _process_two_sided_token_attack(attacker: AbilityToken, target: AbilityToke
 	var target_value: int = target.get_token_value()
 	print("Attacker token value: ", attacker_value)
 	print("Target token value: ", target_value)
-	await get_tree().create_timer(0.25).timeout
+	await get_tree().create_timer(0.5).timeout
 
 func _process_one_sided_token_attack(attacker_token: AbilityToken):
 	await get_tree().create_timer(0.25).timeout
 	var token_value: int = _get_token_value(attacker_token)
 	print("Attacker token value: ", token_value)
-	await get_tree().create_timer(0.25).timeout
+	await get_tree().create_timer(0.5).timeout
 #endregion
 
 

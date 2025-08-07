@@ -19,11 +19,12 @@ point_count = 3
 atlas = ExtResource("10_ylsyo")
 region = Rect2(-275, 1318, 895, 726)
 
-[node name="character_base" type="Node2D" node_paths=PackedStringArray("character_targeting", "character_stat", "character_ability_manager", "character_movement", "character_visual")]
+[node name="character_base" type="Node2D" node_paths=PackedStringArray("character_targeting", "character_stat", "character_ability_manager", "character_action", "character_movement", "character_visual")]
 script = ExtResource("1_y5alb")
 character_targeting = NodePath("character_targeting")
 character_stat = NodePath("character_stat")
 character_ability_manager = NodePath("character_ability_manager")
+character_action = NodePath("character_action")
 character_movement = NodePath("character_action/character_movement")
 character_visual = NodePath("character_action/character_visual")
 
@@ -34,6 +35,7 @@ character_visual = NodePath("character_visual")
 
 [node name="character_movement" type="Node" parent="character_action"]
 script = ExtResource("2_ptqjd")
+offset = 100.0
 
 [node name="character_visual" type="Node" parent="character_action" node_paths=PackedStringArray("sprite_node")]
 script = ExtResource("4_g08oy")

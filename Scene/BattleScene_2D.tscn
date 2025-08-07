@@ -67,13 +67,6 @@ offset_right = 293.0
 offset_bottom = -229.0
 text = "Resolve"
 
-[node name="move_button" type="Button" parent="debug_button"]
-offset_left = -512.0
-offset_top = -287.0
-offset_right = -380.0
-offset_bottom = -217.0
-text = "Move"
-
 [node name="battle_character" type="Node2D" parent="."]
 
 [node name="character_enemy" parent="battle_character" instance=ExtResource("6_8rj7f")]
@@ -89,4 +82,3 @@ position = Vector2(300, 47)
 [connection signal="pressed" from="debug_button/combat_button" to="debug_button" method="_on_combat_button_pressed"]
 [connection signal="pressed" from="debug_button/resolve_button" to="state_manager" method="_on_resolve_button_pressed"]
 [connection signal="pressed" from="debug_button/resolve_button" to="debug_button" method="_on_resolve_button_pressed"]
-[connection signal="pressed" from="debug_button/move_button" to="debug_button" method="_on_move_button_pressed"]

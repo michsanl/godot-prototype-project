@@ -16,7 +16,6 @@ func approach_target_one_sided(character: CharacterBase, target: CharacterBase):
 	var tween: Tween = create_tween()
 	tween.tween_property(character, "position", final_position, move_duration).set_ease(Tween.EASE_IN_OUT)
 	await tween.finished
-	await get_tree().create_timer(1.0).timeout
 
 
 func approach_target_two_sided(character: CharacterBase, target: CharacterBase):
@@ -24,7 +23,6 @@ func approach_target_two_sided(character: CharacterBase, target: CharacterBase):
 	var tween: Tween = create_tween()
 	tween.tween_property(character, "position", final_position, move_duration).set_ease(Tween.EASE_IN)
 	await tween.finished
-	await get_tree().create_timer(1.0).timeout
 
 
 func get_meeting_poition(character: CharacterBase, target: CharacterBase) -> Vector2:
