@@ -39,6 +39,7 @@ script = ExtResource("2_ptqjd")
 script = ExtResource("4_g08oy")
 sprite_node = NodePath("../../Sprite2D")
 sprite_resource = ExtResource("5_ylsyo")
+debug_visual = 2
 
 [node name="character_stat" type="Node" parent="."]
 script = ExtResource("2_yop1s")
@@ -71,6 +72,8 @@ offset_right = 26.0
 offset_bottom = -70.0
 text = "?"
 metadata/_edit_use_anchors_ = true
+
+[node name="Camera2D" type="Camera2D" parent="."]
 
 [connection signal="strategy_enter" from="." to="character_targeting" method="_on_character_base_strategy_enter"]
 [connection signal="strategy_exit" from="." to="character_targeting" method="_on_character_base_strategy_exit"]
