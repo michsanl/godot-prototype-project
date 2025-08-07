@@ -5,8 +5,15 @@ signal combat_ended
 
 @export var player_characters: Array[CharacterBase] = []
 @export var enemy_characters: Array[CharacterBase] = []
+@export var ability_stats: Array[AbilityStats] = []
 
 var combat_participants: Array[CharacterBase] = []
+var ability_pool: Array[Ability] = []
+var a_token_pool: Array[AbilityToken] = []
+var b_token_pool: Array[AbilityToken] = []
+
+func _ready() -> void:
+	setup_ability()
 
 
 func handle_combat_state_enter() -> void:
@@ -42,34 +49,32 @@ func _process_combat_by_highest_speed():
 
 
 func _process_two_sided_attack(a: CharacterBase, b:CharacterBase):
-	var a_ability: Ability = a.character_ability_manager.get_random_ability()
-	var b_ability: Ability = b.character_ability_manager.get_random_ability()
-	var a_tokens: Array[AbilityToken] = a_ability.ability_stats.token.duplicate()
-	var b_tokens: Array[AbilityToken] = b_ability.ability_stats.token.duplicate()
+	a_token_pool = ability_pool[0].ability_stats.token.duplicate()
+	b_token_pool = ability_pool[1].ability_stats.token.duplicate()
 	
-	while has_token(a_tokens) or has_token(b_tokens):
-		if has_token(a_tokens) and has_token(b_tokens):
+	while has_token(a_token_pool) or has_token(b_token_pool):
+		if has_token(a_token_pool) and has_token(b_token_pool):
 			print("A and B clash")
 			await _move_character_to_each_other(a, b)
-			await _process_two_sided_token_attack(a_tokens[0], b_tokens[0])
+			await _process_two_sided_token_attack(a_token_pool[0], b_token_pool[0])
 			a.reset_position()
 			b.reset_position()
-			a_tokens.pop_front()
-			b_tokens.pop_front()
+			a_token_pool.pop_front()
+			b_token_pool.pop_front()
 			await get_tree().create_timer(1.0).timeout
-		elif has_token(a_tokens):
+		elif has_token(a_token_pool):
 			print("A hitting B")
 			await _move_character_to_target(a, b)
-			await _process_one_sided_token_attack(a_tokens[0])
+			await _process_one_sided_token_attack(a_token_pool[0])
 			a.reset_position()
-			a_tokens.pop_front()
+			a_token_pool.pop_front()
 			await get_tree().create_timer(1.0).timeout
-		elif has_token(b_tokens):
+		elif has_token(b_token_pool):
 			print("B hitting A")
 			await _move_character_to_target(b, a)
-			await _process_one_sided_token_attack(b_tokens[0])
+			await _process_one_sided_token_attack(b_token_pool[0])
 			b.reset_position()
-			b_tokens.pop_front()
+			b_token_pool.pop_front()
 			await get_tree().create_timer(1.0).timeout
 
 func _process_one_sided_attack(attacker: CharacterBase, target: CharacterBase):
@@ -77,7 +82,8 @@ func _process_one_sided_attack(attacker: CharacterBase, target: CharacterBase):
 	var attacker_tokens:= selected_ability.ability_stats.token.duplicate()
 	
 	while has_token(attacker_tokens):
-		await attacker.approach_target_two_sided(target)
+		await _move_character_to_target(attacker, target)
+		await _process_one_sided_token_attack(attacker_tokens[0])
 		attacker.reset_position()
 		attacker_tokens.pop_front()
 
@@ -87,14 +93,18 @@ func _process_two_sided_token_attack(attacker: AbilityToken, target: AbilityToke
 	var target_value: int = target.get_token_value()
 	print("Attacker token value: ", attacker_value)
 	print("Target token value: ", target_value)
-	await get_tree().create_timer(0.25).timeout
+	await get_tree().create_timer(0.5).timeout
 
-func _process_one_sided_token_attack(attacker: AbilityToken):
+func _process_one_sided_token_attack(attacker_token: AbilityToken):
 	await get_tree().create_timer(0.25).timeout
-	var attacker_value: int = attacker.get_token_value()
-	print("Attacker token value: ", attacker_value)
-	await get_tree().create_timer(0.25).timeout
+	var token_value: int = _get_token_value(attacker_token)
+	print("Attacker token value: ", token_value)
+	await get_tree().create_timer(0.5).timeout
 #endregion
+
+
+func _get_token_value(token: AbilityToken) -> int:
+	return token.get_token_value()
 
 
 func _move_character_to_each_other(a: CharacterBase, b:CharacterBase):
@@ -122,6 +132,17 @@ func _clear_combat_participant():
 
 func _sort_combat_participant_by_highest_speed():
 	combat_participants.sort_custom(sort_ascending_character_dice)
+
+
+func setup_ability():
+	for stats in ability_stats:
+		var ability = create_ability_class()
+		ability.ability_stats = stats
+		ability_pool.append(ability)
+
+
+func create_ability_class():
+	return preload("res://Script/Character Component/Character Ability/ability.gd").new()
 
 
 #region Helper Methods

@@ -1,0 +1,73 @@
+[gd_scene load_steps=3 format=3 uid="uid://cv2sxbkdyre5e"]
+
+[ext_resource type="PackedScene" uid="uid://b3whippw3cwep" path="res://Scene/Character/character_player.tscn" id="1_h5s4o"]
+[ext_resource type="Script" uid="uid://bsmgwr0xjr2xy" path="res://Script/Debug/Debug Visual/debug_character_visual.gd" id="2_6ofiv"]
+
+[node name="Debug Character" type="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="character_player" parent="." instance=ExtResource("1_h5s4o")]
+
+[node name="Debug Button" type="Node2D" parent="."]
+
+[node name="Debug Character Visual" type="Node2D" parent="Debug Button" node_paths=PackedStringArray("character")]
+script = ExtResource("2_6ofiv")
+character = NodePath("../../character_player")
+
+[node name="Default" type="Button" parent="Debug Button/Debug Character Visual"]
+offset_left = -534.0
+offset_top = -302.0
+offset_right = -409.0
+offset_bottom = -239.0
+text = "default"
+
+[node name="Slash" type="Button" parent="Debug Button/Debug Character Visual"]
+offset_left = -390.0
+offset_top = -297.0
+offset_right = -265.0
+offset_bottom = -234.0
+text = "Slash"
+
+[node name="Pierce" type="Button" parent="Debug Button/Debug Character Visual"]
+offset_left = -231.0
+offset_top = -295.0
+offset_right = -106.0
+offset_bottom = -232.0
+text = "Pierce"
+
+[node name="Blunt" type="Button" parent="Debug Button/Debug Character Visual"]
+offset_left = -58.0
+offset_top = -298.0
+offset_right = 67.0
+offset_bottom = -235.0
+text = "Blunt"
+
+[node name="Move" type="Button" parent="Debug Button/Debug Character Visual"]
+offset_left = 114.0
+offset_top = -301.0
+offset_right = 239.0
+offset_bottom = -238.0
+text = "Move"
+
+[node name="Guard" type="Button" parent="Debug Button/Debug Character Visual"]
+offset_left = 267.0
+offset_top = -301.0
+offset_right = 392.0
+offset_bottom = -238.0
+text = "Guard"
+
+[node name="Damaged" type="Button" parent="Debug Button/Debug Character Visual"]
+offset_left = 431.0
+offset_top = -295.0
+offset_right = 556.0
+offset_bottom = -232.0
+text = "Damaged"
+
+[connection signal="pressed" from="Debug Button/Debug Character Visual/Default" to="Debug Button/Debug Character Visual" method="_on_default_pressed"]
+[connection signal="pressed" from="Debug Button/Debug Character Visual/Slash" to="Debug Button/Debug Character Visual" method="_on_slash_pressed"]
+[connection signal="pressed" from="Debug Button/Debug Character Visual/Pierce" to="Debug Button/Debug Character Visual" method="_on_pierce_pressed"]
+[connection signal="pressed" from="Debug Button/Debug Character Visual/Blunt" to="Debug Button/Debug Character Visual" method="_on_blunt_pressed"]
+[connection signal="pressed" from="Debug Button/Debug Character Visual/Move" to="Debug Button/Debug Character Visual" method="_on_move_pressed"]
+[connection signal="pressed" from="Debug Button/Debug Character Visual/Guard" to="Debug Button/Debug Character Visual" method="_on_guard_pressed"]
+[connection signal="pressed" from="Debug Button/Debug Character Visual/Damaged" to="Debug Button/Debug Character Visual" method="_on_damaged_pressed"]

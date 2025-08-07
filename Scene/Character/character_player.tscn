@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://b3whippw3cwep"]
 
 [ext_resource type="PackedScene" uid="uid://bek3derprev18" path="res://Scene/Character/character_base.tscn" id="1_1x2aq"]
-[ext_resource type="Script" uid="uid://2ytid1uivak6" path="res://Script/Resource/ability_stats.gd" id="2_0qf7x"]
+[ext_resource type="Script" uid="uid://2ytid1uivak6" path="res://Script/Resource/Ability/ability_stats.gd" id="2_0qf7x"]
 [ext_resource type="Resource" uid="uid://ddt7y2wpi6618" path="res://Resource/Ability Stats/slash_ability_stats.tres" id="3_72dmb"]
 
 [node name="character_player" instance=ExtResource("1_1x2aq")]
@@ -9,5 +9,5 @@
 [node name="character_ability_manager" parent="." index="2"]
 ability_stats = Array[ExtResource("2_0qf7x")]([ExtResource("3_72dmb")])
 
-[node name="Sprite2D" parent="." index="4"]
+[node name="Sprite2D" parent="." index="5"]
 flip_h = false
