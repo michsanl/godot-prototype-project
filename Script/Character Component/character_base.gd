@@ -23,8 +23,13 @@ func approach_target_two_sided(target: CharacterBase):
 	await character_action.perform_approach_target_two_sided(self, target)
 
 
+func perform_slash_attack():
+	await character_action.perform_slash_attack()
+
+
 func reset_position():
 	self.position = initial_position
+	character_action.reset_visual()
 #endregion
 
 
