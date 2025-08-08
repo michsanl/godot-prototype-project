@@ -1,11 +1,10 @@
-[gd_scene load_steps=12 format=3 uid="uid://do3uwy2gicsls"]
+[gd_scene load_steps=11 format=3 uid="uid://do3uwy2gicsls"]
 
 [ext_resource type="Texture2D" uid="uid://c8sf5t0u0e5qn" path="res://Art/KeterFloorBattleStage.jpg" id="1_mtylr"]
 [ext_resource type="Script" uid="uid://ca131f6h2pd4o" path="res://Script/State Manager/state_manager.gd" id="2_mtm51"]
 [ext_resource type="Script" uid="uid://c4mwu4ngi61wx" path="res://Script/State Manager/strategy_state_manager.gd" id="3_t0dor"]
 [ext_resource type="Script" uid="uid://bmp3a5hkmsqv0" path="res://Script/State Manager/combat_state_manager.gd" id="4_xdkpq"]
 [ext_resource type="PackedScene" uid="uid://bsa7fd3dlwl5f" path="res://Scene/button.tscn" id="5_8qtd0"]
-[ext_resource type="Script" uid="uid://2ytid1uivak6" path="res://Script/Resource/Ability/ability_stats.gd" id="5_8rj7f"]
 [ext_resource type="Script" uid="uid://bttv64spjr6jr" path="res://Script/Debug/debug_button.gd" id="5_mtm51"]
 [ext_resource type="Resource" uid="uid://db0mt25wfatl4" path="res://Resource/Ability Stats/defend_ability_stats.tres" id="6_4v0j5"]
 [ext_resource type="PackedScene" uid="uid://bvg3pyy64wc86" path="res://Scene/Character/character_enemy.tscn" id="6_8rj7f"]
@@ -35,7 +34,8 @@ enemy_characters = [NodePath("../../battle_character/character_enemy")]
 script = ExtResource("4_xdkpq")
 player_characters = [NodePath("../../battle_character/character_player")]
 enemy_characters = [NodePath("../../battle_character/character_enemy")]
-ability_stats = Array[ExtResource("5_8rj7f")]([ExtResource("6_4v0j5"), ExtResource("7_7qkga")])
+player_ability_stats = ExtResource("7_7qkga")
+enemy_ability_stats = ExtResource("6_4v0j5")
 
 [node name="debug_button" type="Node2D" parent="." node_paths=PackedStringArray("state_manager", "strategy_button", "combat_button", "resolve_button", "player_character", "enemy_character")]
 script = ExtResource("5_mtm51")
