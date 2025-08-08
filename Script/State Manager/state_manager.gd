@@ -22,9 +22,12 @@ func change_state_to_resolve():
 
 
 #region State Change Region
-func _change_state(new_state: BattleState) -> void:
+func _change_state(target_state: BattleState) -> void:
+	if is_changing_to_same_state(target_state):
+		return
+	
 	_exit_state()
-	_set_state(new_state)
+	_set_state(target_state)
 	_enter_state()
 
 
@@ -60,6 +63,10 @@ func _exit_state() -> void:
 		BattleState.RESOLVE:
 			return
 #endregion
+
+
+func is_changing_to_same_state(target_state: BattleState) -> bool:
+	return target_state == _current_state
 
 
 func _on_combat_state_manager_combat_ended() -> void:
