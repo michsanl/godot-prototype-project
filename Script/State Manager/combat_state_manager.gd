@@ -86,7 +86,8 @@ func _process_two_sided_token_attack():
 	print("Attacker token value: ", attacker_token_value)
 	print("Target token value: ", target_token_value)
 	
-	await get_tree().create_timer(1.0).timeout
+	_attacker.perform_slash_attack()
+	await _defender.perform_slash_attack()
 	
 	_attacker.reset_position()
 	_defender.reset_position()
@@ -101,7 +102,7 @@ func _process_attacker_one_sided_token_attack():
 	_attacker_token_value = _attacker_token.get_token_value()
 	print("Defender token value: ", _attacker_token_value)
 	
-	await get_tree().create_timer(1.0).timeout
+	await _attacker.perform_slash_attack()
 	
 	_attacker.reset_position()
 	_attacker_token_pool.pop_front()
@@ -114,7 +115,7 @@ func _process_defender_one_sided_token_attack():
 	_defender_token_value = _defender_token.get_token_value()
 	print("Defender token value: ", _defender_token_value)
 	
-	await get_tree().create_timer(1.0).timeout
+	await _defender.perform_slash_attack()
 	
 	_defender.reset_position()
 	_defender_token_pool.pop_front()
