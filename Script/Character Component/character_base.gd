@@ -14,30 +14,30 @@ signal strategy_exit
 @onready var initial_position: Vector2 = self.position
 
 
+func reset_character_condition():
+	self.position = initial_position
+	character_action.reset_visual()
+
+
 #region Character Action
 func approach_target_one_sided(target: CharacterBase):
-	await character_action.perform_approach_target_one_sided(self, target)
+	await character_action.perform_approach_one_sided_action(self, target)
 
 
 func approach_target_two_sided(target: CharacterBase):
-	await character_action.perform_approach_target_two_sided(self, target)
+	await character_action.perform_approach_two_sided_action(self, target)
 
 
-func perform_slash_attack():
-	await character_action.perform_slash_attack()
+func perform_slash_attack_win(target: CharacterBase):
+	await character_action.perform_slash_attack_win(self, target)
 
 
-func perform_slash_attack_with_knockback(attacker: CharacterBase):
-	await character_action.perform_slash_attack_with_knockback(self, attacker)
+func perform_slash_attack_draw(attacker: CharacterBase):
+	await character_action.perform_slash_attack_draw(self, attacker)
 
 
 func perform_damaged_action(attacker: CharacterBase):
-	await character_action.perform_getting_damaged(self, attacker)
-
-
-func reset_position():
-	self.position = initial_position
-	character_action.reset_visual()
+	await character_action.perform_damaged_action(self, attacker)
 #endregion
 
 
