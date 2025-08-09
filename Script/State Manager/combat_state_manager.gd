@@ -47,8 +47,8 @@ func _process_combat_by_highest_speed():
 			await _process_one_sided_attack(_attacker, _defender)
 			_erase_combat_participant(_attacker)
 	
-	_attacker.reset_position()
-	_defender.reset_position()
+	_attacker.reset_character_condition()
+	_defender.reset_character_condition()
 	combat_ended.emit()
 
 
@@ -91,14 +91,14 @@ func _process_two_sided_token_attack():
 	print("Target token value: ", _defender_token_value)
 	
 	if _attacker_token_value > _defender_token_value:
-		_attacker.perform_slash_attack()
+		_attacker.perform_slash_attack_win(_defender)
 		await _defender.perform_damaged_action(_attacker)
 	elif _attacker_token_value < _defender_token_value:
-		_defender.perform_slash_attack()
+		_defender.perform_slash_attack_win(_attacker)
 		await _attacker.perform_damaged_action(_defender)
 	else:
-		_attacker.perform_slash_attack_with_knockback(_defender)
-		await _defender.perform_slash_attack_with_knockback(_attacker)
+		_attacker.perform_slash_attack_draw(_defender)
+		await _defender.perform_slash_attack_draw(_attacker)
 	
 	_attacker_token_pool.pop_front()
 	_defender_token_pool.pop_front()
@@ -113,7 +113,7 @@ func _process_attacker_one_sided_token_attack():
 	_attacker_token_value = _attacker_token.get_token_value()
 	print("Defender token value: ", _attacker_token_value)
 	
-	_attacker.perform_slash_attack()
+	_attacker.perform_slash_attack_win(_defender)
 	await _defender.perform_damaged_action(_attacker)
 	
 	_attacker_token_pool.pop_front()
@@ -128,7 +128,7 @@ func _process_defender_one_sided_token_attack():
 	_defender_token_value = _defender_token.get_token_value()
 	print("Defender token value: ", _defender_token_value)
 	
-	_defender.perform_slash_attack()
+	_defender.perform_slash_attack_win(_attacker)
 	await _attacker.perform_damaged_action(_defender)
 	
 	_defender_token_pool.pop_front()

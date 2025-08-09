@@ -1,44 +1,39 @@
 class_name CharacterMovement
 extends Node
 
-@export var move_duration: float = 0.25
-@export var offset: float = 55.0
+@export var move_duration_fast: float = 0.1
+@export var move_duration_standard: float = 0.25
+@export var move_duration_slow: float = 0.4
 
 
-func move_position(this_character: CharacterBase, destination: Vector2):
+func move_position(actor: CharacterBase, final_pos: Vector2):
 	var tween: Tween = create_tween()
-	tween.tween_property(this_character, "position", destination, move_duration).set_ease(Tween.EASE_IN_OUT)
+	tween.tween_property(
+		actor, 
+		"position", 
+		final_pos, 
+		move_duration_standard
+	).set_ease(Tween.EASE_IN_OUT)
 	await tween.finished
 
 
-func approach_target_one_sided(character: CharacterBase, target: CharacterBase):
-	var final_position: Vector2 = get_target_adjacent_position(character, target)
+func move_position_fast(actor: CharacterBase, final_pos: Vector2):
 	var tween: Tween = create_tween()
-	tween.tween_property(character, "position", final_position, move_duration).set_ease(Tween.EASE_IN_OUT)
+	tween.tween_property(
+		actor, 
+		"position", 
+		final_pos, 
+		move_duration_fast
+	).set_ease(Tween.EASE_IN_OUT)
 	await tween.finished
 
 
-func approach_target_two_sided(character: CharacterBase, target: CharacterBase):
-	var final_position: Vector2 = get_meeting_poition(character, target) + get_half_offset(character, target)
+func move_position_slow(actor: CharacterBase, final_pos: Vector2):
 	var tween: Tween = create_tween()
-	tween.tween_property(character, "position", final_position, move_duration).set_ease(Tween.EASE_IN)
+	tween.tween_property(
+		actor, 
+		"position", 
+		final_pos, 
+		move_duration_slow
+	).set_ease(Tween.EASE_IN_OUT)
 	await tween.finished
-
-
-func get_meeting_poition(character: CharacterBase, target: CharacterBase) -> Vector2:
-	return character.position.lerp(target.position, 0.5)
-
-
-func get_target_adjacent_position(character: CharacterBase, target: CharacterBase) -> Vector2:
-	return target.position + get_offset(character, target)
-
-
-func get_offset(character: CharacterBase, target: CharacterBase) -> Vector2:
-	if (character.position.x > target.position.x):
-		return Vector2(offset, 0.0)
-	else:
-		return Vector2((offset * -1), 0.0)
-
-
-func get_half_offset(character: CharacterBase, target: CharacterBase) -> Vector2:
-	return get_offset(character,target) * 0.5

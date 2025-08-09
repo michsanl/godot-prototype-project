@@ -35,7 +35,6 @@ character_visual = NodePath("character_visual")
 
 [node name="character_movement" type="Node" parent="character_action"]
 script = ExtResource("2_ptqjd")
-offset = 100.0
 
 [node name="character_visual" type="Node" parent="character_action" node_paths=PackedStringArray("sprite_node")]
 script = ExtResource("4_g08oy")
