@@ -74,8 +74,6 @@ offset_bottom = -70.0
 text = "?"
 metadata/_edit_use_anchors_ = true
 
-[node name="Camera2D" type="Camera2D" parent="."]
-
 [connection signal="strategy_enter" from="." to="character_targeting" method="_on_character_base_strategy_enter"]
 [connection signal="strategy_exit" from="." to="character_targeting" method="_on_character_base_strategy_exit"]
 [connection signal="aim_target_added" from="character_targeting" to="trajectory_UI" method="_on_character_targeting_aim_target_added"]
