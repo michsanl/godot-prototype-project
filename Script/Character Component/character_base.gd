@@ -27,6 +27,14 @@ func perform_slash_attack():
 	await character_action.perform_slash_attack()
 
 
+func perform_slash_attack_with_knockback(attacker: CharacterBase):
+	await character_action.perform_slash_attack_with_knockback(self, attacker)
+
+
+func perform_damaged_action(attacker: CharacterBase):
+	await character_action.perform_getting_damaged(self, attacker)
+
+
 func reset_position():
 	self.position = initial_position
 	character_action.reset_visual()

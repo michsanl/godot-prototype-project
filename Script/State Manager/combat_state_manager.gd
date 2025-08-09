@@ -47,6 +47,8 @@ func _process_combat_by_highest_speed():
 			await _process_one_sided_attack(_attacker, _defender)
 			_erase_combat_participant(_attacker)
 	
+	_attacker.reset_position()
+	_defender.reset_position()
 	combat_ended.emit()
 
 
@@ -69,55 +71,66 @@ func _process_two_sided_attack():
 			await _process_defender_one_sided_token_attack()
 
 
-func _process_one_sided_attack(attacker: CharacterBase, target: CharacterBase):
+func _process_one_sided_attack(attacker: CharacterBase, defender: CharacterBase):
 	_setup_attacker_token_pool()
 	
 	while has_token(_attacker_token_pool):
-		await _move_character_to_target(attacker, target)
+		await _move_character_to_target(attacker, defender)
 		await _process_attacker_one_sided_token_attack()
 
 func _process_two_sided_token_attack():
+	# Sequence : spawn dice UI -> roll dice -> apply token effect
+	_attacker_token = _attacker_token_pool[0]
+	_defender_token = _defender_token_pool[0]
+	
 	await get_tree().create_timer(0.75).timeout
 	
-	var attacker_token: AbilityToken = _attacker_token_pool[0]
-	var target_token: AbilityToken = _defender_token_pool[0]
-	var attacker_token_value: int = attacker_token.get_token_value()
-	var target_token_value: int = target_token.get_token_value()
-	print("Attacker token value: ", attacker_token_value)
-	print("Target token value: ", target_token_value)
+	_attacker_token_value = _attacker_token.get_token_value()
+	_defender_token_value = _defender_token.get_token_value()
+	print("Attacker token value: ", _attacker_token_value)
+	print("Target token value: ", _defender_token_value)
 	
-	_attacker.perform_slash_attack()
-	await _defender.perform_slash_attack()
+	if _attacker_token_value > _defender_token_value:
+		_attacker.perform_slash_attack()
+		await _defender.perform_damaged_action(_attacker)
+	elif _attacker_token_value < _defender_token_value:
+		_defender.perform_slash_attack()
+		await _attacker.perform_damaged_action(_defender)
+	else:
+		_attacker.perform_slash_attack_with_knockback(_defender)
+		await _defender.perform_slash_attack_with_knockback(_attacker)
 	
-	_attacker.reset_position()
-	_defender.reset_position()
 	_attacker_token_pool.pop_front()
 	_defender_token_pool.pop_front()
 
 
 func _process_attacker_one_sided_token_attack():
+	# Sequence : spawn dice UI -> roll dice -> apply token effect
+	_attacker_token = _attacker_token_pool[0]
+	
 	await get_tree().create_timer(0.75).timeout
 	
-	_attacker_token = _attacker_token_pool[0]
 	_attacker_token_value = _attacker_token.get_token_value()
 	print("Defender token value: ", _attacker_token_value)
 	
-	await _attacker.perform_slash_attack()
+	_attacker.perform_slash_attack()
+	await _defender.perform_damaged_action(_attacker)
 	
-	_attacker.reset_position()
 	_attacker_token_pool.pop_front()
 
 
 func _process_defender_one_sided_token_attack():
-	await get_tree().create_timer(0.75).timeout
-	
+	# Sequence : spawn dice UI -> roll dice -> apply token effect
 	_defender_token = _defender_token_pool[0]
+	
+	await get_tree().create_timer(0.75).timeout 
+	
 	_defender_token_value = _defender_token.get_token_value()
 	print("Defender token value: ", _defender_token_value)
 	
-	await _defender.perform_slash_attack()
+	_defender.perform_slash_attack()
+	await _attacker.perform_damaged_action(_defender)
 	
-	_defender.reset_position()
 	_defender_token_pool.pop_front()
 #endregion
 
