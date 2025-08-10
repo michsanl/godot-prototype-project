@@ -1,40 +1,67 @@
 extends Node
 
+@export var character_movement: CharacterMovement
+@export var character_visual: CharacterVisual
+@export var action_duration: float = 1.0
+@export var knockback_offset: float = 100.0
+@export var adjacent_offset: float = 50.0
+
 
 # --- Attack vs Attack ---
 func perform_attack_vs_attack_on_win_response():
-	# LOGIC : 
-	# ACTION : 
-	pass
+	# LOGIC : deal full damage
+	# ACTION : attack, 
+	character_visual.change_to_slash_sprite()
+	await get_tree().create_timer(action_duration).timeout
 
 func perform_attack_vs_attack_on_lose_response():
-	# LOGIC : 
-	# ACTION : 
-	pass
+	# LOGIC : take full damage
+	# ACTION : damaged, 
+	character_visual.change_to_damaged_sprite()
+	await get_tree().create_timer(action_duration).timeout
 
 func perform_attack_vs_attack_on_draw_response():
-	# LOGIC : 
-	# ACTION : 
-	pass
+	# LOGIC : negate both dice
+	# ACTION : attack + back and forth
+	character_visual.change_to_slash_sprite()
+	await get_tree().create_timer(action_duration).timeout
 
 
 # --- Attack vs Guard ---
 func perform_attack_vs_guard_on_win_response():
-	pass
+	# LOGIC : deal subtracted damage
+	# ACTION : attack, 
+	character_visual.change_to_slash_sprite()
+	await get_tree().create_timer(action_duration).timeout
 
 func perform_attack_vs_guard_on_lose_response():
-	pass
+	# LOGIC : take subtracted stagger damage
+	# ACTION : damaged + knockback
+	character_visual.change_to_damaged_sprite()
+	await get_tree().create_timer(action_duration).timeout
 
 func perform_attack_vs_guard_on_draw_response():
-	pass
+	# LOGIC : deal no damage
+	# ACTION : attack + back and forth
+	character_visual.change_to_slash_sprite()
+	await get_tree().create_timer(action_duration).timeout
 
 
 # --- Attack vs Evade ---
 func perform_attack_vs_evade_on_win_response():
-	pass
+	# LOGIC : deal full damage
+	# ACTION : attack
+	character_visual.change_to_slash_sprite()
+	await get_tree().create_timer(action_duration).timeout
 
 func perform_attack_vs_evade_on_lose_response():
-	pass
+	# LOGIC : attack miss
+	# ACTION : attack
+	character_visual.change_to_slash_sprite()
+	await get_tree().create_timer(action_duration).timeout
 
 func perform_attack_vs_evade_on_draw_response():
-	pass
+	# LOGIC : attack miss
+	# ACTION : attack
+	character_visual.change_to_slash_sprite()
+	await get_tree().create_timer(action_duration).timeout
