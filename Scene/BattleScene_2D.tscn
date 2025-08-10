@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://do3uwy2gicsls"]
+[gd_scene load_steps=12 format=3 uid="uid://do3uwy2gicsls"]
 
 [ext_resource type="Texture2D" uid="uid://c8sf5t0u0e5qn" path="res://Art/KeterFloorBattleStage.jpg" id="1_mtylr"]
 [ext_resource type="Script" uid="uid://ca131f6h2pd4o" path="res://Script/State Manager/state_manager.gd" id="2_mtm51"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://bvg3pyy64wc86" path="res://Scene/Character/character_enemy.tscn" id="6_8rj7f"]
 [ext_resource type="PackedScene" uid="uid://b3whippw3cwep" path="res://Scene/Character/character_player.tscn" id="7_4v0j5"]
 [ext_resource type="Resource" uid="uid://ddt7y2wpi6618" path="res://Resource/Ability Stats/slash_ability_stats.tres" id="7_7qkga"]
+[ext_resource type="Script" uid="uid://cbh8wxgqv7kd" path="res://Script/State Manager/Combat State Helper/clash_result_helper.gd" id="7_8qtd0"]
 
 [node name="BattleScene_2D" type="Node2D"]
 
@@ -36,6 +37,9 @@ player_characters = [NodePath("../../battle_character/character_player")]
 enemy_characters = [NodePath("../../battle_character/character_enemy")]
 player_ability_stats = ExtResource("7_7qkga")
 enemy_ability_stats = ExtResource("6_4v0j5")
+
+[node name="clash_result_helper" type="Node" parent="state_manager/combat_state_manager"]
+script = ExtResource("7_8qtd0")
 
 [node name="debug_button" type="Node2D" parent="." node_paths=PackedStringArray("state_manager", "strategy_button", "combat_button", "resolve_button", "player_character", "enemy_character")]
 script = ExtResource("5_mtm51")

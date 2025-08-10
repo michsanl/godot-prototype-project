@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="CharacterSpriteResource" load_steps=16 format=3 uid="uid://dk6rkmhtx4p5w"]
+[gd_resource type="Resource" script_class="CharacterSpriteResource" load_steps=17 format=3 uid="uid://dk6rkmhtx4p5w"]
 
 [ext_resource type="Texture2D" uid="uid://ct7f5x1u1u8tb" path="res://Art/Argalia/Blunt.png" id="1_j3w4t"]
 [ext_resource type="Texture2D" uid="uid://ds1wpyt7pxg2w" path="res://Art/Argalia/Block.png" id="1_xg3w4"]
@@ -26,6 +26,10 @@ atlas = ExtResource("4_xg3w4")
 region = Rect2(-267, 1318, 887, 726)
 filter_clip = true
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_x872y"]
+atlas = ExtResource("1_xg3w4")
+region = Rect2(-192, 339, 905, 680)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_t60vj"]
 atlas = ExtResource("5_x872y")
 region = Rect2(-320, 434, 1296, 586)
@@ -47,3 +51,4 @@ blunt_sprite = SubResource("AtlasTexture_kfvxo")
 move_sprite = SubResource("AtlasTexture_t60vj")
 block_sprite = SubResource("AtlasTexture_j3w4t")
 damaged_sprite = SubResource("AtlasTexture_8cymd")
+evade_sprite = SubResource("AtlasTexture_x872y")

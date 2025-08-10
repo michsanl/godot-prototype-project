@@ -8,3 +8,4 @@ extends Resource
 @export var move_sprite: AtlasTexture = AtlasTexture.new()
 @export var block_sprite: AtlasTexture = AtlasTexture.new()
 @export var damaged_sprite: AtlasTexture = AtlasTexture.new()
+@export var evade_sprite: AtlasTexture = AtlasTexture.new()
