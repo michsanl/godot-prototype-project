@@ -61,3 +61,153 @@ func remove_aim_target() -> void:
 
 func randomize_dice_point() -> void:
 	character_stat.randomize_dice_point()
+
+
+#region Play Token Response : Attack Token 
+func perform_attack_token_response_on_win(opponent_token: AbilityToken):
+	match opponent_token.token_type:
+		opponent_token.TokenType.ATTACK:
+			# LOGIC : deal full damage
+			# ACTION : perform attack, 
+			pass
+		opponent_token.TokenType.GUARD:
+			# LOGIC : deal subtracted damage
+			# ACTION : perform attack, 
+			pass
+		opponent_token.TokenType.EVADE:
+			# LOGIC : deal full damage
+			# ACTION : perform attack, 
+			pass
+
+
+func perform_attack_token_response_on_lose(opponent_token: AbilityToken):
+	match opponent_token.token_type:
+		opponent_token.TokenType.ATTACK:
+			# LOGIC : take full damage
+			# ACTION : perform damaged, knockback, 
+			pass
+		opponent_token.TokenType.GUARD:
+			# LOGIC : take subtracted stagger damage
+			# ACTION : perform attack + move back and forth, damaged + knockback
+			pass
+		opponent_token.TokenType.EVADE:
+			# LOGIC : nothing
+			# ACTION : perform attack, 
+			pass
+
+
+func perform_attack_token_response_on_draw(opponent_token: AbilityToken):
+	match opponent_token.token_type:
+		opponent_token.TokenType.ATTACK:
+			# LOGIC : both dice negated
+			# ACTION : perform attack + move back and forth,  
+			pass
+		opponent_token.TokenType.GUARD:
+			# LOGIC : nullify damage
+			# ACTION : perform attack, 
+			pass
+		opponent_token.TokenType.EVADE:
+			# LOGIC : nullify damage
+			# ACTION : perform attack, 
+			pass
+#endregion
+
+
+#region Play Token Response : Guard Token 
+func perform_guard_token_response_on_win(opponent_token: AbilityToken):
+	match opponent_token.token_type:
+		opponent_token.TokenType.ATTACK:
+			# LOGIC : deal subtracted stagger damage
+			# ACTION : perform guard, 
+			pass
+		opponent_token.TokenType.GUARD:
+			# LOGIC : deal full stagger damage
+			# ACTION : perform guard, 
+			pass
+		opponent_token.TokenType.EVADE:
+			# LOGIC : deal full stagger damage
+			# ACTION : perform guard, 
+			pass
+
+
+func perform_guard_token_response_on_lose(opponent_token: AbilityToken):
+	match opponent_token.token_type:
+		opponent_token.TokenType.ATTACK:
+			# LOGIC : take subtracted damage
+			# ACTION : perform damaged, knockback, 
+			pass
+		opponent_token.TokenType.GUARD:
+			# LOGIC : take full stagger damage 
+			# ACTION : perform damaged + back and forth , knockback, 
+			pass
+		opponent_token.TokenType.EVADE:
+			# LOGIC : nothing
+			# ACTION : perform guard
+			pass
+
+
+func perform_guard_token_response_on_draw(opponent_token: AbilityToken):
+	match opponent_token.token_type:
+		opponent_token.TokenType.ATTACK:
+			# LOGIC : nullify damage
+			# ACTION : perform guard, move back and forth,  
+			pass
+		opponent_token.TokenType.GUARD:
+			# LOGIC : both dice negated
+			# ACTION : perform guard, 
+			pass
+		opponent_token.TokenType.EVADE:
+			# LOGIC : both dice negated
+			# ACTION : perform nothing
+			pass
+#endregion
+
+
+#region Perform Token Response : Evade Token 
+func perform_evade_token_response_on_win(opponent_token: AbilityToken):
+	match opponent_token.token_type:
+		opponent_token.TokenType.ATTACK:
+			# LOGIC : 
+			# ACTION : perform evade, 
+			pass
+		opponent_token.TokenType.GUARD:
+			# LOGIC : recover stagger 
+			# ACTION : perform evade, 
+			pass
+		opponent_token.TokenType.EVADE:
+			# LOGIC : both dice negated
+			# ACTION : perform nothing
+			pass
+
+
+func perform_evade_token_response_on_lose(opponent_token: AbilityToken):
+	match opponent_token.token_type:
+		opponent_token.TokenType.ATTACK:
+			# LOGIC : take full damage
+			# ACTION : perform damaged, knockback, 
+			pass
+		opponent_token.TokenType.GUARD:
+			# LOGIC : take full damage
+			# ACTION : perform damaged, knockback by guard, 
+			pass
+		opponent_token.TokenType.EVADE:
+			# LOGIC : both dice negated
+			# ACTION : perform nothing
+			pass
+
+
+func perform_evade_token_response_on_draw(opponent_token: AbilityToken):
+	match opponent_token.token_type:
+		opponent_token.TokenType.ATTACK:
+			# LOGIC : nullify damage
+			# ACTION : perform evade, 
+			pass
+		opponent_token.TokenType.GUARD:
+			# LOGIC : both dice negated
+			# ACTION : perform nothing, 
+			pass
+		opponent_token.TokenType.EVADE:
+			# LOGIC : both dice negated
+			# ACTION : perform nothing, 
+			pass
+#endregion
