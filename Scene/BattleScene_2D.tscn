@@ -31,8 +31,9 @@ script = ExtResource("3_t0dor")
 player_characters = [NodePath("../../battle_character/character_player")]
 enemy_characters = [NodePath("../../battle_character/character_enemy")]
 
-[node name="combat_state_manager" type="Node" parent="state_manager" node_paths=PackedStringArray("player_characters", "enemy_characters")]
+[node name="combat_state_manager" type="Node" parent="state_manager" node_paths=PackedStringArray("clash_result_helper", "player_characters", "enemy_characters")]
 script = ExtResource("4_xdkpq")
+clash_result_helper = NodePath("clash_result_helper")
 player_characters = [NodePath("../../battle_character/character_player")]
 enemy_characters = [NodePath("../../battle_character/character_enemy")]
 player_ability_stats = ExtResource("7_7qkga")
@@ -74,9 +75,11 @@ text = "Resolve"
 [node name="battle_character" type="Node2D" parent="."]
 
 [node name="character_enemy" parent="battle_character" instance=ExtResource("6_8rj7f")]
+visible = true
 position = Vector2(-247, 42)
 
 [node name="character_player" parent="battle_character" instance=ExtResource("7_4v0j5")]
+visible = true
 position = Vector2(300, 47)
 
 [connection signal="combat_ended" from="state_manager/combat_state_manager" to="state_manager" method="_on_combat_state_manager_combat_ended"]

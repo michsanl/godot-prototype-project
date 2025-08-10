@@ -10,6 +10,9 @@ signal strategy_exit
 @export var character_action: CharacterAction
 @export var character_movement: CharacterMovement
 @export var character_visual: CharacterVisual
+@export var attack_token_response: AttackTokenReseponse
+@export var evade_token_response: EvadeTokenReseponse
+@export var guard_token_response: GuardTokenReseponse
 
 @onready var initial_position: Vector2 = self.position
 

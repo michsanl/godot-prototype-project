@@ -1,3 +1,4 @@
+class_name AttackTokenReseponse
 extends Node
 
 @export var character_movement: CharacterMovement

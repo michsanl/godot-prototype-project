@@ -1,3 +1,4 @@
+class_name EvadeTokenReseponse
 extends Node
 
 @export var character_movement: CharacterMovement

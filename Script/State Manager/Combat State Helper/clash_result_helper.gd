@@ -1,3 +1,4 @@
+class_name ClashResultHelper
 extends Node
 
 
@@ -53,31 +54,40 @@ func process_evade_token_clash_response(clash_data: ClashData):
 func perform_attack_token_response_on_win(clash_data: ClashData):
 	match clash_data.clash_data.opponent_token.token_type:
 		clash_data.opponent_token.TokenType.ATTACK:
-			pass
+			var attack_token_response = clash_data.owner.attack_token_response
+			attack_token_response.perform_attack_vs_attack_on_win_response()
 		clash_data.opponent_token.TokenType.GUARD:
-			pass
+			var attack_token_response = clash_data.owner.attack_token_response
+			attack_token_response.perform_attack_vs_guard_on_win_response()
 		clash_data.opponent_token.TokenType.EVADE:
-			pass
+			var attack_token_response = clash_data.owner.attack_token_response
+			attack_token_response.perform_attack_vs_evade_on_win_response()
 
 
 func perform_attack_token_response_on_lose(clash_data: ClashData):
 	match clash_data.opponent_token.token_type:
 		clash_data.opponent_token.TokenType.ATTACK:
-			pass
+			var attack_token_response = clash_data.owner.attack_token_response
+			attack_token_response.perform_attack_vs_attack_on_lose_response()
 		clash_data.opponent_token.TokenType.GUARD:
-			pass
+			var attack_token_response = clash_data.owner.attack_token_response
+			attack_token_response.perform_attack_vs_guard_on_lose_response()
 		clash_data.opponent_token.TokenType.EVADE:
-			pass
+			var attack_token_response = clash_data.owner.attack_token_response
+			attack_token_response.perform_attack_vs_evade_on_lose_response()
 
 
 func perform_attack_token_response_on_draw(clash_data: ClashData):
 	match clash_data.opponent_token.token_type:
 		clash_data.opponent_token.TokenType.ATTACK:
-			pass
+			var attack_token_response = clash_data.owner.attack_token_response
+			attack_token_response.perform_attack_vs_attack_on_draw_response()
 		clash_data.opponent_token.TokenType.GUARD:
-			pass
+			var attack_token_response = clash_data.owner.attack_token_response
+			attack_token_response.perform_attack_vs_guard_on_draw_response()
 		clash_data.opponent_token.TokenType.EVADE:
-			pass
+			var attack_token_response = clash_data.owner.attack_token_response
+			attack_token_response.perform_attack_vs_evade_on_draw_response()
 #endregion
 
 
@@ -85,31 +95,40 @@ func perform_attack_token_response_on_draw(clash_data: ClashData):
 func perform_guard_token_response_on_win(clash_data: ClashData):
 	match clash_data.opponent_token.token_type:
 		clash_data.opponent_token.TokenType.ATTACK:
-			pass
+			var guard_token_response = clash_data.owner.guard_token_response
+			guard_token_response.perform_guard_vs_attack_on_win_response()
 		clash_data.opponent_token.TokenType.GUARD:
-			pass
+			var guard_token_response = clash_data.owner.guard_token_response
+			guard_token_response.perform_guard_vs_guard_on_win_response()
 		clash_data.opponent_token.TokenType.EVADE:
-			pass
+			var guard_token_response = clash_data.owner.guard_token_response
+			guard_token_response.perform_guard_vs_evade_on_win_response()
 
 
 func perform_guard_token_response_on_lose(clash_data: ClashData):
 	match clash_data.opponent_token.token_type:
 		clash_data.opponent_token.TokenType.ATTACK:
-			pass
+			var guard_token_response = clash_data.owner.guard_token_response
+			guard_token_response.perform_guard_vs_attack_on_lose_response()
 		clash_data.opponent_token.TokenType.GUARD:
-			pass
+			var guard_token_response = clash_data.owner.guard_token_response
+			guard_token_response.perform_guard_vs_guard_on_lose_response()
 		clash_data.opponent_token.TokenType.EVADE:
-			pass
+			var guard_token_response = clash_data.owner.guard_token_response
+			guard_token_response.perform_guard_vs_evade_on_lose_response()
 
 
 func perform_guard_token_response_on_draw(clash_data: ClashData):
 	match clash_data.opponent_token.token_type:
 		clash_data.opponent_token.TokenType.ATTACK:
-			pass
+			var guard_token_response = clash_data.owner.guard_token_response
+			guard_token_response.perform_guard_vs_attack_on_draw_response()
 		clash_data.opponent_token.TokenType.GUARD:
-			pass
+			var guard_token_response = clash_data.owner.guard_token_response
+			guard_token_response.perform_guard_vs_guard_on_draw_response()
 		clash_data.opponent_token.TokenType.EVADE:
-			pass
+			var guard_token_response = clash_data.owner.guard_token_response
+			guard_token_response.perform_guard_vs_evade_on_draw_response()
 #endregion
 
 
@@ -117,29 +136,38 @@ func perform_guard_token_response_on_draw(clash_data: ClashData):
 func perform_evade_token_response_on_win(clash_data: ClashData):
 	match clash_data.opponent_token.token_type:
 		clash_data.opponent_token.TokenType.ATTACK:
-			pass
+			var evade_token_response = clash_data.owner.evade_token_response
+			evade_token_response.perform_evade_vs_attack_on_win_response()
 		clash_data.opponent_token.TokenType.GUARD:
-			pass
+			var evade_token_response = clash_data.owner.evade_token_response
+			evade_token_response.perform_evade_vs_guard_on_win_response()
 		clash_data.opponent_token.TokenType.EVADE:
-			pass
+			var evade_token_response = clash_data.owner.evade_token_response
+			evade_token_response.perform_evade_vs_evade_on_win_response()
 
 
 func perform_evade_token_response_on_lose(clash_data: ClashData):
 	match clash_data.opponent_token.token_type:
 		clash_data.opponent_token.TokenType.ATTACK:
-			pass
+			var evade_token_response = clash_data.owner.evade_token_response
+			evade_token_response.perform_evade_vs_attack_on_lose_response()
 		clash_data.opponent_token.TokenType.GUARD:
-			pass
+			var evade_token_response = clash_data.owner.evade_token_response
+			evade_token_response.perform_evade_vs_guard_on_lose_response()
 		clash_data.opponent_token.TokenType.EVADE:
-			pass
+			var evade_token_response = clash_data.owner.evade_token_response
+			evade_token_response.perform_evade_vs_evade_on_lose_response()
 
 
 func perform_evade_token_response_on_draw(clash_data: ClashData):
 	match clash_data.opponent_token.token_type:
 		clash_data.opponent_token.TokenType.ATTACK:
-			pass
+			var evade_token_response = clash_data.owner.evade_token_response
+			evade_token_response.perform_evade_vs_attack_on_draw_response()
 		clash_data.opponent_token.TokenType.GUARD:
-			pass
+			var evade_token_response = clash_data.owner.evade_token_response
+			evade_token_response.perform_evade_vs_guard_on_draw_response()
 		clash_data.opponent_token.TokenType.EVADE:
-			pass
+			var evade_token_response = clash_data.owner.evade_token_response
+			evade_token_response.perform_evade_vs_evade_on_draw_response()
 #endregion

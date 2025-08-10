@@ -23,6 +23,7 @@ atlas = ExtResource("10_ylsyo")
 region = Rect2(-275, 1318, 895, 726)
 
 [node name="character_base" type="Node2D" node_paths=PackedStringArray("character_targeting", "character_stat", "character_ability_manager", "character_action", "character_movement", "character_visual")]
+visible = false
 script = ExtResource("1_y5alb")
 character_targeting = NodePath("character_targeting")
 character_stat = NodePath("character_stat")

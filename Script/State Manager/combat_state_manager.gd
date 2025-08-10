@@ -3,6 +3,7 @@ extends Node
 
 signal combat_ended
 
+@export var clash_result_helper: ClashResultHelper
 @export var player_characters: Array[CharacterBase] = []
 @export var enemy_characters: Array[CharacterBase] = []
 @export var player_ability_stats: AbilityStats

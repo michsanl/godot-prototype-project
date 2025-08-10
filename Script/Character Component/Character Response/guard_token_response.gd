@@ -1,3 +1,4 @@
+class_name GuardTokenReseponse
 extends Node
 
 @export var character_movement: CharacterMovement
