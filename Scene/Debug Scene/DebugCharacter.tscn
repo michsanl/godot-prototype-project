@@ -8,7 +8,6 @@
 [node name="Camera2D" type="Camera2D" parent="."]
 
 [node name="character_player" parent="." instance=ExtResource("1_h5s4o")]
-visible = true
 
 [node name="Debug Button" type="Node2D" parent="."]
 

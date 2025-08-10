@@ -10,6 +10,9 @@ signal combat_ended
 @export var enemy_ability_stats: AbilityStats
 
 var _combat_participant_pool: Array[CharacterBase] = []
+var _attacker_clash_data: ClashData = ClashData.new()
+var _defender_clash_data: ClashData = ClashData.new()
+
 var _attacker_token_pool: Array[AbilityToken] = []
 var _defender_token_pool: Array[AbilityToken] = []
 var _attacker: CharacterBase
@@ -18,6 +21,9 @@ var _attacker_token: AbilityToken
 var _defender_token: AbilityToken
 var _attacker_token_value: int
 var _defender_token_value: int
+var _attacker_clash_result: ClashData.ClashResult
+var _defender_clash_result: ClashData.ClashResult
+
 
 func handle_combat_state_enter() -> void:
 	_setup_combat_participant()
@@ -88,18 +94,25 @@ func _process_two_sided_token_attack():
 	
 	_attacker_token_value = _attacker_token.get_token_value()
 	_defender_token_value = _defender_token.get_token_value()
+	_attacker_clash_result = calculate_clash_result(_attacker_token_value, _defender_token_value)
+	_defender_clash_result = calculate_clash_result(_defender_token_value, _attacker_token_value)
 	print("Attacker token value: ", _attacker_token_value)
 	print("Target token value: ", _defender_token_value)
 	
-	if _attacker_token_value > _defender_token_value:
-		_attacker.perform_slash_attack_win(_defender)
-		await _defender.perform_damaged_action(_attacker)
-	elif _attacker_token_value < _defender_token_value:
-		_defender.perform_slash_attack_win(_attacker)
-		await _attacker.perform_damaged_action(_defender)
-	else:
-		_attacker.perform_slash_attack_draw(_defender)
-		await _defender.perform_slash_attack_draw(_attacker)
+	setup_attacker_clash_data()
+	setup_defender_clash_data()
+	clash_result_helper.process_clash_response(_attacker_clash_data)
+	await clash_result_helper.process_clash_response(_defender_clash_data)
+	
+	#if _attacker_token_value > _defender_token_value:
+		#_attacker.perform_slash_attack_win(_defender)
+		#await _defender.perform_damaged_action(_attacker)
+	#elif _attacker_token_value < _defender_token_value:
+		#_defender.perform_slash_attack_win(_attacker)
+		#await _attacker.perform_damaged_action(_defender)
+	#else:
+		#_attacker.perform_slash_attack_draw(_defender)
+		#await _defender.perform_slash_attack_draw(_attacker)
 	
 	_attacker_token_pool.pop_front()
 	_defender_token_pool.pop_front()
@@ -173,8 +186,41 @@ func _setup_defender_token_pool():
 	_defender_token_pool = selected_ability.ability_stats.token.duplicate()
 
 
-func _get_token_value(token: AbilityToken) -> int:
-	return token.get_token_value()
+func setup_attacker_clash_data():
+	_attacker_clash_data = ClashData.new()
+	
+	_attacker_clash_data.clash_result = _attacker_clash_result
+	
+	_attacker_clash_data.owner = _attacker
+	_attacker_clash_data.owner_token = _attacker_token
+	_attacker_clash_data.owner_token_value = _attacker_token_value
+	
+	_attacker_clash_data.opponent = _defender
+	_attacker_clash_data.opponent_token = _defender_token
+	_attacker_clash_data.opponent_token_value = _defender_token_value
+
+
+func setup_defender_clash_data():
+	_defender_clash_data = ClashData.new()
+	
+	_defender_clash_data.clash_result = _defender_clash_result
+	
+	_defender_clash_data.owner = _defender
+	_defender_clash_data.owner_token = _defender_token
+	_defender_clash_data.owner_token_value = _defender_token_value
+	
+	_defender_clash_data.opponent = _attacker
+	_defender_clash_data.opponent_token = _attacker_token
+	_defender_clash_data.opponent_token_value = _attacker_token_value
+
+
+func calculate_clash_result(owner_token_val: int, opponent_token_val: int) -> ClashData.ClashResult:
+	if owner_token_val > opponent_token_val:
+		return ClashData.ClashResult.WIN
+	elif owner_token_val > opponent_token_val:
+		return ClashData.ClashResult.LOSE
+	else:
+		return ClashData.ClashResult.DRAW
 
 
 func create_ability_class():
@@ -188,6 +234,10 @@ func has_combat_participant(characer_pool: Array[CharacterBase]) -> bool:
 
 func has_token(token_pool: Array[AbilityToken]) -> bool:
 	return not token_pool.is_empty()
+
+
+func _get_token_value(token: AbilityToken) -> int:
+	return token.get_token_value()
 
 
 func get_target_character(character: CharacterBase) -> CharacterBase:
