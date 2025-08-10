@@ -24,7 +24,7 @@ func _on_move_pressed() -> void:
 
 
 func _on_guard_pressed() -> void:
-	character.character_visual.change_to_block_sprite()
+	character.character_visual.change_to_guard_sprite()
 
 
 func _on_damaged_pressed() -> void:

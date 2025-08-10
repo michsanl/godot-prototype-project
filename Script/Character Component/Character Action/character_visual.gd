@@ -25,12 +25,16 @@ func change_to_move_sprite() -> void:
 	set_sprite(sprite_resource.move_sprite)
 
 
-func change_to_block_sprite() -> void:
+func change_to_guard_sprite() -> void:
 	set_sprite(sprite_resource.block_sprite)
 
 
 func change_to_damaged_sprite() -> void:
 	set_sprite(sprite_resource.damaged_sprite)
+
+
+func change_to_evade_sprite() -> void:
+	set_sprite(sprite_resource.block_sprite)
 
 
 func set_sprite(target_sprite: Texture2D) -> void:
