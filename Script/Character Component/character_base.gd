@@ -4,9 +4,10 @@ extends Node2D
 signal strategy_enter(target: CharacterBase)
 signal strategy_exit
 
+@export var char_name: String
 @export var character_targeting: CharacterTargeting 
 @export var character_stat: Character_Stat 
-@export var character_ability_manager: CharacterAbilityManager
+@export var ability_manager: AbilityManager
 @export var character_action: CharacterAction
 @export var character_movement: CharacterMovement
 @export var character_visual: CharacterVisual

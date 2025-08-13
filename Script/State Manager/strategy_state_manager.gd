@@ -6,8 +6,6 @@ extends Node
 
 
 func handle_strategy_state_enter() -> void:
-	_randomize_player_dice_point()
-	_randomize_enemy_dice_point()
 	_randomize_player_target()
 	_randomize_enemy_target()
 

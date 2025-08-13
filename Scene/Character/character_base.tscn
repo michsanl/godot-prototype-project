@@ -7,7 +7,7 @@
 [ext_resource type="Script" uid="uid://cdl86683jwq28" path="res://Script/Character Component/Character Action/character_action.gd" id="2_tj2b7"]
 [ext_resource type="Script" uid="uid://di50c51to3xax" path="res://Script/Character Component/character_stat.gd" id="2_yop1s"]
 [ext_resource type="Script" uid="uid://knbljt2mvhpi" path="res://Script/Character Component/Character Response/evade_token_response.gd" id="3_co0rr"]
-[ext_resource type="Script" uid="uid://dm4auyugtcvs4" path="res://Script/Character Component/character_ability_manager.gd" id="3_ouw7k"]
+[ext_resource type="Script" uid="uid://dm4auyugtcvs4" path="res://Script/Character Component/Character Ability/character_ability_manager.gd" id="3_ouw7k"]
 [ext_resource type="Script" uid="uid://cxwyxix8gklmy" path="res://Script/Character Component/Character Response/guard_token_response.gd" id="4_1ako7"]
 [ext_resource type="Script" uid="uid://b18vpmxkm8dx0" path="res://Script/Character Component/Character Action/character_visual.gd" id="4_g08oy"]
 [ext_resource type="Script" uid="uid://bdshlelctktgb" path="res://Script/Character Component/trajectory_ui.gd" id="4_utumv"]
@@ -22,11 +22,11 @@ point_count = 3
 atlas = ExtResource("10_ylsyo")
 region = Rect2(-275, 1318, 895, 726)
 
-[node name="character_base" type="Node2D" node_paths=PackedStringArray("character_targeting", "character_stat", "character_ability_manager", "character_action", "character_movement", "character_visual", "attack_token_response", "evade_token_response", "guard_token_response")]
+[node name="character_base" type="Node2D" node_paths=PackedStringArray("character_targeting", "character_stat", "ability_manager", "character_action", "character_movement", "character_visual", "attack_token_response", "evade_token_response", "guard_token_response")]
 script = ExtResource("1_y5alb")
 character_targeting = NodePath("character_targeting")
 character_stat = NodePath("character_stat")
-character_ability_manager = NodePath("character_ability_manager")
+ability_manager = NodePath("ability_manager")
 character_action = NodePath("character_action")
 character_movement = NodePath("character_action/character_movement")
 character_visual = NodePath("character_action/character_visual")
@@ -67,7 +67,7 @@ sprite_resource = ExtResource("5_ylsyo")
 [node name="character_stat" type="Node" parent="."]
 script = ExtResource("2_yop1s")
 
-[node name="character_ability_manager" type="Node" parent="."]
+[node name="ability_manager" type="Node" parent="."]
 script = ExtResource("3_ouw7k")
 
 [node name="character_targeting" type="Node2D" parent="."]
