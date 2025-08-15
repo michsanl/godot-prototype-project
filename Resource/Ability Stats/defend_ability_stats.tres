@@ -1,22 +1,30 @@
-[gd_resource type="Resource" script_class="AbilityStats" load_steps=5 format=3 uid="uid://db0mt25wfatl4"]
+[gd_resource type="Resource" script_class="AbilityData" load_steps=6 format=3 uid="uid://db0mt25wfatl4"]
 
-[ext_resource type="Script" uid="uid://2ytid1uivak6" path="res://Script/Resource/Ability/ability_stats.gd" id="1_7v6qt"]
-[ext_resource type="Script" uid="uid://cv7oukxoksshd" path="res://Script/Resource/Ability/ability_token.gd" id="2_o3f6v"]
+[ext_resource type="Script" uid="uid://cv7oukxoksshd" path="res://Script/Resource/Ability/dice_data.gd" id="1_pq4so"]
+[ext_resource type="Script" uid="uid://2ytid1uivak6" path="res://Script/Resource/Ability/ability_data.gd" id="2_yul47"]
 
 [sub_resource type="Resource" id="Resource_pq4so"]
-script = ExtResource("2_o3f6v")
-token_type = 2
-min = 1
-max = 3
+script = ExtResource("1_pq4so")
+token_type = 1
+min = 2
+max = 4
 metadata/_custom_type_script = "uid://cv7oukxoksshd"
 
 [sub_resource type="Resource" id="Resource_yul47"]
-script = ExtResource("2_o3f6v")
-token_type = 2
+script = ExtResource("1_pq4so")
+token_type = 1
+min = 2
+max = 4
+metadata/_custom_type_script = "uid://cv7oukxoksshd"
+
+[sub_resource type="Resource" id="Resource_o3f6v"]
+script = ExtResource("1_pq4so")
+token_type = 1
 min = 1
 max = 3
 metadata/_custom_type_script = "uid://cv7oukxoksshd"
 
 [resource]
-script = ExtResource("1_7v6qt")
-token = Array[ExtResource("2_o3f6v")]([SubResource("Resource_pq4so"), SubResource("Resource_yul47")])
+script = ExtResource("2_yul47")
+ability_name = "Defend"
+dice_list = Array[ExtResource("1_pq4so")]([SubResource("Resource_pq4so"), SubResource("Resource_yul47"), SubResource("Resource_o3f6v")])
