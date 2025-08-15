@@ -6,7 +6,7 @@ extends Node
 @export var attack_duration: float = 1.0
 @export var damaged_duration: float = 1.0
 @export var knock_offset: float = 100.0
-@export var adjacent_offset: float = 50.0
+@export var adjacent_offset: float = 100.0
 
 
 #region Movement + Visual Methods
@@ -16,14 +16,16 @@ func perform_movement_action(actor: CharacterBase, final_pos: Vector2):
 
 
 func perform_approach_one_sided_action(actor: CharacterBase, target: CharacterBase):
-	var final_pos: Vector2 = target.position + get_adjacent_offset(actor, target)
+	var final_pos: Vector2 = target.position + _get_adjacent_offset(actor, target)
 	character_visual.change_to_move_sprite()
+	print("approaching one sided")
 	await character_movement.move_position(actor, final_pos)
 
 
 func perform_approach_two_sided_action(actor: CharacterBase, target: CharacterBase):
-	var final_pos: Vector2 = get_meeting_position(actor, target) + get_half_adjacent_offset(actor, target)
+	var final_pos: Vector2 = _get_meeting_position(actor, target) + _get_fractional_adjacent_offset(actor, target, 0.5)
 	character_visual.change_to_move_sprite()
+	print("approaching two sided")
 	await character_movement.move_position(actor, final_pos)
 
 
@@ -47,12 +49,12 @@ func perform_damaged_action(actor: CharacterBase, target: CharacterBase):
 
 
 func perform_slight_forward_movement(actor: CharacterBase, target: CharacterBase):
-	var final_pos: Vector2 = actor.position + get_direction_to_opponent(actor, target) * 25.0
+	var final_pos: Vector2 = actor.position + _get_direction_to_opponent(actor, target) * 25.0
 	await character_movement.move_position_fast(actor, final_pos)
 
 
 func perform_knockback_movement(actor: CharacterBase, target: CharacterBase):
-	var final_pos: Vector2 = actor.position + get_knockback_offset(actor, target)
+	var final_pos: Vector2 = actor.position + _get_knockback_offset(actor, target)
 	await character_movement.move_position(actor, final_pos)
 
 
@@ -61,11 +63,11 @@ func reset_visual():
 
 
 #region Helper Methods
-func get_meeting_position(actor: CharacterBase, target: CharacterBase) -> Vector2:
+func _get_meeting_position(actor: CharacterBase, target: CharacterBase) -> Vector2:
 	return actor.position.lerp(target.position, 0.5)
 
 
-func get_adjacent_offset(actor: CharacterBase, target: CharacterBase) -> Vector2:
+func _get_adjacent_offset(actor: CharacterBase, target: CharacterBase) -> Vector2:
 	var final_offset: Vector2
 	if actor.position.x > target.position.x:
 		final_offset = Vector2(adjacent_offset * 1, 0)
@@ -75,18 +77,22 @@ func get_adjacent_offset(actor: CharacterBase, target: CharacterBase) -> Vector2
 		return Vector2(final_offset)
 
 
-func get_half_adjacent_offset(actor: CharacterBase, target: CharacterBase) -> Vector2:
-	return get_adjacent_offset(actor, target)
+func _get_fractional_adjacent_offset(
+	actor: CharacterBase, 
+	target: CharacterBase, 
+	factor: float
+) -> Vector2:
+	return factor * _get_adjacent_offset(actor, target)
 
 
-func get_knockback_offset(actor: CharacterBase, target: CharacterBase) -> Vector2:
-	return get_reversed_direction_to_opponent(actor, target) * knock_offset
+func _get_knockback_offset(actor: CharacterBase, target: CharacterBase) -> Vector2:
+	return _get_reversed_direction_to_opponent(actor, target) * knock_offset
 
 
-func get_direction_to_opponent(actor: CharacterBase, target: CharacterBase) -> Vector2:
+func _get_direction_to_opponent(actor: CharacterBase, target: CharacterBase) -> Vector2:
 	return (target.position - actor.position).normalized()
 
 
-func get_reversed_direction_to_opponent(actor: CharacterBase, target: CharacterBase) -> Vector2:
+func _get_reversed_direction_to_opponent(actor: CharacterBase, target: CharacterBase) -> Vector2:
 	return (target.position - actor.position).normalized() * -1
 #endregion

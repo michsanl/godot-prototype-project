@@ -18,9 +18,13 @@ signal strategy_exit
 @onready var initial_position: Vector2 = self.position
 
 
-func reset_character_condition():
+func reset_position():
 	self.position = initial_position
+
+
+func reset_visual():
 	character_action.reset_visual()
+	
 
 
 #region Character Action

@@ -52,8 +52,10 @@ func _process_combat_by_highest_speed():
 			await _process_one_sided_attack(_attacker, _defender)
 			_erase_combat_participant(_attacker)
 	
-	_attacker.reset_character_condition()
-	_defender.reset_character_condition()
+	_attacker.reset_position()
+	_attacker.reset_visual()
+	_defender.reset_position()
+	_defender.reset_visual()
 	
 	combat_ended.emit()
 
@@ -75,6 +77,9 @@ func _process_two_sided_attack():
 			print("B hitting A")
 			await _move_character_to_target(_defender, _attacker)
 			await _process_defender_one_sided_token_attack()
+		
+		_attacker.reset_visual()
+		_defender.reset_visual()
 
 
 func _process_one_sided_attack(attacker: CharacterBase, defender: CharacterBase):
@@ -117,8 +122,9 @@ func _process_attacker_one_sided_token_attack():
 	_attacker_dice_value = _attacker_dice.roll_dice()
 	print("Defender token value: ", _attacker_dice_value)
 	
-	_attacker.perform_slash_attack_win(_defender)
-	await _defender.perform_damaged_action(_attacker)
+	setup_attacker_clash_data()
+	
+	await clash_result_helper.process_clash_response(_attacker_clash_data)
 	
 	_attacker_dice_pool.pop_front()
 
@@ -132,8 +138,9 @@ func _process_defender_one_sided_token_attack():
 	_defender_dice_value = _defender_dice.roll_dice()
 	print("Defender token value: ", _defender_dice_value)
 	
-	_defender.perform_slash_attack_win(_attacker)
-	await _attacker.perform_damaged_action(_defender)
+	setup_defender_clash_data()
+	
+	await clash_result_helper.process_clash_response(_defender_clash_data)
 	
 	_defender_dice_pool.pop_front()
 #endregion
@@ -144,8 +151,8 @@ func _move_character_to_each_other():
 	await _defender.approach_target_two_sided(_attacker)
 
 
-func _move_character_to_target(a: CharacterBase, target:CharacterBase):
-	await a.approach_target_one_sided(target)
+func _move_character_to_target(actor: CharacterBase, target:CharacterBase):
+	await actor.approach_target_one_sided(target)
 
 
 func _gather_combat_participant(character_pool: Array[CharacterBase]):
