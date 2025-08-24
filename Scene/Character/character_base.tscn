@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://bek3derprev18"]
+[gd_scene load_steps=17 format=3 uid="uid://bek3derprev18"]
 
 [ext_resource type="Script" uid="uid://c7c2x0t6jjupk" path="res://Script/Character Component/character_base.gd" id="1_y5alb"]
 [ext_resource type="Script" uid="uid://buot45h215ftp" path="res://Script/Character Component/character_targeting.gd" id="2_1upvv"]
@@ -13,6 +13,7 @@
 [ext_resource type="Script" uid="uid://bdshlelctktgb" path="res://Script/Character Component/trajectory_ui.gd" id="4_utumv"]
 [ext_resource type="Resource" uid="uid://dk6rkmhtx4p5w" path="res://Resource/Character Sprite/argalia_sprite.tres" id="5_ylsyo"]
 [ext_resource type="Texture2D" uid="uid://cb6xmtvlll1qn" path="res://Art/Argalia/Default.png" id="10_ylsyo"]
+[ext_resource type="Script" uid="uid://b1jom5fwerwwh" path="res://Script/Character Component/character_combat.gd" id="14_co0rr"]
 
 [sub_resource type="Curve" id="Curve_utumv"]
 _data = [Vector2(0, 0.271636), 0.0, 0.0, 0, 0, Vector2(0.496466, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.206603), 0.0, 0.0, 0, 0]
@@ -95,6 +96,9 @@ offset_right = 26.0
 offset_bottom = -70.0
 text = "?"
 metadata/_edit_use_anchors_ = true
+
+[node name="character_combat" type="Node" parent="."]
+script = ExtResource("14_co0rr")
 
 [connection signal="strategy_enter" from="." to="character_targeting" method="_on_character_base_strategy_enter"]
 [connection signal="strategy_exit" from="." to="character_targeting" method="_on_character_base_strategy_exit"]

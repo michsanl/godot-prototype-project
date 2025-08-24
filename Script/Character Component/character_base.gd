@@ -24,7 +24,27 @@ func reset_position():
 
 func reset_visual():
 	character_action.reset_visual()
-	
+
+
+#region Combat State Methods
+func move_towards_primary_target():
+	# TODO: 
+	# move to highest speed dice target
+	# set facing direction to highest speed dice target
+	# stop when raching target clash trigger zone
+	pass
+
+
+func move_towards_clash_target():
+	# TODO:
+	# move to clash target adjecent
+	pass
+
+
+
+
+#endregion
+
 
 
 #region Character Action

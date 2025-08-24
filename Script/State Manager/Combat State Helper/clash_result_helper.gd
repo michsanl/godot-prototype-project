@@ -2,6 +2,29 @@ class_name ClashResultHelper
 extends Node
 
 
+func process_clash_response_new(clash_data: ClashData):
+	var clash_result: ClashData.ClashResult = clash_data.clash_result
+	match clash_result:
+		clash_data.ClashResult.WIN:
+			await process_clash_win_response(clash_data)
+		clash_data.ClashResult.DRAW:
+			await process_guard_token_clash_response(clash_data)
+		clash_data.ClashResult.LOSE:
+			await process_evade_token_clash_response(clash_data)
+
+
+func process_clash_win_response(clash_data: ClashData):
+	var owner_token_type: DiceData.DiceType = clash_data.owner_token.token_type
+	match owner_token_type:
+		clash_data.owner_token.DiceType.ATTACK:
+			await process_attack_token_clash_response(clash_data)
+		clash_data.owner_token.DiceType.GUARD:
+			await process_guard_token_clash_response(clash_data)
+		clash_data.owner_token.DiceType.EVADE:
+			await process_evade_token_clash_response(clash_data)
+
+
+
 #region Process Clash Response : Process Owner Token Type
 func process_clash_response(clash_data: ClashData):
 	var owner_token_type: DiceData.DiceType = clash_data.owner_token.token_type

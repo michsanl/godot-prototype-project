@@ -7,6 +7,8 @@ signal aim_target_removed
 var current_aim_target: CharacterBase
 var current_target: CharacterBase
 
+
+
 func set_target(new_target: CharacterBase) -> void:
 	current_target = new_target
 

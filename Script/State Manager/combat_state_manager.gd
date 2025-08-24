@@ -34,13 +34,14 @@ func handle_combat_state_exit() -> void:
 
 
 #region Primary Methods
-func _setup_combat_participant():
-	_gather_combat_participant(player_characters)
-	_gather_combat_participant(enemy_characters)
-
-
 func _process_combat_by_highest_speed():
+	# TODO: camera and background focus
+	
+	# clash loop
 	while has_combat_participant(_combat_participant_pool):
+		# TODO: character move to face to face position
+		# TODO: 
+		
 		_attacker = get_highest_speed_dice(_combat_participant_pool)
 		_defender = get_target_dice(_attacker)
 		
@@ -101,7 +102,7 @@ func _process_two_sided_token_attack():
 	_attacker_clash_result = calculate_clash_result(_attacker_dice_value, _defender_dice_value)
 	_defender_clash_result = calculate_clash_result(_defender_dice_value, _attacker_dice_value)
 	print("Attacker token value: ", _attacker_dice_value)
-	print("Target token value: ", _defender_dice_value)
+	print("Defender token value: ", _defender_dice_value)
 	
 	setup_attacker_clash_data()
 	setup_defender_clash_data()
@@ -120,7 +121,7 @@ func _process_attacker_one_sided_token_attack():
 	await get_tree().create_timer(0.75).timeout
 	
 	_attacker_dice_value = _attacker_dice.roll_dice()
-	print("Defender token value: ", _attacker_dice_value)
+	print("Attacker token value: ", _attacker_dice_value)
 	
 	setup_attacker_clash_data()
 	
@@ -155,6 +156,11 @@ func _move_character_to_target(actor: CharacterBase, target:CharacterBase):
 	await actor.approach_target_one_sided(target)
 
 
+func _setup_combat_participant():
+	_gather_combat_participant(player_characters)
+	_gather_combat_participant(enemy_characters)
+
+
 func _gather_combat_participant(character_pool: Array[CharacterBase]):
 	for character in character_pool:
 		if character.character_targeting.current_target != null:
@@ -184,33 +190,37 @@ func _set_defender_dice_pool():
 
 
 func setup_attacker_clash_data():
-	_attacker_clash_data = ClashData.new()
+	var clash_data = ClashData.new()
 	
-	_attacker_clash_data.clash_result = _attacker_clash_result
+	clash_data.clash_result = _attacker_clash_result
 	
-	_attacker_clash_data.owner_name = "Attacker"
-	_attacker_clash_data.owner = _attacker
-	_attacker_clash_data.owner_token = _attacker_dice
-	_attacker_clash_data.owner_token_value = _attacker_dice_value
+	clash_data.owner_name = "Attacker"
+	clash_data.owner = _attacker
+	clash_data.owner_token = _attacker_dice
+	clash_data.owner_token_value = _attacker_dice_value
 	
-	_attacker_clash_data.opponent = _defender
-	_attacker_clash_data.opponent_token = _defender_dice
-	_attacker_clash_data.opponent_token_value = _defender_dice_value
+	clash_data.opponent = _defender
+	clash_data.opponent_token = _defender_dice
+	clash_data.opponent_token_value = _defender_dice_value
+	
+	_attacker_clash_data = clash_data
 
 
 func setup_defender_clash_data():
-	_defender_clash_data = ClashData.new()
+	var clash_data = ClashData.new()
 	
-	_defender_clash_data.clash_result = _defender_clash_result
+	clash_data.clash_result = _defender_clash_result
 	
-	_defender_clash_data.owner_name = "Defender"
-	_defender_clash_data.owner = _defender
-	_defender_clash_data.owner_token = _defender_dice
-	_defender_clash_data.owner_token_value = _defender_dice_value
+	clash_data.owner_name = "Defender"
+	clash_data.owner = _defender
+	clash_data.owner_token = _defender_dice
+	clash_data.owner_token_value = _defender_dice_value
 	
-	_defender_clash_data.opponent = _attacker
-	_defender_clash_data.opponent_token = _attacker_dice
-	_defender_clash_data.opponent_token_value = _attacker_dice_value
+	clash_data.opponent = _attacker
+	clash_data.opponent_token = _attacker_dice
+	clash_data.opponent_token_value = _attacker_dice_value
+	
+	_defender_clash_data = clash_data
 
 
 func calculate_clash_result(owner_token_val: int, opponent_token_val: int) -> ClashData.ClashResult:
@@ -250,3 +260,44 @@ func is_defender_targeting_attacker(attacker: CharacterBase, defender: Character
 func sort_ascending_character_dice(a: CharacterBase, b: CharacterBase) -> bool:
 	return a.character_stat.dice_point > b.character_stat.dice_point
 #endregion
+
+
+
+
+func start_clash():
+	# 1. Clash Started
+	# TODO: camera and background focus
+	
+	
+	# 2. Approach Phase
+	# TODO: character:  move to face to face position
+	
+	
+	# 3. Dice Roll Phase
+	# TODO: character: set up active dice pool
+	#       character: move slowly towards target
+	#       player input: enable dice roll input
+	
+	
+	# 4. Action Phase
+	# TODO: character: perform dice action
+	
+	
+	pass
+
+
+# Combat State Sequence:
+# 1. on combat state start:
+#    - command all character move towards their highest dice target
+# 2. on character reach their target clash trigger zone: 
+#    - signal clash manager to initiate clash
+# 3. on clash manager receive signal from character:
+#    - command clashing characters move to face eachother
+#    - command clashing characters spawn clash dice UI
+#    - command clashing characters setup active dice pool
+# 4. on clashing characters face eachothey r:
+#    - command clashing characters displaactive dice pool
+#    - command clashing characters slowly move closer to target
+#    - await player input to roll dice
+# 5. on dice rolled:
+#    - command clashing characters perform their active token
