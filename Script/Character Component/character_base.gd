@@ -27,6 +27,14 @@ func reset_visual():
 
 
 #region Combat State Methods
+func setup_active_dice_pool():
+	pass
+
+
+func has_active_dice():
+	pass
+
+
 func move_towards_primary_target():
 	# TODO: 
 	# move to highest speed dice target
@@ -39,10 +47,6 @@ func move_towards_clash_target():
 	# TODO:
 	# move to clash target adjecent
 	pass
-
-
-
-
 #endregion
 
 
