@@ -1,11 +1,11 @@
 class_name CombatStateManager
 extends Node
 
-enum ClashState {
+enum DiceBattleState {
 	BOTH,
 	ATTACKER_ONLY,
 	DEFENDER_ONLY,
-	NONE
+	NONE,
 }
 
 signal combat_ended
@@ -31,33 +31,35 @@ var _defender_clash_result: ClashData.ClashResult
 
 
 func handle_combat_state_enter() -> void:
-	_setup_combat_participant()
-	_sort_combat_participant_by_highest_speed()
-	_start_combat_state_loop()
+	_start_combat_phase()
 
 
 func handle_combat_state_exit() -> void:
 	pass
 
 
-#region Primary Methods
-func _start_combat_state_loop():
-	# TODO: On Started
-	
-	# TODO: Combat Loop
+#region Combat Phase Methods
+func _start_combat_phase():
+	# Initialize: only execute once on start
+	# Execute loop: execute on each loop
+	# Finalize: only execute once on end
+	await _initialize_combat_phase()
+	await _execute_combat_phase_loop()
+	await _finalize_combat_phase()
+
+
+func _initialize_combat_phase():
+	_setup_combat_participant()
+	_sort_combat_participant_by_highest_speed()
+
+
+func _execute_combat_phase_loop():
 	while has_combat_participant(_combat_participant_pool):
-		_attacker = get_highest_speed_dice(_combat_participant_pool)
-		_defender = get_target_dice(_attacker)
-		
-		if (is_defender_targeting_attacker(_attacker, _defender)):
-			await _resolve_single_combat(_attacker)
-			_erase_combat_participant(_attacker)
-			_erase_combat_participant(_defender)
-		else:
-			await _process_one_sided_attack(_attacker, _defender)
-			_erase_combat_participant(_attacker)
-	
-	# TODO: On Ended
+		var combat_data = _matchmake_single_combat()
+		await _start_single_combat(combat_data)
+
+
+func _finalize_combat_phase():
 	_attacker.reset_position()
 	_attacker.reset_visual()
 	_defender.reset_position()
@@ -65,93 +67,99 @@ func _start_combat_state_loop():
 	combat_ended.emit()
 
 
-func both_have_dices(chara1 :CharacterBase, chara2: CharacterBase):
-	pass
-func either_has_dice(chara1 :CharacterBase, chara2: CharacterBase):
-	pass
-
-
-func _start_single_combat():
-	# TODO: setup both combat participants' active dice
+func _matchmake_single_combat() -> CombatData:
+	var pair = _select_combat_pair()
+	var first_actor = pair[0]
+	var second_actor = pair[1]
 	
-	# Clash loop. Ends after both have no dice
-	while either_has_dice(_attacker, _defender):
-		await _resolve_clash()
+	_commit_combat_pair(first_actor, second_actor)
 	
-	# TODO: finalize combat (rewards, cleanup, etc.)
-
-
-func _resolve_clash():
-	var state = _get_clash_state(_attacker, _defender)
+	var combat_data = CombatData.new()
+	combat_data.first_actor = first_actor
+	combat_data.second_actor = second_actor
 	
-	match state:
-		ClashState.BOTH:
-			# TODO: start two sided clash
-			pass
-		ClashState.ATTACKER_ONLY:
-			# TODO: start one sided clash attacker
-			pass
-		ClashState.DEFENDER_ONLY:
-			# TODO: start one sided clash defender
-			pass
-		ClashState.NONE:
-			# TODO: set warning
-			return
+	return combat_data
 
 
-func _get_clash_state(attacker :CharacterBase, defender :CharacterBase) -> int:
-	var attacker_has
-	var defender_has
+func _select_combat_pair() -> Array:
+	var first_actor = get_highest_speed_dice(_combat_participant_pool)
+	var second_actor = get_target_dice(first_actor)
+	return [first_actor, second_actor]
 
-	if attacker_has and defender_has:
-		return ClashState.BOTH
-	elif attacker_has:
-		return ClashState.ATTACKER_ONLY
-	elif defender_has:
-		return ClashState.DEFENDER_ONLY
+
+func _commit_combat_pair(first_actor, second_actor):
+	if (is_targeting_each_other(first_actor, second_actor)):
+		_erase_combat_participant(first_actor)
+		_erase_combat_participant(second_actor)
 	else:
-		return ClashState.NONE
-
-func _start_clash():
-	# Step 1, Focus camera & background + Spawn clash dice UI
-	# TODO:
-	# Loop step 2 - 4 until no dice left
-	# Step 2: Character show intent + Character approach target
-	# TODO: command character setup active dice pool
-	_attacker.setup_active_dice_pool()
-	_defender.setup_active_dice_pool()
-	# TODO: command character approach target if has dice
-	while either_has_dice(_attacker, _defender):
-		await _resolve_clash()
-		
-	# Step 3: Enable roll dice player input + Character slowly approach target
-	# TODO: 
-	# Step 4: Character perform dice action
-	# TODO: 
-	# TODO: Step 5: de-Focus camera & background + de-Spawn clash dice UI 
-	pass
+		_erase_combat_participant(first_actor)
+#endregion
 
 
-func _resolve_single_combat(attacker :CharacterBase):
+#region Single Combat Region
+func _start_single_combat(combat_data :CombatData):
+	# Initialize: focus camera
+	await _initialize_combat(combat_data)
+	
+	# Core: resolve dice battle until no dice left
+	await _execute_combat_loop(combat_data)
+	
+	# Finalize: unfocus camera
+	await _finalize_combat(combat_data)
+
+
+func _initialize_combat(combat_data :CombatData):
+	# TODO: focus camera, spawn dice UI, setup character active dice
 	_set_attacker_dice_pool()
 	_set_defender_dice_pool()
-	
+
+
+func _execute_combat_loop(combat_data :CombatData):
 	while has_dice(_attacker_dice_pool) or has_dice(_defender_dice_pool):
-		if has_dice(_attacker_dice_pool) and has_dice(_defender_dice_pool):
-			print("A and B clash")
-			await _move_character_to_each_other()
-			await _process_two_sided_token_attack()
-		elif has_dice(_attacker_dice_pool):
-			print("A hitting B")
-			await _move_character_to_target(_attacker, _defender)
-			await _process_attacker_one_sided_token_attack()
-		elif has_dice(_defender_dice_pool):
-			print("B hitting A")
-			await _move_character_to_target(_defender, _attacker)
-			await _process_defender_one_sided_token_attack()
+		await _start_dice_battle(combat_data)
 		
 		_attacker.reset_visual()
 		_defender.reset_visual()
+
+
+func _finalize_combat(combat_data :CombatData):
+	# TODO: unfocus camera, despawn clash dice UI on character
+	pass
+#endregion
+
+
+#region Dice Action Methods
+func _start_dice_battle(combat_data :CombatData):
+	while has_dice(_attacker_dice_pool) or has_dice(_defender_dice_pool):
+		await _resolve_dice_battle()
+		
+		_attacker.reset_visual()
+		_defender.reset_visual()
+
+
+func _resolve_dice_battle():
+	var state = _get_clash_state(_attacker, _defender)
+	
+	match state:
+		DiceBattleState.BOTH:
+			# TODO: start two sided attack
+			print("Two sided attack.")
+			await _move_character_to_each_other()
+			await _process_two_sided_token_attack()
+		DiceBattleState.ATTACKER_ONLY:
+			# TODO: start one sided attack from attacker
+			print("A hitting B")
+			await _move_character_to_target(_attacker, _defender)
+			await _process_attacker_one_sided_token_attack()
+		DiceBattleState.DEFENDER_ONLY:
+			# TODO: start one sided attack from defender
+			print("B hitting A")
+			await _move_character_to_target(_defender, _attacker)
+			await _process_defender_one_sided_token_attack()
+		DiceBattleState.NONE:
+			# TODO: set warning, this state should never be called
+			push_warning("DiceBattleState is NONE. This state should never be called.")
+			return
 
 
 func _process_one_sided_attack(attacker: CharacterBase, defender: CharacterBase):
@@ -260,6 +268,20 @@ func _set_defender_dice_pool():
 	_defender_dice_pool = selected_ability.dice_list.duplicate()
 
 
+func _get_clash_state(attacker :CharacterBase, defender :CharacterBase) -> int:
+	var attacker_has
+	var defender_has
+
+	if attacker_has and defender_has:
+		return DiceBattleState.BOTH
+	elif attacker_has:
+		return DiceBattleState.ATTACKER_ONLY
+	elif defender_has:
+		return DiceBattleState.DEFENDER_ONLY
+	else:
+		return DiceBattleState.NONE
+
+
 func setup_attacker_clash_data():
 	var clash_data = ClashData.new()
 	
@@ -320,7 +342,7 @@ func get_highest_speed_dice(character_pool: Array[CharacterBase]) -> CharacterBa
 	return character_pool[0] #  Use this after sorting the pool
 
 
-func is_defender_targeting_attacker(attacker: CharacterBase, defender: CharacterBase) -> bool:
+func is_targeting_each_other(attacker: CharacterBase, defender: CharacterBase) -> bool:
 	var current_target: CharacterBase = defender.character_targeting.current_target
 	if current_target == null:
 		return false

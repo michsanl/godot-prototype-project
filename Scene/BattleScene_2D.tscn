@@ -35,6 +35,8 @@ clash_result_helper = NodePath("clash_result_helper")
 player_characters = [NodePath("../../battle_character/character_player")]
 enemy_characters = [NodePath("../../battle_character/character_enemy")]
 
+[node name="combat_matchmaker" type="Node" parent="state_manager/combat_state_manager"]
+
 [node name="clash_result_helper" type="Node" parent="state_manager/combat_state_manager"]
 script = ExtResource("7_8qtd0")
 
