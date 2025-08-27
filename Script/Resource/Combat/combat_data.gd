@@ -1,5 +1,8 @@
 class_name CombatData
 extends Resource
 
-var first_actor: CharacterBase # character with higher speed
-var second_actor: CharacterBase # character with lower speed
+var attacker: CharacterBase # character with higher speed
+var attacker_dice_pool: Array[DiceData] = []
+
+var defender: CharacterBase # character with lower speed
+var defender_dice_pool: Array[DiceData] = []

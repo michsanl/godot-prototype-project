@@ -31,6 +31,8 @@ enemy_characters = [NodePath("../../battle_character/character_enemy")]
 
 [node name="combat_state_manager" type="Node" parent="state_manager" node_paths=PackedStringArray("clash_result_helper", "player_characters", "enemy_characters")]
 script = ExtResource("4_xdkpq")
+is_manual_dice_roll = null
+auto_roll_timer = null
 clash_result_helper = NodePath("clash_result_helper")
 player_characters = [NodePath("../../battle_character/character_player")]
 enemy_characters = [NodePath("../../battle_character/character_enemy")]
@@ -72,11 +74,27 @@ text = "Resolve"
 
 [node name="battle_character" type="Node2D" parent="."]
 
-[node name="character_enemy" parent="battle_character" instance=ExtResource("6_8rj7f")]
+[node name="character_enemy" parent="battle_character" node_paths=PackedStringArray("character_stat", "ability_manager", "character_action", "character_movement", "character_visual", "attack_token_response", "evade_token_response", "guard_token_response") instance=ExtResource("6_8rj7f")]
 position = Vector2(-247, 42)
+character_stat = NodePath("character_stat")
+ability_manager = NodePath("ability_manager")
+character_action = NodePath("character_action")
+character_movement = NodePath("character_action/character_movement")
+character_visual = NodePath("character_action/character_visual")
+attack_token_response = NodePath("Character Response Handler/attack_token_response")
+evade_token_response = NodePath("Character Response Handler/evade_token_response")
+guard_token_response = NodePath("Character Response Handler/guard_token_response")
 
-[node name="character_player" parent="battle_character" instance=ExtResource("7_4v0j5")]
+[node name="character_player" parent="battle_character" node_paths=PackedStringArray("character_stat", "ability_manager", "character_action", "character_movement", "character_visual", "attack_token_response", "evade_token_response", "guard_token_response") instance=ExtResource("7_4v0j5")]
 position = Vector2(300, 47)
+character_stat = NodePath("character_stat")
+ability_manager = NodePath("ability_manager")
+character_action = NodePath("character_action")
+character_movement = NodePath("character_action/character_movement")
+character_visual = NodePath("character_action/character_visual")
+attack_token_response = NodePath("Character Response Handler/attack_token_response")
+evade_token_response = NodePath("Character Response Handler/evade_token_response")
+guard_token_response = NodePath("Character Response Handler/guard_token_response")
 
 [connection signal="combat_ended" from="state_manager/combat_state_manager" to="state_manager" method="_on_combat_state_manager_combat_ended"]
 [connection signal="pressed" from="debug_button/strategy_button" to="state_manager" method="_on_strategy_button_pressed"]

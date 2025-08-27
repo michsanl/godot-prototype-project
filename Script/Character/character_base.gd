@@ -7,10 +7,11 @@ signal strategy_exit
 @export var char_name: String
 @export var character_targeting: CharacterTargeting 
 @export var character_stat: Character_Stat 
-@export var ability_manager: AbilityManager
+@export var ability_manager: CharacterAbility
 @export var character_action: CharacterAction
 @export var character_movement: CharacterMovement
 @export var character_visual: CharacterVisual
+@export var dice_slot_controller: CharacterDiceSlotController
 @export var attack_token_response: AttackTokenReseponse
 @export var evade_token_response: EvadeTokenReseponse
 @export var guard_token_response: GuardTokenReseponse
@@ -27,12 +28,12 @@ func reset_visual():
 
 
 #region Combat State Methods
-func setup_active_dice_pool():
-	pass
+func get_random_ability():
+	return ability_manager.get_random_ability()
 
 
-func has_active_dice():
-	pass
+func get_current_target():
+	character_targeting.current_target
 
 
 func move_towards_primary_target():
@@ -49,6 +50,15 @@ func move_towards_clash_target():
 	pass
 #endregion
 
+
+func roll_all_dice_slot_speed() -> void:
+	dice_slot_controller.roll_all_dice_slot()
+
+
+func get_random_dice_slot():
+	var dice_slot_pool = dice_slot_controller.get_dice_slot_pool() as Array[CharacterDiceSlot]
+	var random_dice_slot = dice_slot_pool.pick_random() as CharacterDiceSlot
+	return random_dice_slot
 
 
 #region Character Action
@@ -89,7 +99,3 @@ func remove_target() -> void:
 func remove_aim_target() -> void:
 	character_targeting.remove_aim_target()
 #endregion
-
-
-func randomize_dice_point() -> void:
-	character_stat.randomize_dice_point()

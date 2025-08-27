@@ -17,12 +17,12 @@ func handle_strategy_state_exit() -> void:
 
 func _randomize_player_dice_point() -> void:
 	for player in player_characters:
-		player.randomize_dice_point()
+		player.roll_all_dice_slot_speed()
 
 
 func _randomize_enemy_dice_point() -> void:
 	for enemy in enemy_characters:
-		enemy.randomize_dice_point()
+		enemy.roll_all_dice_slot_speed()
 
 
 func _randomize_player_target() -> void:
@@ -37,7 +37,6 @@ func _randomize_enemy_target() -> void:
 		var target: CharacterBase = player_characters.pick_random()
 		enemy.set_target(target)
 		enemy.set_aim_target(target)
-		enemy.randomize_dice_point()
 
 
 func _clear_player_aim_target() -> void:
