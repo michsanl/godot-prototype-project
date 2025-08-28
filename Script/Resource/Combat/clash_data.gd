@@ -1,5 +1,5 @@
 class_name ClashData
-extends Resource
+extends Object
 
 enum ClashResult { WIN, LOSE, DRAW }
 
@@ -13,3 +13,7 @@ var owner_token_value: int
 var opponent: CharacterBase
 var opponent_token: DiceData
 var opponent_token_value: int
+
+
+func _init(combat_data: CombatData) -> void:
+	pass

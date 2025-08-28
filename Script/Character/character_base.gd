@@ -19,46 +19,16 @@ signal strategy_exit
 @onready var initial_position: Vector2 = self.position
 
 
+func perform_clash_action(clash_data: CombatData):
+	pass
+
+
 func reset_position():
 	self.position = initial_position
 
 
 func reset_visual():
 	character_action.reset_visual()
-
-
-#region Combat State Methods
-func get_random_ability():
-	return ability_manager.get_random_ability()
-
-
-func get_current_target():
-	character_targeting.current_target
-
-
-func move_towards_primary_target():
-	# TODO: 
-	# move to highest speed dice target
-	# set facing direction to highest speed dice target
-	# stop when raching target clash trigger zone
-	pass
-
-
-func move_towards_clash_target():
-	# TODO:
-	# move to clash target adjecent
-	pass
-#endregion
-
-
-func roll_all_dice_slot_speed() -> void:
-	dice_slot_controller.roll_all_dice_slot()
-
-
-func get_random_dice_slot():
-	var dice_slot_pool = dice_slot_controller.get_dice_slot_pool() as Array[CharacterDiceSlot]
-	var random_dice_slot = dice_slot_pool.pick_random() as CharacterDiceSlot
-	return random_dice_slot
 
 
 #region Character Action

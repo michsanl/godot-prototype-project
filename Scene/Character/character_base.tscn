@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://bek3derprev18"]
+[gd_scene load_steps=18 format=3 uid="uid://bek3derprev18"]
 
 [ext_resource type="Script" uid="uid://c7c2x0t6jjupk" path="res://Script/Character/character_base.gd" id="1_y5alb"]
 [ext_resource type="Script" uid="uid://buot45h215ftp" path="res://Script/Character/character_targeting.gd" id="2_1upvv"]
@@ -12,6 +12,7 @@
 [ext_resource type="Script" uid="uid://b18vpmxkm8dx0" path="res://Script/Character/Character Components/character_visual.gd" id="4_g08oy"]
 [ext_resource type="Script" uid="uid://bdshlelctktgb" path="res://Script/Character/trajectory_ui.gd" id="4_utumv"]
 [ext_resource type="Resource" uid="uid://dk6rkmhtx4p5w" path="res://Resource/Character Sprite/argalia_sprite.tres" id="5_ylsyo"]
+[ext_resource type="Script" uid="uid://be0sqlklwc4tr" path="res://Script/Character/Character Components/character_dice_slot.gd" id="7_1ako7"]
 [ext_resource type="Texture2D" uid="uid://cb6xmtvlll1qn" path="res://Art/Argalia/Default.png" id="10_ylsyo"]
 [ext_resource type="Script" uid="uid://b1jom5fwerwwh" path="res://Script/Character/Character Controller/character_dice_slot_controller.gd" id="14_co0rr"]
 
@@ -23,17 +24,18 @@ point_count = 3
 atlas = ExtResource("10_ylsyo")
 region = Rect2(-275, 1318, 895, 726)
 
-[node name="character_base" type="Node2D" node_paths=PackedStringArray("character_targeting", "character_stat", "ability_manager", "character_action", "character_movement", "character_visual", "attack_token_response", "evade_token_response", "guard_token_response")]
+[node name="character_base" type="Node2D" node_paths=PackedStringArray("character_targeting", "character_stat", "ability_manager", "character_action", "character_movement", "character_visual", "dice_slot_controller", "attack_token_response", "evade_token_response", "guard_token_response")]
 script = ExtResource("1_y5alb")
 character_targeting = NodePath("character_targeting")
 character_stat = NodePath("components/stat")
 ability_manager = NodePath("components/ability")
-character_action = NodePath("controllers/character_action")
-character_movement = NodePath("controllers/character_movement")
+character_action = NodePath("helper/character_action")
+character_movement = NodePath("helper/character_movement")
 character_visual = NodePath("components/visual")
-attack_token_response = NodePath("controllers/response_handler/attack_token_response")
-evade_token_response = NodePath("controllers/response_handler/evade_token_response")
-guard_token_response = NodePath("controllers/response_handler/guard_token_response")
+dice_slot_controller = NodePath("components/dice_slots")
+attack_token_response = NodePath("helper/response_handler/attack_token_response")
+evade_token_response = NodePath("helper/response_handler/evade_token_response")
+guard_token_response = NodePath("helper/response_handler/guard_token_response")
 
 [node name="components" type="Node" parent="."]
 
@@ -48,32 +50,39 @@ script = ExtResource("4_g08oy")
 sprite_node = NodePath("../../Sprite2D")
 sprite_resource = ExtResource("5_ylsyo")
 
-[node name="controllers" type="Node" parent="."]
+[node name="dice_slots" type="Node" parent="components" node_paths=PackedStringArray("dice_slot_pool")]
+script = ExtResource("14_co0rr")
+dice_slot_pool = [NodePath("dice_slot")]
 
-[node name="character_action" type="Node" parent="controllers" node_paths=PackedStringArray("character_movement", "character_visual")]
+[node name="dice_slot" type="Node" parent="components/dice_slots"]
+script = ExtResource("7_1ako7")
+
+[node name="UI" type="Sprite2D" parent="components/dice_slots/dice_slot"]
+scale = Vector2(50, 32)
+
+[node name="helper" type="Node" parent="."]
+
+[node name="character_action" type="Node" parent="helper" node_paths=PackedStringArray("character_movement", "character_visual")]
 script = ExtResource("2_tj2b7")
 character_movement = NodePath("../character_movement")
 character_visual = NodePath("../../components/visual")
 
-[node name="dice_slot_controller" type="Node" parent="controllers"]
-script = ExtResource("14_co0rr")
-
-[node name="character_movement" type="Node" parent="controllers"]
+[node name="character_movement" type="Node" parent="helper"]
 script = ExtResource("2_ptqjd")
 
-[node name="response_handler" type="Node" parent="controllers"]
+[node name="response_handler" type="Node" parent="helper"]
 
-[node name="attack_token_response" type="Node" parent="controllers/response_handler" node_paths=PackedStringArray("character_movement", "character_visual")]
+[node name="attack_token_response" type="Node" parent="helper/response_handler" node_paths=PackedStringArray("character_movement", "character_visual")]
 script = ExtResource("2_psia3")
 character_movement = NodePath("../../character_movement")
 character_visual = NodePath("../../../components/visual")
 
-[node name="evade_token_response" type="Node" parent="controllers/response_handler" node_paths=PackedStringArray("character_movement", "character_visual")]
+[node name="evade_token_response" type="Node" parent="helper/response_handler" node_paths=PackedStringArray("character_movement", "character_visual")]
 script = ExtResource("3_co0rr")
 character_movement = NodePath("../../character_movement")
 character_visual = NodePath("../../../components/visual")
 
-[node name="guard_token_response" type="Node" parent="controllers/response_handler" node_paths=PackedStringArray("character_movement", "character_visual")]
+[node name="guard_token_response" type="Node" parent="helper/response_handler" node_paths=PackedStringArray("character_movement", "character_visual")]
 script = ExtResource("4_1ako7")
 character_movement = NodePath("../../character_movement")
 character_visual = NodePath("../../../components/visual")
@@ -97,6 +106,7 @@ texture = SubResource("AtlasTexture_p14mq")
 flip_h = true
 
 [node name="Button" type="Button" parent="."]
+visible = false
 offset_left = -25.0
 offset_top = -116.0
 offset_right = 26.0

@@ -10,7 +10,7 @@ var target_dice_slot: CharacterDiceSlot
 var selected_ability: AbilityData
 
 
-func roll_speed():
+func roll_speed_value():
 	speed_value = randi_range(min_speed_value, max_speed_value)
 
 
