@@ -2,5 +2,5 @@
 
 [ext_resource type="PackedScene" uid="uid://bek3derprev18" path="res://Scene/Character/character_base.tscn" id="1_7ar5a"]
 
-[node name="character_enemy" instance=ExtResource("1_7ar5a")]
+[node name="enemy_character" instance=ExtResource("1_7ar5a")]
 char_name = "Enemy"

@@ -1,5 +1,5 @@
+class_name CharacterStats
 extends Node
-class_name Character_Stat
 
 @export var health_point: int = 10
 @export var dice_point: int

@@ -5,5 +5,5 @@
 [node name="player_character" instance=ExtResource("1_1x2aq")]
 char_name = "Player"
 
-[node name="Sprite2D" parent="." index="4"]
+[node name="sprite" parent="." index="1"]
 flip_h = false

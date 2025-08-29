@@ -18,6 +18,6 @@ func get_random_dice_slot() -> CharacterDiceSlot:
 	return random_dice_slot
 
 
-func set_owner_all_dice_slot(owner: CharacterBase):
+func set_owner_all_dice_slot(owner: CharacterController):
 	for dice_slot in dice_slot_pool:
 		dice_slot.set_owner_character(owner)

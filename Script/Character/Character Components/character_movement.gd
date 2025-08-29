@@ -5,8 +5,9 @@ extends Node
 @export var move_duration_standard: float = 0.25
 @export var move_duration_slow: float = 0.4
 
+var this_owner: CharacterController
 
-func move_position(actor: CharacterBase, final_pos: Vector2):
+func move_position(actor: CharacterController, final_pos: Vector2):
 	var tween: Tween = create_tween()
 	tween.tween_property(
 		actor, 
@@ -17,7 +18,7 @@ func move_position(actor: CharacterBase, final_pos: Vector2):
 	await tween.finished
 
 
-func move_position_fast(actor: CharacterBase, final_pos: Vector2):
+func move_position_fast(actor: CharacterController, final_pos: Vector2):
 	var tween: Tween = create_tween()
 	tween.tween_property(
 		actor, 
@@ -28,7 +29,7 @@ func move_position_fast(actor: CharacterBase, final_pos: Vector2):
 	await tween.finished
 
 
-func move_position_slow(actor: CharacterBase, final_pos: Vector2):
+func move_position_slow(actor: CharacterController, final_pos: Vector2):
 	var tween: Tween = create_tween()
 	tween.tween_property(
 		actor, 

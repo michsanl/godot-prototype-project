@@ -1,7 +1,7 @@
 class_name TrajectoryUI
 extends Line2D
 
-@export var character_targeting: CharacterTargeting
+@export var dice_slot: CharacterDiceSlot
 
 var start_point: Vector2
 var end_point: Vector2
@@ -10,12 +10,26 @@ var arc_height: float = -150.0
 var follow_mouse_trajectory: bool = false
 var line: Line2D = self
 
+
+func _init() -> void:
+	start_point = self.position
+
+
+func _ready() -> void:
+	StateManager.combat_started.connect(_clear_trajectory)
+	dice_slot.target_added.connect(_draw_trajectory)
+	dice_slot.target_removed.connect(_clear_trajectory)
+
+
 func _process(delta: float) -> void:
 	if follow_mouse_trajectory == true:
 		_draw_trajectory_to_mouse()
 
 
 func _draw_trajectory():
+	_clear_trajectory()
+	end_point = _get_target_position()
+	
 	for i in range(trajectory_segments + 1):
 		var t := i / float(trajectory_segments) 
 		var pos : Vector2 = lerp(start_point, end_point, t) 
@@ -25,7 +39,9 @@ func _draw_trajectory():
 
 
 func _draw_trajectory_to_mouse():
-	line.clear_points()
+	_clear_trajectory()
+	_setup_trajectory_coordinate()
+	
 	var a = get_parent().position
 	for i in range(trajectory_segments + 1):
 		var b = _get_mouse_position()
@@ -35,31 +51,21 @@ func _draw_trajectory_to_mouse():
 		line.add_point(pos)
 
 
-func _setup_trajectory_coordinate():
-	start_point = self.position
-	end_point = _get_target_position()
-
-
-func _get_target_position():
-	var target: CharacterBase = character_targeting.current_aim_target
-	var target_position: Vector2 = to_local(target.global_position)
-	return target_position
-
-
-func _get_mouse_position():
-	var global_position = get_viewport().get_camera_2d().get_global_mouse_position()
-	var local_position = to_local(global_position)
-	return local_position
-
-
 func _clear_trajectory():
 	line.clear_points()
 
 
-func _on_character_targeting_aim_target_added() -> void:
-	_setup_trajectory_coordinate()
-	_draw_trajectory()
-	
-	
-func _on_character_targeting_aim_target_removed() -> void:
-	_clear_trajectory()
+func _setup_trajectory_coordinate():
+	end_point = _get_target_position()
+
+
+func _get_target_position() -> Vector2:
+	var target: CharacterController = dice_slot.target_dice_slot.owner_character
+	var target_position: Vector2 = to_local(target.global_position)
+	return target_position
+
+
+func _get_mouse_position() -> Vector2:
+	var global_position = get_viewport().get_camera_2d().get_global_mouse_position()
+	var local_position = to_local(global_position)
+	return local_position

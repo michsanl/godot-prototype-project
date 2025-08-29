@@ -3,14 +3,14 @@ extends RefCounted
 
 enum ClashResult { WIN, LOSE, DRAW }
 
-var attacker: CharacterBase # character with higher speed
+var attacker: CharacterController # character with higher speed
 var attacker_dice_slot: CharacterDiceSlot
 var attacker_ability: AbilityData
 var attacker_dice_pool: Array[DiceData] = []
 var attacker_roll_value: int
 var attacker_clash_result: ClashResult
 
-var defender: CharacterBase # character with lower speed
+var defender: CharacterController # character with lower speed
 var defender_dice_slot: CharacterDiceSlot
 var defender_ability: AbilityData
 var defender_dice_pool: Array[DiceData] = []
@@ -54,14 +54,14 @@ func calculate_clash_result():
 
 
 func _set_attacker_combat_data(dice_slot: CharacterDiceSlot):
-	attacker = dice_slot.owner_character as CharacterBase
+	attacker = dice_slot.owner_character as CharacterController
 	attacker_dice_slot = dice_slot
 	attacker_ability = dice_slot.selected_ability
 	attacker_dice_pool = dice_slot.selected_ability.get_dice_pool()
 
 
 func _set_defender_combat_data(dice_slot: CharacterDiceSlot):
-	defender = dice_slot.owner_character as CharacterBase
+	defender = dice_slot.owner_character as CharacterController
 	defender_dice_slot = dice_slot
 	defender_ability = dice_slot.selected_ability
 	defender_dice_pool = dice_slot.selected_ability.get_dice_pool()

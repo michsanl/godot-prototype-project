@@ -13,8 +13,8 @@ signal combat_ended
 @export var is_auto_roll: bool = true
 @export var auto_roll_timer: float = 1.0
 @export var clash_result_helper: ClashResultHelper
-@export var player_characters: Array[CharacterBase] = []
-@export var enemy_characters: Array[CharacterBase] = []
+@export var player_characters: Array[CharacterController] = []
+@export var enemy_characters: Array[CharacterController] = []
 
 var _combat_ready_dice_slot_pool: Array[CharacterDiceSlot] = []
 
@@ -192,12 +192,12 @@ func _start_one_sided_attack(combat_data :CombatData):
 #endregion
 
 
-func _execute_two_sided_approach_movement(attacker: CharacterBase, defender: CharacterBase):
+func _execute_two_sided_approach_movement(attacker: CharacterController, defender: CharacterController):
 	attacker.approach_target_two_sided(defender)
 	await defender.approach_target_two_sided(attacker)
 
 
-func _execute_one_sided_approach_movement(actor: CharacterBase, target:CharacterBase):
+func _execute_one_sided_approach_movement(actor: CharacterController, target:CharacterController):
 	await actor.approach_target_one_sided(target)
 
 
@@ -208,7 +208,7 @@ func _collect_combat_ready_dice_slots():
 
 func _collect_player_combat_ready_dice_slot():
 	for player in player_characters:
-		var dice_slot_pool = player.dice_slot_controller.get_dice_slot_pool()
+		var dice_slot_pool = player.dice_slot.get_dice_slot_pool()
 		for dice_slot in dice_slot_pool:
 			if dice_slot.target_dice_slot != null:
 				_combat_ready_dice_slot_pool.append(dice_slot)
@@ -216,7 +216,7 @@ func _collect_player_combat_ready_dice_slot():
 
 func _collect_enemy_combat_ready_dice_slot():
 	for enemy in enemy_characters:
-		var dice_slot_pool = enemy.dice_slot_controller.get_dice_slot_pool()
+		var dice_slot_pool = enemy.dice_slot.get_dice_slot_pool()
 		for dice_slot in dice_slot_pool:
 			if dice_slot.target_dice_slot != null:
 				_combat_ready_dice_slot_pool.append(dice_slot)
@@ -241,7 +241,7 @@ func calculate_clash_result(owner_token_val: int, opponent_token_val: int) -> Cl
 
 
 #region Helper Methods
-func has_combat_participant(characer_pool: Array[CharacterBase]) -> bool:
+func has_combat_participant(characer_pool: Array[CharacterController]) -> bool:
 	return not characer_pool.is_empty()
 
 
@@ -249,16 +249,16 @@ func has_dice(token_pool: Array[DiceData]) -> bool:
 	return not token_pool.is_empty()
 
 
-func get_target_dice(character: CharacterBase) -> CharacterBase:
+func get_target_dice(character: CharacterController) -> CharacterController:
 	return character.character_targeting.current_target
 
 
-func get_highest_speed_dice(character_pool: Array[CharacterBase]) -> CharacterBase:
+func get_highest_speed_dice(character_pool: Array[CharacterController]) -> CharacterController:
 	return character_pool[0] #  Use this after sorting the pool
 
 
-func is_targeting_each_other(attacker: CharacterBase, defender: CharacterBase) -> bool:
-	var current_target: CharacterBase = defender.character_targeting.current_target
+func is_targeting_each_other(attacker: CharacterController, defender: CharacterController) -> bool:
+	var current_target: CharacterController = defender.character_targeting.current_target
 	if current_target == null:
 		return false
 	
@@ -269,6 +269,6 @@ func sort_ascending_dice_slot_speed(a: CharacterDiceSlot, b: CharacterDiceSlot) 
 	return a.speed_value > b.speed_value
 
 
-func sort_ascending_character_dice(a: CharacterBase, b: CharacterBase) -> bool:
+func sort_ascending_character_dice(a: CharacterController, b: CharacterController) -> bool:
 	return a.character_stat.dice_point > b.character_stat.dice_point
 #endregion

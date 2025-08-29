@@ -1,11 +1,11 @@
 class_name CharacterLoseResponseHelper
 extends RefCounted
 
-var _response_controller: CharacterResponseController
+var owner: CharacterController
 
 
-func _init(response_controller: CharacterResponseController = null) -> void:
-	_response_controller = response_controller
+func _init(owner: CharacterController = null) -> void:
+	self.owner = owner
 
 
 func resolve_lose_response(clash_data: ClashData):
@@ -18,35 +18,41 @@ func resolve_lose_response(clash_data: ClashData):
 		DiceData.DiceType.EVADE:
 			await _resolve_evade_lose_response(clash_data)
 
-
+#attack vs attack lose = damaged
+#attack vs guard lose = damaged
+#attack vs evade lose = attack
 func _resolve_attack_lose_response(clash_data: ClashData):
 	var opponent_dice = clash_data.opponent_dice.dice_type as DiceData.DiceType
 	match opponent_dice:
 		DiceData.DiceType.ATTACK:
-			pass
+			await owner.action_controller.perform_damaged_action()
 		DiceData.DiceType.GUARD:
-			pass
+			await owner.action_controller.perform_damaged_action()
 		DiceData.DiceType.EVADE:
-			pass
+			await owner.action_controller.perform_slash_action()
 
-
+#guard vs attack lose = damaged
+#guard vs guard lose = damaged
+#guard vs evade lose = guard
 func _resolve_guard_lose_response(clash_data: ClashData):
 	var opponent_dice = clash_data.opponent_dice.dice_type as DiceData.DiceType
 	match opponent_dice:
 		DiceData.DiceType.ATTACK:
-			pass
+			await owner.action_controller.perform_damaged_action()
 		DiceData.DiceType.GUARD:
-			pass
+			await owner.action_controller.perform_damaged_action()
 		DiceData.DiceType.EVADE:
-			pass
+			await owner.action_controller.perform_guard_action()
 
-
+#evade vs attack lose = damaged
+#evade vs guard lose = damaged
+#evade vs evade lose = default
 func _resolve_evade_lose_response(clash_data: ClashData):
 	var opponent_dice = clash_data.opponent_dice.dice_type as DiceData.DiceType
 	match opponent_dice:
 		DiceData.DiceType.ATTACK:
-			pass
+			await owner.action_controller.perform_damaged_action()
 		DiceData.DiceType.GUARD:
-			pass
+			await owner.action_controller.perform_damaged_action()
 		DiceData.DiceType.EVADE:
-			pass
+			await owner.action_controller.perform_default_action()
