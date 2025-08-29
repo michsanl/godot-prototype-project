@@ -1,5 +1,5 @@
 class_name CombatData
-extends Object
+extends RefCounted
 
 enum ClashResult { WIN, LOSE, DRAW }
 
@@ -25,6 +25,14 @@ func _init(attacker_slot: CharacterDiceSlot = null, defender_slot: CharacterDice
 		_set_defender_combat_data(defender_slot)
 
 
+func attacker_has_dice() -> bool:
+	return attacker_dice_pool.size() > 0
+
+
+func defender_has_dice() -> bool:
+	return defender_dice_pool.size() > 0
+
+
 func roll_attacker_dice():
 	attacker_roll_value = attacker_dice_pool[0].roll_dice()
 
@@ -33,7 +41,7 @@ func roll_defender_dice():
 	defender_roll_value = defender_dice_pool[0].roll_dice()
 
 
-func resolve_clash_result():
+func calculate_clash_result():
 	if attacker_roll_value > defender_roll_value:
 		attacker_clash_result = ClashResult.WIN
 		defender_clash_result = ClashResult.LOSE

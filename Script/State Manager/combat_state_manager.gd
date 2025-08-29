@@ -88,28 +88,26 @@ func _start_combat(combat_data :CombatData):
 	await _initialize_combat(combat_data)
 	
 	# Core: resolve clash until no dice left
-	var attacker_has_dice = combat_data.attacker_dice_pool[0] != null
-	var defender_has_dice = combat_data.defender_dice_pool[0] != null
-	while attacker_has_dice or defender_has_dice:
-		var clash_state = _get_clash_state(attacker_has_dice, defender_has_dice)
+	while combat_data.attacker_has_dice() or combat_data.defender_has_dice():
+		var clash_state = _get_clash_state(combat_data)
 		match clash_state:
 			ClashState.TWO_SIDED:
 				print("Both has dice. Perform two sided attack. ")
-				await _start_two_sided_attack(combat_data)
+				await _start_two_sided_clash(combat_data)
 			ClashState.ONE_SIDED_ATTACKER:
 				print("Attacker has dice. Perform one sided attack. ")
 			ClashState.ONE_SIDED_DEFENDER:
 				print("Defender has dice. Perform one sided attack. ")
 			ClashState.NONE:
 				push_warning("Neither have dice, but clash is initiated. ")
-				break
+				return
 	
 	# Finalize: unfocus camera, hide dice UI
 	await _finalize_combat(combat_data)
 
 
 func _initialize_combat(combat_data :CombatData):
-	# TODO: focus camera, show dice UI,  setup active dice
+	# TODO: focus camera, show dice UI, setup active dice
 	pass
 
 
@@ -118,7 +116,10 @@ func _finalize_combat(combat_data :CombatData):
 	pass
 
 
-func _get_clash_state(attacker_has: bool, defender_has: bool) -> int:
+func _get_clash_state(combat_data :CombatData) -> int:
+	var attacker_has = combat_data.attacker_has_dice()
+	var defender_has = combat_data.defender_has_dice()
+	
 	if attacker_has and defender_has:
 		return ClashState.TWO_SIDED
 	elif attacker_has:
@@ -131,7 +132,7 @@ func _get_clash_state(attacker_has: bool, defender_has: bool) -> int:
 
 
 #region Two Sided Attack Methods
-func _start_two_sided_attack(combat_data :CombatData):
+func _start_two_sided_clash(combat_data :CombatData):
 	# Initialize: approach movement phase
 	await _initialize_two_sided_attack(combat_data)
 	
@@ -140,15 +141,12 @@ func _start_two_sided_attack(combat_data :CombatData):
 		await _wait_for_space()
 	else:
 		await get_tree().create_timer(auto_roll_timer).timeout
-	
 	combat_data.roll_attacker_dice()
 	combat_data.roll_defender_dice()
-	combat_data.resolve_clash_result()
-	combat_data.attacker.perform_clash_action(combat_data)
-	combat_data.defender.perform_clash_action(combat_data)
+	await _resolve_clash_result(combat_data)
 	
 	# Finalize: resolve dice usage
-	_finalize_two_sided_attack(combat_data)
+	await _finalize_two_sided_attack(combat_data)
 
 
 func _initialize_two_sided_attack(combat_data: CombatData):
@@ -161,7 +159,22 @@ func _initialize_two_sided_attack(combat_data: CombatData):
 func _finalize_two_sided_attack(combat_data: CombatData):
 	combat_data.attacker_dice_pool.pop_front()
 	combat_data.defender_dice_pool.pop_front()
-	pass
+
+
+func _resolve_clash_result(combat_data: CombatData):
+	var attacker_clash_data = ClashData.new(combat_data, ClashData.CombatRole.ATTACKER)
+	var defender_clash_data = ClashData.new(combat_data, ClashData.CombatRole.DEFENDER)
+	
+	if combat_data.attacker_roll_value > combat_data.defender_roll_value:
+		# Attacker win
+		await combat_data.attacker.apply_clash_win(attacker_clash_data)
+	elif combat_data.attacker_roll_value < combat_data.defender_roll_value:
+		# Defender 
+		await combat_data.defender.apply_clash_win(defender_clash_data)
+	else:
+		# Draw
+		combat_data.attacker.apply_clash_draw(attacker_clash_data)
+		await combat_data.defender.apply_clash_draw(defender_clash_data)
 
 
 func _wait_for_space():

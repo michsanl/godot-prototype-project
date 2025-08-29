@@ -1,14 +1,13 @@
-[gd_scene load_steps=18 format=3 uid="uid://bek3derprev18"]
+[gd_scene load_steps=17 format=3 uid="uid://bek3derprev18"]
 
 [ext_resource type="Script" uid="uid://c7c2x0t6jjupk" path="res://Script/Character/character_base.gd" id="1_y5alb"]
 [ext_resource type="Script" uid="uid://buot45h215ftp" path="res://Script/Character/character_targeting.gd" id="2_1upvv"]
-[ext_resource type="Script" uid="uid://bq1xuivr0gja3" path="res://Script/Character/Character Response/attack_token_response.gd" id="2_psia3"]
+[ext_resource type="Script" uid="uid://bkyu1oyiksvly" path="res://Script/Character/Character Controller/character_response_controller.gd" id="2_8fd8j"]
 [ext_resource type="Script" uid="uid://dateptc72flsb" path="res://Script/Character/Character Helper/character_movement.gd" id="2_ptqjd"]
 [ext_resource type="Script" uid="uid://cdl86683jwq28" path="res://Script/Character/Character Controller/character_action.gd" id="2_tj2b7"]
 [ext_resource type="Script" uid="uid://di50c51to3xax" path="res://Script/Character/Character Components/character_stat.gd" id="2_yop1s"]
-[ext_resource type="Script" uid="uid://knbljt2mvhpi" path="res://Script/Character/Character Response/evade_token_response.gd" id="3_co0rr"]
+[ext_resource type="Script" uid="uid://23653me6nc14" path="res://Script/Character/Character Controller/character_combat_controller.gd" id="3_co0rr"]
 [ext_resource type="Script" uid="uid://dm4auyugtcvs4" path="res://Script/Character/Character Components/character_ability.gd" id="3_ouw7k"]
-[ext_resource type="Script" uid="uid://cxwyxix8gklmy" path="res://Script/Character/Character Response/guard_token_response.gd" id="4_1ako7"]
 [ext_resource type="Script" uid="uid://b18vpmxkm8dx0" path="res://Script/Character/Character Components/character_visual.gd" id="4_g08oy"]
 [ext_resource type="Script" uid="uid://bdshlelctktgb" path="res://Script/Character/trajectory_ui.gd" id="4_utumv"]
 [ext_resource type="Resource" uid="uid://dk6rkmhtx4p5w" path="res://Resource/Character Sprite/argalia_sprite.tres" id="5_ylsyo"]
@@ -16,26 +15,49 @@
 [ext_resource type="Texture2D" uid="uid://cb6xmtvlll1qn" path="res://Art/Argalia/Default.png" id="10_ylsyo"]
 [ext_resource type="Script" uid="uid://b1jom5fwerwwh" path="res://Script/Character/Character Controller/character_dice_slot_controller.gd" id="14_co0rr"]
 
-[sub_resource type="Curve" id="Curve_utumv"]
-_data = [Vector2(0, 0.271636), 0.0, 0.0, 0, 0, Vector2(0.496466, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.206603), 0.0, 0.0, 0, 0]
-point_count = 3
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_p14mq"]
 atlas = ExtResource("10_ylsyo")
 region = Rect2(-275, 1318, 895, 726)
 
-[node name="character_base" type="Node2D" node_paths=PackedStringArray("character_targeting", "character_stat", "ability_manager", "character_action", "character_movement", "character_visual", "dice_slot_controller", "attack_token_response", "evade_token_response", "guard_token_response")]
+[sub_resource type="Curve" id="Curve_utumv"]
+_data = [Vector2(0, 0.271636), 0.0, 0.0, 0, 0, Vector2(0.496466, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.206603), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[node name="character_base" type="Node2D" node_paths=PackedStringArray("character_targeting", "character_stat", "ability_manager", "character_action", "character_movement", "character_visual", "dice_slot_controller")]
 script = ExtResource("1_y5alb")
-character_targeting = NodePath("character_targeting")
+character_targeting = NodePath("controller/targeting_controller")
 character_stat = NodePath("components/stat")
 ability_manager = NodePath("components/ability")
-character_action = NodePath("helper/character_action")
-character_movement = NodePath("helper/character_movement")
-character_visual = NodePath("components/visual")
+character_action = NodePath("controller/action_controller")
+character_movement = NodePath("controller/movement_controller")
+character_visual = NodePath("controller/sprite_controller")
 dice_slot_controller = NodePath("components/dice_slots")
-attack_token_response = NodePath("helper/response_handler/attack_token_response")
-evade_token_response = NodePath("helper/response_handler/evade_token_response")
-guard_token_response = NodePath("helper/response_handler/guard_token_response")
+
+[node name="controller" type="Node" parent="."]
+
+[node name="action_controller" type="Node" parent="controller" node_paths=PackedStringArray("character_movement", "character_visual")]
+script = ExtResource("2_tj2b7")
+character_movement = NodePath("../movement_controller")
+character_visual = NodePath("../sprite_controller")
+
+[node name="combat_controller" type="Node" parent="controller"]
+script = ExtResource("3_co0rr")
+
+[node name="response_controler" type="Node" parent="controller" node_paths=PackedStringArray("character_visual")]
+script = ExtResource("2_8fd8j")
+character_visual = NodePath("../sprite_controller")
+
+[node name="movement_controller" type="Node" parent="controller"]
+script = ExtResource("2_ptqjd")
+
+[node name="sprite_controller" type="Node" parent="controller" node_paths=PackedStringArray("sprite_node")]
+script = ExtResource("4_g08oy")
+sprite_node = NodePath("../../components/sprite")
+sprite_resource = ExtResource("5_ylsyo")
+
+[node name="targeting_controller" type="Node2D" parent="controller"]
+position = Vector2(0, -95)
+script = ExtResource("2_1upvv")
 
 [node name="components" type="Node" parent="."]
 
@@ -45,10 +67,10 @@ script = ExtResource("2_yop1s")
 [node name="ability" type="Node" parent="components"]
 script = ExtResource("3_ouw7k")
 
-[node name="visual" type="Node" parent="components" node_paths=PackedStringArray("sprite_node")]
-script = ExtResource("4_g08oy")
-sprite_node = NodePath("../../Sprite2D")
-sprite_resource = ExtResource("5_ylsyo")
+[node name="sprite" type="Sprite2D" parent="components"]
+scale = Vector2(0.25, 0.25)
+texture = SubResource("AtlasTexture_p14mq")
+flip_h = true
 
 [node name="dice_slots" type="Node" parent="components" node_paths=PackedStringArray("dice_slot_pool")]
 script = ExtResource("14_co0rr")
@@ -60,52 +82,16 @@ script = ExtResource("7_1ako7")
 [node name="UI" type="Sprite2D" parent="components/dice_slots/dice_slot"]
 scale = Vector2(50, 32)
 
-[node name="helper" type="Node" parent="."]
-
-[node name="character_action" type="Node" parent="helper" node_paths=PackedStringArray("character_movement", "character_visual")]
-script = ExtResource("2_tj2b7")
-character_movement = NodePath("../character_movement")
-character_visual = NodePath("../../components/visual")
-
-[node name="character_movement" type="Node" parent="helper"]
-script = ExtResource("2_ptqjd")
-
-[node name="response_handler" type="Node" parent="helper"]
-
-[node name="attack_token_response" type="Node" parent="helper/response_handler" node_paths=PackedStringArray("character_movement", "character_visual")]
-script = ExtResource("2_psia3")
-character_movement = NodePath("../../character_movement")
-character_visual = NodePath("../../../components/visual")
-
-[node name="evade_token_response" type="Node" parent="helper/response_handler" node_paths=PackedStringArray("character_movement", "character_visual")]
-script = ExtResource("3_co0rr")
-character_movement = NodePath("../../character_movement")
-character_visual = NodePath("../../../components/visual")
-
-[node name="guard_token_response" type="Node" parent="helper/response_handler" node_paths=PackedStringArray("character_movement", "character_visual")]
-script = ExtResource("4_1ako7")
-character_movement = NodePath("../../character_movement")
-character_visual = NodePath("../../../components/visual")
-
-[node name="character_targeting" type="Node2D" parent="."]
-position = Vector2(0, -95)
-script = ExtResource("2_1upvv")
-
-[node name="trajectory_UI" type="Line2D" parent="." node_paths=PackedStringArray("character_targeting")]
+[node name="trajectory_UI" type="Line2D" parent="components" node_paths=PackedStringArray("character_targeting")]
 position = Vector2(0, -95)
 width_curve = SubResource("Curve_utumv")
 default_color = Color(0.1812, 0.1812, 0.1812, 1)
 sharp_limit = 0.0
 round_precision = 32
 script = ExtResource("4_utumv")
-character_targeting = NodePath("../character_targeting")
+character_targeting = NodePath("../../controller/targeting_controller")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.25, 0.25)
-texture = SubResource("AtlasTexture_p14mq")
-flip_h = true
-
-[node name="Button" type="Button" parent="."]
+[node name="Button" type="Button" parent="components"]
 visible = false
 offset_left = -25.0
 offset_top = -116.0
@@ -114,7 +100,7 @@ offset_bottom = -70.0
 text = "?"
 metadata/_edit_use_anchors_ = true
 
-[connection signal="strategy_enter" from="." to="character_targeting" method="_on_character_base_strategy_enter"]
-[connection signal="strategy_exit" from="." to="character_targeting" method="_on_character_base_strategy_exit"]
-[connection signal="aim_target_added" from="character_targeting" to="trajectory_UI" method="_on_character_targeting_aim_target_added"]
-[connection signal="aim_target_removed" from="character_targeting" to="trajectory_UI" method="_on_character_targeting_aim_target_removed"]
+[connection signal="strategy_enter" from="." to="controller/targeting_controller" method="_on_character_base_strategy_enter"]
+[connection signal="strategy_exit" from="." to="controller/targeting_controller" method="_on_character_base_strategy_exit"]
+[connection signal="aim_target_added" from="controller/targeting_controller" to="components/trajectory_UI" method="_on_character_targeting_aim_target_added"]
+[connection signal="aim_target_removed" from="controller/targeting_controller" to="components/trajectory_UI" method="_on_character_targeting_aim_target_removed"]

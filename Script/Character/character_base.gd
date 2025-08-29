@@ -11,15 +11,29 @@ signal strategy_exit
 @export var character_action: CharacterAction
 @export var character_movement: CharacterMovement
 @export var character_visual: CharacterVisual
+
 @export var dice_slot_controller: CharacterDiceSlotController
-@export var attack_token_response: AttackTokenReseponse
-@export var evade_token_response: EvadeTokenReseponse
-@export var guard_token_response: GuardTokenReseponse
+
+var win_response_helper: CharacterWinResponseHelper
+var lose_response_helper: CharacterLoseResponseHelper
+var draw_response_helper: CharacterDrawResponseHelper
 
 @onready var initial_position: Vector2 = self.position
 
 
-func perform_clash_action(clash_data: CombatData):
+func _init() -> void:
+	win_response_helper = CharacterWinResponseHelper.new()
+
+
+func apply_clash_win(clash_data: ClashData):
+	pass
+
+
+func apply_clash_lose(clash_data: ClashData):
+	pass
+
+
+func apply_clash_draw(clash_data: ClashData):
 	pass
 
 
