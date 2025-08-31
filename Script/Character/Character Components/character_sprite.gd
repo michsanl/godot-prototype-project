@@ -1,9 +1,9 @@
-class_name CharacterVisual
-extends Node
+class_name CharacterSprite
+extends Sprite2D
 
-@export var sprite_node: Sprite2D
 @export var sprite_resource: CharacterSpriteResource
 
+var owner_character: CharacterController
 
 func change_to_default_sprite() -> void:
 	set_sprite(sprite_resource.default_sprite)
@@ -38,4 +38,4 @@ func change_to_evade_sprite() -> void:
 
 
 func set_sprite(target_sprite: Texture2D) -> void:
-	sprite_node.texture = target_sprite
+	self.texture = target_sprite

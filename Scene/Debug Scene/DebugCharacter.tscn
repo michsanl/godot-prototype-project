@@ -7,7 +7,13 @@
 
 [node name="Camera2D" type="Camera2D" parent="."]
 
-[node name="character_player" parent="." instance=ExtResource("1_h5s4o")]
+[node name="character_player" parent="." node_paths=PackedStringArray("stats", "ability", "sprite", "movement", "action_controller", "combat_controller") instance=ExtResource("1_h5s4o")]
+stats = NodePath("stats")
+ability = NodePath("ability")
+sprite = NodePath("sprite")
+movement = NodePath("movement")
+action_controller = NodePath("controller/action_controller")
+combat_controller = NodePath("controller/combat_controller")
 
 [node name="Debug Button" type="Node2D" parent="."]
 

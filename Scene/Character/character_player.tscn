@@ -7,11 +7,8 @@
 [node name="player_character" instance=ExtResource("1_1x2aq")]
 char_name = "Player"
 
-[node name="character_stat" parent="." index="2"]
-dice_point = 10
-
-[node name="ability_manager" parent="." index="3"]
-ability_list = Array[ExtResource("2_0qf7x")]([ExtResource("3_72dmb")])
-
-[node name="Sprite2D" parent="." index="6"]
+[node name="Sprite" parent="." index="0"]
 flip_h = false
+
+[node name="Ability" parent="." index="2"]
+ability_list = Array[ExtResource("2_0qf7x")]([ExtResource("3_72dmb")])

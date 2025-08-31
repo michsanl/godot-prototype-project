@@ -6,8 +6,8 @@ extends Node2D
 @export var combat_button: Button
 @export var resolve_button: Button
 
-@export var player_character: CharacterBase
-@export var enemy_character: CharacterBase
+@export var player_character: CharacterController
+@export var enemy_character: CharacterController
 
 
 func _on_strategy_button_pressed() -> void:
