@@ -29,9 +29,11 @@ script = ExtResource("3_t0dor")
 player_characters = [NodePath("../../battle_character/player_character")]
 enemy_characters = [NodePath("../../battle_character/enemy_character")]
 
-[node name="combat_state_manager" type="Node" parent="state_manager" node_paths=PackedStringArray("clash_result_helper")]
+[node name="combat_state_manager" type="Node" parent="state_manager" node_paths=PackedStringArray("clash_result_helper", "player_characters", "enemy_characters")]
 script = ExtResource("4_xdkpq")
 clash_result_helper = NodePath("clash_result_helper")
+player_characters = [NodePath("../../battle_character/player_character")]
+enemy_characters = [NodePath("../../battle_character/enemy_character")]
 
 [node name="combat_matchmaker" type="Node" parent="state_manager/combat_state_manager"]
 
@@ -68,12 +70,11 @@ text = "Resolve"
 
 [node name="battle_character" type="Node2D" parent="."]
 
-[node name="enemy_character" parent="battle_character" instance=ExtResource("6_8rj7f")]
-position = Vector2(-282, -4)
+[node name="player_character" parent="battle_character" instance=ExtResource("7_4v0j5")]
+position = Vector2(248, 2)
 
-[node name="player_character" parent="battle_character" node_paths=PackedStringArray("dice_slot_pool") instance=ExtResource("7_4v0j5")]
-position = Vector2(250, -7)
-dice_slot_pool = [NodePath("dice_slots/dice_slot")]
+[node name="enemy_character" parent="battle_character" instance=ExtResource("6_8rj7f")]
+position = Vector2(-321, 1)
 
 [connection signal="combat_ended" from="state_manager/combat_state_manager" to="state_manager" method="_on_combat_state_manager_combat_ended"]
 [connection signal="pressed" from="debug_button/strategy_button" to="state_manager" method="_on_strategy_button_pressed"]

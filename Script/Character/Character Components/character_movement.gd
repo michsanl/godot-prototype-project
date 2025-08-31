@@ -5,7 +5,7 @@ extends Node
 @export var move_duration_standard: float = 0.25
 @export var move_duration_slow: float = 0.4
 
-var this_owner: CharacterController
+var owner_character: CharacterController
 
 func move_position(actor: CharacterController, final_pos: Vector2):
 	var tween: Tween = create_tween()

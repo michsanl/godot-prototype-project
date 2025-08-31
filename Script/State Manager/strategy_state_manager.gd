@@ -6,23 +6,39 @@ extends Node
 
 
 func handle_strategy_state_enter() -> void:
+	_randomize_character_dice_speed(player_characters)
+	_randomize_character_dice_speed(enemy_characters)
+	_randomize_character_ability(player_characters)
+	_randomize_character_ability(enemy_characters)
 	_randomize_player_target()
 	_randomize_enemy_target()
 
 
 func handle_strategy_state_exit() -> void:
-	_clear_player_aim_target()
-	_clear_enemy_aim_target()
+	pass
+
+
+func _randomize_character_dice_speed(characer_pool: Array[CharacterController]):
+	for character in characer_pool:
+		character.stats.randomize_dice_point()
+
+
+func _randomize_character_ability(characer_pool: Array[CharacterController]):
+	for character in characer_pool:
+		var dice_slot_pool = character.dice_slot_controller.get_dice_slot_pool()
+		for dice_slot in dice_slot_pool:
+			var ablity = character.ability.ability_list.pick_random()
+			dice_slot.set_ability(ablity)
 
 
 func _randomize_player_dice_point() -> void:
 	for player in player_characters:
-		player.dice_slot.roll_all_dice_slot()
+		player.dice_slot.roll_dice_slots()
 
 
 func _randomize_enemy_dice_point() -> void:
 	for enemy in enemy_characters:
-		enemy.dice_slot.roll_all_dice_slot()
+		enemy.dice_slot.roll_dice_slots()
 
 
 func _randomize_player_target() -> void:
@@ -30,12 +46,7 @@ func _randomize_player_target() -> void:
 		var player_slot_pool = player.get_dice_slot_pool()
 		for dice_slot in player_slot_pool:
 			var target_dice_slot = _get_random_enemy_dice_slot() as CharacterDiceSlot
-			dice_slot.set_target_dice_slot(target_dice_slot)
-			
-		# NOTE: Old method
-		var target: CharacterController = enemy_characters.pick_random()
-		player.set_target(target)
-		player.set_aim_target(target)
+			dice_slot.set_target(target_dice_slot)
 
 
 func _randomize_enemy_target() -> void:
@@ -43,23 +54,7 @@ func _randomize_enemy_target() -> void:
 		var enemy_slot_pool = enemy.get_dice_slot_pool()
 		for dice_slot in enemy_slot_pool:
 			var target_dice_slot = _get_random_player_dice_slot() as CharacterDiceSlot
-			dice_slot.set_target_dice_slot(target_dice_slot)
-			
-		# NOTE: Old method
-		var target: CharacterController = player_characters.pick_random()
-		enemy.set_target(target)
-		enemy.set_aim_target(target)
-
-
-func _clear_player_aim_target() -> void:
-	for player in player_characters:
-		player.remove_aim_target()
-
-
-func _clear_enemy_aim_target() -> void:
-	for enemy in enemy_characters:
-		enemy.remove_aim_target()
-
+			dice_slot.set_target(target_dice_slot)
 
 
 #region Helper

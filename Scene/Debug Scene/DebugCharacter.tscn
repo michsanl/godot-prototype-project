@@ -7,10 +7,13 @@
 
 [node name="Camera2D" type="Camera2D" parent="."]
 
-[node name="character_player" parent="." node_paths=PackedStringArray("dice_slot_pool", "character_targeting", "character_action") instance=ExtResource("1_h5s4o")]
-dice_slot_pool = []
-character_targeting = NodePath("manager/targeting_controller")
-character_action = NodePath("manager/action_controller")
+[node name="character_player" parent="." node_paths=PackedStringArray("stats", "ability", "sprite", "movement", "action_controller", "combat_controller") instance=ExtResource("1_h5s4o")]
+stats = NodePath("stats")
+ability = NodePath("ability")
+sprite = NodePath("sprite")
+movement = NodePath("movement")
+action_controller = NodePath("controller/action_controller")
+combat_controller = NodePath("controller/combat_controller")
 
 [node name="Debug Button" type="Node2D" parent="."]
 
@@ -67,8 +70,6 @@ offset_right = 556.0
 offset_bottom = -232.0
 text = "Damaged"
 
-[connection signal="strategy_enter" from="character_player" to="character_player/manager/targeting_controller" method="_on_character_base_strategy_enter"]
-[connection signal="strategy_exit" from="character_player" to="character_player/manager/targeting_controller" method="_on_character_base_strategy_exit"]
 [connection signal="pressed" from="Debug Button/Debug Character Visual/Default" to="Debug Button/Debug Character Visual" method="_on_default_pressed"]
 [connection signal="pressed" from="Debug Button/Debug Character Visual/Slash" to="Debug Button/Debug Character Visual" method="_on_slash_pressed"]
 [connection signal="pressed" from="Debug Button/Debug Character Visual/Pierce" to="Debug Button/Debug Character Visual" method="_on_pierce_pressed"]

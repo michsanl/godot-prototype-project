@@ -3,6 +3,7 @@ extends Sprite2D
 
 @export var sprite_resource: CharacterSpriteResource
 
+var owner_character: CharacterController
 
 func change_to_default_sprite() -> void:
 	set_sprite(sprite_resource.default_sprite)

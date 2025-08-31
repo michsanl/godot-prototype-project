@@ -35,6 +35,7 @@ func _start_combat_phase():
 	# Core loop: execute each loop
 	var combat_data: CombatData
 	while _has_combat_ready_dice_slot(_combat_ready_dice_slot_pool):
+		print("Has combat ready slot, starting combat!")
 		combat_data = _matchmake_single_combat() as CombatData
 		await _start_combat(combat_data)
 	
@@ -43,7 +44,8 @@ func _start_combat_phase():
 
 
 func _initialize_combat_phase():
-	_collect_combat_ready_dice_slots()
+	_collect_combat_ready_dice_slots(player_characters)
+	_collect_combat_ready_dice_slots(enemy_characters)
 	_sort_dice_slots_by_higher_speed()
 
 
@@ -61,7 +63,7 @@ func _finalize_combat_phase():
 
 func _matchmake_single_combat() -> CombatData:
 	# Get combat pair
-	var attacker_dice_slot = _combat_ready_dice_slot_pool[0]
+	var attacker_dice_slot = _combat_ready_dice_slot_pool.front()
 	var defender_dice_slot = attacker_dice_slot.target_dice_slot
 	
 	# Commit combat pair
@@ -92,17 +94,20 @@ func _start_combat(combat_data :CombatData):
 		var clash_state = _get_clash_state(combat_data)
 		match clash_state:
 			ClashState.TWO_SIDED:
-				print("Both has dice. Perform two sided attack. ")
+				print("Both has dice. Perform two sided clash. ")
 				await _start_two_sided_clash(combat_data)
 			ClashState.ONE_SIDED_ATTACKER:
-				print("Attacker has dice. Perform one sided attack. ")
+				print("Only attacker has dice. Attacker perform one sided attack. ")
+				await _start_attacker_one_sided_attack(combat_data)
 			ClashState.ONE_SIDED_DEFENDER:
-				print("Defender has dice. Perform one sided attack. ")
+				print("Only defender has dice. Defender perform one sided attack. ")
+				await _start_defender_one_sided_attack(combat_data)
 			ClashState.NONE:
 				push_warning("Neither have dice, but clash is initiated. ")
 				return
 	
 	# Finalize: unfocus camera, hide dice UI
+	print("Neither have dice, ending combat")
 	await _finalize_combat(combat_data)
 
 
@@ -143,6 +148,7 @@ func _start_two_sided_clash(combat_data :CombatData):
 		await get_tree().create_timer(auto_roll_timer).timeout
 	combat_data.roll_attacker_dice()
 	combat_data.roll_defender_dice()
+	combat_data.calculate_clash_result()
 	await _resolve_clash_result(combat_data)
 	
 	# Finalize: resolve dice usage
@@ -186,9 +192,44 @@ func _wait_for_space():
 
 
 #region One Sided Attack Methods
+func _start_attacker_one_sided_attack(combat_data :CombatData):
+	# Initialize: approach movement phase
+	await _execute_one_sided_approach_movement(
+		combat_data.attacker, 
+		combat_data.defender,
+	)
+	
+	# Core: roll dice phase
+	if not is_auto_roll:
+		await _wait_for_space()
+	else:
+		await get_tree().create_timer(auto_roll_timer).timeout
+	combat_data.roll_attacker_dice()
+	var attacker_clash_data = ClashData.new(combat_data, ClashData.CombatRole.ATTACKER)
+	await combat_data.attacker.perform_one_sided_attack(attacker_clash_data)
+	
+	# Finalize: resolve dice usage
+	await combat_data.attacker_dice_pool.pop_front()
 
-func _start_one_sided_attack(combat_data :CombatData):
-	pass
+
+func _start_defender_one_sided_attack(combat_data :CombatData):
+	# Initialize: approach movement phase
+	await _execute_one_sided_approach_movement(
+		combat_data.defender, 
+		combat_data.attacker,
+	)
+	
+	# Core: roll dice phase
+	if not is_auto_roll:
+		await _wait_for_space()
+	else:
+		await get_tree().create_timer(auto_roll_timer).timeout
+	combat_data.roll_defender_dice()
+	var defender_clash_data = ClashData.new(combat_data, ClashData.CombatRole.DEFENDER)
+	await combat_data.defender.perform_one_sided_attack(defender_clash_data)
+	
+	# Finalize: resolve dice usage
+	await combat_data.defender_dice_pool.pop_front()
 #endregion
 
 
@@ -201,22 +242,9 @@ func _execute_one_sided_approach_movement(actor: CharacterController, target:Cha
 	await actor.approach_target_one_sided(target)
 
 
-func _collect_combat_ready_dice_slots():
-	_collect_player_combat_ready_dice_slot()
-	_collect_enemy_combat_ready_dice_slot()
-
-
-func _collect_player_combat_ready_dice_slot():
-	for player in player_characters:
-		var dice_slot_pool = player.dice_slot.get_dice_slot_pool()
-		for dice_slot in dice_slot_pool:
-			if dice_slot.target_dice_slot != null:
-				_combat_ready_dice_slot_pool.append(dice_slot)
-
-
-func _collect_enemy_combat_ready_dice_slot():
-	for enemy in enemy_characters:
-		var dice_slot_pool = enemy.dice_slot.get_dice_slot_pool()
+func _collect_combat_ready_dice_slots(character_pool: Array[CharacterController]):
+	for character in character_pool:
+		var dice_slot_pool = character.get_dice_slot_pool()
 		for dice_slot in dice_slot_pool:
 			if dice_slot.target_dice_slot != null:
 				_combat_ready_dice_slot_pool.append(dice_slot)

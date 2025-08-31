@@ -4,8 +4,8 @@ extends RefCounted
 var owner: CharacterController
 
 
-func _init(owner: CharacterController = null) -> void:
-	self.owner = owner
+func _init(owner_chara: CharacterController = null) -> void:
+	self.owner = owner_chara
 
 
 func resolve_clash_draw(clash_data: ClashData):

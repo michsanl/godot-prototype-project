@@ -34,34 +34,52 @@ func defender_has_dice() -> bool:
 
 
 func roll_attacker_dice():
-	attacker_roll_value = attacker_dice_pool[0].roll_dice()
+	attacker_roll_value = attacker_dice_pool.front().roll_dice()
+	print("Attacker roll: ", attacker_roll_value)
 
 
 func roll_defender_dice():
-	defender_roll_value = defender_dice_pool[0].roll_dice()
+	defender_roll_value = defender_dice_pool.front().roll_dice()
+	print("Defender roll: ", defender_roll_value)
 
 
 func calculate_clash_result():
 	if attacker_roll_value > defender_roll_value:
+		print("Attacker win!")
 		attacker_clash_result = ClashResult.WIN
 		defender_clash_result = ClashResult.LOSE
 	elif attacker_roll_value < defender_roll_value:
+		print("Defender win!")
 		attacker_clash_result = ClashResult.LOSE
 		defender_clash_result = ClashResult.WIN
 	else:
+		print("Draw!")
 		attacker_clash_result = ClashResult.DRAW
 		defender_clash_result = ClashResult.DRAW
 
 
+func get_attacker_front_dice() -> DiceData:
+	if attacker_dice_pool.is_empty():
+		return null
+	return attacker_dice_pool.front()
+	
+
+
+func get_defender_front_dice() -> DiceData:
+	if defender_dice_pool.is_empty():
+		return null
+	return defender_dice_pool.front()
+
+
 func _set_attacker_combat_data(dice_slot: CharacterDiceSlot):
 	attacker = dice_slot.owner_character as CharacterController
-	attacker_dice_slot = dice_slot
-	attacker_ability = dice_slot.selected_ability
-	attacker_dice_pool = dice_slot.selected_ability.get_dice_pool()
+	attacker_dice_slot = dice_slot.duplicate()
+	attacker_ability = dice_slot.selected_ability.duplicate()
+	attacker_dice_pool = attacker_ability.get_dice_pool().duplicate() as Array[DiceData]
 
 
 func _set_defender_combat_data(dice_slot: CharacterDiceSlot):
 	defender = dice_slot.owner_character as CharacterController
-	defender_dice_slot = dice_slot
-	defender_ability = dice_slot.selected_ability
-	defender_dice_pool = dice_slot.selected_ability.get_dice_pool()
+	defender_dice_slot = dice_slot.duplicate()
+	defender_ability = dice_slot.selected_ability.duplicate()
+	defender_dice_pool = defender_ability.get_dice_pool().duplicate() as Array[DiceData]

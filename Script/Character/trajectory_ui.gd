@@ -16,14 +16,21 @@ func _init() -> void:
 
 
 func _ready() -> void:
-	StateManager.combat_started.connect(_clear_trajectory)
 	dice_slot.target_added.connect(_draw_trajectory)
 	dice_slot.target_removed.connect(_clear_trajectory)
 
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if follow_mouse_trajectory == true:
 		_draw_trajectory_to_mouse()
+
+
+func _show_canvas():
+	self.visible = true
+
+
+func _hide_canvas():
+	self.visible = false
 
 
 func _draw_trajectory():
@@ -66,6 +73,6 @@ func _get_target_position() -> Vector2:
 
 
 func _get_mouse_position() -> Vector2:
-	var global_position = get_viewport().get_camera_2d().get_global_mouse_position()
-	var local_position = to_local(global_position)
+	var global_pos = get_viewport().get_camera_2d().get_global_mouse_position()
+	var local_position = to_local(global_pos)
 	return local_position

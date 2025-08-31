@@ -8,58 +8,56 @@ extends Node
 @export var knock_offset: float = 100.0
 @export var adjacent_offset: float = 100.0
 
+var owner_character: CharacterController
+
 
 #region Movement + Visual Methods
 func perform_movement_action(actor: CharacterController, final_pos: Vector2):
-	sprite_controller.change_to_move_sprite()
-	await movement_helper.move_position(actor, final_pos)
+	owner_character.sprite.change_to_move_sprite()
+	await owner_character.movement.move_position(actor, final_pos)
 
 
 func perform_approach_one_sided_action(actor: CharacterController, target: CharacterController):
 	var final_pos: Vector2 = target.position + _get_adjacent_offset(actor, target)
-	sprite_controller.change_to_move_sprite()
+	owner_character.sprite.change_to_move_sprite()
 	print("approaching one sided")
-	await movement_helper.move_position(actor, final_pos)
+	await owner_character.movement.move_position(actor, final_pos)
 
 
 func perform_approach_two_sided_action(actor: CharacterController, target: CharacterController):
 	var final_pos: Vector2 = _get_meeting_position(actor, target) + _get_fractional_adjacent_offset(actor, target, 0.5)
-	sprite_controller.change_to_move_sprite()
+	owner_character.sprite.change_to_move_sprite()
 	print("approaching two sided")
-	await movement_helper.move_position(actor, final_pos)
+	await owner_character.movement.move_position(actor, final_pos)
 
 
 func perform_slash_attack_win(actor: CharacterController, target: CharacterController):
 	perform_slight_forward_movement(actor, target)
-	sprite_controller.change_to_slash_sprite()
+	owner_character.sprite.change_to_slash_sprite()
 	await get_tree().create_timer(attack_duration).timeout
 
 
 func perform_slash_attack_draw(actor: CharacterController, target: CharacterController):
 	perform_knockback_movement(actor, target)
-	sprite_controller.change_to_slash_sprite()
+	owner_character.sprite.change_to_slash_sprite()
 	await get_tree().create_timer(attack_duration).timeout
 
 
 func perform_damaged_action(actor: CharacterController, target: CharacterController):
 	perform_knockback_movement(actor, target)
-	sprite_controller.change_to_damaged_sprite()
+	owner_character.sprite.change_to_damaged_sprite()
 	await get_tree().create_timer(damaged_duration).timeout
 #endregion
 
 
 func perform_slight_forward_movement(actor: CharacterController, target: CharacterController):
 	var final_pos: Vector2 = actor.position + _get_direction_to_opponent(actor, target) * 25.0
-	await movement_helper.move_position_fast(actor, final_pos)
+	await owner_character.movement.move_position_fast(actor, final_pos)
 
 
 func perform_knockback_movement(actor: CharacterController, target: CharacterController):
 	var final_pos: Vector2 = actor.position + _get_knockback_offset(actor, target)
-	await movement_helper.move_position(actor, final_pos)
-
-
-func reset_visual():
-	sprite_controller.change_to_default_sprite()
+	await owner_character.movement.move_position(actor, final_pos)
 
 
 #region Helper Methods
