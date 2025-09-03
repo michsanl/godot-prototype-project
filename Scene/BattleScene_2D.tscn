@@ -40,34 +40,6 @@ enemy_characters = [NodePath("../../battle_character/enemy_character")]
 [node name="clash_result_helper" type="Node" parent="state_manager/combat_state_manager"]
 script = ExtResource("7_8qtd0")
 
-[node name="debug_button" type="Node2D" parent="." node_paths=PackedStringArray("state_manager", "strategy_button", "combat_button", "resolve_button")]
-script = ExtResource("5_mtm51")
-state_manager = NodePath("../state_manager")
-strategy_button = NodePath("strategy_button")
-combat_button = NodePath("combat_button")
-resolve_button = NodePath("resolve_button")
-
-[node name="strategy_button" parent="debug_button" instance=ExtResource("5_8qtd0")]
-offset_left = -291.0
-offset_top = -298.0
-offset_right = -168.0
-offset_bottom = -232.0
-text = "Strategy"
-
-[node name="combat_button" parent="debug_button" instance=ExtResource("5_8qtd0")]
-offset_left = -71.0
-offset_top = -297.0
-offset_right = 52.0
-offset_bottom = -231.0
-text = "Combat"
-
-[node name="resolve_button" parent="debug_button" instance=ExtResource("5_8qtd0")]
-offset_left = 170.0
-offset_top = -295.0
-offset_right = 293.0
-offset_bottom = -229.0
-text = "Resolve"
-
 [node name="battle_character" type="Node2D" parent="."]
 
 [node name="player_character" parent="battle_character" instance=ExtResource("7_4v0j5")]
@@ -75,6 +47,39 @@ position = Vector2(248, 2)
 
 [node name="enemy_character" parent="battle_character" instance=ExtResource("6_8rj7f")]
 position = Vector2(-321, 1)
+
+[node name="debug_button" type="Node2D" parent="." node_paths=PackedStringArray("state_manager", "strategy_button", "combat_button", "resolve_button", "player_character", "enemy_character")]
+script = ExtResource("5_mtm51")
+state_manager = NodePath("../state_manager")
+strategy_button = NodePath("strategy_button")
+combat_button = NodePath("combat_button")
+resolve_button = NodePath("resolve_button")
+player_character = NodePath("../battle_character/player_character")
+enemy_character = NodePath("../battle_character/enemy_character")
+
+[node name="strategy_button" parent="debug_button" instance=ExtResource("5_8qtd0")]
+offset_left = -291.0
+offset_top = -298.0
+offset_right = -168.0
+offset_bottom = -232.0
+text = "Strategy"
+metadata/_edit_use_anchors_ = true
+
+[node name="combat_button" parent="debug_button" instance=ExtResource("5_8qtd0")]
+offset_left = -71.0
+offset_top = -297.0
+offset_right = 52.0
+offset_bottom = -231.0
+text = "Combat"
+metadata/_edit_use_anchors_ = true
+
+[node name="resolve_button" parent="debug_button" instance=ExtResource("5_8qtd0")]
+offset_left = 170.0
+offset_top = -295.0
+offset_right = 293.0
+offset_bottom = -229.0
+text = "Resolve"
+metadata/_edit_use_anchors_ = true
 
 [connection signal="combat_ended" from="state_manager/combat_state_manager" to="state_manager" method="_on_combat_state_manager_combat_ended"]
 [connection signal="pressed" from="debug_button/strategy_button" to="state_manager" method="_on_strategy_button_pressed"]

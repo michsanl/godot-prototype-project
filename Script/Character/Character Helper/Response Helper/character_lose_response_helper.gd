@@ -29,7 +29,7 @@ func _resolve_attack_lose_response(clash_data: ClashData):
 		DiceData.DiceType.GUARD:
 			await owner.action_controller.perform_damaged_action()
 		DiceData.DiceType.EVADE:
-			await owner.action_controller.perform_random_offensive_action()
+			await owner.action_controller.perform_random_offensive_action(clash_data.opponent)
 
 #guard vs attack lose = damaged
 #guard vs guard lose = damaged

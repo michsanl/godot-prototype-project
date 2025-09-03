@@ -4,18 +4,18 @@ extends Node
 @export var move_duration_fast: float = 0.1
 @export var move_duration_standard: float = 0.25
 @export var move_duration_slow: float = 0.4
+@export var backward_move_duration: float = 0.2
 
 var owner_character: CharacterController
 
-
 func set_movement_owner(new_owner: CharacterController):
-	owner = new_owner as CharacterController
+	owner_character = new_owner as CharacterController
 
 
-func move_position(actor: CharacterController, final_pos: Vector2):
-	var tween: Tween = create_tween()
+func perform_forward_movement(final_pos: Vector2):
+	var tween: Tween = owner_character.create_tween()
 	tween.tween_property(
-		actor, 
+		owner_character, 
 		"position", 
 		final_pos, 
 		move_duration_standard
@@ -23,23 +23,11 @@ func move_position(actor: CharacterController, final_pos: Vector2):
 	await tween.finished
 
 
-func move_position_fast(actor: CharacterController, final_pos: Vector2):
-	var tween: Tween = create_tween()
+func perform_backward_movement(final_pos: Vector2):
+	var tween: Tween = get_tree().create_tween()
 	tween.tween_property(
-		actor, 
+		owner_character, 
 		"position", 
 		final_pos, 
-		move_duration_fast
-	).set_ease(Tween.EASE_IN_OUT)
-	await tween.finished
-
-
-func move_position_slow(actor: CharacterController, final_pos: Vector2):
-	var tween: Tween = create_tween()
-	tween.tween_property(
-		actor, 
-		"position", 
-		final_pos, 
-		move_duration_slow
-	).set_ease(Tween.EASE_IN_OUT)
-	await tween.finished
+		backward_move_duration
+	).set_ease(Tween.EASE_OUT)

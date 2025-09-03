@@ -14,21 +14,21 @@ var owner_character: CharacterController
 #region Movement + Visual Methods
 func perform_movement_action(actor: CharacterController, final_pos: Vector2):
 	owner_character.sprite.change_to_move_sprite()
-	await owner_character.movement.move_position(actor, final_pos)
+	await owner_character.movement.perform_forward_movement(actor, final_pos)
 
 
 func perform_approach_one_sided_action(actor: CharacterController, target: CharacterController):
 	var final_pos: Vector2 = target.position + _get_adjacent_offset(actor, target)
 	owner_character.sprite.change_to_move_sprite()
 	print("approaching one sided")
-	await owner_character.movement.move_position(actor, final_pos)
+	await owner_character.movement.perform_forward_movement(actor, final_pos)
 
 
 func perform_approach_two_sided_action(actor: CharacterController, target: CharacterController):
 	var final_pos: Vector2 = _get_meeting_position(actor, target) + _get_fractional_adjacent_offset(actor, target, 0.5)
 	owner_character.sprite.change_to_move_sprite()
 	print("approaching two sided")
-	await owner_character.movement.move_position(actor, final_pos)
+	await owner_character.movement.perform_forward_movement(actor, final_pos)
 
 
 func perform_slash_attack_win(actor: CharacterController, target: CharacterController):
@@ -57,7 +57,7 @@ func perform_slight_forward_movement(actor: CharacterController, target: Charact
 
 func perform_knockback_movement(actor: CharacterController, target: CharacterController):
 	var final_pos: Vector2 = actor.position + _get_knockback_offset(actor, target)
-	await owner_character.movement.move_position(actor, final_pos)
+	await owner_character.movement.perform_forward_movement(actor, final_pos)
 
 
 #region Helper Methods

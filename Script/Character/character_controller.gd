@@ -35,7 +35,7 @@ func _set_childs_owner():
 
 #region Action Controller
 func approach_target_one_sided(target: CharacterController):
-	await action_controller.perform_approach_one_sided_action(self, target)
+	await action_controller.perform_approach_one_sided_action(target)
 
 
 func approach_target_two_sided(target: CharacterController):
@@ -48,7 +48,7 @@ func perform_one_sided_attack(clash_data: ClashData):
 	var my_dice = clash_data.owner_dice.dice_type as DiceData.DiceType
 	match my_dice:
 		DiceData.DiceType.ATTACK:
-			await action_controller.perform_slash_action()
+			await action_controller.perform_slash_action(clash_data.opponent)
 		DiceData.DiceType.GUARD:
 			await action_controller.perform_guard_action()
 		DiceData.DiceType.EVADE:
@@ -65,6 +65,15 @@ func apply_clash_lose(clash_data: ClashData):
 
 func apply_clash_draw(clash_data: ClashData):
 	await draw_response_helper.resolve_clash_draw(clash_data)
+
+
+func apply_knockback(opponent: CharacterController):
+	var knockback_distance = 150
+	var delta: Vector2 =  self.position - opponent.position
+	var direction = delta.normalized()
+	var final_position = (knockback_distance * direction) + self.position
+	movement.perform_backward_movement(final_position)
+	action_controller.perform_damaged_action()
 #endregion
 
 
