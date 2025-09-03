@@ -56,17 +56,14 @@ func perform_one_sided_attack(clash_data: ClashData):
 
 
 func apply_clash_win(clash_data: ClashData):
-	print("zzzzzz")
 	await win_response_helper.resolve_win_response(clash_data)
 
 
 func apply_clash_lose(clash_data: ClashData):
-	print("zzzzzz")
 	await lose_response_helper.resolve_lose_response(clash_data)
 
 
 func apply_clash_draw(clash_data: ClashData):
-	print("zzzzzz")
 	await draw_response_helper.resolve_clash_draw(clash_data)
 #endregion
 
