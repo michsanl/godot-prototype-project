@@ -4,9 +4,9 @@ extends Node2D
 @export var char_name: String
 
 @export var stats: CharacterStats
-@export var ability: CharacterAbility
 @export var sprite: CharacterSprite
 @export var movement: CharacterMovement
+@export var ability_controller: CharacterAbilityController
 @export var dice_slot_controller: CharacterDiceSlotController
 @export var action_controller: CharacterActionController
 @export var combat_controller: CharacterCombatController
@@ -16,19 +16,21 @@ var win_response_helper: = CharacterWinResponseHelper.new(self)
 var lose_response_helper: = CharacterLoseResponseHelper.new(self)
 var draw_response_helper: = CharacterDrawResponseHelper.new(self)
 
-var initial_position: Vector2
+var _initial_position: Vector2
 
 
 func _ready() -> void:
 	_set_childs_owner()
-	initial_position = self.position
+	_initial_position = self.position
 
 
 func _set_childs_owner():
-	sprite.owner_character = self
-	dice_slot_controller.owner_character = self
-	dice_slot_controller.set_dice_slots_owner(self)
-	action_controller.owner_character = self
+	sprite.set_sprite_owner(self)
+	movement.set_movement_owner(self)
+	ability_controller.set_ability_controller_owner(self)
+	action_controller.set_action_controller_owner(self)
+	dice_slot_controller.set_dice_slot_controller_owner(self)
+	dice_slot_controller.set_all_dice_slot_owner(self)
 
 
 #region Action Controller
@@ -66,12 +68,12 @@ func apply_clash_draw(clash_data: ClashData):
 #endregion
 
 
-func roll_dice_slots():
-		dice_slot_controller.roll_dice_slots()
+func roll_all_dice_slots():
+		dice_slot_controller.roll_all_dice_slots()
 
 
 func reset_position():
-	self.position = initial_position
+	self.position = _initial_position
 
 
 func reset_visual():

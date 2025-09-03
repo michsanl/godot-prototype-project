@@ -1,32 +1,24 @@
-[gd_scene load_steps=15 format=3 uid="uid://bek3derprev18"]
+[gd_scene load_steps=13 format=3 uid="uid://bek3derprev18"]
 
 [ext_resource type="Script" uid="uid://c7c2x0t6jjupk" path="res://Script/Character/character_controller.gd" id="1_y5alb"]
 [ext_resource type="Script" uid="uid://bkyu1oyiksvly" path="res://Script/Character/Character Controller/character_action_controller.gd" id="2_8fd8j"]
 [ext_resource type="Script" uid="uid://dateptc72flsb" path="res://Script/Character/Character Components/character_movement.gd" id="2_ptqjd"]
+[ext_resource type="Texture2D" uid="uid://pxur532t51ow" path="res://Art/character_sprite/argalia/Default.png" id="2_tjx60"]
 [ext_resource type="Script" uid="uid://di50c51to3xax" path="res://Script/Character/Character Components/character_stats.gd" id="2_yop1s"]
 [ext_resource type="Script" uid="uid://23653me6nc14" path="res://Script/Character/Character Controller/character_combat_controller.gd" id="3_co0rr"]
-[ext_resource type="Script" uid="uid://dm4auyugtcvs4" path="res://Script/Character/Character Components/character_ability.gd" id="3_ouw7k"]
+[ext_resource type="Script" uid="uid://dm4auyugtcvs4" path="res://Script/Character/Character Components/character_ability_controller.gd" id="3_ouw7k"]
 [ext_resource type="Script" uid="uid://b18vpmxkm8dx0" path="res://Script/Character/Character Components/character_sprite.gd" id="4_g08oy"]
-[ext_resource type="Script" uid="uid://bdshlelctktgb" path="res://Script/Character/trajectory_ui.gd" id="4_utumv"]
-[ext_resource type="Resource" uid="uid://dk6rkmhtx4p5w" path="res://Resource/Character Sprite/argalia_sprite.tres" id="5_ylsyo"]
+[ext_resource type="Resource" uid="uid://bpoaj3qwoapyp" path="res://Resource/Character Sprite/argalia_sprite.tres" id="5_ylsyo"]
 [ext_resource type="Script" uid="uid://be0sqlklwc4tr" path="res://Script/Character/Character Components/character_dice_slot.gd" id="7_1ako7"]
-[ext_resource type="Texture2D" uid="uid://cb6xmtvlll1qn" path="res://Art/Argalia/Default.png" id="10_ylsyo"]
+[ext_resource type="Script" uid="uid://2ytid1uivak6" path="res://Script/Resource/Ability/ability_data.gd" id="8_psia3"]
 [ext_resource type="Script" uid="uid://b1jom5fwerwwh" path="res://Script/Character/Character Controller/character_dice_slot_controller.gd" id="14_co0rr"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_p14mq"]
-atlas = ExtResource("10_ylsyo")
-region = Rect2(-275, 1318, 895, 726)
-
-[sub_resource type="Curve" id="Curve_utumv"]
-_data = [Vector2(0, 0.271636), 0.0, 0.0, 0, 0, Vector2(0.496466, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.206603), 0.0, 0.0, 0, 0]
-point_count = 3
-
-[node name="CharacterController" type="Node2D" node_paths=PackedStringArray("stats", "ability", "sprite", "movement", "dice_slot_controller", "action_controller", "combat_controller")]
+[node name="CharacterController" type="Node2D" node_paths=PackedStringArray("stats", "sprite", "movement", "ability_controller", "dice_slot_controller", "action_controller", "combat_controller")]
 script = ExtResource("1_y5alb")
 stats = NodePath("Stats")
-ability = NodePath("Ability")
 sprite = NodePath("Sprite")
 movement = NodePath("Movement")
+ability_controller = NodePath("AbilityController")
 dice_slot_controller = NodePath("DiceSlotController")
 action_controller = NodePath("ActionController")
 combat_controller = NodePath("CombatController")
@@ -35,7 +27,7 @@ combat_controller = NodePath("CombatController")
 
 [node name="Sprite" type="Sprite2D" parent="."]
 scale = Vector2(0.25, 0.25)
-texture = SubResource("AtlasTexture_p14mq")
+texture = ExtResource("2_tjx60")
 flip_h = true
 script = ExtResource("4_g08oy")
 sprite_resource = ExtResource("5_ylsyo")
@@ -43,20 +35,21 @@ sprite_resource = ExtResource("5_ylsyo")
 [node name="Stats" type="Node" parent="."]
 script = ExtResource("2_yop1s")
 
-[node name="Ability" type="Node" parent="."]
-script = ExtResource("3_ouw7k")
-
 [node name="Movement" type="Node" parent="."]
 script = ExtResource("2_ptqjd")
 
-[node name="==Controller==" type="Node" parent="."]
+[node name="AbilityController" type="Node" parent="."]
+script = ExtResource("3_ouw7k")
+ability_list = Array[ExtResource("8_psia3")]([null])
 
 [node name="DiceSlotController" type="Node" parent="." node_paths=PackedStringArray("dice_slot_pool")]
 script = ExtResource("14_co0rr")
-dice_slot_pool = [NodePath("dice_slot")]
+dice_slot_pool = [NodePath("DiceSlot")]
 
-[node name="dice_slot" type="Node" parent="DiceSlotController"]
+[node name="DiceSlot" type="Node" parent="DiceSlotController"]
 script = ExtResource("7_1ako7")
+
+[node name="==PureController==" type="Node" parent="."]
 
 [node name="ActionController" type="Node" parent="." node_paths=PackedStringArray("sprite_controller")]
 script = ExtResource("2_8fd8j")
@@ -66,12 +59,3 @@ sprite_controller = NodePath("../Sprite")
 script = ExtResource("3_co0rr")
 
 [node name="==UI==" type="Node" parent="."]
-
-[node name="trajectory_UI" type="Line2D" parent="." node_paths=PackedStringArray("dice_slot")]
-position = Vector2(0, -95)
-width_curve = SubResource("Curve_utumv")
-default_color = Color(0.1812, 0.1812, 0.1812, 1)
-sharp_limit = 0.0
-round_precision = 32
-script = ExtResource("4_utumv")
-dice_slot = NodePath("../DiceSlotController/dice_slot")

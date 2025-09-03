@@ -27,18 +27,18 @@ func _randomize_character_ability(characer_pool: Array[CharacterController]):
 	for character in characer_pool:
 		var dice_slot_pool = character.dice_slot_controller.get_dice_slot_pool()
 		for dice_slot in dice_slot_pool:
-			var ablity = character.ability.ability_list.pick_random()
+			var ablity = character.ability_controller.get_random_ability()
 			dice_slot.set_ability(ablity)
 
 
 func _randomize_player_dice_point() -> void:
 	for player in player_characters:
-		player.dice_slot.roll_dice_slots()
+		player.dice_slot.roll_all_dice_slots()
 
 
 func _randomize_enemy_dice_point() -> void:
 	for enemy in enemy_characters:
-		enemy.dice_slot.roll_dice_slots()
+		enemy.dice_slot.roll_all_dice_slots()
 
 
 func _randomize_player_target() -> void:
