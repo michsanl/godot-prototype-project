@@ -1,4 +1,2 @@
 class_name CharacterCombatController
 extends Node
-
-var owner_character: CharacterController

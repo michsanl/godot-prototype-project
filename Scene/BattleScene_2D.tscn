@@ -1,6 +1,6 @@
 [gd_scene load_steps=10 format=3 uid="uid://do3uwy2gicsls"]
 
-[ext_resource type="Texture2D" uid="uid://c8sf5t0u0e5qn" path="res://Art/KeterFloorBattleStage.jpg" id="1_mtylr"]
+[ext_resource type="Texture2D" uid="uid://c8sf5t0u0e5qn" path="res://Art/temporary_sprite/KeterFloorBattleStage.jpg" id="1_mtylr"]
 [ext_resource type="Script" uid="uid://ca131f6h2pd4o" path="res://Script/State Manager/state_manager.gd" id="2_mtm51"]
 [ext_resource type="Script" uid="uid://c4mwu4ngi61wx" path="res://Script/State Manager/strategy_state_manager.gd" id="3_t0dor"]
 [ext_resource type="Script" uid="uid://bmp3a5hkmsqv0" path="res://Script/State Manager/combat_state_manager.gd" id="4_xdkpq"]

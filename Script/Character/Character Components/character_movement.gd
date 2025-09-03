@@ -7,6 +7,11 @@ extends Node
 
 var owner_character: CharacterController
 
+
+func set_movement_owner(new_owner: CharacterController):
+	owner = new_owner as CharacterController
+
+
 func move_position(actor: CharacterController, final_pos: Vector2):
 	var tween: Tween = create_tween()
 	tween.tween_property(

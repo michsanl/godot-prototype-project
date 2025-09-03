@@ -6,12 +6,16 @@ extends Node
 var owner_character: CharacterController
 
 
-func set_dice_slots_owner(owner_chara: CharacterController):
+func set_dice_slot_controller_owner(owner_chara: CharacterController):
+	owner = owner_chara as CharacterController
+
+
+func set_all_dice_slot_owner(new_owner: CharacterController):
 	for dice_slot in dice_slot_pool:
-		dice_slot.set_owner_character(owner_chara)
+		dice_slot.set_owner_character(new_owner)
 
 
-func roll_dice_slots():
+func roll_all_dice_slots():
 	for dice_slot in dice_slot_pool:
 		dice_slot.roll_speed_value()
 
