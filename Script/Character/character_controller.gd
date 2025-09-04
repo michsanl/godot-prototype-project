@@ -31,6 +31,7 @@ func _set_childs_owner():
 	action_controller.set_action_controller_owner(self)
 	dice_slot_controller.set_dice_slot_controller_owner(self)
 	dice_slot_controller.set_all_dice_slot_owner(self)
+	ability_controller.set_ability_controller_owner(self)
 
 
 #region Action Controller
