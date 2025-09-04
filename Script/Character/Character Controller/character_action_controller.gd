@@ -9,6 +9,7 @@ extends Node
 @export var adjacent_offset: float = 100.0
 
 var owner_character: CharacterController
+var _knockback_distance: float = 150.0
 
 
 func set_action_controller_owner(new_owner: CharacterController):
@@ -58,22 +59,40 @@ func perform_default_action(duration: float = default_duration):
 
 
 func perform_slash_action(opponent: CharacterController, duration: float = default_duration):
+	opponent.apply_knockback(
+		KnockbackBuilder.new()
+			.with_actor_pos(owner_character.position)
+			.with_target_pos(opponent.position)
+			.with_distance(_knockback_distance)
+			.build()
+	)
 	sprite_controller.change_to_slash_sprite()
-	opponent.apply_knockback(owner_character)
 	await get_tree().create_timer(duration).timeout
 	sprite_controller.change_to_default_sprite()
 
 
 func perform_pierce_action(opponent: CharacterController, duration: float = default_duration):
 	sprite_controller.change_to_pierce_sprite()
-	opponent.apply_knockback(owner_character)
+	opponent.apply_knockback(
+		KnockbackBuilder.new()
+			.with_actor_pos(owner_character.position)
+			.with_target_pos(opponent.position)
+			.with_distance(_knockback_distance)
+			.build()
+	)
 	await get_tree().create_timer(duration).timeout
 	sprite_controller.change_to_default_sprite()
 
 
 func perform_blunt_action(opponent: CharacterController, duration: float = default_duration):
+	opponent.apply_knockback(
+		KnockbackBuilder.new()
+			.with_actor_pos(owner_character.position)
+			.with_target_pos(opponent.position)
+			.with_distance(_knockback_distance)
+			.build()
+	)
 	sprite_controller.change_to_blunt_sprite()
-	opponent.apply_knockback(owner_character)
 	await get_tree().create_timer(duration).timeout
 	sprite_controller.change_to_default_sprite()
 

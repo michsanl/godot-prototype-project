@@ -67,12 +67,8 @@ func apply_clash_draw(clash_data: ClashData):
 	await draw_response_helper.resolve_clash_draw(clash_data)
 
 
-func apply_knockback(opponent: CharacterController):
-	var knockback_distance = 150
-	var delta: Vector2 =  self.position - opponent.position
-	var direction = delta.normalized()
-	var final_position = (knockback_distance * direction) + self.position
-	movement.perform_backward_movement(final_position)
+func apply_knockback(final_pos: Vector2):
+	movement.perform_backward_movement(final_pos)
 	action_controller.perform_damaged_action()
 #endregion
 
