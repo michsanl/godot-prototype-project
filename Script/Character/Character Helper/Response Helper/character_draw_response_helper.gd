@@ -25,11 +25,11 @@ func _resolve_attack_draw_response(clash_data: ClashData):
 	var opponent_dice = clash_data.opponent_dice.dice_type as DiceData.DiceType
 	match opponent_dice:
 		DiceData.DiceType.ATTACK:
-			await owner.action_controller.perform_random_offensive_action()
+			await owner.action_controller.perform_random_offensive_action(clash_data.opponent)
 		DiceData.DiceType.GUARD:
-			await owner.action_controller.perform_random_offensive_action()
+			await owner.action_controller.perform_random_offensive_action(clash_data.opponent)
 		DiceData.DiceType.EVADE:
-			await owner.action_controller.perform_random_offensive_action()
+			await owner.action_controller.perform_random_offensive_action(clash_data.opponent)
 
 
 #guard vs attack draw = guard

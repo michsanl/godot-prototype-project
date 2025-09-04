@@ -3,9 +3,10 @@ extends Node
 
 @export var dice_slot_pool: Array[CharacterDiceSlot] = []
 
+var owner_character: CharacterController
 
-func set_dice_slot_controller_owner(owner_chara: CharacterController):
-	owner = owner_chara as CharacterController
+func set_dice_slot_controller_owner(new_owner: CharacterController):
+	owner_character = new_owner as CharacterController
 
 
 func set_all_dice_slot_owner(new_owner: CharacterController):

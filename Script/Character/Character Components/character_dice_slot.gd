@@ -4,6 +4,7 @@ extends Node
 signal target_added
 signal target_removed
 
+var owner_character: CharacterController
 var speed_value: int
 var target_dice_slot: CharacterDiceSlot
 var selected_ability: AbilityData
@@ -22,7 +23,7 @@ func clear_target_dice_slot():
 
 #region Setter
 func set_dice_slot_owner(new_owner: CharacterController):
-	owner = new_owner
+	owner_character = new_owner
 
 
 func set_target(dice_slot: CharacterDiceSlot):
