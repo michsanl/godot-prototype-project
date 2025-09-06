@@ -43,10 +43,10 @@ script = ExtResource("7_8qtd0")
 [node name="battle_character" type="Node2D" parent="."]
 
 [node name="player_character" parent="battle_character" instance=ExtResource("7_4v0j5")]
-position = Vector2(248, 2)
+position = Vector2(300, 74)
 
 [node name="enemy_character" parent="battle_character" instance=ExtResource("6_8rj7f")]
-position = Vector2(-321, 1)
+position = Vector2(-304, 60)
 
 [node name="debug_button" type="Node2D" parent="." node_paths=PackedStringArray("state_manager", "strategy_button", "combat_button", "resolve_button", "player_character", "enemy_character")]
 script = ExtResource("5_mtm51")
@@ -54,7 +54,7 @@ state_manager = NodePath("../state_manager")
 strategy_button = NodePath("strategy_button")
 combat_button = NodePath("combat_button")
 resolve_button = NodePath("resolve_button")
-player_character = NodePath("../battle_character/player_character")
+player_character = NodePath("")
 enemy_character = NodePath("../battle_character/enemy_character")
 
 [node name="strategy_button" parent="debug_button" instance=ExtResource("5_8qtd0")]

@@ -2,10 +2,16 @@
 
 [ext_resource type="PackedScene" uid="uid://bek3derprev18" path="res://Scene/Character/character_base.tscn" id="1_7ar5a"]
 [ext_resource type="Script" uid="uid://2ytid1uivak6" path="res://Script/Resource/Ability/ability_data.gd" id="2_77u64"]
-[ext_resource type="Resource" uid="uid://ddt7y2wpi6618" path="res://Resource/Ability Stats/strike_ability_stats.tres" id="3_77u64"]
+[ext_resource type="Resource" uid="uid://db0mt25wfatl4" path="res://Resource/Ability Stats/defend_ability_stats.tres" id="3_77u64"]
 
 [node name="enemy_character" instance=ExtResource("1_7ar5a")]
 char_name = "Enemy"
 
-[node name="AbilityController" parent="." index="4"]
+[node name="Sprite" parent="." index="3"]
+flip_h = true
+
+[node name="VFX" parent="." index="4"]
+flip_h = true
+
+[node name="Abilities" parent="." index="7"]
 ability_list = Array[ExtResource("2_77u64")]([ExtResource("3_77u64")])

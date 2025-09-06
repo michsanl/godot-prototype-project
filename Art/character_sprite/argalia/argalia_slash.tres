@@ -1,0 +1,7 @@
+[gd_resource type="AtlasTexture" load_steps=2 format=3 uid="uid://d038guc07cxfa"]
+
+[ext_resource type="Texture2D" uid="uid://cx2t8by66ebej" path="res://Art/character_sprite/argalia_distorted/Slash.png" id="1_llyvj"]
+
+[resource]
+atlas = ExtResource("1_llyvj")
+region = Rect2(11, 51, 971, 963)

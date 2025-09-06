@@ -1,0 +1,7 @@
+[gd_resource type="AtlasTexture" load_steps=2 format=3 uid="uid://be1t3qmiw83f2"]
+
+[ext_resource type="Texture2D" uid="uid://xvfk7fsytqyk" path="res://Art/character_sprite/argalia/Blunt.png" id="1_pwhso"]
+
+[resource]
+atlas = ExtResource("1_pwhso")
+region = Rect2(437, 26, 775, 482)
