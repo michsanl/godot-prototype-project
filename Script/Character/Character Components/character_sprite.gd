@@ -3,13 +3,14 @@ extends Sprite2D
 
 @export var sprite_resource: CharacterSpriteResource
 
+var self_owner: CharacterController
 
 func _ready() -> void:
 	change_to_default_sprite()
 
 
 func set_sprite_owner(new_owner: CharacterController):
-	owner = new_owner
+	self_owner = new_owner
 
 
 func change_to_default_sprite() -> void:

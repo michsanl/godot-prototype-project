@@ -1,8 +1,8 @@
 class_name StrategyStateManager
 extends Node
 
-@export var player_characters: Array[CharacterController] = []
-@export var enemy_characters: Array[CharacterController] = []
+@export var player_characters: Array[CharacterController]
+@export var enemy_characters: Array[CharacterController]
 
 
 func handle_strategy_state_enter() -> void:
@@ -45,7 +45,7 @@ func _randomize_player_target() -> void:
 	for player in player_characters:
 		var player_slot_pool = player.get_dice_slot_pool()
 		for dice_slot in player_slot_pool:
-			var target_dice_slot = _get_random_enemy_dice_slot() as CharacterDiceSlot
+			var target_dice_slot = _get_random_enemy_dice_slot() as DiceSlotData
 			dice_slot.set_target(target_dice_slot)
 
 
@@ -53,19 +53,19 @@ func _randomize_enemy_target() -> void:
 	for enemy in enemy_characters:
 		var enemy_slot_pool = enemy.get_dice_slot_pool()
 		for dice_slot in enemy_slot_pool:
-			var target_dice_slot = _get_random_player_dice_slot() as CharacterDiceSlot
+			var target_dice_slot = _get_random_player_dice_slot() as DiceSlotData
 			dice_slot.set_target(target_dice_slot)
 
 
 #region Helper
-func _get_random_player_dice_slot() -> CharacterDiceSlot:
+func _get_random_player_dice_slot() -> DiceSlotData:
 	var random_player = player_characters.pick_random() as CharacterController
-	var dice_slot = random_player.get_dice_slot_pool().pick_random() as CharacterDiceSlot
+	var dice_slot = random_player.get_dice_slot_pool().pick_random() as DiceSlotData
 	return dice_slot
 
 
-func _get_random_enemy_dice_slot() -> CharacterDiceSlot:
+func _get_random_enemy_dice_slot() -> DiceSlotData:
 	var random_enemy = enemy_characters.pick_random() as CharacterController
-	var dice_slot = random_enemy.get_dice_slot_pool().pick_random() as CharacterDiceSlot
+	var dice_slot = random_enemy.get_dice_slot_pool().pick_random() as DiceSlotData
 	return dice_slot
 #endregion

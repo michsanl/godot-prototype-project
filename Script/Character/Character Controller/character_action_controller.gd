@@ -2,6 +2,7 @@ class_name CharacterActionController
 extends Node
 
 @export var sprite_controller: CharacterSprite
+@export var vfx_controller: VFXController
 @export var default_duration: float = 1.0
 @export var attack_duration: float = 1.0
 @export var damaged_duration: float = 1.0
@@ -67,12 +68,13 @@ func perform_slash_action(opponent: CharacterController, duration: float = defau
 			.build()
 	)
 	sprite_controller.change_to_slash_sprite()
+	vfx_controller.change_to_slash_vfx()
 	await get_tree().create_timer(duration).timeout
 	sprite_controller.change_to_default_sprite()
+	vfx_controller.clear_vfx()
 
 
 func perform_pierce_action(opponent: CharacterController, duration: float = default_duration):
-	sprite_controller.change_to_pierce_sprite()
 	opponent.apply_knockback(
 		KnockbackBuilder.new()
 			.with_actor_pos(owner_character.position)
@@ -80,8 +82,11 @@ func perform_pierce_action(opponent: CharacterController, duration: float = defa
 			.with_distance(_knockback_distance)
 			.build()
 	)
+	sprite_controller.change_to_pierce_sprite()
+	vfx_controller.change_to_pierce_vfx()
 	await get_tree().create_timer(duration).timeout
 	sprite_controller.change_to_default_sprite()
+	vfx_controller.clear_vfx()
 
 
 func perform_blunt_action(opponent: CharacterController, duration: float = default_duration):
@@ -93,8 +98,10 @@ func perform_blunt_action(opponent: CharacterController, duration: float = defau
 			.build()
 	)
 	sprite_controller.change_to_blunt_sprite()
+	vfx_controller.change_to_blunt_vfx()
 	await get_tree().create_timer(duration).timeout
 	sprite_controller.change_to_default_sprite()
+	vfx_controller.clear_vfx()
 
 
 func perform_guard_action(duration: float = default_duration):

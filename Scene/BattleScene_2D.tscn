@@ -19,43 +19,42 @@ texture = ExtResource("1_mtylr")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 
-[node name="state_manager" type="Node" parent="." node_paths=PackedStringArray("strategy_state_manager", "combat_state_manager")]
+[node name="BattleSceneManager" type="Node" parent="." node_paths=PackedStringArray("strategy_state_manager", "combat_state_manager")]
 script = ExtResource("2_mtm51")
 strategy_state_manager = NodePath("strategy_state_manager")
 combat_state_manager = NodePath("combat_state_manager")
 
-[node name="strategy_state_manager" type="Node" parent="state_manager" node_paths=PackedStringArray("player_characters", "enemy_characters")]
+[node name="strategy_state_manager" type="Node" parent="BattleSceneManager" node_paths=PackedStringArray("player_characters", "enemy_characters")]
 script = ExtResource("3_t0dor")
-player_characters = [NodePath("../../battle_character/player_character")]
-enemy_characters = [NodePath("../../battle_character/enemy_character")]
+player_characters = [NodePath("../../Characters/player_character")]
+enemy_characters = [NodePath("../../Characters/enemy_character")]
 
-[node name="combat_state_manager" type="Node" parent="state_manager" node_paths=PackedStringArray("clash_result_helper", "player_characters", "enemy_characters")]
+[node name="combat_state_manager" type="Node" parent="BattleSceneManager" node_paths=PackedStringArray("player_characters", "enemy_characters", "clash_result_helper")]
 script = ExtResource("4_xdkpq")
+player_characters = [NodePath("../../Characters/player_character")]
+enemy_characters = [NodePath("../../Characters/enemy_character")]
 clash_result_helper = NodePath("clash_result_helper")
-player_characters = [NodePath("../../battle_character/player_character")]
-enemy_characters = [NodePath("../../battle_character/enemy_character")]
 
-[node name="combat_matchmaker" type="Node" parent="state_manager/combat_state_manager"]
+[node name="combat_matchmaker" type="Node" parent="BattleSceneManager/combat_state_manager"]
 
-[node name="clash_result_helper" type="Node" parent="state_manager/combat_state_manager"]
+[node name="clash_result_helper" type="Node" parent="BattleSceneManager/combat_state_manager"]
 script = ExtResource("7_8qtd0")
 
-[node name="battle_character" type="Node2D" parent="."]
+[node name="Characters" type="Node2D" parent="."]
 
-[node name="player_character" parent="battle_character" instance=ExtResource("7_4v0j5")]
-position = Vector2(248, 2)
+[node name="player_character" parent="Characters" instance=ExtResource("7_4v0j5")]
+position = Vector2(300, 74)
 
-[node name="enemy_character" parent="battle_character" instance=ExtResource("6_8rj7f")]
-position = Vector2(-321, 1)
+[node name="enemy_character" parent="Characters" instance=ExtResource("6_8rj7f")]
+position = Vector2(-304, 60)
 
-[node name="debug_button" type="Node2D" parent="." node_paths=PackedStringArray("state_manager", "strategy_button", "combat_button", "resolve_button", "player_character", "enemy_character")]
+[node name="debug_button" type="Node2D" parent="." node_paths=PackedStringArray("state_manager", "strategy_button", "combat_button", "resolve_button", "enemy_character")]
 script = ExtResource("5_mtm51")
-state_manager = NodePath("../state_manager")
+state_manager = NodePath("../BattleSceneManager")
 strategy_button = NodePath("strategy_button")
 combat_button = NodePath("combat_button")
 resolve_button = NodePath("resolve_button")
-player_character = NodePath("../battle_character/player_character")
-enemy_character = NodePath("../battle_character/enemy_character")
+enemy_character = NodePath("../Characters/enemy_character")
 
 [node name="strategy_button" parent="debug_button" instance=ExtResource("5_8qtd0")]
 offset_left = -291.0
@@ -81,10 +80,10 @@ offset_bottom = -229.0
 text = "Resolve"
 metadata/_edit_use_anchors_ = true
 
-[connection signal="combat_ended" from="state_manager/combat_state_manager" to="state_manager" method="_on_combat_state_manager_combat_ended"]
-[connection signal="pressed" from="debug_button/strategy_button" to="state_manager" method="_on_strategy_button_pressed"]
+[connection signal="combat_ended" from="BattleSceneManager/combat_state_manager" to="BattleSceneManager" method="_on_combat_state_manager_combat_ended"]
+[connection signal="pressed" from="debug_button/strategy_button" to="BattleSceneManager" method="_on_strategy_button_pressed"]
 [connection signal="pressed" from="debug_button/strategy_button" to="debug_button" method="_on_strategy_button_pressed"]
-[connection signal="pressed" from="debug_button/combat_button" to="state_manager" method="_on_combat_button_pressed"]
+[connection signal="pressed" from="debug_button/combat_button" to="BattleSceneManager" method="_on_combat_button_pressed"]
 [connection signal="pressed" from="debug_button/combat_button" to="debug_button" method="_on_combat_button_pressed"]
-[connection signal="pressed" from="debug_button/resolve_button" to="state_manager" method="_on_resolve_button_pressed"]
+[connection signal="pressed" from="debug_button/resolve_button" to="BattleSceneManager" method="_on_resolve_button_pressed"]
 [connection signal="pressed" from="debug_button/resolve_button" to="debug_button" method="_on_resolve_button_pressed"]

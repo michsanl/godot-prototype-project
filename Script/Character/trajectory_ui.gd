@@ -1,7 +1,7 @@
 class_name TrajectoryUI
 extends Line2D
 
-var dice_slot: CharacterDiceSlot
+var dice_slot: DiceSlotData
 
 var start_point: Vector2
 var end_point: Vector2

@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="VFXData" load_steps=7 format=3 uid="uid://cf4tijk5nlsau"]
+
+[ext_resource type="Script" uid="uid://uf3jg5b2fiol" path="res://Script/Resource/Visual/vfx_data.gd" id="1_2a4b4"]
+[ext_resource type="Texture2D" uid="uid://c8rs0nmfwbhpj" path="res://Art/VFX/강한 종베기2.png" id="1_he336"]
+[ext_resource type="Texture2D" uid="uid://d17cotiasgh74" path="res://Art/VFX/횡베기.png" id="3_ay6la"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ymow4"]
+atlas = ExtResource("3_ay6la")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_he336"]
+atlas = ExtResource("1_he336")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ay6la"]
+atlas = ExtResource("1_he336")
+
+[resource]
+script = ExtResource("1_2a4b4")
+slash_vfx = SubResource("AtlasTexture_ay6la")
+pierce_vfx = SubResource("AtlasTexture_he336")
+blunt_vfx = SubResource("AtlasTexture_ymow4")
+metadata/_custom_type_script = "uid://uf3jg5b2fiol"

@@ -1,7 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://cv2sxbkdyre5e"]
+[gd_scene load_steps=4 format=3 uid="uid://cv2sxbkdyre5e"]
 
 [ext_resource type="PackedScene" uid="uid://b3whippw3cwep" path="res://Scene/Character/character_player.tscn" id="1_h5s4o"]
 [ext_resource type="Script" uid="uid://bsmgwr0xjr2xy" path="res://Script/Debug/Debug Visual/debug_character_visual.gd" id="2_6ofiv"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_6ofiv"]
 
 [node name="Debug Character" type="Node2D"]
 
@@ -37,9 +39,9 @@ offset_bottom = -232.0
 text = "Pierce"
 
 [node name="Blunt" type="Button" parent="Debug Button/Debug Character Visual"]
-offset_left = -58.0
+offset_left = -57.0
 offset_top = -298.0
-offset_right = 67.0
+offset_right = 68.0
 offset_bottom = -235.0
 text = "Blunt"
 
@@ -63,6 +65,11 @@ offset_top = -295.0
 offset_right = 556.0
 offset_bottom = -232.0
 text = "Damaged"
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(5.5, 33.25)
+scale = Vector2(307, 67.5)
+texture = SubResource("CanvasTexture_6ofiv")
 
 [connection signal="pressed" from="Debug Button/Debug Character Visual/Default" to="Debug Button/Debug Character Visual" method="_on_default_pressed"]
 [connection signal="pressed" from="Debug Button/Debug Character Visual/Slash" to="Debug Button/Debug Character Visual" method="_on_slash_pressed"]

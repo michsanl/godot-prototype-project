@@ -1,7 +1,7 @@
 class_name CharacterDiceSlotController
 extends Node
 
-@export var dice_slot_pool: Array[CharacterDiceSlot] = []
+@export var dice_slot_pool: Array[DiceSlotData] = []
 
 var owner_character: CharacterController
 
@@ -19,10 +19,10 @@ func roll_all_dice_slots():
 		dice_slot.roll_speed_value()
 
 
-func get_dice_slot_pool() -> Array[CharacterDiceSlot]:
+func get_dice_slot_pool() -> Array[DiceSlotData]:
 	return dice_slot_pool.duplicate()
 
 
-func get_random_dice_slot() -> CharacterDiceSlot:
-	var random_dice_slot = dice_slot_pool.pick_random() as CharacterDiceSlot
+func get_random_dice_slot() -> DiceSlotData:
+	var random_dice_slot = dice_slot_pool.pick_random() as DiceSlotData
 	return random_dice_slot.duplicate()

@@ -7,7 +7,13 @@ var owner_character: CharacterController
 
 func set_ability_controller_owner(new_owner: CharacterController):
 	owner_character = new_owner
+	_set_all_ability_owner(new_owner)
 
 
 func get_random_ability() -> AbilityData:
 	return ability_list.pick_random()
+
+
+func _set_all_ability_owner(new_owner: CharacterController):
+	for ability in ability_list:
+		ability.set_self_owner(new_owner)

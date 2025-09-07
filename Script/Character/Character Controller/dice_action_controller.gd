@@ -1,0 +1,2 @@
+class_name DiceActionController
+extends Node
