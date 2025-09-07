@@ -7,5 +7,5 @@
 [node name="player_character" instance=ExtResource("1_1x2aq")]
 char_name = "Player"
 
-[node name="Abilities" parent="." index="7"]
+[node name="Abilities" parent="." index="6"]
 ability_list = Array[ExtResource("2_0qf7x")]([ExtResource("3_72dmb")])

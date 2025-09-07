@@ -17,10 +17,11 @@ func handle_strategy_state_enter() -> void:
 func handle_strategy_state_exit() -> void:
 	pass
 
-
+# FIXME: remove old method
 func _randomize_character_dice_speed(characer_pool: Array[CharacterController]):
 	for character in characer_pool:
-		character.stats.randomize_dice_point()
+		character.dice_slot_controller.roll_all_dice_slots()
+		character.dice_control.roll_active_dice_slot()
 
 
 func _randomize_character_ability(characer_pool: Array[CharacterController]):
