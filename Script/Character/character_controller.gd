@@ -3,6 +3,7 @@ extends Node2D
 
 @export var char_name: String
 
+@export var dice_control: DiceControl
 @export var stats: CharacterStats
 @export var sprite: CharacterSprite
 @export var movement: CharacterMovement
@@ -20,18 +21,18 @@ var _initial_position: Vector2
 
 
 func _ready() -> void:
-	_set_childs_owner()
+	_initialize_childs()
 	_initial_position = self.position
 
 
-func _set_childs_owner():
+func _initialize_childs():
 	sprite.set_sprite_owner(self)
 	movement.set_movement_owner(self)
 	ability_controller.set_ability_controller_owner(self)
 	action_controller.set_action_controller_owner(self)
 	dice_slot_controller.set_dice_slot_controller_owner(self)
 	dice_slot_controller.set_all_dice_slot_owner(self)
-	ability_controller.set_ability_controller_owner(self)
+	dice_control.initialize(self, 1, 10)
 
 
 #region Action Controller
@@ -76,6 +77,7 @@ func apply_knockback(final_pos: Vector2):
 
 func roll_all_dice_slots():
 		dice_slot_controller.roll_all_dice_slots()
+		dice_control.roll_active_dice_slot()
 
 
 func reset_position():

@@ -1,0 +1,58 @@
+[gd_scene load_steps=4 format=3 uid="uid://bkvh75esl1npm"]
+
+[ext_resource type="Script" uid="uid://jy7o33i4rsey" path="res://Script/Character/Character Components/DiceSlot/dice_slot_control.gd" id="1_fhvlc"]
+[ext_resource type="Script" uid="uid://dj71o6ehtvqr4" path="res://Script/Character/Character Components/DiceSlot/dice_slot_model.gd" id="2_2so1d"]
+[ext_resource type="PackedScene" uid="uid://dpcrnh04ab5w4" path="res://Scene/UI/dice_slot_view.tscn" id="2_thdov"]
+
+[node name="DiceSlotController" type="Control" node_paths=PackedStringArray("dice_slots", "views")]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_fhvlc")
+dice_slots = [NodePath("DiceSlotModel"), NodePath("DiceSlotModel2"), NodePath("DiceSlotModel3"), NodePath("DiceSlotModel4")]
+views = [NodePath("DiceSlotViewContainer/DiceSlotView"), NodePath("DiceSlotViewContainer/DiceSlotView2"), NodePath("DiceSlotViewContainer/DiceSlotView3"), NodePath("DiceSlotViewContainer/DiceSlotView4")]
+
+[node name="DiceSlotModel" type="Node" parent="."]
+script = ExtResource("2_2so1d")
+
+[node name="DiceSlotModel2" type="Node" parent="."]
+script = ExtResource("2_2so1d")
+
+[node name="DiceSlotModel3" type="Node" parent="."]
+script = ExtResource("2_2so1d")
+
+[node name="DiceSlotModel4" type="Node" parent="."]
+script = ExtResource("2_2so1d")
+
+[node name="DiceSlotViewContainer" type="HBoxContainer" parent="."]
+custom_minimum_size = Vector2(256, 0)
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -128.0
+offset_right = 128.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 44
+alignment = 1
+
+[node name="DiceSlotView" parent="DiceSlotViewContainer" node_paths=PackedStringArray("model") instance=ExtResource("2_thdov")]
+layout_mode = 2
+size_flags_horizontal = 4
+model = NodePath("../../DiceSlotModel")
+
+[node name="DiceSlotView2" parent="DiceSlotViewContainer" node_paths=PackedStringArray("model") instance=ExtResource("2_thdov")]
+layout_mode = 2
+size_flags_horizontal = 4
+model = NodePath("../../DiceSlotModel2")
+
+[node name="DiceSlotView3" parent="DiceSlotViewContainer" node_paths=PackedStringArray("model") instance=ExtResource("2_thdov")]
+layout_mode = 2
+size_flags_horizontal = 4
+model = NodePath("../../DiceSlotModel3")
+
+[node name="DiceSlotView4" parent="DiceSlotViewContainer" node_paths=PackedStringArray("model") instance=ExtResource("2_thdov")]
+layout_mode = 2
+size_flags_horizontal = 4
+model = NodePath("../../DiceSlotModel4")

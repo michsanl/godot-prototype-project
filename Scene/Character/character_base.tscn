@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://bek3derprev18"]
+[gd_scene load_steps=16 format=3 uid="uid://bek3derprev18"]
 
 [ext_resource type="Script" uid="uid://c7c2x0t6jjupk" path="res://Script/Character/character_controller.gd" id="1_y5alb"]
 [ext_resource type="Script" uid="uid://bkyu1oyiksvly" path="res://Script/Character/Character Controller/character_action_controller.gd" id="2_8fd8j"]
@@ -14,10 +14,11 @@
 [ext_resource type="Script" uid="uid://2ytid1uivak6" path="res://Script/Resource/Ability/ability_data.gd" id="8_psia3"]
 [ext_resource type="Script" uid="uid://b54mqe1887k7e" path="res://Script/Character/Character Controller/vfx_controller.gd" id="11_psia3"]
 [ext_resource type="Script" uid="uid://b1jom5fwerwwh" path="res://Script/Character/Character Controller/character_dice_slot_controller.gd" id="14_co0rr"]
+[ext_resource type="PackedScene" uid="uid://bkvh75esl1npm" path="res://Scene/Character/DiceSlot/dice_slot_controller.tscn" id="15_1ako7"]
 
-[node name="CharacterController" type="Node2D" node_paths=PackedStringArray("stats", "sprite", "movement", "ability_controller", "dice_slot_controller", "action_controller", "combat_controller")]
+[node name="CharacterController" type="Node2D" node_paths=PackedStringArray("dice_control", "stats", "sprite", "movement", "ability_controller", "dice_slot_controller", "action_controller", "combat_controller")]
 script = ExtResource("1_y5alb")
-char_name = null
+dice_control = NodePath("BattleUI/DiceSlotController")
 stats = NodePath("Stats")
 sprite = NodePath("Sprite")
 movement = NodePath("Movement")
@@ -33,8 +34,6 @@ vfx_controller = NodePath("../VFX")
 
 [node name="Combat" type="Node" parent="."]
 script = ExtResource("3_co0rr")
-
-[node name="==Components==" type="Node" parent="."]
 
 [node name="Sprite" type="Sprite2D" parent="."]
 position = Vector2(0, -88)
@@ -65,3 +64,27 @@ dice_slot_pool = [NodePath("DiceSlot")]
 
 [node name="DiceSlot" type="Node" parent="DiceSlotController"]
 script = ExtResource("7_1ako7")
+
+[node name="BattleUI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="DiceSlotController" parent="BattleUI" instance=ExtResource("15_1ako7")]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = -3.5
+anchor_right = 0.5
+anchor_bottom = -3.5
+offset_top = 1.52588e-05
+offset_bottom = 1.52588e-05

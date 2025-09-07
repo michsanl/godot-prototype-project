@@ -3,6 +3,7 @@ extends Node
 
 signal target_added
 signal target_removed
+signal speed_value_changed(value: int)
 
 var owner_character: CharacterController
 var speed_value: int
@@ -14,6 +15,11 @@ var max_speed_value: int = 10
 
 func roll_speed_value():
 	speed_value = randi_range(min_speed_value, max_speed_value)
+	speed_value_changed.emit(speed_value)
+
+
+func clear_speed_value():
+	speed_value = 0
 
 
 func clear_target_dice_slot():
