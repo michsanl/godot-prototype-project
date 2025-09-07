@@ -10,13 +10,13 @@ enum ClashState {
 
 signal combat_ended
 
+@export var player_characters: Array[CharacterController]
+@export var enemy_characters: Array[CharacterController]
 @export var is_auto_roll: bool = true
 @export var auto_roll_timer: float = 1.0
 @export var clash_result_helper: ClashResultHelper
-@export var player_characters: Array[CharacterController] = []
-@export var enemy_characters: Array[CharacterController] = []
 
-var _combat_ready_dice_slot_pool: Array[CharacterDiceSlot] = []
+var _combat_ready_dice_slot_pool: Array[DiceSlotData] = []
 
 
 func handle_combat_state_enter() -> void:
@@ -79,7 +79,7 @@ func _matchmake_single_combat() -> CombatData:
 	return combat_data
 
 
-func _has_combat_ready_dice_slot(dice_slot_pool: Array[CharacterDiceSlot]) -> bool:
+func _has_combat_ready_dice_slot(dice_slot_pool: Array[DiceSlotData]) -> bool:
 	return not dice_slot_pool.is_empty()
 #endregion
 
@@ -293,7 +293,7 @@ func is_targeting_each_other(attacker: CharacterController, defender: CharacterC
 	return current_target == attacker
  
 
-func sort_ascending_dice_slot_speed(a: CharacterDiceSlot, b: CharacterDiceSlot) -> bool:
+func sort_ascending_dice_slot_speed(a: DiceSlotData, b: DiceSlotData) -> bool:
 	return a.speed_value > b.speed_value
 
 

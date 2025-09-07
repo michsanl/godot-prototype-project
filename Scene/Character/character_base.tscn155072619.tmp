@@ -17,7 +17,6 @@
 
 [node name="CharacterController" type="Node2D" node_paths=PackedStringArray("stats", "sprite", "movement", "ability_controller", "dice_slot_controller", "action_controller", "combat_controller")]
 script = ExtResource("1_y5alb")
-char_name = null
 stats = NodePath("Stats")
 sprite = NodePath("Sprite")
 movement = NodePath("Movement")
@@ -44,8 +43,6 @@ script = ExtResource("4_g08oy")
 sprite_resource = ExtResource("5_ylsyo")
 
 [node name="VFX" type="Sprite2D" parent="."]
-position = Vector2(0, -88)
-scale = Vector2(0.75, 0.75)
 script = ExtResource("11_psia3")
 vfx_resource = ExtResource("6_co0rr")
 
@@ -61,7 +58,7 @@ ability_list = Array[ExtResource("8_psia3")]([null])
 
 [node name="DiceSlotController" type="Node" parent="." node_paths=PackedStringArray("dice_slot_pool")]
 script = ExtResource("14_co0rr")
-dice_slot_pool = [NodePath("DiceSlot")]
+dice_slot_pool = Array[ExtResource("8_psia3")]([null])
 
 [node name="DiceSlot" type="Node" parent="DiceSlotController"]
 script = ExtResource("7_1ako7")

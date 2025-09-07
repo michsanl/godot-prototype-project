@@ -86,5 +86,5 @@ func reset_visual():
 	sprite.change_to_default_sprite()
 
 
-func get_dice_slot_pool() -> Array[CharacterDiceSlot]:
+func get_dice_slot_pool() -> Array[DiceSlotData]:
 	return dice_slot_controller.get_dice_slot_pool()
