@@ -8,7 +8,7 @@ var owner_character: CharacterController
 var min_speed_value: int
 var max_speed_value: int
 
-
+# FIXME: seperate the logic
 func initialize(new_owner, min_value, max_value):
 	max_speed_value = max_value
 	min_speed_value = min_value

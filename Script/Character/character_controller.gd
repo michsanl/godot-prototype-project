@@ -2,7 +2,7 @@ class_name CharacterController
 extends Node2D
 
 @export var char_name: String
-
+@export var data: CharacterData
 @export var dice_control: DiceControl
 @export var stats: CharacterStats
 @export var sprite: CharacterSprite
