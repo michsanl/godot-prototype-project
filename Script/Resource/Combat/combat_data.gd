@@ -76,6 +76,7 @@ func _set_attacker_combat_data(dice_slot: DiceSlotData):
 	attacker_dice_slot = dice_slot
 	attacker_ability = dice_slot.selected_ability.duplicate()
 	attacker_dice_pool = attacker_ability.get_dice_pool().duplicate() as Array[DiceData]
+	defender = dice_slot.target_dice_slot.owner_character
 
 
 func _set_defender_combat_data(dice_slot: DiceSlotData):

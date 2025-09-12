@@ -63,18 +63,20 @@ func _finalize_combat_phase():
 
 func _matchmake_single_combat() -> CombatData:
 	# Get combat pair
-	var attacker_dice_slot = _combat_ready_dice_slot_pool.front()
-	var defender_dice_slot = attacker_dice_slot.target_dice_slot
+	var attacker_dice_slot = _combat_ready_dice_slot_pool.front() as DiceSlotData
+	var defender_dice_slot = attacker_dice_slot.target_dice_slot as DiceSlotData
+	var combat_data: CombatData
 	
-	# Commit combat pair
+	# Commit combat pair & Create combat data
 	if defender_dice_slot.target_dice_slot == attacker_dice_slot:
 		_combat_ready_dice_slot_pool.erase(attacker_dice_slot)
 		_combat_ready_dice_slot_pool.erase(defender_dice_slot)
+		combat_data = CombatData.new(attacker_dice_slot, defender_dice_slot)
 	else:
 		_combat_ready_dice_slot_pool.erase(attacker_dice_slot)
+		combat_data = CombatData.new(attacker_dice_slot)
 	
 	# Create combat data
-	var combat_data = CombatData.new(attacker_dice_slot, defender_dice_slot)
 	
 	return combat_data
 
