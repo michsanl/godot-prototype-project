@@ -26,7 +26,7 @@ func _hide_canvas():
 
 func draw_trajectory(target_pos: Vector2):
 	start_point = self.position
-	end_point = target_pos
+	end_point = to_local(target_pos)
 	clear_trajectory()
 	
 	for i in range(trajectory_segments + 1):

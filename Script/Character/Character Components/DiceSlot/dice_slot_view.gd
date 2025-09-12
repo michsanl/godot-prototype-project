@@ -33,4 +33,4 @@ func update_target(new_target: DiceSlotData):
 	if new_target == null:
 		$Trajectory.clear_trajectory()
 	else:
-		$Trajectory.draw_trajectory(new_target.owner_character.position)
+		$Trajectory.draw_trajectory(new_target.view.global_position)

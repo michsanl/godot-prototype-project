@@ -41,19 +41,9 @@ func _randomize_character_dice_slot_ability(slots: Array[DiceSlotData]):
 		slot.set_selected_ability(ability)
 
 
-func _randomize_player_dice_point() -> void:
-	for player in player_characters:
-		player.dice_slot.roll_all_dice_slots()
-
-
-func _randomize_enemy_dice_point() -> void:
-	for enemy in enemy_characters:
-		enemy.dice_slot.roll_all_dice_slots()
-
-
 func _randomize_character_target(actor_slots: Array[DiceSlotData], opponent_slots: Array[DiceSlotData]):
 	for actor_slot in actor_slots:
-		actor_slot.target_dice_slot = opponent_slots.pick_random()
+		actor_slot.set_target_slot(opponent_slots.pick_random())
 
 
 #func _randomize_player_target() -> void:

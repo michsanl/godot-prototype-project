@@ -25,16 +25,12 @@ alignment = 1
 
 [node name="DiceSlotView" parent="DiceSlotViewContainer" instance=ExtResource("2_s04fn")]
 layout_mode = 2
-size_flags_horizontal = 4
 
 [node name="DiceSlotView2" parent="DiceSlotViewContainer" instance=ExtResource("2_s04fn")]
 layout_mode = 2
-size_flags_horizontal = 4
 
 [node name="DiceSlotView3" parent="DiceSlotViewContainer" instance=ExtResource("2_s04fn")]
 layout_mode = 2
-size_flags_horizontal = 4
 
 [node name="DiceSlotView4" parent="DiceSlotViewContainer" instance=ExtResource("2_s04fn")]
 layout_mode = 2
-size_flags_horizontal = 4

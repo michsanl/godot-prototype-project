@@ -15,12 +15,14 @@ var max_speed_value: int
 var speed_value: int
 var target_dice_slot: DiceSlotData
 var selected_ability: AbilityData
+var view: DiceSlotView
 
 
-func initialize(new_owner, min_speed = 1, max_speed = 10):
+func initialize(new_owner, min_speed, max_speed, new_view):
 	owner_character = new_owner
 	min_speed_value = min_speed
 	max_speed_value = max_speed
+	view = new_view
 
 
 func roll_speed_value():

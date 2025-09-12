@@ -46,9 +46,7 @@ func _initialize_models():
 	
 	for i in range(len(dice_slots)):
 		dice_slots[i] = DiceSlotData.new()
-		dice_slots[i].initialize(owner_character, min_speed_value, max_speed_value)
-	
-	print(dice_slots)
+		dice_slots[i].initialize(owner_character, min_speed_value, max_speed_value, views[i])
 
 
 func _initialize_views():
