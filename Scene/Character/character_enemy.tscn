@@ -7,11 +7,11 @@
 [node name="enemy_character" instance=ExtResource("1_7ar5a")]
 char_name = "Enemy"
 
-[node name="Sprite" parent="." index="3"]
+[node name="Sprite" parent="." index="2"]
 flip_h = true
 
-[node name="VFX" parent="." index="4"]
+[node name="VFX" parent="." index="3"]
 flip_h = true
 
-[node name="Abilities" parent="." index="7"]
+[node name="Abilities" parent="." index="6"]
 ability_list = Array[ExtResource("2_77u64")]([ExtResource("3_77u64")])

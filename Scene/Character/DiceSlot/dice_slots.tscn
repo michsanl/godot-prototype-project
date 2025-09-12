@@ -1,0 +1,40 @@
+[gd_scene load_steps=3 format=3 uid="uid://bkvh75esl1npm"]
+
+[ext_resource type="Script" uid="uid://jy7o33i4rsey" path="res://Script/Character/Character Components/DiceSlot/dice_slot_controller.gd" id="1_wbbs4"]
+[ext_resource type="PackedScene" uid="uid://dpcrnh04ab5w4" path="res://Scene/UI/dice_slot_view.tscn" id="2_s04fn"]
+
+[node name="DiceSlots" type="Control" node_paths=PackedStringArray("views")]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_wbbs4")
+views = [NodePath("DiceSlotViewContainer/DiceSlotView"), NodePath("DiceSlotViewContainer/DiceSlotView2"), NodePath("DiceSlotViewContainer/DiceSlotView3"), NodePath("DiceSlotViewContainer/DiceSlotView4")]
+
+[node name="DiceSlotViewContainer" type="HBoxContainer" parent="."]
+custom_minimum_size = Vector2(256, 0)
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -128.0
+offset_right = 128.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 44
+alignment = 1
+
+[node name="DiceSlotView" parent="DiceSlotViewContainer" instance=ExtResource("2_s04fn")]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="DiceSlotView2" parent="DiceSlotViewContainer" instance=ExtResource("2_s04fn")]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="DiceSlotView3" parent="DiceSlotViewContainer" instance=ExtResource("2_s04fn")]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="DiceSlotView4" parent="DiceSlotViewContainer" instance=ExtResource("2_s04fn")]
+layout_mode = 2
+size_flags_horizontal = 4

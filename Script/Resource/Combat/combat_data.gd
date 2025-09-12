@@ -72,14 +72,14 @@ func get_defender_front_dice() -> DiceData:
 
 
 func _set_attacker_combat_data(dice_slot: DiceSlotData):
-	attacker = dice_slot.owner as CharacterController
-	attacker_dice_slot = dice_slot.duplicate()
+	attacker = dice_slot.owner_character as CharacterController
+	attacker_dice_slot = dice_slot
 	attacker_ability = dice_slot.selected_ability.duplicate()
 	attacker_dice_pool = attacker_ability.get_dice_pool().duplicate() as Array[DiceData]
 
 
 func _set_defender_combat_data(dice_slot: DiceSlotData):
-	defender = dice_slot.owner as CharacterController
-	defender_dice_slot = dice_slot.duplicate()
+	defender = dice_slot.owner_character as CharacterController
+	defender_dice_slot = dice_slot
 	defender_ability = dice_slot.selected_ability.duplicate()
 	defender_dice_pool = defender_ability.get_dice_pool().duplicate() as Array[DiceData]

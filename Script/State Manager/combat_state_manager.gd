@@ -244,7 +244,7 @@ func _execute_one_sided_approach_movement(actor: CharacterController, target:Cha
 
 func _collect_combat_ready_dice_slots(character_pool: Array[CharacterController]):
 	for character in character_pool:
-		var dice_slot_pool = character.get_dice_slot_pool()
+		var dice_slot_pool = character.dice_slot_controller.dice_slots
 		for dice_slot in dice_slot_pool:
 			if dice_slot.target_dice_slot != null:
 				_combat_ready_dice_slot_pool.append(dice_slot)

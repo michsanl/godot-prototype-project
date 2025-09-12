@@ -7,7 +7,6 @@ _data = [Vector2(0, 0.271636), 0.0, 0.0, 0, 0, Vector2(0.496466, 1), 0.0, 0.0, 0
 point_count = 3
 
 [node name="trajectory_UI" type="Line2D"]
-visible = false
 width_curve = SubResource("Curve_utumv")
 default_color = Color(0.1812, 0.1812, 0.1812, 1)
 sharp_limit = 0.0
