@@ -47,7 +47,7 @@ func perform_one_sided_attack(clash_data: ClashData):
 	var my_dice = clash_data.owner_dice.dice_type as DiceData.DiceType
 	match my_dice:
 		DiceData.DiceType.ATTACK:
-			await action_controller.perform_slash_action(clash_data.opponent)
+			await action_controller.perform_slash_action(clash_data.opponent, false)
 		DiceData.DiceType.GUARD:
 			await action_controller.perform_guard_action()
 		DiceData.DiceType.EVADE:
@@ -69,6 +69,9 @@ func apply_clash_draw(clash_data: ClashData):
 func apply_knockback(final_pos: Vector2):
 	movement.perform_backward_movement(final_pos)
 	action_controller.perform_damaged_action()
+
+func apply_draw_knockback(final_pos: Vector2):
+	movement.perform_backward_movement(final_pos)
 #endregion
 
 
