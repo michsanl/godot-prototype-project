@@ -11,6 +11,10 @@ var follow_mouse_trajectory: bool = false
 var line: Line2D = self
 
 
+func _ready() -> void:
+	Global.combat_started.connect(clear_trajectory)
+
+
 func _process(_delta: float) -> void:
 	if follow_mouse_trajectory == true:
 		_draw_trajectory_to_mouse()

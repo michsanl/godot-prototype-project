@@ -21,6 +21,10 @@ func initialize(new_owner, min_value = 1, max_value = 10):
 	activate_dice_slot(1)
 
 
+func set_visibility(condition: bool):
+	self.visible = condition
+
+
 func roll_dice_slot(index: int):
 	dice_slots[index].roll_speed_value()
 

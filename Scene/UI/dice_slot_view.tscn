@@ -59,5 +59,4 @@ visible_characters = 10
 visible_ratio = 10.0
 
 [node name="Trajectory" type="Line2D" parent="."]
-visible = false
 script = ExtResource("3_31u0r")
