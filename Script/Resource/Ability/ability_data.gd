@@ -1,4 +1,3 @@
-@icon("res://Art/Ability_Icon.png")
 class_name AbilityData
 extends Resource
 

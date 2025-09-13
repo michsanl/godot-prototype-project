@@ -1,7 +1,6 @@
-[gd_scene load_steps=11 format=3 uid="uid://do3uwy2gicsls"]
+[gd_scene load_steps=10 format=3 uid="uid://do3uwy2gicsls"]
 
 [ext_resource type="Texture2D" uid="uid://c8sf5t0u0e5qn" path="res://Art/temporary_sprite/KeterFloorBattleStage.jpg" id="1_mtylr"]
-[ext_resource type="Script" uid="uid://cvhcgjpd2u1h" path="res://Script/State Manager/global.gd" id="1_xdkpq"]
 [ext_resource type="Script" uid="uid://ca131f6h2pd4o" path="res://Script/State Manager/battle_manager.gd" id="2_mtm51"]
 [ext_resource type="Script" uid="uid://c4mwu4ngi61wx" path="res://Script/State Manager/strategy_state_manager.gd" id="3_t0dor"]
 [ext_resource type="Script" uid="uid://bmp3a5hkmsqv0" path="res://Script/State Manager/combat_state_manager.gd" id="4_xdkpq"]
@@ -12,7 +11,6 @@
 [ext_resource type="Script" uid="uid://cbh8wxgqv7kd" path="res://Script/State Manager/Combat State Helper/clash_result_helper.gd" id="7_8qtd0"]
 
 [node name="BattleScene_2D" type="Node2D"]
-script = ExtResource("1_xdkpq")
 
 [node name="KeterFloorBattleStage" type="Sprite2D" parent="."]
 y_sort_enabled = true
@@ -37,7 +35,7 @@ player_characters = [NodePath("../../Characters/player_character")]
 enemy_characters = [NodePath("../../Characters/enemy_character")]
 clash_result_helper = NodePath("clash_result_helper")
 
-[node name="clash_handler" type="Node" parent="BattleSceneManager/combat_state_manager"]
+[node name="combat_matchmaker" type="Node" parent="BattleSceneManager/combat_state_manager"]
 
 [node name="clash_result_helper" type="Node" parent="BattleSceneManager/combat_state_manager"]
 script = ExtResource("7_8qtd0")
@@ -50,9 +48,8 @@ position = Vector2(300, 74)
 [node name="enemy_character" parent="Characters" instance=ExtResource("6_8rj7f")]
 position = Vector2(-304, 60)
 
-[node name="debug_button" type="Node2D" parent="." node_paths=PackedStringArray("state_manager", "strategy_button", "combat_button", "resolve_button", "player_character", "enemy_character")]
+[node name="debug_button" type="Node2D" parent="." node_paths=PackedStringArray("strategy_button", "combat_button", "resolve_button", "player_character", "enemy_character")]
 script = ExtResource("5_mtm51")
-state_manager = NodePath("../BattleSceneManager")
 strategy_button = NodePath("strategy_button")
 combat_button = NodePath("combat_button")
 resolve_button = NodePath("resolve_button")

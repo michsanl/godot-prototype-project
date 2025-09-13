@@ -16,7 +16,7 @@ config/features=PackedStringArray("4.4", "Forward Plus")
 
 [autoload]
 
-StateManager="*res://Script/State Manager/state_manager.gd"
+Global="*res://Script/State Manager/global.gd"
 
 [display]
 

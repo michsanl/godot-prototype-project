@@ -11,13 +11,8 @@ var follow_mouse_trajectory: bool = false
 var line: Line2D = self
 
 
-func _init() -> void:
-	start_point = self.position
-
-
 func _ready() -> void:
-	dice_slot.target_added.connect(_draw_trajectory)
-	dice_slot.target_removed.connect(_clear_trajectory)
+	Global.combat_started.connect(clear_trajectory)
 
 
 func _process(_delta: float) -> void:
@@ -33,9 +28,10 @@ func _hide_canvas():
 	self.visible = false
 
 
-func _draw_trajectory():
-	_clear_trajectory()
-	end_point = _get_target_position()
+func draw_trajectory(target_pos: Vector2):
+	start_point = self.position
+	end_point = to_local(target_pos)
+	clear_trajectory()
 	
 	for i in range(trajectory_segments + 1):
 		var t := i / float(trajectory_segments) 
@@ -43,10 +39,12 @@ func _draw_trajectory():
 		var arc_offset := arc_height * 4 * t * (1 - t)  # parabolic offset
 		pos.y += arc_offset
 		line.add_point(pos)
+	
+	print("trajectory drawed")
 
 
 func _draw_trajectory_to_mouse():
-	_clear_trajectory()
+	clear_trajectory()
 	_setup_trajectory_coordinate()
 	
 	var a = get_parent().position
@@ -58,7 +56,7 @@ func _draw_trajectory_to_mouse():
 		line.add_point(pos)
 
 
-func _clear_trajectory():
+func clear_trajectory():
 	line.clear_points()
 
 

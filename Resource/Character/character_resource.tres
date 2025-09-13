@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="CharacterData" load_steps=4 format=3 uid="uid://d1eoxqg5yuqdt"]
+
+[ext_resource type="Script" uid="uid://bye47dhspruri" path="res://Script/Character/character_data.gd" id="1_dxx8u"]
+[ext_resource type="Script" uid="uid://2ytid1uivak6" path="res://Script/Resource/Ability/ability_data.gd" id="1_o55m1"]
+[ext_resource type="Resource" uid="uid://ddt7y2wpi6618" path="res://Resource/Ability Stats/strike_ability_stats.tres" id="2_e1xvx"]
+
+[resource]
+script = ExtResource("1_dxx8u")
+max_health = 100
+max_shield = 50
+min_speed_value = 1
+max_speed_value = 10
+initial_active_dice_slot = 2
+abilities = Array[ExtResource("1_o55m1")]([ExtResource("2_e1xvx")])
+metadata/_custom_type_script = "uid://bye47dhspruri"

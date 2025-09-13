@@ -1,16 +1,28 @@
 class_name DiceSlotData
-extends Node
+extends RefCounted
 
-signal target_added
-signal target_removed
-signal speed_value_changed(value: int)
+enum DiceSlotState { INACTIVE, ACTIVE, HIGHLIGHT, STUNNED }
+
+signal state_changed(new_state: String)
+signal target_slot_changed(new_target: DiceSlotData)
+signal selected_ability_changed(new_ability: AbilityData)
+signal speed_value_changed(new_value: int)
 
 var owner_character: CharacterController
+var state: DiceSlotState
+var min_speed_value: int
+var max_speed_value: int
 var speed_value: int
 var target_dice_slot: DiceSlotData
 var selected_ability: AbilityData
-var min_speed_value: int = 1
-var max_speed_value: int = 10
+var view: DiceSlotView
+
+
+func initialize(new_owner, min_speed, max_speed, new_view):
+	owner_character = new_owner
+	min_speed_value = min_speed
+	max_speed_value = max_speed
+	view = new_view
 
 
 func roll_speed_value():
@@ -18,25 +30,27 @@ func roll_speed_value():
 	speed_value_changed.emit(speed_value)
 
 
-func clear_speed_value():
-	speed_value = 0
+func activate():
+	set_state(DiceSlotState.ACTIVE)
 
 
-func clear_target_dice_slot():
-	target_dice_slot = null
-	target_removed.emit()
+func deactivate():
+	set_state(DiceSlotState.INACTIVE)
 
 
-#region Setter
-func set_dice_slot_owner(new_owner: CharacterController):
-	owner_character = new_owner
+func set_target_slot(new_target: DiceSlotData):
+	if target_dice_slot != new_target:
+		target_dice_slot = new_target
+		target_slot_changed.emit(new_target)
 
 
-func set_target(dice_slot: DiceSlotData):
-	target_dice_slot = dice_slot
-	target_added.emit()
+func set_selected_ability(new_ability: AbilityData):
+	if selected_ability != new_ability:
+		selected_ability = new_ability
+		selected_ability_changed.emit(new_ability)
 
 
-func set_ability(ability: AbilityData):
-	selected_ability = ability
-#endregion
+func set_state(new_state: int):
+	if state != new_state:
+		state = new_state
+		state_changed.emit(new_state)

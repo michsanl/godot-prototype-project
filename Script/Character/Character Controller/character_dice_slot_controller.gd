@@ -1,28 +1,50 @@
 class_name CharacterDiceSlotController
 extends Node
 
-@export var dice_slot_pool: Array[DiceSlotData] = []
+@export var dice_slot_views: Array[DiceSlotView] = []
 
+var dice_slot_models: Array[DiceSlotData] = []
 var owner_character: CharacterController
 
-func set_dice_slot_controller_owner(new_owner: CharacterController):
-	owner_character = new_owner as CharacterController
+
+func _init() -> void:
+	activate_dice_slot(0)
+	activate_dice_slot(1)
 
 
-func set_all_dice_slot_owner(new_owner: CharacterController):
-	for dice_slot in dice_slot_pool:
-		dice_slot.set_dice_slot_owner(new_owner)
+func initialize(new_owner: CharacterController):
+	set_owner_character(new_owner)
+	initialize_models(new_owner)
 
 
-func roll_all_dice_slots():
-	for dice_slot in dice_slot_pool:
-		dice_slot.roll_speed_value()
+func initialize_models(new_owner: CharacterController):
+	for dice_slot in dice_slot_models:
+		dice_slot.initialize(new_owner)
 
 
-func get_dice_slot_pool() -> Array[DiceSlotData]:
-	return dice_slot_pool.duplicate()
+func roll_dice_slot(index: int):
+	dice_slot_models[index].roll_speed_value()
+
+
+func activate_dice_slot(index: int):
+	dice_slot_models[index].activate()
+
+
+#region Getter Setter
+func set_owner_character(new_owner: CharacterController):
+	owner_character = new_owner
+
+
+func get_active_dice_slot() -> Array[DiceSlotData]:
+	var active_dice_slots = []
+	for dice_slot in dice_slot_models:
+		if dice_slot.state == DiceSlotData.DiceSlotState.ACTIVE:
+			active_dice_slots.append(dice_slot)
+	
+	return active_dice_slots
 
 
 func get_random_dice_slot() -> DiceSlotData:
-	var random_dice_slot = dice_slot_pool.pick_random() as DiceSlotData
-	return random_dice_slot.duplicate()
+	var random_dice_slot = dice_slot_models.pick_random() as DiceSlotData
+	return random_dice_slot
+#endregion

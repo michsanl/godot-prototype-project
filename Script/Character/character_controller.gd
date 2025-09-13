@@ -2,13 +2,12 @@ class_name CharacterController
 extends Node2D
 
 @export var char_name: String
-
-@export var dice_control: DiceControl
+@export var data: CharacterData
 @export var stats: CharacterStats
 @export var sprite: CharacterSprite
 @export var movement: CharacterMovement
+@export var dice_slot_controller: DiceSlotController
 @export var ability_controller: CharacterAbilityController
-@export var dice_slot_controller: CharacterDiceSlotController
 @export var action_controller: CharacterActionController
 @export var combat_controller: CharacterCombatController
 
@@ -30,9 +29,7 @@ func _initialize_childs():
 	movement.set_movement_owner(self)
 	ability_controller.set_ability_controller_owner(self)
 	action_controller.set_action_controller_owner(self)
-	dice_slot_controller.set_dice_slot_controller_owner(self)
-	dice_slot_controller.set_all_dice_slot_owner(self)
-	dice_control.initialize(self, 1, 10)
+	dice_slot_controller.initialize(self)
 
 
 #region Action Controller
@@ -75,18 +72,9 @@ func apply_knockback(final_pos: Vector2):
 #endregion
 
 
-func roll_all_dice_slots():
-		dice_slot_controller.roll_all_dice_slots()
-		dice_control.roll_active_dice_slot()
-
-
 func reset_position():
 	self.position = _initial_position
 
 
 func reset_visual():
 	sprite.change_to_default_sprite()
-
-
-func get_dice_slot_pool() -> Array[DiceSlotData]:
-	return dice_slot_controller.get_dice_slot_pool()

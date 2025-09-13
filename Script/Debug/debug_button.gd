@@ -1,7 +1,7 @@
 class_name DebugButton
 extends Node2D
 
-@export var state_manager: StateManager
+@export var state_manager: BattleManager
 @export var strategy_button: Button
 @export var combat_button: Button
 @export var resolve_button: Button

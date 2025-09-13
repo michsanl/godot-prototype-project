@@ -1,4 +1,4 @@
-#class_name StateManager
+class_name BattleManager
 extends Node
 
 enum BattleState { NOTSET, STRATEGY, COMBAT, RESOLVE }
@@ -42,13 +42,16 @@ func _enter_state() -> void:
 		BattleState.STRATEGY:
 			strategy_state_manager.handle_strategy_state_enter()
 			strategy_started.emit()
+			Global.enter_state(Global.BattleState.STRATEGY)
 			return
 		BattleState.COMBAT:
 			combat_state_manager.handle_combat_state_enter()
 			combat_started.emit()
+			Global.enter_state(Global.BattleState.COMBAT)
 			return
 		BattleState.RESOLVE:
 			resolve_started.emit()
+			Global.enter_state(Global.BattleState.RESOLVE)
 			return
 
 

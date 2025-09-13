@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://dpcrnh04ab5w4"]
+[gd_scene load_steps=6 format=3 uid="uid://dpcrnh04ab5w4"]
 
 [ext_resource type="Script" uid="uid://jgnd4tga04yw" path="res://Script/Character/Character Components/DiceSlot/dice_slot_view.gd" id="1_l7bkc"]
 [ext_resource type="Texture2D" uid="uid://jmxggqej4haq" path="res://Art/HexagonTile.png" id="2_oetgj"]
+[ext_resource type="Script" uid="uid://bdshlelctktgb" path="res://Script/Character/trajectory_ui.gd" id="3_31u0r"]
 
 [sub_resource type="SystemFont" id="SystemFont_oetgj"]
 font_names = PackedStringArray("Dubai")
@@ -56,3 +57,6 @@ vertical_alignment = 1
 max_lines_visible = 10
 visible_characters = 10
 visible_ratio = 10.0
+
+[node name="Trajectory" type="Line2D" parent="."]
+script = ExtResource("3_31u0r")
