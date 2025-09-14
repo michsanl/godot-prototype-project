@@ -16,8 +16,9 @@ var win_response_helper: = CharacterWinResponseHelper.new(self)
 var lose_response_helper: = CharacterLoseResponseHelper.new(self)
 var draw_response_helper: = CharacterDrawResponseHelper.new(self)
 
+# FIXME: 
 var _initial_position: Vector2
-
+var _initial_slot_amount: int = 2
 
 func _ready() -> void:
 	_initialize_childs()
@@ -29,7 +30,7 @@ func _initialize_childs():
 	movement.set_movement_owner(self)
 	ability_controller.set_ability_controller_owner(self)
 	action_controller.set_action_controller_owner(self)
-	dice_slot_controller.initialize(self)
+	dice_slot_controller.initialize(self, _initial_slot_amount)
 
 
 #region Action Controller
@@ -69,6 +70,7 @@ func apply_clash_draw(clash_data: ClashData):
 func apply_knockback(final_pos: Vector2):
 	movement.perform_backward_movement(final_pos)
 	action_controller.perform_damaged_action()
+
 
 func apply_draw_knockback(final_pos: Vector2):
 	movement.perform_backward_movement(final_pos)
