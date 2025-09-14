@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://do3uwy2gicsls"]
+[gd_scene load_steps=14 format=3 uid="uid://do3uwy2gicsls"]
 
 [ext_resource type="Texture2D" uid="uid://c8sf5t0u0e5qn" path="res://Art/temporary_sprite/KeterFloorBattleStage.jpg" id="1_mtylr"]
 [ext_resource type="Script" uid="uid://cvhcgjpd2u1h" path="res://Script/BatttleManager/Combat State Helper/global.gd" id="1_xdkpq"]
@@ -6,12 +6,24 @@
 [ext_resource type="Script" uid="uid://bvrwg04i2xlyn" path="res://Script/BatttleManager/StateManager/battle_start_state_manager.gd" id="3_8qtd0"]
 [ext_resource type="Script" uid="uid://c4mwu4ngi61wx" path="res://Script/BatttleManager/StateManager/strategy_state_manager.gd" id="3_t0dor"]
 [ext_resource type="Script" uid="uid://bmp3a5hkmsqv0" path="res://Script/BatttleManager/StateManager/combat_state_manager.gd" id="4_xdkpq"]
-[ext_resource type="PackedScene" uid="uid://bsa7fd3dlwl5f" path="res://Scene/button.tscn" id="5_8qtd0"]
-[ext_resource type="Script" uid="uid://bttv64spjr6jr" path="res://Script/Debug/debug_button.gd" id="5_mtm51"]
 [ext_resource type="PackedScene" uid="uid://bvg3pyy64wc86" path="res://Scene/Character/character_enemy.tscn" id="6_8rj7f"]
 [ext_resource type="PackedScene" uid="uid://b3whippw3cwep" path="res://Scene/Character/character_player.tscn" id="7_4v0j5"]
 [ext_resource type="Script" uid="uid://cbh8wxgqv7kd" path="res://Script/BatttleManager/Combat State Helper/clash_result_helper.gd" id="7_8qtd0"]
 [ext_resource type="PackedScene" uid="uid://cfhmlqlj0hrdq" path="res://Scene/UI/BattleStartState/strategy_view.tscn" id="8_8rj7f"]
+[ext_resource type="PackedScene" uid="uid://c2xahj8fxn508" path="res://Scene/UI/Debug/battle_scene_debug_view.tscn" id="9_8qtd0"]
+
+[sub_resource type="FontFile" id="FontFile_8rj7f"]
+subpixel_positioning = 0
+msdf_pixel_range = 14
+msdf_size = 128
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
+
+[sub_resource type="Theme" id="Theme_4v0j5"]
+default_font = SubResource("FontFile_8rj7f")
 
 [node name="BattleScene_2D" type="Node2D"]
 script = ExtResource("1_xdkpq")
@@ -48,56 +60,33 @@ clash_result_helper = NodePath("clash_result_helper")
 [node name="clash_result_helper" type="Node" parent="BattleSceneManager/combat_state_manager"]
 script = ExtResource("7_8qtd0")
 
-[node name="UI" type="CanvasLayer" parent="."]
-follow_viewport_scale = 794.103
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="StrategyView" parent="UI" instance=ExtResource("8_8rj7f")]
-anchors_preset = 15
-anchor_bottom = 1.0
-grow_vertical = 2
-
-[node name="debug_buttons" type="Control" parent="UI" node_paths=PackedStringArray("state_manager", "strategy_button", "combat_button", "resolve_button", "player_character", "enemy_character")]
+[node name="UI" type="Control" parent="CanvasLayer"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("5_mtm51")
-state_manager = NodePath("../../BattleSceneManager")
-strategy_button = NodePath("HBoxContainer/strategy_button")
-combat_button = NodePath("HBoxContainer/combat_button")
-resolve_button = NodePath("HBoxContainer/resolve_button")
-player_character = NodePath("../../Characters/player_character")
-enemy_character = NodePath("../../Characters/enemy_character")
+theme = SubResource("Theme_4v0j5")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="UI/debug_buttons"]
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/UI"]
 layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
+anchors_preset = 15
+anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -109.0
-offset_top = -31.0
-offset_right = 109.0
 grow_horizontal = 2
-grow_vertical = 0
+grow_vertical = 2
 
-[node name="strategy_button" parent="UI/debug_buttons/HBoxContainer" instance=ExtResource("5_8qtd0")]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/UI/MarginContainer"]
 layout_mode = 2
-text = "Strategy"
-metadata/_edit_use_anchors_ = true
 
-[node name="combat_button" parent="UI/debug_buttons/HBoxContainer" instance=ExtResource("5_8qtd0")]
+[node name="StrategyView" parent="CanvasLayer/UI/MarginContainer/VBoxContainer" instance=ExtResource("8_8rj7f")]
 layout_mode = 2
-text = "Combat"
-metadata/_edit_use_anchors_ = true
 
-[node name="resolve_button" parent="UI/debug_buttons/HBoxContainer" instance=ExtResource("5_8qtd0")]
+[node name="BattleSceneDebugView" parent="CanvasLayer/UI/MarginContainer/VBoxContainer" instance=ExtResource("9_8qtd0")]
 layout_mode = 2
-text = "Resolve"
-metadata/_edit_use_anchors_ = true
 
 [node name="Characters" type="Node2D" parent="."]
 
@@ -108,9 +97,3 @@ position = Vector2(300, 74)
 position = Vector2(-304, 60)
 
 [connection signal="combat_ended" from="BattleSceneManager/combat_state_manager" to="BattleSceneManager" method="_on_combat_state_manager_combat_ended"]
-[connection signal="pressed" from="UI/debug_buttons/HBoxContainer/strategy_button" to="BattleSceneManager" method="_on_strategy_button_pressed"]
-[connection signal="pressed" from="UI/debug_buttons/HBoxContainer/strategy_button" to="UI/debug_buttons" method="_on_strategy_button_pressed"]
-[connection signal="pressed" from="UI/debug_buttons/HBoxContainer/combat_button" to="BattleSceneManager" method="_on_combat_button_pressed"]
-[connection signal="pressed" from="UI/debug_buttons/HBoxContainer/combat_button" to="UI/debug_buttons" method="_on_combat_button_pressed"]
-[connection signal="pressed" from="UI/debug_buttons/HBoxContainer/resolve_button" to="BattleSceneManager" method="_on_resolve_button_pressed"]
-[connection signal="pressed" from="UI/debug_buttons/HBoxContainer/resolve_button" to="UI/debug_buttons" method="_on_resolve_button_pressed"]
