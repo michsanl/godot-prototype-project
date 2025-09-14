@@ -18,7 +18,7 @@ var draw_response_helper: = CharacterDrawResponseHelper.new(self)
 
 # FIXME: 
 var _initial_position: Vector2
-var _initial_slot_amount: int = 2
+var _initial_slot_amount: int = 1
 
 func _ready() -> void:
 	_initialize_childs()

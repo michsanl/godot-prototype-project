@@ -1,7 +1,7 @@
 class_name BattleManager
 extends Node
 
-enum BattleState { BATTLE_START, STRATEGY, COMBAT, RESOLVE, BATTLE_END }
+enum BattleState { NOTSET, INITIALIZE, STRATEGY, COMBAT, RESOLVE, FINALIZE }
 
 signal initialize_started
 signal strategy_started
@@ -9,15 +9,25 @@ signal combat_started
 signal resolve_started
 signal finalize_started
 
+@export var initialize_battle_manager: InitializeBattleManager
 @export var strategy_state_manager: StrategyStateManager
 @export var combat_state_manager: CombatStateManager
+@export var resolve_state_manager: ResolveStateManager
+#@export var finalize_battle_manager: FinalizeBattleManager
 
 var _current_state: BattleState
 
 
 func _ready() -> void:
+	initialize_battle_manager.initialize_ended.connect(change_state_to_strategy)
 	strategy_state_manager.strategy_ended.connect(change_state_to_combat)
-	combat_state_manager.combat_ended.connect(change_state_to_strategy)
+	combat_state_manager.combat_ended.connect(change_state_to_resolve)
+	resolve_state_manager.resolve_ended.connect(change_state_to_strategy)
+	change_state_to_initialize()
+
+
+func change_state_to_initialize():
+	_change_state(BattleState.INITIALIZE)
 
 
 func change_state_to_strategy():
@@ -32,6 +42,10 @@ func change_state_to_resolve():
 	_change_state(BattleState.RESOLVE)
 
 
+func change_state_to_finalize():
+	_change_state(BattleState.FINALIZE)
+
+
 #region State Change Region
 func _change_state(target_state: BattleState) -> void:
 	if is_changing_to_same_state(target_state):
@@ -44,21 +58,24 @@ func _change_state(target_state: BattleState) -> void:
 
 func _enter_state() -> void:
 	match _current_state:
-		BattleState.BATTLE_START:
+		BattleState.INITIALIZE:
+			initialize_battle_manager.handle_initialize_battle_enter()
+			initialize_started.emit()
 			return
 		BattleState.STRATEGY:
 			strategy_state_manager.handle_strategy_state_enter()
 			strategy_started.emit()
-			Global.enter_state(Global.BattleState.STRATEGY)
 			return
 		BattleState.COMBAT:
 			combat_state_manager.handle_combat_state_enter()
 			combat_started.emit()
-			Global.enter_state(Global.BattleState.COMBAT)
 			return
 		BattleState.RESOLVE:
+			resolve_state_manager.handle_initialize_battle_enter()
 			resolve_started.emit()
-			Global.enter_state(Global.BattleState.RESOLVE)
+			return
+		BattleState.FINALIZE:
+			finalize_started.emit()
 			return
 
 
@@ -69,7 +86,8 @@ func _set_state(new_state: BattleState) -> void:
 
 func _exit_state() -> void:
 	match _current_state:
-		BattleState.BATTLE_START:
+		BattleState.INITIALIZE:
+			initialize_battle_manager.handle_initialize_battle_exit()
 			return
 		BattleState.STRATEGY:
 			strategy_state_manager.handle_strategy_state_exit()
@@ -78,6 +96,9 @@ func _exit_state() -> void:
 			combat_state_manager.handle_combat_state_exit()
 			return
 		BattleState.RESOLVE:
+			resolve_state_manager.handle_initialize_battle_exit()
+			return
+		BattleState.FINALIZE:
 			return
 #endregion
 

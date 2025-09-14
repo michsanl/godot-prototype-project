@@ -45,6 +45,13 @@ func set_dice_slot_ability(index: int, ability: AbilityData):
 	dice_slots[index].set_selected_ability(ability)
 
 
+func clear_all_dice_slot_data():
+	for dice_slot in dice_slots:
+		if dice_slot.state != DiceSlotData.DiceSlotState.ACTIVE:
+			break
+		dice_slot.clear_data()
+
+
 func _initialize_models():
 	dice_slots.resize(len(views))
 	

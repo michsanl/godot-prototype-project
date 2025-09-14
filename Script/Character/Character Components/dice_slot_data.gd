@@ -25,17 +25,28 @@ func initialize(new_owner, min_speed, max_speed, new_view):
 	view = new_view
 
 
-func roll_speed_value():
-	speed_value = randi_range(min_speed_value, max_speed_value)
-	speed_value_changed.emit(speed_value)
-
-
 func activate():
 	set_state(DiceSlotState.ACTIVE)
 
 
 func deactivate():
 	set_state(DiceSlotState.INACTIVE)
+
+
+func clear_data():
+	set_speed_value(0)
+	set_target_slot(null)
+	set_selected_ability(null)
+
+
+func roll_speed_value():
+	speed_value = randi_range(min_speed_value, max_speed_value)
+	speed_value_changed.emit(speed_value)
+
+
+func set_speed_value(new_value: int):
+	speed_value = new_value
+	speed_value_changed.emit(speed_value)
 
 
 func set_target_slot(new_target: DiceSlotData):

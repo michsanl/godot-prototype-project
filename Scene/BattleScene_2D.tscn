@@ -1,9 +1,9 @@
-[gd_scene load_steps=15 format=3 uid="uid://do3uwy2gicsls"]
+[gd_scene load_steps=16 format=3 uid="uid://do3uwy2gicsls"]
 
 [ext_resource type="Texture2D" uid="uid://c8sf5t0u0e5qn" path="res://Art/temporary_sprite/KeterFloorBattleStage.jpg" id="1_mtylr"]
 [ext_resource type="Script" uid="uid://cvhcgjpd2u1h" path="res://Script/BatttleManager/Combat State Helper/global.gd" id="1_xdkpq"]
 [ext_resource type="Script" uid="uid://ca131f6h2pd4o" path="res://Script/BatttleManager/battle_manager.gd" id="2_mtm51"]
-[ext_resource type="Script" uid="uid://bvrwg04i2xlyn" path="res://Script/BatttleManager/StateManager/battle_start_state_manager.gd" id="3_8qtd0"]
+[ext_resource type="Script" uid="uid://bvrwg04i2xlyn" path="res://Script/BatttleManager/StateManager/initialize_battle_manager.gd" id="3_8qtd0"]
 [ext_resource type="Script" uid="uid://cnr7hvxe7rc8n" path="res://Script/Debug/battle_scene_debug_manager.gd" id="3_8rj7f"]
 [ext_resource type="Script" uid="uid://c4mwu4ngi61wx" path="res://Script/BatttleManager/StateManager/strategy_state_manager.gd" id="3_t0dor"]
 [ext_resource type="Script" uid="uid://bmp3a5hkmsqv0" path="res://Script/BatttleManager/StateManager/combat_state_manager.gd" id="4_xdkpq"]
@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://b3whippw3cwep" path="res://Scene/Character/character_player.tscn" id="7_4v0j5"]
 [ext_resource type="Script" uid="uid://cbh8wxgqv7kd" path="res://Script/BatttleManager/Combat State Helper/clash_result_helper.gd" id="7_8qtd0"]
 [ext_resource type="PackedScene" uid="uid://cfhmlqlj0hrdq" path="res://Scene/UI/BattleStartState/strategy_view.tscn" id="8_8rj7f"]
+[ext_resource type="Script" uid="uid://dgs7y4if2cys0" path="res://Script/BatttleManager/StateManager/resolve_state_manager.gd" id="9_4v0j5"]
 [ext_resource type="PackedScene" uid="uid://c2xahj8fxn508" path="res://Scene/UI/Debug/battle_scene_debug_view.tscn" id="9_8qtd0"]
 
 [sub_resource type="FontFile" id="FontFile_8rj7f"]
@@ -38,33 +39,42 @@ texture = ExtResource("1_mtylr")
 
 [node name="BattleSceneDebugManager" type="Node" parent="." node_paths=PackedStringArray("scene_manager", "debug_view")]
 script = ExtResource("3_8rj7f")
+is_enable = false
 scene_manager = NodePath("../BattleSceneManager")
 debug_view = NodePath("../CanvasLayer/UI/MarginContainer/BattleSceneDebugView")
 
-[node name="BattleSceneManager" type="Node" parent="." node_paths=PackedStringArray("strategy_state_manager", "combat_state_manager")]
+[node name="BattleSceneManager" type="Node" parent="." node_paths=PackedStringArray("initialize_battle_manager", "strategy_state_manager", "combat_state_manager", "resolve_state_manager")]
 script = ExtResource("2_mtm51")
-strategy_state_manager = NodePath("strategy_state_manager")
-combat_state_manager = NodePath("combat_state_manager")
+initialize_battle_manager = NodePath("InitializeBattleManager")
+strategy_state_manager = NodePath("StrategyStateManager")
+combat_state_manager = NodePath("CombatStateManager")
+resolve_state_manager = NodePath("ResolveStateManager")
 
-[node name="battle_start_state_manager" type="Node" parent="BattleSceneManager"]
+[node name="InitializeBattleManager" type="Node" parent="BattleSceneManager"]
 script = ExtResource("3_8qtd0")
 
-[node name="strategy_state_manager" type="Node" parent="BattleSceneManager" node_paths=PackedStringArray("player_characters", "enemy_characters", "view")]
+[node name="StrategyStateManager" type="Node" parent="BattleSceneManager" node_paths=PackedStringArray("player_characters", "enemy_characters", "view")]
 script = ExtResource("3_t0dor")
 player_characters = [NodePath("../../Characters/player_character")]
 enemy_characters = [NodePath("../../Characters/enemy_character")]
 view = NodePath("../../CanvasLayer/UI/MarginContainer/StrategyView")
 
-[node name="combat_state_manager" type="Node" parent="BattleSceneManager" node_paths=PackedStringArray("player_characters", "enemy_characters", "clash_result_helper")]
+[node name="CombatStateManager" type="Node" parent="BattleSceneManager" node_paths=PackedStringArray("player_characters", "enemy_characters", "clash_result_helper")]
 script = ExtResource("4_xdkpq")
 player_characters = [NodePath("../../Characters/player_character")]
 enemy_characters = [NodePath("../../Characters/enemy_character")]
 clash_result_helper = NodePath("clash_result_helper")
 
-[node name="clash_handler" type="Node" parent="BattleSceneManager/combat_state_manager"]
+[node name="clash_handler" type="Node" parent="BattleSceneManager/CombatStateManager"]
 
-[node name="clash_result_helper" type="Node" parent="BattleSceneManager/combat_state_manager"]
+[node name="clash_result_helper" type="Node" parent="BattleSceneManager/CombatStateManager"]
 script = ExtResource("7_8qtd0")
+
+[node name="ResolveStateManager" type="Node" parent="BattleSceneManager" node_paths=PackedStringArray("characters")]
+script = ExtResource("9_4v0j5")
+characters = [NodePath("../../Characters/player_character"), NodePath("../../Characters/enemy_character")]
+
+[node name="FinalizeBattleManager" type="Node" parent="BattleSceneManager"]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 

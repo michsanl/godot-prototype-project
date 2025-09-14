@@ -39,8 +39,6 @@ func draw_trajectory(target_pos: Vector2):
 		var arc_offset := arc_height * 4 * t * (1 - t)  # parabolic offset
 		pos.y += arc_offset
 		line.add_point(pos)
-	
-	print("trajectory drawed")
 
 
 func _draw_trajectory_to_mouse():
