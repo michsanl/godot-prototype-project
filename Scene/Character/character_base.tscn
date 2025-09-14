@@ -17,6 +17,7 @@
 [ext_resource type="PackedScene" uid="uid://bkvh75esl1npm" path="res://Scene/Character/DiceSlot/dice_slots.tscn" id="14_co0rr"]
 
 [node name="CharacterController" type="Node2D" node_paths=PackedStringArray("stats", "sprite", "movement", "dice_slot_controller", "ability_controller", "action_controller", "combat_controller")]
+scale = Vector2(0.75, 0.75)
 script = ExtResource("1_y5alb")
 data = ExtResource("2_h3o0s")
 stats = NodePath("Stats")

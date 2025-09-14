@@ -1,0 +1,55 @@
+[gd_scene load_steps=2 format=3 uid="uid://c2xahj8fxn508"]
+
+[ext_resource type="Script" uid="uid://bttv64spjr6jr" path="res://Script/Debug/battle_scene_debug_view.gd" id="1_4g1mm"]
+
+[node name="BattleSceneDebugView" type="Control"]
+custom_minimum_size = Vector2(33.7, 0)
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -16.85
+offset_right = 16.85
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 10
+size_flags_vertical = 3
+script = ExtResource("1_4g1mm")
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -73.0
+offset_top = -106.5
+offset_bottom = 106.5
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_constants/separation = 60
+
+[node name="Strategy" type="Button" parent="VBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+text = "Strategy"
+
+[node name="Combat" type="Button" parent="VBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+text = "Combat"
+
+[node name="Resolve" type="Button" parent="VBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+text = "Resolve"
+
+[connection signal="pressed" from="VBoxContainer2/Strategy" to="." method="_on_strategy_pressed"]
+[connection signal="pressed" from="VBoxContainer2/Combat" to="." method="_on_combat_pressed"]
+[connection signal="pressed" from="VBoxContainer2/Resolve" to="." method="_on_resolve_pressed"]

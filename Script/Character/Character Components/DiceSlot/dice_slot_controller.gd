@@ -9,7 +9,7 @@ var min_speed_value: int
 var max_speed_value: int
 
 
-func initialize(new_owner, min_value = 1, max_value = 10):
+func initialize(new_owner, starting_slot_amount, min_value = 1, max_value = 10):
 	owner_character = new_owner
 	max_speed_value = max_value
 	min_speed_value = min_value
@@ -17,8 +17,8 @@ func initialize(new_owner, min_value = 1, max_value = 10):
 	_initialize_models()
 	_initialize_views()
 	
-	activate_dice_slot(0)
-	activate_dice_slot(1)
+	for i in range(starting_slot_amount):
+		activate_dice_slot(i)
 
 
 func set_visibility(condition: bool):
@@ -43,6 +43,13 @@ func set_dice_slot_target(index: int, target: DiceSlotData):
 
 func set_dice_slot_ability(index: int, ability: AbilityData):
 	dice_slots[index].set_selected_ability(ability)
+
+
+func clear_all_dice_slot_data():
+	for dice_slot in dice_slots:
+		if dice_slot.state != DiceSlotData.DiceSlotState.ACTIVE:
+			break
+		dice_slot.clear_data()
 
 
 func _initialize_models():
