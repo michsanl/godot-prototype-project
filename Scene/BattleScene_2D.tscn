@@ -37,7 +37,7 @@ y_sort_enabled = true
 scale = Vector2(0.62, 0.62)
 texture = ExtResource("1_mtylr")
 
-[node name="BattleSceneDebugManager" type="Node" parent="." node_paths=PackedStringArray("scene_manager", "debug_view")]
+[node name="DebugManager" type="Node" parent="." node_paths=PackedStringArray("scene_manager", "debug_view")]
 script = ExtResource("3_8rj7f")
 is_enable = false
 scene_manager = NodePath("../BattleSceneManager")

@@ -10,6 +10,8 @@ func _ready() -> void:
 		debug_view.strategy_pressed.connect(_on_strategy)
 		debug_view.combat_pressed.connect(_on_combat)
 		debug_view.resolve_pressed.connect(_on_resolve)
+	else:
+		debug_view.visible = false
 
 
 func _on_strategy():
