@@ -1,5 +1,5 @@
 class_name DebugButton
-extends Node2D
+extends Control
 
 @export var state_manager: BattleManager
 @export var strategy_button: Button

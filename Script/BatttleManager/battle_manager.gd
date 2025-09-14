@@ -1,11 +1,13 @@
 class_name BattleManager
 extends Node
 
-enum BattleState { NOTSET, STRATEGY, COMBAT, RESOLVE }
+enum BattleState { BATTLE_START, STRATEGY, COMBAT, RESOLVE, BATTLE_END }
 
+signal initialize_started
 signal strategy_started
 signal combat_started
 signal resolve_started
+signal finalize_started
 
 @export var strategy_state_manager: StrategyStateManager
 @export var combat_state_manager: CombatStateManager
@@ -37,7 +39,7 @@ func _change_state(target_state: BattleState) -> void:
 
 func _enter_state() -> void:
 	match _current_state:
-		BattleState.NOTSET:
+		BattleState.BATTLE_START:
 			return
 		BattleState.STRATEGY:
 			strategy_state_manager.handle_strategy_state_enter()
@@ -62,7 +64,7 @@ func _set_state(new_state: BattleState) -> void:
 
 func _exit_state() -> void:
 	match _current_state:
-		BattleState.NOTSET:
+		BattleState.BATTLE_START:
 			return
 		BattleState.STRATEGY:
 			strategy_state_manager.handle_strategy_state_exit()

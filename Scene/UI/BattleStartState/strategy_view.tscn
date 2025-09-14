@@ -1,0 +1,37 @@
+[gd_scene load_steps=3 format=3 uid="uid://cfhmlqlj0hrdq"]
+
+[ext_resource type="Script" uid="uid://ceen5hol788fo" path="res://Script/UI/BattleStartView/battle_roll_dice_view.gd" id="1_8a2q3"]
+[ext_resource type="Texture2D" uid="uid://cqxgctsqtmegv" path="res://Art/temporary_sprite/막 시작버튼.png" id="2_b47hv"]
+
+[node name="StrategyView" type="Control"]
+layout_mode = 3
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+script = ExtResource("1_8a2q3")
+
+[node name="Panel" type="Panel" parent="."]
+modulate = Color(0, 0, 0, 1)
+self_modulate = Color(0, 0, 0, 1)
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 43.0
+grow_horizontal = 2
+
+[node name="StartButton" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -80.0
+offset_right = 81.0
+offset_bottom = 115.0
+grow_horizontal = 2
+icon = ExtResource("2_b47hv")
+flat = true
+icon_alignment = 1
+expand_icon = true
+
+[connection signal="pressed" from="StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="StartButton" to="." method="_on_button_pressed"]
