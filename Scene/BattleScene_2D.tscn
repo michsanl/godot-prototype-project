@@ -97,7 +97,6 @@ grow_vertical = 2
 
 [node name="StrategyView" parent="CanvasLayer/UI/MarginContainer" instance=ExtResource("8_8rj7f")]
 layout_mode = 2
-size_flags_vertical = 0
 
 [node name="BattleSceneDebugView" parent="CanvasLayer/UI/MarginContainer" instance=ExtResource("9_8qtd0")]
 layout_mode = 2

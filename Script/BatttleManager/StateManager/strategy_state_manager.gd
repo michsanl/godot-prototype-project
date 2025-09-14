@@ -1,8 +1,6 @@
 class_name StrategyStateManager
 extends Node
 
-enum StrategyState { PRE_ROLL, POST_ROLL }
-
 signal strategy_ended
 
 @export var player_characters: Array[CharacterController]
@@ -11,35 +9,41 @@ signal strategy_ended
 
 var _player_dice_slots: Array[DiceSlotData]
 var _enemy_dice_slots: Array[DiceSlotData]
-var _state: StrategyState
 
 
 func _ready() -> void:
-	view.visible = false
-	view.start_button_pressed.connect(_on_start_button_pressed)
+	view.roll_button_pressed.connect(_on_roll_button_pressed)
+	view.combat_button_pressed.connect(_on_combat_button_pressed)
+	view.set_button_panel_visibility(false)
+	view.set_count_panel_visibility(false)
 
 
 func handle_strategy_state_enter() -> void:
-	view.visible = true
 	_set_character_dice_slot_visibility(true)
-	_state = StrategyState.PRE_ROLL
 	_setup_character_active_dice_slots()
+	
+	view.set_count_label_text("Scene: 1 ")
+	view.set_count_panel_visibility(true)
+	await get_tree().create_timer(1.0).timeout
+	view.set_count_panel_visibility(false)
+	
+	view.set_button_panel_visibility(true)
 
 
 func handle_strategy_state_exit() -> void:
-	view.visible = false
+	view.set_button_panel_visibility(false)
+	view.set_count_panel_visibility(false)
 	_set_character_dice_slot_visibility(false)
 
 
-func _on_start_button_pressed():
-	match _state:
-		StrategyState.PRE_ROLL:
-			_state = StrategyState.POST_ROLL
-			_roll_character_dice_slot()
-			_randomize_character_dice_slot_ability() # Temp method for debug
-			_randomize_character_dice_slot_target() # Temp method for debug
-		StrategyState.POST_ROLL:
-			strategy_ended.emit()
+func _on_roll_button_pressed():
+	_roll_character_dice_slot()
+	_randomize_character_dice_slot_ability() # Temp method for debug
+	_randomize_character_dice_slot_target() # Temp method for debug
+
+
+func _on_combat_button_pressed():
+	strategy_ended.emit()
 
 
 func _set_character_dice_slot_visibility(condition: bool):

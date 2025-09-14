@@ -23,6 +23,7 @@ func _ready() -> void:
 	strategy_state_manager.strategy_ended.connect(change_state_to_combat)
 	combat_state_manager.combat_ended.connect(change_state_to_resolve)
 	resolve_state_manager.resolve_ended.connect(change_state_to_strategy)
+	
 	change_state_to_initialize()
 
 
