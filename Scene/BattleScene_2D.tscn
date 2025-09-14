@@ -1,9 +1,10 @@
-[gd_scene load_steps=14 format=3 uid="uid://do3uwy2gicsls"]
+[gd_scene load_steps=15 format=3 uid="uid://do3uwy2gicsls"]
 
 [ext_resource type="Texture2D" uid="uid://c8sf5t0u0e5qn" path="res://Art/temporary_sprite/KeterFloorBattleStage.jpg" id="1_mtylr"]
 [ext_resource type="Script" uid="uid://cvhcgjpd2u1h" path="res://Script/BatttleManager/Combat State Helper/global.gd" id="1_xdkpq"]
 [ext_resource type="Script" uid="uid://ca131f6h2pd4o" path="res://Script/BatttleManager/battle_manager.gd" id="2_mtm51"]
 [ext_resource type="Script" uid="uid://bvrwg04i2xlyn" path="res://Script/BatttleManager/StateManager/battle_start_state_manager.gd" id="3_8qtd0"]
+[ext_resource type="Script" uid="uid://cnr7hvxe7rc8n" path="res://Script/Debug/battle_scene_debug_manager.gd" id="3_8rj7f"]
 [ext_resource type="Script" uid="uid://c4mwu4ngi61wx" path="res://Script/BatttleManager/StateManager/strategy_state_manager.gd" id="3_t0dor"]
 [ext_resource type="Script" uid="uid://bmp3a5hkmsqv0" path="res://Script/BatttleManager/StateManager/combat_state_manager.gd" id="4_xdkpq"]
 [ext_resource type="PackedScene" uid="uid://bvg3pyy64wc86" path="res://Scene/Character/character_enemy.tscn" id="6_8rj7f"]
@@ -29,12 +30,16 @@ default_font = SubResource("FontFile_8rj7f")
 script = ExtResource("1_xdkpq")
 
 [node name="Camera2D" type="Camera2D" parent="."]
-visible = false
 
 [node name="KeterFloorBattleStage" type="Sprite2D" parent="."]
 y_sort_enabled = true
 scale = Vector2(0.62, 0.62)
 texture = ExtResource("1_mtylr")
+
+[node name="BattleSceneDebugManager" type="Node" parent="." node_paths=PackedStringArray("scene_manager", "debug_view")]
+script = ExtResource("3_8rj7f")
+scene_manager = NodePath("../BattleSceneManager")
+debug_view = NodePath("../CanvasLayer/UI/MarginContainer/VBoxContainer/BattleSceneDebugView")
 
 [node name="BattleSceneManager" type="Node" parent="." node_paths=PackedStringArray("strategy_state_manager", "combat_state_manager")]
 script = ExtResource("2_mtm51")
