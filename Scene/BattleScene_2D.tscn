@@ -39,7 +39,7 @@ texture = ExtResource("1_mtylr")
 [node name="BattleSceneDebugManager" type="Node" parent="." node_paths=PackedStringArray("scene_manager", "debug_view")]
 script = ExtResource("3_8rj7f")
 scene_manager = NodePath("../BattleSceneManager")
-debug_view = NodePath("../CanvasLayer/UI/MarginContainer/VBoxContainer/BattleSceneDebugView")
+debug_view = NodePath("../CanvasLayer/UI/MarginContainer/BattleSceneDebugView")
 
 [node name="BattleSceneManager" type="Node" parent="." node_paths=PackedStringArray("strategy_state_manager", "combat_state_manager")]
 script = ExtResource("2_mtm51")
@@ -49,10 +49,11 @@ combat_state_manager = NodePath("combat_state_manager")
 [node name="battle_start_state_manager" type="Node" parent="BattleSceneManager"]
 script = ExtResource("3_8qtd0")
 
-[node name="strategy_state_manager" type="Node" parent="BattleSceneManager" node_paths=PackedStringArray("player_characters", "enemy_characters")]
+[node name="strategy_state_manager" type="Node" parent="BattleSceneManager" node_paths=PackedStringArray("player_characters", "enemy_characters", "view")]
 script = ExtResource("3_t0dor")
 player_characters = [NodePath("../../Characters/player_character")]
 enemy_characters = [NodePath("../../Characters/enemy_character")]
+view = NodePath("../../CanvasLayer/UI/MarginContainer/StrategyView")
 
 [node name="combat_state_manager" type="Node" parent="BattleSceneManager" node_paths=PackedStringArray("player_characters", "enemy_characters", "clash_result_helper")]
 script = ExtResource("4_xdkpq")
@@ -84,14 +85,13 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/UI/MarginContainer"]
+[node name="StrategyView" parent="CanvasLayer/UI/MarginContainer" instance=ExtResource("8_8rj7f")]
 layout_mode = 2
+size_flags_vertical = 0
 
-[node name="StrategyView" parent="CanvasLayer/UI/MarginContainer/VBoxContainer" instance=ExtResource("8_8rj7f")]
+[node name="BattleSceneDebugView" parent="CanvasLayer/UI/MarginContainer" instance=ExtResource("9_8qtd0")]
 layout_mode = 2
-
-[node name="BattleSceneDebugView" parent="CanvasLayer/UI/MarginContainer/VBoxContainer" instance=ExtResource("9_8qtd0")]
-layout_mode = 2
+size_flags_vertical = 4
 
 [node name="Characters" type="Node2D" parent="."]
 
@@ -100,5 +100,3 @@ position = Vector2(300, 74)
 
 [node name="enemy_character" parent="Characters" instance=ExtResource("6_8rj7f")]
 position = Vector2(-304, 60)
-
-[connection signal="combat_ended" from="BattleSceneManager/combat_state_manager" to="BattleSceneManager" method="_on_combat_state_manager_combat_ended"]

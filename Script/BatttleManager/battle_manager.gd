@@ -15,6 +15,11 @@ signal finalize_started
 var _current_state: BattleState
 
 
+func _ready() -> void:
+	strategy_state_manager.strategy_ended.connect(change_state_to_combat)
+	combat_state_manager.combat_ended.connect(change_state_to_strategy)
+
+
 func change_state_to_strategy():
 	_change_state(BattleState.STRATEGY)
 
@@ -79,7 +84,3 @@ func _exit_state() -> void:
 
 func is_changing_to_same_state(target_state: BattleState) -> bool:
 	return target_state == _current_state
-
-
-func _on_combat_state_manager_combat_ended() -> void:
-	change_state_to_resolve()

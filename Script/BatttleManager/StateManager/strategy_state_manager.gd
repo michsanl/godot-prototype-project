@@ -1,29 +1,45 @@
 class_name StrategyStateManager
 extends Node
 
+enum StrategyState { PRE_ROLL, POST_ROLL }
+
+signal strategy_ended
+
 @export var player_characters: Array[CharacterController]
 @export var enemy_characters: Array[CharacterController]
+@export var view: StrategyView
 
 var _player_dice_slots: Array[DiceSlotData]
 var _enemy_dice_slots: Array[DiceSlotData]
+var _state: StrategyState
+
+
+func _ready() -> void:
+	view.visible = false
+	view.start_button_pressed.connect(_on_start_button_pressed)
+
 
 func handle_strategy_state_enter() -> void:
+	view.visible = true
 	_set_character_dice_slot_visibility(true)
-	
-	_gather_character_active_dice_slots()
-	_roll_character_dice_slot()
-	
-	_execute_state_enter_debug_methods()
+	_state = StrategyState.PRE_ROLL
+	_setup_character_active_dice_slots()
 
 
 func handle_strategy_state_exit() -> void:
+	view.visible = false
 	_set_character_dice_slot_visibility(false)
 
 
-# Temporary method for testing
-func _execute_state_enter_debug_methods():
-	_randomize_character_dice_slot_ability()
-	_randomize_character_dice_slot_target()
+func _on_start_button_pressed():
+	match _state:
+		StrategyState.PRE_ROLL:
+			_state = StrategyState.POST_ROLL
+			_roll_character_dice_slot()
+			_randomize_character_dice_slot_ability() # Temp method for debug
+			_randomize_character_dice_slot_target() # Temp method for debug
+		StrategyState.POST_ROLL:
+			strategy_ended.emit()
 
 
 func _set_character_dice_slot_visibility(condition: bool):
@@ -33,13 +49,15 @@ func _set_character_dice_slot_visibility(condition: bool):
 		enemy.dice_slot_controller.set_visibility(condition)
 
 
-func _gather_character_active_dice_slots():
+func _setup_character_active_dice_slots():
+	_player_dice_slots.clear()
 	for player in player_characters:
 		var dice_slots = player.dice_slot_controller.dice_slots
 		for dice_slot in dice_slots:
 			if dice_slot.state == DiceSlotData.DiceSlotState.ACTIVE:
 				_player_dice_slots.append(dice_slot)
 	
+	_enemy_dice_slots.clear()
 	for enemy in enemy_characters:
 		var dice_slots = enemy.dice_slot_controller.dice_slots
 		for dice_slot in dice_slots:
