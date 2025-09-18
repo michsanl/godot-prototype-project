@@ -57,5 +57,5 @@ text = "Scene : "
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[connection signal="pressed" from="StartButtonPanel/StartButton" to="." method="_on_start_button_pressed"]
 [connection signal="pressed" from="StartButtonPanel/StartButton" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="StartButtonPanel/StartButton" to="." method="_on_start_button_pressed"]

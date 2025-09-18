@@ -22,3 +22,7 @@ Global="*res://Script/BatttleManager/Combat State Helper/global.gd"
 
 window/stretch/mode="viewport"
 window/handheld/orientation=1
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/codeandweb.texturepacker/plugin.cfg")
