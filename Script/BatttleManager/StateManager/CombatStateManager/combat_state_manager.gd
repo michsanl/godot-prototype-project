@@ -1,0 +1,73 @@
+class_name CombatStateManager
+extends Node
+
+signal combat_ended
+
+@export var player_characters: Array[CharacterController]
+@export var enemy_characters: Array[CharacterController]
+@export var clash_handler: ClashHandler
+
+var _combat_ready_dice_slot_pool: Array[DiceSlotData] = []
+var matchmaker: ICombatMatchmaker
+
+
+func _init() -> void:
+	matchmaker = DebugMatchmaker.new()
+
+
+func handle_combat_state_enter() -> void:
+	_start_combat_phase()
+
+
+func handle_combat_state_exit() -> void:
+	pass
+
+
+#region Combat Phase Methods
+func _start_combat_phase():
+	# Initialize: only execute once on start
+	await _initialize_combat_phase()
+	
+	# Core loop: execute each loop
+	await _execute_combat_phase_loop()
+	
+	# Finalize: only execute once on end
+	await _finalize_combat_phase()
+
+
+func _initialize_combat_phase():
+	_collect_combat_ready_dice_slots(player_characters)
+	_collect_combat_ready_dice_slots(enemy_characters)
+	matchmaker.initialize(_combat_ready_dice_slot_pool)
+
+
+func _execute_combat_phase_loop():	
+	var combat_data: CombatData
+	while _has_combat_ready_dice_slot(_combat_ready_dice_slot_pool):
+		print("Has combat ready slot, starting combat!")
+		combat_data = matchmaker.resolve(_combat_ready_dice_slot_pool)
+		await clash_handler.start_combat(combat_data)
+
+
+func _finalize_combat_phase():
+	for player in player_characters:
+		player.reset_position()
+		player.reset_visual()
+	
+	for enemy in enemy_characters:
+		enemy.reset_position()
+		enemy.reset_visual()
+	
+	combat_ended.emit()
+
+
+func _has_combat_ready_dice_slot(dice_slot_pool: Array[DiceSlotData]) -> bool:
+	return not dice_slot_pool.is_empty()
+
+
+func _collect_combat_ready_dice_slots(character_pool: Array[CharacterController]):
+	for character in character_pool:
+		var dice_slot_pool = character.dice_slot_controller.dice_slots
+		for dice_slot in dice_slot_pool:
+			if dice_slot.target_dice_slot != null:
+				_combat_ready_dice_slot_pool.append(dice_slot)

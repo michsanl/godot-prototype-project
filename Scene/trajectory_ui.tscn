@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://de7l8dtiwskxn"]
 
-[ext_resource type="Script" uid="uid://bdshlelctktgb" path="res://Script/Character/trajectory_ui.gd" id="1_xkgop"]
+[ext_resource type="Script" uid="uid://bdshlelctktgb" path="res://Script/Character/UI/trajectory_ui.gd" id="1_xkgop"]
 
 [sub_resource type="Curve" id="Curve_utumv"]
 _data = [Vector2(0, 0.271636), 0.0, 0.0, 0, 0, Vector2(0.496466, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.206603), 0.0, 0.0, 0, 0]

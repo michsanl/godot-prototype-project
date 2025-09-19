@@ -12,7 +12,6 @@ extends Node
 var owner_character: CharacterController
 var _knockback_distance: float = 150.0
 
-
 func set_action_controller_owner(new_owner: CharacterController):
 	owner_character = new_owner as CharacterController
 
@@ -41,18 +40,6 @@ func perform_approach_two_sided_action(actor: CharacterController, target: Chara
 
 
 #region Combat Action Method
-func perform_random_offensive_action(opponent: CharacterController, is_draw: bool = false, duration: float = default_duration):
-	print("perform random offensive action")
-	var rand = randi_range(1, 3)
-	match rand:
-		1:
-			await perform_slash_action(opponent, is_draw)
-		2:
-			await perform_pierce_action(opponent, is_draw)
-		3: 
-			await perform_blunt_action(opponent, is_draw)
-
-
 func perform_default_action(duration: float = default_duration):
 	sprite_controller.change_to_default_sprite()
 	await get_tree().create_timer(duration).timeout
@@ -60,22 +47,6 @@ func perform_default_action(duration: float = default_duration):
 
 
 func perform_slash_action(opponent: CharacterController, is_draw: bool = false, duration: float = default_duration):
-	if is_draw:
-		opponent.apply_draw_knockback(
-			KnockbackBuilder.new()
-				.with_actor_pos(owner_character.position)
-				.with_target_pos(opponent.position)
-				.with_distance(_knockback_distance)
-				.build()
-	)
-	else:
-		opponent.apply_knockback(
-			KnockbackBuilder.new()
-				.with_actor_pos(owner_character.position)
-				.with_target_pos(opponent.position)
-				.with_distance(_knockback_distance)
-				.build()
-	)
 	sprite_controller.change_to_slash_sprite()
 	vfx_controller.change_to_slash_vfx()
 	await get_tree().create_timer(duration).timeout
@@ -84,22 +55,6 @@ func perform_slash_action(opponent: CharacterController, is_draw: bool = false, 
 
 
 func perform_pierce_action(opponent: CharacterController, is_draw: bool = false, duration: float = default_duration):
-	if is_draw:
-		opponent.apply_draw_knockback(
-			KnockbackBuilder.new()
-				.with_actor_pos(owner_character.position)
-				.with_target_pos(opponent.position)
-				.with_distance(_knockback_distance)
-				.build()
-	)
-	else:
-		opponent.apply_knockback(
-			KnockbackBuilder.new()
-				.with_actor_pos(owner_character.position)
-				.with_target_pos(opponent.position)
-				.with_distance(_knockback_distance)
-				.build()
-	)
 	sprite_controller.change_to_pierce_sprite()
 	vfx_controller.change_to_pierce_vfx()
 	await get_tree().create_timer(duration).timeout
@@ -108,22 +63,6 @@ func perform_pierce_action(opponent: CharacterController, is_draw: bool = false,
 
 
 func perform_blunt_action(opponent: CharacterController, is_draw: bool = false, duration: float = default_duration):
-	if is_draw:
-		opponent.apply_draw_knockback(
-			KnockbackBuilder.new()
-				.with_actor_pos(owner_character.position)
-				.with_target_pos(opponent.position)
-				.with_distance(_knockback_distance)
-				.build()
-	)
-	else:
-		opponent.apply_knockback(
-			KnockbackBuilder.new()
-				.with_actor_pos(owner_character.position)
-				.with_target_pos(opponent.position)
-				.with_distance(_knockback_distance)
-				.build()
-	)
 	sprite_controller.change_to_blunt_sprite()
 	vfx_controller.change_to_blunt_vfx()
 	await get_tree().create_timer(duration).timeout

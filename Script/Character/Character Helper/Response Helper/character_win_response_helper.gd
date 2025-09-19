@@ -2,11 +2,11 @@ class_name CharacterWinResponseHelper
 extends RefCounted
 
 var owner: CharacterController
-var my_dice: DiceData.DiceType
+var my_dice_type: DiceData.DiceType
 var my_offensive_type: DiceData.OffensiveType
 var opponent: CharacterController
 var opponent_dice: DiceData.DiceType
-
+var clash_data: ClashData
 
 func _init(new_owner: CharacterController = null) -> void:
 	owner = new_owner
@@ -14,7 +14,7 @@ func _init(new_owner: CharacterController = null) -> void:
 
 func resolve_win_response(clash_data: ClashData):
 	initialize_data(clash_data)
-	match my_dice:
+	match my_dice_type:
 		DiceData.DiceType.ATTACK:
 			await _resolve_attack_win_response()
 		DiceData.DiceType.GUARD:
@@ -24,10 +24,11 @@ func resolve_win_response(clash_data: ClashData):
 
 
 func initialize_data(clash_data: ClashData):
-	my_dice = clash_data.owner_dice.dice_type as DiceData.DiceType
+	my_dice_type = clash_data.owner_dice.dice_type as DiceData.DiceType
 	my_offensive_type = clash_data.owner_dice.offensive_type as DiceData.OffensiveType
 	opponent = clash_data.opponent
 	opponent_dice = clash_data.opponent_dice.dice_type as DiceData.DiceType
+	self.clash_data = clash_data
 
 
 #region Resolve Opponent Dice Type
@@ -37,11 +38,11 @@ func initialize_data(clash_data: ClashData):
 func _resolve_attack_win_response():
 	match opponent_dice:
 		DiceData.DiceType.ATTACK:
-			await owner.action_controller.perform_random_offensive_action(opponent)
+			await _resolve_offensive_type()
 		DiceData.DiceType.GUARD:
-			await owner.action_controller.perform_random_offensive_action(opponent)
+			await _resolve_offensive_type()
 		DiceData.DiceType.EVADE:
-			await owner.action_controller.perform_random_offensive_action(opponent)
+			await _resolve_offensive_type()
 
 # guard vs attack win = guard
 # guard vs guard win = guard
