@@ -10,3 +10,4 @@ func handle_initialize_battle_enter() -> void:
 
 func handle_initialize_battle_exit() -> void:
 	pass
+	

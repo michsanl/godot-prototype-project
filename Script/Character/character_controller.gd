@@ -25,12 +25,24 @@ func _ready() -> void:
 	_initial_position = self.position
 
 
-func _initialize_childs():
-	sprite.set_sprite_owner(self)
-	movement.set_movement_owner(self)
-	ability_controller.set_ability_controller_owner(self)
-	action_controller.set_action_controller_owner(self)
-	dice_slot_controller.initialize(self, _initial_slot_amount)
+#region GETTER Methods
+func get_character_name() -> String:
+	return char_name
+func get_data() -> CharacterData:
+	return data
+func get_view() -> CharacterSprite:
+	return sprite
+func get_movement() -> CharacterMovement:
+	return movement
+func get_slot_controller() -> DiceSlotController:
+	return dice_slot_controller
+func get_ability_controller() -> CharacterAbilityController:
+	return ability_controller
+func get_action_controller() -> CharacterActionController:
+	return action_controller
+func get_combat_controller() -> CharacterCombatController:
+	return combat_controller
+#endregion
 
 
 #region Action Controller
@@ -48,7 +60,7 @@ func perform_one_sided_attack(clash_data: ClashData):
 	var my_dice = clash_data.owner_dice.dice_type as DiceData.DiceType
 	match my_dice:
 		DiceData.DiceType.ATTACK:
-			await action_controller.perform_slash_action(clash_data.opponent, false)
+			await action_controller.perform_slash_action(clash_data.opponent)
 		DiceData.DiceType.GUARD:
 			await action_controller.perform_guard_action()
 		DiceData.DiceType.EVADE:
@@ -83,3 +95,11 @@ func reset_position():
 
 func reset_visual():
 	sprite.change_to_default_sprite()
+
+
+func _initialize_childs():
+	sprite.set_sprite_owner(self)
+	movement.set_movement_owner(self)
+	ability_controller.set_ability_controller_owner(self)
+	action_controller.set_action_controller_owner(self)
+	dice_slot_controller.initialize(self, _initial_slot_amount)

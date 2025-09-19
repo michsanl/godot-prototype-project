@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://do3uwy2gicsls"]
+[gd_scene load_steps=18 format=3 uid="uid://do3uwy2gicsls"]
 
 [ext_resource type="Texture2D" uid="uid://c8sf5t0u0e5qn" path="res://Art/temporary_sprite/KeterFloorBattleStage.jpg" id="1_mtylr"]
 [ext_resource type="Script" uid="uid://cvhcgjpd2u1h" path="res://Script/BatttleManager/Combat State Helper/global.gd" id="1_xdkpq"]
@@ -9,14 +9,12 @@
 [ext_resource type="Script" uid="uid://bmp3a5hkmsqv0" path="res://Script/BatttleManager/StateManager/CombatStateManager/combat_state_manager.gd" id="4_xdkpq"]
 [ext_resource type="PackedScene" uid="uid://bvg3pyy64wc86" path="res://Scene/Character/character_enemy.tscn" id="6_8rj7f"]
 [ext_resource type="PackedScene" uid="uid://b3whippw3cwep" path="res://Scene/Character/character_player.tscn" id="7_4v0j5"]
+[ext_resource type="Script" uid="uid://dg6njtfcnjedr" path="res://Script/BatttleManager/StateManager/CombatStateManager/combat_matchmaker.gd" id="8_7qkga"]
 [ext_resource type="PackedScene" uid="uid://cfhmlqlj0hrdq" path="res://Scene/UI/BattleStartState/strategy_view.tscn" id="8_8rj7f"]
-[ext_resource type="Script" uid="uid://cqq87jimtumef" path="res://Script/BatttleManager/StateManager/CombatStateManager/CombatHandler/clash_handler.gd" id="9_2bjfd"]
 [ext_resource type="Script" uid="uid://dgs7y4if2cys0" path="res://Script/BatttleManager/StateManager/resolve_state_manager.gd" id="9_4v0j5"]
 [ext_resource type="PackedScene" uid="uid://c2xahj8fxn508" path="res://Scene/UI/Debug/battle_scene_debug_view.tscn" id="9_8qtd0"]
-[ext_resource type="Script" uid="uid://md1ms16f4pbd" path="res://Script/BatttleManager/StateManager/CombatStateManager/CombatHandler/Clash/two_sided_clash.gd" id="10_2bjfd"]
-[ext_resource type="Script" uid="uid://dsiednejsstx6" path="res://Script/BatttleManager/StateManager/CombatStateManager/CombatHandler/Clash/one_sided_attacker_clash.gd" id="11_3rs5h"]
+[ext_resource type="Script" uid="uid://bqbuxqpwml0e5" path="res://Script/BatttleManager/StateManager/CombatStateManager/Matchmakers/matchmaker_v1.gd" id="9_qunkr"]
 [ext_resource type="Script" uid="uid://ciyby0kpaaauy" path="res://Script/Character/character_manager.gd" id="12_7qkga"]
-[ext_resource type="Script" uid="uid://c5xkadxboty1m" path="res://Script/BatttleManager/StateManager/CombatStateManager/CombatHandler/Clash/one_sided_defender_clash.gd" id="12_uowwx"]
 
 [sub_resource type="FontFile" id="FontFile_8rj7f"]
 subpixel_positioning = 0
@@ -63,26 +61,19 @@ player_characters = [NodePath("../../CharacterManager/player_character")]
 enemy_characters = [NodePath("../../CharacterManager/enemy_character")]
 view = NodePath("../../CanvasLayer/UI/MarginContainer/StrategyView")
 
-[node name="CombatStateManager" type="Node" parent="BattleSceneManager" node_paths=PackedStringArray("player_characters", "enemy_characters", "clash_handler")]
+[node name="CombatStateManager" type="Node" parent="BattleSceneManager" node_paths=PackedStringArray("player_characters", "enemy_characters", "matchmaker")]
 script = ExtResource("4_xdkpq")
 player_characters = [NodePath("../../CharacterManager/player_character")]
 enemy_characters = [NodePath("../../CharacterManager/enemy_character")]
-clash_handler = NodePath("ClashHandler")
+is_auto_roll = null
+auto_roll_timer = null
+matchmaker = NodePath("CombatMatchmaker")
 
-[node name="ClashHandler" type="Node" parent="BattleSceneManager/CombatStateManager" node_paths=PackedStringArray("two_sided", "one_sided_attacker", "one_sided_defender")]
-script = ExtResource("9_2bjfd")
-two_sided = NodePath("TwoSidedClash")
-one_sided_attacker = NodePath("OneSidedAttackerClash")
-one_sided_defender = NodePath("OneSidedDefenderClash")
+[node name="CombatMatchmaker" type="Node" parent="BattleSceneManager/CombatStateManager"]
+script = ExtResource("8_7qkga")
 
-[node name="TwoSidedClash" type="Node" parent="BattleSceneManager/CombatStateManager/ClashHandler"]
-script = ExtResource("10_2bjfd")
-
-[node name="OneSidedAttackerClash" type="Node" parent="BattleSceneManager/CombatStateManager/ClashHandler"]
-script = ExtResource("11_3rs5h")
-
-[node name="OneSidedDefenderClash" type="Node" parent="BattleSceneManager/CombatStateManager/ClashHandler"]
-script = ExtResource("12_uowwx")
+[node name="MatchmakerV1" type="Node" parent="BattleSceneManager/CombatStateManager/CombatMatchmaker"]
+script = ExtResource("9_qunkr")
 
 [node name="ResolveStateManager" type="Node" parent="BattleSceneManager" node_paths=PackedStringArray("characters")]
 script = ExtResource("9_4v0j5")
