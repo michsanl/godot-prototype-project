@@ -17,7 +17,7 @@ func start_combat(combat_data :CombatData):
 	
 	# Core: resolve clash until no dice left
 	while combat_data.attacker_has_dice() or combat_data.defender_has_dice():
-		var clash_strategy = _select_strategy(combat_data)	
+		var clash_strategy = _select_strategy(combat_data) as IClash
 		if clash_strategy:
 			await clash_strategy.resolve(combat_data)
 		else:

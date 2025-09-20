@@ -2,10 +2,9 @@ class_name CharacterWinResponseHelper
 extends RefCounted
 
 var owner: CharacterController
-var my_dice_type: DiceData.DiceType
-var my_offensive_type: DiceData.OffensiveType
+var my_dice_type: IDice.DiceType
 var opponent: CharacterController
-var opponent_dice: DiceData.DiceType
+var opponent_dice: IDice.DiceType
 var clash_data: ClashData
 
 func _init(new_owner: CharacterController = null) -> void:
@@ -15,19 +14,18 @@ func _init(new_owner: CharacterController = null) -> void:
 func resolve_win_response(clash_data: ClashData):
 	initialize_data(clash_data)
 	match my_dice_type:
-		DiceData.DiceType.ATTACK:
+		IDice.DiceType.SLASH:
 			await _resolve_attack_win_response()
-		DiceData.DiceType.GUARD:
+		IDice.DiceType.GUARD:
 			await _resolve_guard_win_response()
-		DiceData.DiceType.EVADE:
+		IDice.DiceType.EVADE:
 			await _resolve_evade_win_response()
 
 
 func initialize_data(clash_data: ClashData):
-	my_dice_type = clash_data.owner_dice.dice_type as DiceData.DiceType
-	my_offensive_type = clash_data.owner_dice.offensive_type as DiceData.OffensiveType
+	my_dice_type = clash_data.owner_dice.dice_type as IDice.DiceType
 	opponent = clash_data.opponent
-	opponent_dice = clash_data.opponent_dice.dice_type as DiceData.DiceType
+	opponent_dice = clash_data.opponent_dice.dice_type as IDice.DiceType
 	self.clash_data = clash_data
 
 
@@ -37,23 +35,23 @@ func initialize_data(clash_data: ClashData):
 # attack vs evade win = attack
 func _resolve_attack_win_response():
 	match opponent_dice:
-		DiceData.DiceType.ATTACK:
-			await _resolve_offensive_type()
-		DiceData.DiceType.GUARD:
-			await _resolve_offensive_type()
-		DiceData.DiceType.EVADE:
-			await _resolve_offensive_type()
+		IDice.DiceType.SLASH:
+			pass
+		IDice.DiceType.GUARD:
+			pass
+		IDice.DiceType.EVADE:
+			pass
 
 # guard vs attack win = guard
 # guard vs guard win = guard
 # guard vs evade win = guard
 func _resolve_guard_win_response():
 	match opponent_dice:
-		DiceData.DiceType.ATTACK:
+		IDice.DiceType.SLASH:
 			await owner.action_controller.perform_guard_action()
-		DiceData.DiceType.GUARD:
+		IDice.DiceType.GUARD:
 			await owner.action_controller.perform_guard_action()
-		DiceData.DiceType.EVADE:
+		IDice.DiceType.EVADE:
 			await owner.action_controller.perform_guard_action()
 
 # evade vs attack win = evade
@@ -61,20 +59,10 @@ func _resolve_guard_win_response():
 # evade vs evade win = default
 func _resolve_evade_win_response():
 	match opponent_dice:
-		DiceData.DiceType.ATTACK:
+		IDice.DiceType.SLASH:
 			await owner.action_controller.perform_evade_action()
-		DiceData.DiceType.GUARD:
+		IDice.DiceType.GUARD:
 			await owner.action_controller.perform_evade_action()
-		DiceData.DiceType.EVADE:
+		IDice.DiceType.EVADE:
 			await owner.action_controller.perform_default_action()
 #endregion
-
-
-func _resolve_offensive_type():
-	match my_offensive_type:
-		DiceData.OffensiveType.SLASH:
-			await owner.action_controller.perform_slash_action(opponent)
-		DiceData.OffensiveType.PIERCE:
-			await owner.action_controller.perform_pierce_action(opponent)
-		DiceData.OffensiveType.BLUNT:
-			await owner.action_controller.perform_blunt_action(opponent)

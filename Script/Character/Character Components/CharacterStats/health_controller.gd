@@ -15,10 +15,10 @@ func initialize(new_owner: CharacterController, max_health: int):
 	model.died.connect(_on_died)
 
 func damage(amount: int):
-	model.take_damage(amount)
+	model.decrease_health(amount)
 
 func heal(amount: int):
-	model.heal(amount)
+	model.increase_health(amount)
 
 func _on_died():
 	on_died.emit()
