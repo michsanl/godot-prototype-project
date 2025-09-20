@@ -6,6 +6,7 @@ extends Node2D
 @export var stats: CharacterStats
 @export var sprite: CharacterSprite
 @export var movement: CharacterMovement
+@export var health_controller: HealthController
 @export var dice_slot_controller: DiceSlotController
 @export var ability_controller: CharacterAbilityController
 @export var action_controller: CharacterActionController
@@ -34,6 +35,8 @@ func get_view() -> CharacterSprite:
 	return sprite
 func get_movement() -> CharacterMovement:
 	return movement
+func get_health() -> HealthController:
+	return health_controller
 func get_slot_controller() -> DiceSlotController:
 	return dice_slot_controller
 func get_ability_controller() -> CharacterAbilityController:
@@ -103,3 +106,4 @@ func _initialize_childs():
 	ability_controller.set_ability_controller_owner(self)
 	action_controller.set_action_controller_owner(self)
 	dice_slot_controller.initialize(self, _initial_slot_amount)
+	health_controller.initialize(self, 100)

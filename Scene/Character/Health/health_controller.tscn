@@ -1,0 +1,31 @@
+[gd_scene load_steps=3 format=3 uid="uid://gjvx5fdrqrkp"]
+
+[ext_resource type="Script" uid="uid://d378x6snlk8r2" path="res://Script/Character/Character Components/CharacterHealth/health_controller.gd" id="1_yadot"]
+[ext_resource type="Script" uid="uid://b5d2t38oorpog" path="res://Script/Character/Character Components/CharacterHealth/health_view.gd" id="2_ugtk4"]
+
+[node name="HealthController" type="Control" node_paths=PackedStringArray("view")]
+layout_mode = 3
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+grow_horizontal = 2
+pivot_offset = Vector2(54, 0)
+script = ExtResource("1_yadot")
+view = NodePath("HealthView")
+
+[node name="HealthView" type="Control" parent="." node_paths=PackedStringArray("health_bar")]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+grow_horizontal = 2
+pivot_offset = Vector2(54, 0)
+script = ExtResource("2_ugtk4")
+health_bar = NodePath("HealthBar")
+
+[node name="HealthBar" type="ProgressBar" parent="HealthView"]
+layout_mode = 1
+offset_right = 108.0
+offset_bottom = 27.0
+pivot_offset = Vector2(54, 0)
+value = 100.0
