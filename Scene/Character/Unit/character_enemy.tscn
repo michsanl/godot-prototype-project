@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://bvg3pyy64wc86"]
 
-[ext_resource type="PackedScene" uid="uid://bek3derprev18" path="res://Scene/Character/character_base.tscn" id="1_7ar5a"]
+[ext_resource type="PackedScene" uid="uid://bek3derprev18" path="res://Scene/Character/Unit/character_base.tscn" id="1_7ar5a"]
 
 [node name="EnemyCharacter" instance=ExtResource("1_7ar5a")]
 char_name = "Enemy"

@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://b3whippw3cwep"]
 
-[ext_resource type="PackedScene" uid="uid://bek3derprev18" path="res://Scene/Character/character_base.tscn" id="1_1x2aq"]
+[ext_resource type="PackedScene" uid="uid://bek3derprev18" path="res://Scene/Character/Unit/character_base.tscn" id="1_1x2aq"]
 
 [node name="PlayerCharacter" instance=ExtResource("1_1x2aq")]
 char_name = "Player"

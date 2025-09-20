@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://bek3derprev18"]
+[gd_scene load_steps=17 format=3 uid="uid://bek3derprev18"]
 
 [ext_resource type="Script" uid="uid://c7c2x0t6jjupk" path="res://Script/Character/character_controller.gd" id="1_y5alb"]
 [ext_resource type="Script" uid="uid://bkyu1oyiksvly" path="res://Script/Character/Character Controller/character_action_controller.gd" id="2_8fd8j"]
@@ -15,14 +15,16 @@
 [ext_resource type="Script" uid="uid://b54mqe1887k7e" path="res://Script/Character/Character Controller/vfx_controller.gd" id="11_psia3"]
 [ext_resource type="Resource" uid="uid://ddt7y2wpi6618" path="res://Resource/Ability Stats/strike_ability_stats.tres" id="14_1ako7"]
 [ext_resource type="PackedScene" uid="uid://bkvh75esl1npm" path="res://Scene/Character/DiceSlot/dice_slots.tscn" id="14_co0rr"]
+[ext_resource type="PackedScene" uid="uid://gjvx5fdrqrkp" path="res://Scene/Character/Health/health_controller.tscn" id="15_484aj"]
 
-[node name="CharacterController" type="Node2D" node_paths=PackedStringArray("stats", "sprite", "movement", "dice_slot_controller", "ability_controller", "action_controller", "combat_controller")]
+[node name="CharacterController" type="Node2D" node_paths=PackedStringArray("stats", "sprite", "movement", "health_controller", "dice_slot_controller", "ability_controller", "action_controller", "combat_controller")]
 scale = Vector2(0.75, 0.75)
 script = ExtResource("1_y5alb")
 data = ExtResource("2_h3o0s")
 stats = NodePath("Stats")
 sprite = NodePath("Sprite")
 movement = NodePath("Movement")
+health_controller = NodePath("Health")
 dice_slot_controller = NodePath("DiceSlots")
 ability_controller = NodePath("Abilities")
 action_controller = NodePath("Actions")
@@ -49,15 +51,25 @@ scale = Vector2(0.75, 0.75)
 script = ExtResource("11_psia3")
 vfx_resource = ExtResource("6_co0rr")
 
-[node name="Stats" type="Node" parent="."]
-script = ExtResource("2_yop1s")
-
 [node name="Movement" type="Node" parent="."]
 script = ExtResource("2_ptqjd")
 
 [node name="Abilities" type="Node" parent="."]
 script = ExtResource("3_ouw7k")
 ability_list = Array[ExtResource("8_psia3")]([ExtResource("14_1ako7")])
+
+[node name="Stats" type="Node" parent="."]
+script = ExtResource("2_yop1s")
+
+[node name="Health" parent="." instance=ExtResource("15_484aj")]
+anchors_preset = 7
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = -54.6667
+offset_top = 1.33333
+offset_right = -54.6667
+offset_bottom = 1.33333
+grow_vertical = 0
 
 [node name="DiceSlots" parent="." instance=ExtResource("14_co0rr")]
 offset_top = -160.0
