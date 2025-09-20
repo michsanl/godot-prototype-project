@@ -37,24 +37,3 @@ func _wait_for_space():
 
 func _wait_for_timer(duration: float):
 	await get_tree().create_timer(duration).timeout
-
-
-#func _resolve_clash_result(combat_data: CombatData):
-	##var attacker_clash_data = ClashData.new(combat_data, ClashData.CombatRole.ATTACKER)
-	##var defender_clash_data = ClashData.new(combat_data, ClashData.CombatRole.DEFENDER)
-	#var attacker = combat_data.attacker
-	#var defender = combat_data.defender
-#
-	#
-	#if combat_data.attacker_roll_value > combat_data.defender_roll_value:
-		## Attacker win
-		#await combat_data.get_attacker_front_dice().execute(attacker, defender)
-		##await combat_data.attacker.apply_clash_win(attacker_clash_data)
-	#elif combat_data.attacker_roll_value < combat_data.defender_roll_value:
-		## Defender 
-		#await combat_data.get_attacker_front_dice().execute(defender, attacker)
-		##await combat_data.defender.apply_clash_win(defender_clash_data)
-	#else:
-		## Draw
-		#combat_data.get_attacker_front_dice().execute(attacker, defender)
-		#await combat_data.get_attacker_front_dice().execute(defender, attacker)

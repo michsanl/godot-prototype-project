@@ -34,13 +34,13 @@ func defender_has_dice() -> bool:
 
 
 func roll_attacker_dice():
-	var front_dice = attacker_dice_pool.front() as IDice
+	var front_dice: IDice = attacker_dice_pool.front()
 	attacker_roll_value = front_dice.get_roll_value()
 	print("Attacker roll: ", attacker_roll_value)
 
 
 func roll_defender_dice():
-	var front_dice = defender_dice_pool.front() as IDice
+	var front_dice: IDice = defender_dice_pool.front()
 	defender_roll_value = front_dice.get_roll_value()
 	print("Defender roll: ", defender_roll_value)
 

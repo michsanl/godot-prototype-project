@@ -25,3 +25,10 @@ func execute_draw(owner: CharacterController, opponent: CharacterController):
 func get_roll_value() -> int:
 	roll_val = randi_range(min_val, max_val)
 	return roll_val
+
+func get_knockback(actor: CharacterController, target: CharacterController, distance: float):
+	return KnockbackBuilder.new() \
+		.with_distance(distance) \
+		.with_actor_pos(actor.global_position) \
+		.with_target_pos(target.global_position) \
+		.build()

@@ -9,7 +9,7 @@ func _ready() -> void:
 	change_to_default_sprite()
 
 
-func set_sprite_owner(new_owner: CharacterController):
+func initialize(new_owner: CharacterController):
 	self_owner = new_owner
 
 

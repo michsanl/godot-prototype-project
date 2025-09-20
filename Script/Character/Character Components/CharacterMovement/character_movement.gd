@@ -8,7 +8,7 @@ extends Node
 
 var owner_character: CharacterController
 
-func set_movement_owner(new_owner: CharacterController):
+func initialize(new_owner: CharacterController):
 	owner_character = new_owner as CharacterController
 
 

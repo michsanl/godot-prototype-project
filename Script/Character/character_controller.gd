@@ -13,11 +13,6 @@ extends Node2D
 @export var action_controller: CharacterActionController
 @export var combat_controller: CharacterCombatController
 
-var one_sided_response_helper = CharacterOneSidedResponseHelper.new(self)
-var win_response_helper: = CharacterWinResponseHelper.new(self)
-var lose_response_helper: = CharacterLoseResponseHelper.new(self)
-var draw_response_helper: = CharacterDrawResponseHelper.new(self)
-
 # FIXME: 
 var _initial_position: Vector2
 var _initial_slot_amount: int = 1
@@ -62,30 +57,6 @@ func approach_target_two_sided(target: CharacterController):
 
 
 #region Combat
-func perform_one_sided_attack(clash_data: ClashData):
-	pass
-	#var my_dice = clash_data.owner_dice.dice_type as IDice.DiceType
-	#match my_dice:
-		#IDice.DiceType.SLASH:
-			#await action_controller.perform_slash_action(clash_data.opponent)
-		#IDice.DiceType.GUARD:
-			#await action_controller.perform_guard_action()
-		#IDice.DiceType.EVADE:
-			#await action_controller.perform_default_action()
-
-
-func apply_clash_win(clash_data: ClashData):
-	await win_response_helper.resolve_win_response(clash_data)
-
-
-func apply_clash_lose(clash_data: ClashData):
-	await lose_response_helper.resolve_lose_response(clash_data)
-
-
-func apply_clash_draw(clash_data: ClashData):
-	await draw_response_helper.resolve_clash_draw(clash_data)
-
-
 func apply_knockback(final_pos: Vector2):
 	movement.perform_backward_movement(final_pos)
 	action_controller.perform_damaged_action()
@@ -105,9 +76,9 @@ func reset_visual():
 
 
 func _initialize_childs():
-	sprite.set_sprite_owner(self)
-	movement.set_movement_owner(self)
+	sprite.initialize(self)
+	movement.initialize(self)
 	ability_controller.initialize(self)
-	action_controller.set_action_controller_owner(self)
+	action_controller.initialize(self)
 	dice_slot_controller.initialize(self, _initial_slot_amount)
 	health_controller.initialize(self, 100)

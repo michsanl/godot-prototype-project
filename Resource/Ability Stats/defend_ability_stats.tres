@@ -1,38 +1,9 @@
-[gd_resource type="Resource" script_class="AbilityData" load_steps=7 format=3 uid="uid://db0mt25wfatl4"]
+[gd_resource type="Resource" script_class="AbilityData" load_steps=3 format=3 uid="uid://db0mt25wfatl4"]
 
-[ext_resource type="Script" uid="uid://cv7oukxoksshd" path="res://Script/Character/Character Components/CharacterAbility/AbilityDice/dice_data.gd" id="1_pq4so"]
 [ext_resource type="Script" uid="uid://dlmk3rr22mobs" path="res://Script/Character/Character Components/CharacterAbility/AbilityDice/i_dice.gd" id="2_o3f6v"]
 [ext_resource type="Script" uid="uid://2ytid1uivak6" path="res://Script/Character/Character Components/CharacterAbility/ability_data.gd" id="2_yul47"]
-
-[sub_resource type="Resource" id="Resource_pq4so"]
-script = ExtResource("1_pq4so")
-dice_type = 1
-offensive_type = 0
-min_val = 1
-max_val = 3
-knockback_power = 150.0
-metadata/_custom_type_script = "uid://cv7oukxoksshd"
-
-[sub_resource type="Resource" id="Resource_yul47"]
-script = ExtResource("1_pq4so")
-dice_type = 2
-offensive_type = 0
-min_val = 1
-max_val = 3
-knockback_power = 150.0
-metadata/_custom_type_script = "uid://cv7oukxoksshd"
-
-[sub_resource type="Resource" id="Resource_o3f6v"]
-script = ExtResource("1_pq4so")
-dice_type = 1
-offensive_type = 0
-min_val = 1
-max_val = 3
-knockback_power = 150.0
-metadata/_custom_type_script = "uid://cv7oukxoksshd"
 
 [resource]
 script = ExtResource("2_yul47")
 ability_name = "Defend"
-dice_list = Array[ExtResource("1_pq4so")]([SubResource("Resource_pq4so"), SubResource("Resource_yul47"), SubResource("Resource_o3f6v")])
 dices = Array[ExtResource("2_o3f6v")]([null, null, null])
