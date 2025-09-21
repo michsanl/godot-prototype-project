@@ -1,8 +1,9 @@
 class_name AbilityData
 extends Resource
 
-@export var ability_name: String
 @export var dices: Array[IDice]
+@export var ability_name: String
+@export var icon: Texture2D
 
 var self_owner: CharacterController
 
@@ -16,3 +17,6 @@ func _initialize_childs(new_owner: CharacterController):
 
 func get_dice_pool() -> Array[IDice]:
 	return dices
+
+func get_icon() -> Texture2D:
+	return icon

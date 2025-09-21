@@ -10,10 +10,17 @@ func initialize(new_owner: CharacterController):
 	initialize_abiliities(new_owner)
 
 
-func get_random_ability() -> AbilityData:
-	return ability_list.pick_random()
-
-
 func initialize_abiliities(new_owner: CharacterController):
 	for ability in ability_list:
 		ability.initialize(new_owner)
+
+
+func get_ability(index: int):
+	return ability_list[index]
+
+
+func get_abilities() -> Array[AbilityData]:
+	return ability_list
+
+func get_random_ability() -> AbilityData:
+	return ability_list.pick_random()

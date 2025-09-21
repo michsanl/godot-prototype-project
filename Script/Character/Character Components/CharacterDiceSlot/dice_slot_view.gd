@@ -1,8 +1,12 @@
 class_name DiceSlotView
 extends Control
 
+signal button_pressed(index: int)
 
-func initialize(dice_slot: DiceSlotData):
+var index: int
+
+func initialize(dice_slot: DiceSlotData, new_index: int):
+	index = new_index
 	dice_slot.speed_value_changed.connect(update_speed_value)
 	dice_slot.state_changed.connect(update_state)
 	dice_slot.target_slot_changed.connect(update_target)
@@ -19,14 +23,16 @@ func update_state(new_state: DiceSlotData.DiceSlotState):
 	match new_state:
 		DiceSlotData.DiceSlotState.INACTIVE:
 			self.visible = false
-			$Icon.modulate = Color(1, 1, 1) # normal
+			#$Icon.modulate = Color(1, 1, 1) # normal
 		DiceSlotData.DiceSlotState.ACTIVE:
 			self.visible = true
-			$Icon.modulate = Color(1, 1, 1) # normal
+			#$Icon.modulate = Color(1, 1, 1) # normal
 		DiceSlotData.DiceSlotState.HIGHLIGHT:
-			$Icon.modulate = Color(1, 1, 0.5) # yellow glow tint
+			self.visible = true
+			#$Icon.modulate = Color(1, 1, 0.5) # yellow glow tint
 		DiceSlotData.DiceSlotState.STUNNED:
-			$Icon.modulate = Color(0.5, 0.5, 0.5) # gray out
+			self.visible = true
+			#$Icon.modulate = Color(0.5, 0.5, 0.5) # gray out
 
 
 func update_target(new_target: DiceSlotData):
@@ -34,3 +40,7 @@ func update_target(new_target: DiceSlotData):
 		$Trajectory.draw_trajectory(new_target.view.global_position)
 	else:
 		$Trajectory.clear_trajectory()
+
+
+func _on_button_toggled() -> void:
+	button_pressed.emit(index)

@@ -1,12 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://c8puoopbxmfog"]
+[gd_scene load_steps=3 format=3 uid="uid://c8puoopbxmfog"]
 
-[ext_resource type="Script" uid="uid://bs3q5nm8ht3pi" path="res://Script/Character/Character Components/CharacterAbility/AbilityUI/ability_view.gd" id="1_wqnpt"]
-
-[sub_resource type="Gradient" id="Gradient_8jtg2"]
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_6xf2f"]
-gradient = SubResource("Gradient_8jtg2")
-fill_from = Vector2(0.803419, 0.230769)
+[ext_resource type="Script" uid="uid://bs3q5nm8ht3pi" path="res://Script/PlayerManager/ability_view.gd" id="1_wqnpt"]
+[ext_resource type="PackedScene" uid="uid://3wfeluw4lq0f" path="res://Scene/UI/StrategyPhase/ability_button.tscn" id="2_wqnpt"]
 
 [node name="AbilityManagerView" type="Control" node_paths=PackedStringArray("buttons")]
 layout_direction = 1
@@ -18,7 +13,7 @@ grow_vertical = 0
 size_flags_horizontal = 0
 size_flags_vertical = 8
 script = ExtResource("1_wqnpt")
-buttons = [NodePath("Panel/MarginContainer/HBoxContainer/Button"), NodePath("Panel/MarginContainer/HBoxContainer/Button2"), NodePath("Panel/MarginContainer/HBoxContainer/Button3"), NodePath("Panel/MarginContainer/HBoxContainer/Button4")]
+buttons = [NodePath("Panel/MarginContainer/HBoxContainer/AbilityButton"), NodePath("Panel/MarginContainer/HBoxContainer/AbilityButton2"), NodePath("Panel/MarginContainer/HBoxContainer/AbilityButton3"), NodePath("Panel/MarginContainer/HBoxContainer/AbilityButton4")]
 
 [node name="Panel" type="Panel" parent="."]
 custom_minimum_size = Vector2(500, 200)
@@ -45,31 +40,17 @@ theme_override_constants/margin_bottom = 15
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Panel/MarginContainer"]
 layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 125
 
-[node name="Button" type="Button" parent="Panel/MarginContainer/HBoxContainer"]
-custom_minimum_size = Vector2(64, 64)
+[node name="AbilityButton" parent="Panel/MarginContainer/HBoxContainer" instance=ExtResource("2_wqnpt")]
 layout_mode = 2
-size_flags_horizontal = 6
-size_flags_vertical = 0
-icon = SubResource("GradientTexture2D_6xf2f")
 
-[node name="Button2" type="Button" parent="Panel/MarginContainer/HBoxContainer"]
-custom_minimum_size = Vector2(64, 64)
+[node name="AbilityButton2" parent="Panel/MarginContainer/HBoxContainer" instance=ExtResource("2_wqnpt")]
 layout_mode = 2
-size_flags_horizontal = 6
-size_flags_vertical = 0
-icon = SubResource("GradientTexture2D_6xf2f")
 
-[node name="Button3" type="Button" parent="Panel/MarginContainer/HBoxContainer"]
-custom_minimum_size = Vector2(64, 64)
+[node name="AbilityButton3" parent="Panel/MarginContainer/HBoxContainer" instance=ExtResource("2_wqnpt")]
 layout_mode = 2
-size_flags_horizontal = 6
-size_flags_vertical = 0
-icon = SubResource("GradientTexture2D_6xf2f")
 
-[node name="Button4" type="Button" parent="Panel/MarginContainer/HBoxContainer"]
-custom_minimum_size = Vector2(64, 64)
+[node name="AbilityButton4" parent="Panel/MarginContainer/HBoxContainer" instance=ExtResource("2_wqnpt")]
 layout_mode = 2
-size_flags_horizontal = 6
-size_flags_vertical = 0
-icon = SubResource("GradientTexture2D_6xf2f")

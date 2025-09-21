@@ -65,3 +65,7 @@ func set_state(new_state: DiceSlotState):
 	if state != new_state:
 		state = new_state
 		state_changed.emit(new_state)
+
+
+func get_owner() -> CharacterController:
+	return owner_character

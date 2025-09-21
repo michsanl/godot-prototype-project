@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://ceen5hol788fo" path="res://Script/UI/BattleStartView/battle_roll_dice_view.gd" id="1_8a2q3"]
 
-[node name="StrategyView" type="Control" node_paths=PackedStringArray("ability_panel", "button_panel", "count_panel", "count_label")]
+[node name="StrategyView" type="Control" node_paths=PackedStringArray("button_panel", "count_panel", "count_label")]
 layout_direction = 1
 layout_mode = 3
 anchors_preset = 10
@@ -10,7 +10,6 @@ anchor_right = 1.0
 grow_horizontal = 2
 size_flags_vertical = 0
 script = ExtResource("1_8a2q3")
-ability_panel = NodePath("")
 button_panel = NodePath("StartButtonPanel")
 count_panel = NodePath("SceneCountPanel")
 count_label = NodePath("SceneCountPanel/Label")

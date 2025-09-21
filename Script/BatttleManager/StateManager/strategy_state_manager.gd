@@ -16,7 +16,6 @@ func _ready() -> void:
 	view.combat_button_pressed.connect(_on_combat_button_pressed)
 	view.set_button_panel_visibility(false)
 	view.set_count_panel_visibility(false)
-	view.set_ability_panel_visibility(false)
 
 
 func handle_strategy_state_enter() -> void:
@@ -26,16 +25,13 @@ func handle_strategy_state_enter() -> void:
 	view.set_count_label_text("Scene: 1 ")
 	view.set_count_panel_visibility(true)
 	await get_tree().create_timer(1.0).timeout
-	view.set_count_panel_visibility(false)
-	
 	view.set_button_panel_visibility(true)
-	view.set_ability_panel_visibility(true)
+	view.set_count_panel_visibility(false)
 
 
 func handle_strategy_state_exit() -> void:
 	view.set_button_panel_visibility(false)
 	view.set_count_panel_visibility(false)
-	view.set_ability_panel_visibility(false)
 	_set_character_dice_slot_visibility(false)
 
 
