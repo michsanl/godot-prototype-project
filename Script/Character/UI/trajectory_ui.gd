@@ -2,7 +2,6 @@ class_name TrajectoryUI
 extends Line2D
 
 var dice_slot: DiceSlotData
-
 var start_point: Vector2
 var end_point: Vector2
 var trajectory_segments: int = 100
@@ -28,6 +27,9 @@ func _hide_canvas():
 	self.visible = false
 
 
+func clear_trajectory():
+	line.clear_points()
+
 func draw_trajectory(target_pos: Vector2):
 	start_point = self.position
 	end_point = to_local(target_pos)
@@ -36,7 +38,7 @@ func draw_trajectory(target_pos: Vector2):
 	for i in range(trajectory_segments + 1):
 		var t := i / float(trajectory_segments) 
 		var pos : Vector2 = lerp(start_point, end_point, t) 
-		var arc_offset := arc_height * 4 * t * (1 - t)  # parabolic offset
+		var arc_offset: = get_parabolic_offset(t)
 		pos.y += arc_offset
 		line.add_point(pos)
 
@@ -54,8 +56,9 @@ func _draw_trajectory_to_mouse():
 		line.add_point(pos)
 
 
-func clear_trajectory():
-	line.clear_points()
+func get_parabolic_offset(segment: float) -> float:
+	var height = arc_height * 4 * segment * (1 - segment)
+	return height
 
 
 func _setup_trajectory_coordinate():

@@ -1,19 +1,15 @@
 class_name OneSidedDefenderClash
 extends IClash
 
-var is_auto_roll = true
-var auto_roll_timer = 1.0
-
 
 func resolve(combat_data :CombatData):
 	# Initialize: approach movement phase
-	await _execute_one_sided_approach_movement(combat_data.defender, combat_data.attacker)
+	await combat_data.defender.approach_target_one_sided(combat_data.attacker)
 	
 	# Core: roll dice phase
 	await _wait_for_dice_roll()
 	combat_data.roll_defender_dice()
-	var defender_clash_data = ClashData.new(combat_data, ClashData.CombatRole.DEFENDER)
-	await combat_data.defender.perform_one_sided_attack(defender_clash_data)
+	await combat_data.get_defender_front_dice().execute(combat_data.defender, combat_data.attacker)
 	
 	# Finalize: resolve dice usage
 	combat_data.defender_dice_pool.pop_front()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://dpcrnh04ab5w4"]
+[gd_scene load_steps=7 format=3 uid="uid://dpcrnh04ab5w4"]
 
 [ext_resource type="Script" uid="uid://jgnd4tga04yw" path="res://Script/Character/Character Components/CharacterDiceSlot/dice_slot_view.gd" id="1_l7bkc"]
 [ext_resource type="Texture2D" uid="uid://jmxggqej4haq" path="res://Art/HexagonTile.png" id="2_oetgj"]
@@ -15,27 +15,35 @@ font_size = 30
 outline_size = 1
 outline_color = Color(0, 0, 0, 1)
 
+[sub_resource type="Curve" id="Curve_31u0r"]
+_data = [Vector2(0, 0.00389099), 0.0, 0.0, 0, 0, Vector2(0.2725, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
 [node name="DiceSlotView" type="Control"]
 layout_mode = 3
 anchors_preset = 0
+mouse_filter = 1
 script = ExtResource("1_l7bkc")
 
-[node name="Icon" type="TextureRect" parent="."]
+[node name="Button" type="Button" parent="."]
+show_behind_parent = true
+custom_minimum_size = Vector2(64, 64)
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 offset_left = -32.0
 offset_top = -32.0
 offset_right = 32.0
 offset_bottom = 32.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("2_oetgj")
-expand_mode = 1
-stretch_mode = 5
+mouse_filter = 1
+toggle_mode = true
+icon = ExtResource("2_oetgj")
+flat = true
+icon_alignment = 1
+expand_icon = true
 
 [node name="ValueLabel" type="Label" parent="."]
 layout_mode = 1
@@ -59,4 +67,8 @@ visible_characters = 10
 visible_ratio = 10.0
 
 [node name="Trajectory" type="Line2D" parent="."]
+width_curve = SubResource("Curve_31u0r")
+default_color = Color(0.899908, 0.975091, 7.70092e-07, 1)
 script = ExtResource("3_31u0r")
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

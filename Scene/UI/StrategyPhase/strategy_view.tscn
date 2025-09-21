@@ -3,48 +3,47 @@
 [ext_resource type="Script" uid="uid://ceen5hol788fo" path="res://Script/UI/BattleStartView/battle_roll_dice_view.gd" id="1_8a2q3"]
 
 [node name="StrategyView" type="Control" node_paths=PackedStringArray("button_panel", "count_panel", "count_label")]
+layout_direction = 1
 layout_mode = 3
-anchors_preset = 15
+anchors_preset = 10
 anchor_right = 1.0
-anchor_bottom = 1.0
 grow_horizontal = 2
-grow_vertical = 2
+size_flags_vertical = 0
 script = ExtResource("1_8a2q3")
 button_panel = NodePath("StartButtonPanel")
 count_panel = NodePath("SceneCountPanel")
 count_label = NodePath("SceneCountPanel/Label")
 
 [node name="StartButtonPanel" type="Panel" parent="."]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-grow_horizontal = 2
-
-[node name="StartButton" type="Button" parent="StartButtonPanel"]
+custom_minimum_size = Vector2(200, 75)
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
-offset_left = -83.0
-offset_right = 84.0
-offset_bottom = 77.0
 grow_horizontal = 2
+
+[node name="StartButton" type="Button" parent="StartButtonPanel"]
+custom_minimum_size = Vector2(200, 75)
+layout_mode = 1
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -56.5
+offset_right = 56.5
+grow_horizontal = 2
+grow_vertical = 2
 text = "START
 Roll / Combat"
 icon_alignment = 1
 expand_icon = true
 
 [node name="SceneCountPanel" type="Panel" parent="."]
-layout_mode = 1
-anchors_preset = -1
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 458.0
-offset_top = 267.0
-offset_right = -458.0
-offset_bottom = -267.0
-grow_horizontal = 2
-grow_vertical = 2
+custom_minimum_size = Vector2(200, 100)
+layout_mode = 0
+offset_left = 484.0
+offset_top = 275.0
+offset_right = 684.0
+offset_bottom = 375.0
 
 [node name="Label" type="Label" parent="SceneCountPanel"]
 layout_mode = 1

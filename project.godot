@@ -16,7 +16,7 @@ config/features=PackedStringArray("4.4", "Forward Plus")
 
 [autoload]
 
-Global="*res://Script/BatttleManager/Combat State Helper/global.gd"
+Global="*res://Script/UnusedScripts/global.gd"
 
 [display]
 

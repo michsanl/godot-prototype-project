@@ -1,0 +1,56 @@
+[gd_scene load_steps=3 format=3 uid="uid://c8puoopbxmfog"]
+
+[ext_resource type="Script" uid="uid://bs3q5nm8ht3pi" path="res://Script/PlayerManager/ability_view.gd" id="1_wqnpt"]
+[ext_resource type="PackedScene" uid="uid://3wfeluw4lq0f" path="res://Scene/UI/StrategyPhase/ability_button.tscn" id="2_wqnpt"]
+
+[node name="AbilityManagerView" type="Control" node_paths=PackedStringArray("buttons")]
+layout_direction = 1
+layout_mode = 3
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+grow_vertical = 0
+size_flags_horizontal = 0
+size_flags_vertical = 8
+script = ExtResource("1_wqnpt")
+buttons = [NodePath("Panel/MarginContainer/HBoxContainer/AbilityButton"), NodePath("Panel/MarginContainer/HBoxContainer/AbilityButton2"), NodePath("Panel/MarginContainer/HBoxContainer/AbilityButton3"), NodePath("Panel/MarginContainer/HBoxContainer/AbilityButton4")]
+
+[node name="Panel" type="Panel" parent="."]
+custom_minimum_size = Vector2(500, 200)
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -200.0
+offset_right = 500.0
+grow_vertical = 0
+scale = Vector2(1, 1.0097)
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 125
+
+[node name="AbilityButton" parent="Panel/MarginContainer/HBoxContainer" instance=ExtResource("2_wqnpt")]
+layout_mode = 2
+
+[node name="AbilityButton2" parent="Panel/MarginContainer/HBoxContainer" instance=ExtResource("2_wqnpt")]
+layout_mode = 2
+
+[node name="AbilityButton3" parent="Panel/MarginContainer/HBoxContainer" instance=ExtResource("2_wqnpt")]
+layout_mode = 2
+
+[node name="AbilityButton4" parent="Panel/MarginContainer/HBoxContainer" instance=ExtResource("2_wqnpt")]
+layout_mode = 2

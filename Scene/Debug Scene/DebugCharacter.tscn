@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://cv2sxbkdyre5e"]
 
-[ext_resource type="PackedScene" uid="uid://b3whippw3cwep" path="res://Scene/Character/Unit/character_player.tscn" id="1_h5s4o"]
+[ext_resource type="PackedScene" uid="uid://b3whippw3cwep" path="res://Scene/Character/Unit/player_character.tscn" id="1_h5s4o"]
 [ext_resource type="Script" uid="uid://bsmgwr0xjr2xy" path="res://Script/Debug/Debug Visual/debug_character_visual.gd" id="2_6ofiv"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_6ofiv"]

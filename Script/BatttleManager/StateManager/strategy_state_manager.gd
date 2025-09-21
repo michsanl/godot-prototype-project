@@ -19,15 +19,14 @@ func _ready() -> void:
 
 
 func handle_strategy_state_enter() -> void:
-	_set_character_dice_slot_visibility(true)
 	_setup_character_active_dice_slots()
+	_set_character_dice_slot_visibility(true)
 	
 	view.set_count_label_text("Scene: 1 ")
 	view.set_count_panel_visibility(true)
 	await get_tree().create_timer(1.0).timeout
-	view.set_count_panel_visibility(false)
-	
 	view.set_button_panel_visibility(true)
+	view.set_count_panel_visibility(false)
 
 
 func handle_strategy_state_exit() -> void:
@@ -38,8 +37,8 @@ func handle_strategy_state_exit() -> void:
 
 func _on_roll_button_pressed():
 	_roll_character_dice_slot()
-	_randomize_character_dice_slot_ability() # Temp method for debug
-	_randomize_character_dice_slot_target() # Temp method for debug
+	#_randomize_character_dice_slot_ability() # Temp method for debug
+	#_randomize_character_dice_slot_target() # Temp method for debug
 
 
 func _on_combat_button_pressed():

@@ -5,17 +5,13 @@ extends Node2D
 @export var data: CharacterData
 @export var stats: CharacterStats
 @export var sprite: CharacterSprite
+@export var vfx: VFXController
 @export var movement: CharacterMovement
 @export var health_controller: HealthController
 @export var dice_slot_controller: DiceSlotController
 @export var ability_controller: CharacterAbilityController
 @export var action_controller: CharacterActionController
 @export var combat_controller: CharacterCombatController
-
-var one_sided_response_helper = CharacterOneSidedResponseHelper.new(self)
-var win_response_helper: = CharacterWinResponseHelper.new(self)
-var lose_response_helper: = CharacterLoseResponseHelper.new(self)
-var draw_response_helper: = CharacterDrawResponseHelper.new(self)
 
 # FIXME: 
 var _initial_position: Vector2
@@ -33,6 +29,8 @@ func get_data() -> CharacterData:
 	return data
 func get_view() -> CharacterSprite:
 	return sprite
+func get_vfx() -> VFXController:
+	return vfx
 func get_movement() -> CharacterMovement:
 	return movement
 func get_health() -> HealthController:
@@ -59,29 +57,6 @@ func approach_target_two_sided(target: CharacterController):
 
 
 #region Combat
-func perform_one_sided_attack(clash_data: ClashData):
-	var my_dice = clash_data.owner_dice.dice_type as DiceData.DiceType
-	match my_dice:
-		DiceData.DiceType.ATTACK:
-			await action_controller.perform_slash_action(clash_data.opponent)
-		DiceData.DiceType.GUARD:
-			await action_controller.perform_guard_action()
-		DiceData.DiceType.EVADE:
-			await action_controller.perform_default_action()
-
-
-func apply_clash_win(clash_data: ClashData):
-	await win_response_helper.resolve_win_response(clash_data)
-
-
-func apply_clash_lose(clash_data: ClashData):
-	await lose_response_helper.resolve_lose_response(clash_data)
-
-
-func apply_clash_draw(clash_data: ClashData):
-	await draw_response_helper.resolve_clash_draw(clash_data)
-
-
 func apply_knockback(final_pos: Vector2):
 	movement.perform_backward_movement(final_pos)
 	action_controller.perform_damaged_action()
@@ -101,9 +76,9 @@ func reset_visual():
 
 
 func _initialize_childs():
-	sprite.set_sprite_owner(self)
-	movement.set_movement_owner(self)
-	ability_controller.set_ability_controller_owner(self)
-	action_controller.set_action_controller_owner(self)
+	sprite.initialize(self)
+	movement.initialize(self)
+	ability_controller.initialize(self)
+	action_controller.initialize(self)
 	dice_slot_controller.initialize(self, _initial_slot_amount)
 	health_controller.initialize(self, 100)

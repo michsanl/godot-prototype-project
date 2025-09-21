@@ -3,26 +3,26 @@
 [ext_resource type="Script" uid="uid://c7c2x0t6jjupk" path="res://Script/Character/character_controller.gd" id="1_y5alb"]
 [ext_resource type="Script" uid="uid://bkyu1oyiksvly" path="res://Script/Character/Character Controller/character_action_controller.gd" id="2_8fd8j"]
 [ext_resource type="Resource" uid="uid://d1eoxqg5yuqdt" path="res://Resource/Character/character_resource.tres" id="2_h3o0s"]
-[ext_resource type="Script" uid="uid://dateptc72flsb" path="res://Script/Character/Character Components/character_movement.gd" id="2_ptqjd"]
+[ext_resource type="Script" uid="uid://dateptc72flsb" path="res://Script/Character/Character Components/CharacterMovement/character_movement.gd" id="2_ptqjd"]
 [ext_resource type="Texture2D" uid="uid://pxur532t51ow" path="res://Art/character_sprite/argalia/Default.png" id="2_tjx60"]
-[ext_resource type="Script" uid="uid://di50c51to3xax" path="res://Script/Character/Character Components/character_stats.gd" id="2_yop1s"]
+[ext_resource type="Script" uid="uid://di50c51to3xax" path="res://Script/Character/Character Components/CharacterStats/character_stats.gd" id="2_yop1s"]
 [ext_resource type="Script" uid="uid://23653me6nc14" path="res://Script/Character/Character Controller/character_combat_controller.gd" id="3_co0rr"]
-[ext_resource type="Script" uid="uid://dm4auyugtcvs4" path="res://Script/Character/Character Components/character_ability_controller.gd" id="3_ouw7k"]
-[ext_resource type="Script" uid="uid://b18vpmxkm8dx0" path="res://Script/Character/Character Components/character_sprite.gd" id="4_g08oy"]
+[ext_resource type="Script" uid="uid://dm4auyugtcvs4" path="res://Script/Character/Character Components/CharacterAbility/character_ability_controller.gd" id="3_ouw7k"]
+[ext_resource type="Script" uid="uid://b18vpmxkm8dx0" path="res://Script/Character/Character Components/CharacterSprite/character_sprite.gd" id="4_g08oy"]
 [ext_resource type="Resource" uid="uid://bpoaj3qwoapyp" path="res://Resource/Character Sprite/argalia_sprite.tres" id="5_ylsyo"]
 [ext_resource type="Resource" uid="uid://cf4tijk5nlsau" path="res://Resource/CharacterVFX/argalia_vfx_resource.tres" id="6_co0rr"]
-[ext_resource type="Script" uid="uid://2ytid1uivak6" path="res://Script/Resource/Ability/ability_data.gd" id="8_psia3"]
+[ext_resource type="Script" uid="uid://2ytid1uivak6" path="res://Script/Character/Character Components/CharacterAbility/ability_data.gd" id="8_psia3"]
 [ext_resource type="Script" uid="uid://b54mqe1887k7e" path="res://Script/Character/Character Controller/vfx_controller.gd" id="11_psia3"]
 [ext_resource type="Resource" uid="uid://ddt7y2wpi6618" path="res://Resource/Ability Stats/strike_ability_stats.tres" id="14_1ako7"]
 [ext_resource type="PackedScene" uid="uid://bkvh75esl1npm" path="res://Scene/Character/DiceSlot/dice_slots.tscn" id="14_co0rr"]
 [ext_resource type="PackedScene" uid="uid://gjvx5fdrqrkp" path="res://Scene/Character/Health/health_controller.tscn" id="15_484aj"]
 
-[node name="CharacterController" type="Node2D" node_paths=PackedStringArray("stats", "sprite", "movement", "health_controller", "dice_slot_controller", "ability_controller", "action_controller", "combat_controller")]
-scale = Vector2(0.75, 0.75)
+[node name="CharacterController" type="Node2D" node_paths=PackedStringArray("stats", "sprite", "vfx", "movement", "health_controller", "dice_slot_controller", "ability_controller", "action_controller", "combat_controller")]
 script = ExtResource("1_y5alb")
 data = ExtResource("2_h3o0s")
 stats = NodePath("Stats")
 sprite = NodePath("Sprite")
+vfx = NodePath("VFX")
 movement = NodePath("Movement")
 health_controller = NodePath("Health")
 dice_slot_controller = NodePath("DiceSlots")
@@ -56,7 +56,7 @@ script = ExtResource("2_ptqjd")
 
 [node name="Abilities" type="Node" parent="."]
 script = ExtResource("3_ouw7k")
-ability_list = Array[ExtResource("8_psia3")]([ExtResource("14_1ako7")])
+ability_list = Array[ExtResource("8_psia3")]([ExtResource("14_1ako7"), ExtResource("14_1ako7"), ExtResource("14_1ako7"), ExtResource("14_1ako7")])
 
 [node name="Stats" type="Node" parent="."]
 script = ExtResource("2_yop1s")
@@ -70,7 +70,15 @@ offset_top = 1.33333
 offset_right = -54.6667
 offset_bottom = 1.33333
 grow_vertical = 0
+metadata/_edit_use_anchors_ = true
 
 [node name="DiceSlots" parent="." instance=ExtResource("14_co0rr")]
-offset_top = -160.0
-offset_bottom = -160.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_top = -149.0
+offset_bottom = -149.0
+grow_horizontal = 2
+grow_vertical = 2
