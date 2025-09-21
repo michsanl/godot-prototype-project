@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://do3uwy2gicsls"]
+[gd_scene load_steps=21 format=3 uid="uid://do3uwy2gicsls"]
 
 [ext_resource type="Texture2D" uid="uid://c8sf5t0u0e5qn" path="res://Art/temporary_sprite/KeterFloorBattleStage.jpg" id="1_mtylr"]
 [ext_resource type="Script" uid="uid://cvhcgjpd2u1h" path="res://Script/UnusedScripts/global.gd" id="1_xdkpq"]
@@ -9,7 +9,7 @@
 [ext_resource type="Script" uid="uid://bmp3a5hkmsqv0" path="res://Script/BatttleManager/StateManager/CombatStateManager/combat_state_manager.gd" id="4_xdkpq"]
 [ext_resource type="PackedScene" uid="uid://bvg3pyy64wc86" path="res://Scene/Character/Unit/character_enemy.tscn" id="6_8rj7f"]
 [ext_resource type="PackedScene" uid="uid://b3whippw3cwep" path="res://Scene/Character/Unit/character_player.tscn" id="7_4v0j5"]
-[ext_resource type="PackedScene" uid="uid://cfhmlqlj0hrdq" path="res://Scene/UI/BattleStartState/strategy_view.tscn" id="8_8rj7f"]
+[ext_resource type="PackedScene" uid="uid://cfhmlqlj0hrdq" path="res://Scene/UI/StrategyPhase/strategy_view.tscn" id="8_8rj7f"]
 [ext_resource type="Script" uid="uid://cqq87jimtumef" path="res://Script/BatttleManager/StateManager/CombatStateManager/CombatHandler/clash_handler.gd" id="9_2bjfd"]
 [ext_resource type="Script" uid="uid://dgs7y4if2cys0" path="res://Script/BatttleManager/StateManager/resolve_state_manager.gd" id="9_4v0j5"]
 [ext_resource type="PackedScene" uid="uid://c2xahj8fxn508" path="res://Scene/UI/Debug/battle_scene_debug_view.tscn" id="9_8qtd0"]
@@ -17,6 +17,7 @@
 [ext_resource type="Script" uid="uid://dsiednejsstx6" path="res://Script/BatttleManager/StateManager/CombatStateManager/CombatHandler/Clash/one_sided_attacker_clash.gd" id="11_3rs5h"]
 [ext_resource type="Script" uid="uid://ciyby0kpaaauy" path="res://Script/Character/character_manager.gd" id="12_7qkga"]
 [ext_resource type="Script" uid="uid://c5xkadxboty1m" path="res://Script/BatttleManager/StateManager/CombatStateManager/CombatHandler/Clash/one_sided_defender_clash.gd" id="12_uowwx"]
+[ext_resource type="PackedScene" uid="uid://c8puoopbxmfog" path="res://Scene/UI/StrategyPhase/ability_view.tscn" id="15_3rs5h"]
 
 [sub_resource type="FontFile" id="FontFile_8rj7f"]
 subpixel_positioning = 0
@@ -115,6 +116,9 @@ layout_mode = 2
 [node name="BattleSceneDebugView" parent="CanvasLayer/UI/MarginContainer" instance=ExtResource("9_8qtd0")]
 layout_mode = 2
 size_flags_vertical = 4
+
+[node name="AbilityView" parent="CanvasLayer/UI/MarginContainer" instance=ExtResource("15_3rs5h")]
+layout_mode = 2
 
 [node name="CharacterManager" type="Node2D" parent="." node_paths=PackedStringArray("player_characters", "enemy_characters")]
 script = ExtResource("12_7qkga")

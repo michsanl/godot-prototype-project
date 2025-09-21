@@ -61,7 +61,7 @@ func set_selected_ability(new_ability: AbilityData):
 		selected_ability_changed.emit(new_ability)
 
 
-func set_state(new_state: int):
+func set_state(new_state: DiceSlotState):
 	if state != new_state:
 		state = new_state
 		state_changed.emit(new_state)

@@ -16,11 +16,12 @@ func _ready() -> void:
 	view.combat_button_pressed.connect(_on_combat_button_pressed)
 	view.set_button_panel_visibility(false)
 	view.set_count_panel_visibility(false)
+	view.set_ability_panel_visibility(false)
 
 
 func handle_strategy_state_enter() -> void:
-	_set_character_dice_slot_visibility(true)
 	_setup_character_active_dice_slots()
+	_set_character_dice_slot_visibility(true)
 	
 	view.set_count_label_text("Scene: 1 ")
 	view.set_count_panel_visibility(true)
@@ -28,11 +29,13 @@ func handle_strategy_state_enter() -> void:
 	view.set_count_panel_visibility(false)
 	
 	view.set_button_panel_visibility(true)
+	view.set_ability_panel_visibility(true)
 
 
 func handle_strategy_state_exit() -> void:
 	view.set_button_panel_visibility(false)
 	view.set_count_panel_visibility(false)
+	view.set_ability_panel_visibility(false)
 	_set_character_dice_slot_visibility(false)
 
 

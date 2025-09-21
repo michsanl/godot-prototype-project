@@ -6,6 +6,7 @@ enum ButtonState { ROLL, COMBAT }
 signal roll_button_pressed
 signal combat_button_pressed
 
+@export var ability_panel: Panel
 @export var button_panel: Panel
 @export var count_panel: Panel
 @export var count_label: Label
@@ -16,6 +17,9 @@ func set_button_panel_visibility(condition: bool):
 	button_panel.visible = condition
 
 func set_count_panel_visibility(condition: bool):
+	count_panel.visible = condition
+
+func set_ability_panel_visibility(condition: bool):
 	count_panel.visible = condition
 
 func set_count_label_text(new_text: String):

@@ -10,7 +10,6 @@ extends Node
 @export var adjacent_offset: float = 100.0
 
 var owner_character: CharacterController
-var _knockback_distance: float = 150.0
 
 func initialize(new_owner: CharacterController):
 	owner_character = new_owner as CharacterController
