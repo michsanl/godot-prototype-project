@@ -18,7 +18,7 @@
 [ext_resource type="PackedScene" uid="uid://c8puoopbxmfog" path="res://Scene/UI/StrategyPhase/ability_view.tscn" id="15_3rs5h"]
 [ext_resource type="PackedScene" uid="uid://b3whippw3cwep" path="res://Scene/Character/Unit/player_character.tscn" id="15_uowwx"]
 [ext_resource type="PackedScene" uid="uid://yc6lu5cla58x" path="res://Scene/Character/Unit/enemy_character.tscn" id="16_5i8bp"]
-[ext_resource type="Script" uid="uid://bcwr8p3naokr6" path="res://Script/PlayerManager/player_targeting_service.gd" id="19_uowwx"]
+[ext_resource type="Script" uid="uid://bdhbr4t36fd50" path="res://Script/PlayerManager/targeting_manager.gd" id="19_5i8bp"]
 
 [sub_resource type="FontFile" id="FontFile_8rj7f"]
 subpixel_positioning = 0
@@ -137,9 +137,7 @@ layout_mode = 2
 size_flags_vertical = 4
 mouse_filter = 1
 
-[node name="PlayerTargetingService" type="Node" parent="." node_paths=PackedStringArray("character_manager", "view")]
-script = ExtResource("19_uowwx")
+[node name="TargetingManager" type="Node" parent="." node_paths=PackedStringArray("character_manager", "view")]
+script = ExtResource("19_5i8bp")
 character_manager = NodePath("../CharacterManager")
 view = NodePath("../CanvasLayer/UI/MarginContainer/AbilityView")
-
-[node name="Node" type="Node" parent="PlayerTargetingService"]

@@ -9,7 +9,7 @@ func resolve(combat_data :CombatData):
 	# Core: roll dice phase
 	await _wait_for_dice_roll()
 	combat_data.roll_attacker_dice()
-	await combat_data.get_defender_front_dice().execute(combat_data.attacker, combat_data.defender)
+	await combat_data.get_attacker_front_dice().execute(combat_data.attacker, combat_data.defender)
 	
 	# Finalize: resolve dice usage
 	combat_data.attacker_dice_pool.pop_front()

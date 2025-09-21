@@ -1,7 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://3wfeluw4lq0f"]
+[gd_scene load_steps=4 format=3 uid="uid://3wfeluw4lq0f"]
 
 [ext_resource type="Script" uid="uid://bl4euriyow2jg" path="res://Script/PlayerManager/ability_button.gd" id="1_iqi2j"]
-[ext_resource type="Texture2D" uid="uid://b5yetv4ycwmxg" path="res://Art/temporary_sprite/Slash_Icon.png" id="2_3npvh"]
 
 [sub_resource type="Gradient" id="Gradient_8jtg2"]
 
@@ -38,6 +37,5 @@ icon = SubResource("GradientTexture2D_6xf2f")
 [node name="Sprite2D" type="Sprite2D" parent="Button"]
 position = Vector2(36, 36)
 scale = Vector2(0.251953, 0.251953)
-texture = ExtResource("2_3npvh")
 
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

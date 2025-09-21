@@ -42,5 +42,5 @@ func update_target(new_target: DiceSlotData):
 		$Trajectory.clear_trajectory()
 
 
-func _on_button_toggled() -> void:
+func _on_button_pressed() -> void:
 	button_pressed.emit(index)

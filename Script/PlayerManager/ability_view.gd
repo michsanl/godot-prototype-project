@@ -1,15 +1,41 @@
 class_name AbilityView
-extends Node
+extends Control
 
 signal button_pressed(index: int)
 
 @export var buttons: Array[AbilityButton] = []
 var button_dict: Dictionary = {}
 
-func _ready() -> void:
+
+func initialize(targeting_data: TargetingData):
+	initialize_children()
+	targeting_data.player_slot_changed.connect(_on_player_slot_changed)
+	targeting_data.enemy_slot_changed.connect(_on_enemy_slot_changed)
+	self.hide()
+
+
+func initialize_children():
 	for i in range(buttons.size()):
 		buttons[i].initialize(i)
-		buttons[i].button_pressed.connect(handle_button_press)
+		buttons[i].ability_button_pressed.connect(_on_button_pressed)
+
+
+func _on_player_slot_changed(dice_slot: DiceSlotData):
+	if dice_slot:
+		var abilities: Array[AbilityData] = get_abilities_by_slot(dice_slot)
+		update_buttons(abilities)
+	else:
+		update_buttons_to_default()
+
+
+func _on_enemy_slot_changed(dice_slot: DiceSlotData):
+	update_buttons_to_default()
+
+
+func _on_button_pressed(index: int):
+	button_pressed.emit(index)
+	self.hide()
+
 
 func update_buttons(abilities: Array[AbilityData]):
 	for i in range(abilities.size()):
@@ -18,15 +44,8 @@ func update_buttons(abilities: Array[AbilityData]):
 
 func update_buttons_to_default():
 	for button in buttons:
-		button.update_icon(button.default_icon)
+		button.update_icon(null)
 
 
-func handle_button_press(index: int):
-	print("Button ", index, " was pressed")
-	button_pressed.emit(index)
-
-
-func setup_button_index():
-	for i in range(buttons.size()):
-		var index := i
-		buttons[i].connect("pressed", Callable(self, "handle_button_press").bind(index))
+func get_abilities_by_slot(dice_slot: DiceSlotData):
+	return dice_slot.owner_character.ability_controller.get_abilities()

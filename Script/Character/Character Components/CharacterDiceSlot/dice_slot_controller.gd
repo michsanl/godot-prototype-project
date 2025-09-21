@@ -1,7 +1,7 @@
 class_name DiceSlotController
 extends Control
 
-signal selected_slot_changed(dice_slot: DiceSlotData)
+signal dice_slot_pressed(dice_slot: DiceSlotData)
 
 @export var views: Array[DiceSlotView] = []
 
@@ -9,7 +9,6 @@ var dice_slots: Array[DiceSlotData] = []
 var owner_character: CharacterController
 var min_speed_value: int
 var max_speed_value: int
-var selected_dice_slot: DiceSlotData
 
 func initialize(new_owner, starting_slot_amount, min_value = 1, max_value = 10):
 	owner_character = new_owner
@@ -75,5 +74,5 @@ func _initialize_views():
 
 
 func _on_view_button_pressed(new_index: int) -> void:
-	selected_dice_slot = get_dice_slot(new_index)
-	selected_slot_changed.emit(selected_dice_slot)
+	var dice_slot = get_dice_slot(new_index)
+	dice_slot_pressed.emit(dice_slot)

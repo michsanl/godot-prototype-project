@@ -71,4 +71,4 @@ width_curve = SubResource("Curve_31u0r")
 default_color = Color(0.899908, 0.975091, 7.70092e-07, 1)
 script = ExtResource("3_31u0r")
 
-[connection signal="toggled" from="Button" to="." method="_on_button_toggled"]
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
