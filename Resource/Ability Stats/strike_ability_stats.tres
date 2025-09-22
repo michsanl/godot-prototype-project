@@ -16,7 +16,7 @@ script = ExtResource("3_16lnj")
 min_val = 1
 max_val = 2
 knockback_power = 50.0
-duration = 1.0
+duration = 0.5
 vfx = SubResource("AtlasTexture_x2rpp")
 metadata/_custom_type_script = "uid://owd46cw2kp0k"
 
@@ -28,7 +28,7 @@ script = ExtResource("4_gpy3a")
 min_val = 1
 max_val = 2
 knockback_power = 50.0
-duration = 1.0
+duration = 0.5
 vfx = SubResource("AtlasTexture_1ekvd")
 metadata/_custom_type_script = "uid://vk8bwbjohqh3"
 
@@ -40,7 +40,7 @@ script = ExtResource("5_i41as")
 min_val = 1
 max_val = 2
 knockback_power = 50.0
-duration = 1.0
+duration = 0.5
 vfx = SubResource("AtlasTexture_8m2vg")
 metadata/_custom_type_script = "uid://bwegkm4j0e3x4"
 

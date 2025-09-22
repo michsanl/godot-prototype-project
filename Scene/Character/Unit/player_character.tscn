@@ -5,6 +5,13 @@
 [node name="PlayerCharacter" instance=ExtResource("1_1x2aq")]
 char_name = "Player"
 
+[node name="Combat" parent="." index="1"]
+offset_left = 38.0
+offset_top = -118.0
+offset_right = 38.0
+offset_bottom = -118.0
+scale = Vector2(-1, 1)
+
 [node name="Sprite" parent="." index="2"]
 flip_h = true
 

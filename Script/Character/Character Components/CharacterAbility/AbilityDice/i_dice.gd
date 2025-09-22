@@ -6,7 +6,7 @@ enum DiceType { SLASH, PIERCE, BLUNT, GUARD, EVADE }
 @export var min_val: int = 0
 @export var max_val: int = 0
 @export var knockback_power: float = 50.0
-@export var duration: float = 1.0
+@export var duration: float = 0.5
 @export var vfx: AtlasTexture
 
 var roll_val: int = 0
