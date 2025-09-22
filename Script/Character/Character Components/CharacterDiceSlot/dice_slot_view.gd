@@ -19,6 +19,21 @@ func update_speed_value(new_value: int):
 	$ValueLabel.text = str(new_value)
 
 
+func update_target(new_target: DiceSlotData):
+	if new_target != null:
+		$Trajectory.draw_trajectory(new_target.view.global_position)
+	else:
+		$Trajectory.clear_trajectory()
+
+
+func draw_trajectory_to_mouse(condition: bool):
+	$Trajectory.set_trajectory_to_mouse(condition)
+
+
+func _on_button_pressed() -> void:
+	button_pressed.emit(index)
+
+
 func update_state(new_state: DiceSlotData.DiceSlotState):
 	match new_state:
 		DiceSlotData.DiceSlotState.INACTIVE:
@@ -33,14 +48,3 @@ func update_state(new_state: DiceSlotData.DiceSlotState):
 		DiceSlotData.DiceSlotState.STUNNED:
 			self.visible = true
 			#$Icon.modulate = Color(0.5, 0.5, 0.5) # gray out
-
-
-func update_target(new_target: DiceSlotData):
-	if new_target != null:
-		$Trajectory.draw_trajectory(new_target.view.global_position)
-	else:
-		$Trajectory.clear_trajectory()
-
-
-func _on_button_pressed() -> void:
-	button_pressed.emit(index)

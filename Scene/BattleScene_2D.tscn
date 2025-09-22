@@ -103,6 +103,11 @@ position = Vector2(-297, 58)
 [node name="EnemyCharacter" parent="CharacterManager" instance=ExtResource("16_5i8bp")]
 position = Vector2(343, 55)
 
+[node name="TargetingManager" type="Node" parent="." node_paths=PackedStringArray("character_manager", "view")]
+script = ExtResource("19_5i8bp")
+character_manager = NodePath("../CharacterManager")
+view = NodePath("../CanvasLayer/UI/MarginContainer/AbilityView")
+
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="UI" type="Control" parent="CanvasLayer"]
@@ -136,8 +141,3 @@ mouse_filter = 1
 layout_mode = 2
 size_flags_vertical = 4
 mouse_filter = 1
-
-[node name="TargetingManager" type="Node" parent="." node_paths=PackedStringArray("character_manager", "view")]
-script = ExtResource("19_5i8bp")
-character_manager = NodePath("../CharacterManager")
-view = NodePath("../CanvasLayer/UI/MarginContainer/AbilityView")

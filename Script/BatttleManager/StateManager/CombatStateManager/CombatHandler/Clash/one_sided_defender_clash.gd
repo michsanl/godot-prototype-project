@@ -2,23 +2,25 @@ class_name OneSidedDefenderClash
 extends IClash
 
 
+var _attacker: CharacterController
+var _defender: CharacterController
+
 func resolve(combat_data :CombatData):
 	# Initialize: approach movement phase
-	await combat_data.defender.approach_target_one_sided(combat_data.attacker)
+	_attacker = combat_data.attacker
+	_defender = combat_data.defender
+	await _defender.approach_target_one_sided(_attacker)
 	
 	# Core: roll dice phase
 	await _wait_for_dice_roll()
-	combat_data.roll_defender_dice()
-	await combat_data.get_defender_front_dice().execute(combat_data.defender, combat_data.attacker)
+	_defender.roll_front_die()
+	await _defender.execute_front_die(_attacker)
 	
 	# Finalize: resolve dice usage
-	combat_data.defender_dice_pool.pop_front()
+	_defender.pop_front_die()
 
 
-func _execute_one_sided_approach_movement(attacker: CharacterController, defender: CharacterController):
-	await attacker.approach_target_one_sided(defender)
-
-
+#region Wait For Dice Roll Methods
 func _wait_for_dice_roll():
 	if not is_auto_roll:
 		await _wait_for_space()
@@ -32,5 +34,7 @@ func _wait_for_space():
 		if Input.is_key_pressed(KEY_SPACE):
 			break
 
+
 func _wait_for_timer(duration: float):
 	await get_tree().create_timer(duration).timeout
+#endregion

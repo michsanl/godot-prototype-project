@@ -41,6 +41,10 @@ func get_dice_slot(index: int) -> DiceSlotData:
 	return dice_slots[index]
 
 
+func get_dice_slots() -> Array[DiceSlotData]:
+	return dice_slots
+
+
 func deactivate_dice_slot(index: int):
 	dice_slots[index].deactivate()
 

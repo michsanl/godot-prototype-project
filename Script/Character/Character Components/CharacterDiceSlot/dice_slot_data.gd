@@ -69,3 +69,7 @@ func set_state(new_state: DiceSlotState):
 
 func get_owner() -> CharacterController:
 	return owner_character
+
+
+func get_selected_ability() -> AbilityData:
+	return selected_ability
