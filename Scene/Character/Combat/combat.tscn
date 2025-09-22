@@ -1,0 +1,57 @@
+[gd_scene load_steps=3 format=3 uid="uid://bm1yvwt78ukl0"]
+
+[ext_resource type="Script" uid="uid://23653me6nc14" path="res://Script/Character/Character Controller/character_combat_controller.gd" id="1_riydl"]
+[ext_resource type="Texture2D" uid="uid://b5yetv4ycwmxg" path="res://Art/temporary_sprite/Slash_Icon.png" id="2_t11o6"]
+
+[node name="Combat" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_riydl")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -77.0
+offset_right = 209.0
+grow_vertical = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/MarginContainer"]
+layout_mode = 2
+
+[node name="Icon" type="TextureRect" parent="Panel/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("2_t11o6")
+expand_mode = 1
+
+[node name="Icon2" type="TextureRect" parent="Panel/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("2_t11o6")
+expand_mode = 1
+
+[node name="Icon3" type="TextureRect" parent="Panel/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("2_t11o6")
+expand_mode = 1

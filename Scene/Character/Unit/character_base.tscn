@@ -6,8 +6,8 @@
 [ext_resource type="Script" uid="uid://dateptc72flsb" path="res://Script/Character/Character Components/CharacterMovement/character_movement.gd" id="2_ptqjd"]
 [ext_resource type="Texture2D" uid="uid://pxur532t51ow" path="res://Art/character_sprite/argalia/Default.png" id="2_tjx60"]
 [ext_resource type="Script" uid="uid://di50c51to3xax" path="res://Script/Character/Character Components/CharacterStats/character_stats.gd" id="2_yop1s"]
-[ext_resource type="Script" uid="uid://23653me6nc14" path="res://Script/Character/Character Controller/character_combat_controller.gd" id="3_co0rr"]
 [ext_resource type="Script" uid="uid://dm4auyugtcvs4" path="res://Script/Character/Character Components/CharacterAbility/character_ability_controller.gd" id="3_ouw7k"]
+[ext_resource type="PackedScene" uid="uid://bm1yvwt78ukl0" path="res://Scene/Character/Combat/combat.tscn" id="4_484aj"]
 [ext_resource type="Script" uid="uid://b18vpmxkm8dx0" path="res://Script/Character/Character Components/CharacterSprite/character_sprite.gd" id="4_g08oy"]
 [ext_resource type="Resource" uid="uid://bpoaj3qwoapyp" path="res://Resource/Character Sprite/argalia_sprite.tres" id="5_ylsyo"]
 [ext_resource type="Resource" uid="uid://cf4tijk5nlsau" path="res://Resource/CharacterVFX/argalia_vfx_resource.tres" id="6_co0rr"]
@@ -18,6 +18,7 @@
 [ext_resource type="PackedScene" uid="uid://gjvx5fdrqrkp" path="res://Scene/Character/Health/health_controller.tscn" id="15_484aj"]
 
 [node name="CharacterController" type="Node2D" node_paths=PackedStringArray("stats", "sprite", "vfx", "movement", "health_controller", "dice_slot_controller", "ability_controller", "action_controller", "combat_controller")]
+scale = Vector2(0.5, 0.5)
 script = ExtResource("1_y5alb")
 data = ExtResource("2_h3o0s")
 stats = NodePath("Stats")
@@ -35,8 +36,9 @@ script = ExtResource("2_8fd8j")
 sprite_controller = NodePath("../Sprite")
 vfx_controller = NodePath("../VFX")
 
-[node name="Combat" type="Node" parent="."]
-script = ExtResource("3_co0rr")
+[node name="Combat" parent="." node_paths=PackedStringArray("slot_controller", "ability_controller") instance=ExtResource("4_484aj")]
+slot_controller = NodePath("../DiceSlots")
+ability_controller = NodePath("../Abilities")
 
 [node name="Sprite" type="Sprite2D" parent="."]
 position = Vector2(0, -88)

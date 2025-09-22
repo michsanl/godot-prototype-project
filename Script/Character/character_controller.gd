@@ -46,6 +46,40 @@ func get_combat_controller() -> CharacterCombatController:
 #endregion
 
 
+#region Combat Controller API
+func initialize_combat(dice_slot: DiceSlotData):
+	combat_controller.initialize_combat(dice_slot)
+
+
+func roll_front_die() -> void:
+	combat_controller.roll_front_die()
+
+
+func pop_front_die() -> void:
+	combat_controller.pop_front_die()
+
+
+func has_dice() -> bool:
+	return combat_controller.has_dice()
+
+
+func execute_front_die(target: CharacterController) -> void:
+	await combat_controller.get_front_die().execute(self, target)
+
+
+func execute_front_die_draw(target: CharacterController) -> void:
+	await combat_controller.get_front_die().execute_draw(self, target)
+
+
+func get_roll_value() -> int:
+	return combat_controller.get_roll_value()
+
+
+func get_dice_slots() -> Array[DiceSlotData]:
+	return dice_slot_controller.get_dice_slots()
+#endregion
+
+
 #region Action Controller
 func approach_target_one_sided(target: CharacterController):
 	await action_controller.perform_approach_one_sided_action(target)

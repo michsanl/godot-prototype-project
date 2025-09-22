@@ -19,6 +19,10 @@ func _process(_delta: float) -> void:
 		_draw_trajectory_to_mouse()
 
 
+func set_trajectory_to_mouse(condition: bool):
+	follow_mouse_trajectory = condition
+
+
 func _show_canvas():
 	self.visible = true
 

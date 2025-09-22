@@ -37,8 +37,8 @@ func handle_strategy_state_exit() -> void:
 
 func _on_roll_button_pressed():
 	_roll_character_dice_slot()
-	#_randomize_character_dice_slot_ability() # Temp method for debug
-	#_randomize_character_dice_slot_target() # Temp method for debug
+	_randomize_character_dice_slot_ability() # Temp method for debug
+	_randomize_character_dice_slot_target() # Temp method for debug
 
 
 func _on_combat_button_pressed():
