@@ -11,6 +11,8 @@ func resolve(combat_data :CombatData):
 	_attacker = combat_data.attacker
 	_defender = combat_data.defender
 	await _execute_two_sided_approach_movement(_attacker, _defender)
+	_attacker.update_front_die()
+	_defender.update_front_die()
 	
 	# Core: roll dice phase
 	await _wait_for_dice_roll()

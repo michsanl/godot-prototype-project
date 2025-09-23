@@ -9,6 +9,7 @@ func resolve(combat_data :CombatData):
 	_attacker = combat_data.attacker
 	_defender = combat_data.defender
 	await _attacker.approach_target_one_sided(_defender)
+	_attacker.update_front_die()
 	
 	# Core: roll dice phase
 	await _wait_for_dice_roll()

@@ -6,10 +6,8 @@
 char_name = "Player"
 
 [node name="Combat" parent="." index="1"]
-offset_left = 38.0
-offset_top = -118.0
-offset_right = 38.0
-offset_bottom = -118.0
+offset_left = -37.0
+offset_right = -37.0
 scale = Vector2(-1, 1)
 
 [node name="Sprite" parent="." index="2"]

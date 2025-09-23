@@ -7,6 +7,9 @@
 [node name="CombatController" type="Control"]
 layout_mode = 3
 anchors_preset = 0
+offset_left = -37.0
+offset_right = -37.0
+pivot_offset = Vector2(37, 0)
 script = ExtResource("1_riydl")
 
 [node name="CombatView" type="Panel" parent="." node_paths=PackedStringArray("combat_controller", "icon_container")]

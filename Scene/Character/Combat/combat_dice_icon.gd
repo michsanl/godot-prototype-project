@@ -21,7 +21,7 @@ func update_roll_label(new_text: String):
 	roll_label.text = new_text
 
 
-func show_label(condition: bool):
+func show_range_label(condition: bool):
 	if condition:
 		range_label.show()
 	else:
