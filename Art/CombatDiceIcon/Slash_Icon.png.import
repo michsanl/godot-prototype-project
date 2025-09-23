@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b24kpi4ovgye8"
-path="res://.godot/imported/Evade_Icon.png-fce008a6d0d0ca7a89ddb1feec909051.ctex"
+uid="uid://b5yetv4ycwmxg"
+path="res://.godot/imported/Slash_Icon.png-8ca22bb53351a9ed1ae8054e99e3a41e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Art/temporary_sprite/Evade_Icon.png"
-dest_files=["res://.godot/imported/Evade_Icon.png-fce008a6d0d0ca7a89ddb1feec909051.ctex"]
+source_file="res://Art/CombatDiceIcon/Slash_Icon.png"
+dest_files=["res://.godot/imported/Slash_Icon.png-8ca22bb53351a9ed1ae8054e99e3a41e.ctex"]
 
 [params]
 

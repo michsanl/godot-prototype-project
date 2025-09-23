@@ -37,6 +37,10 @@ sprite_controller = NodePath("../Sprite")
 vfx_controller = NodePath("../VFX")
 
 [node name="Combat" parent="." node_paths=PackedStringArray("slot_controller", "ability_controller") instance=ExtResource("4_484aj")]
+offset_left = -38.0
+offset_top = -124.0
+offset_right = -38.0
+offset_bottom = -124.0
 slot_controller = NodePath("../DiceSlots")
 ability_controller = NodePath("../Abilities")
 

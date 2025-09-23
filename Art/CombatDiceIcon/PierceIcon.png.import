@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bgld65nrgk87h"
-path="res://.godot/imported/Guard_Icon.png-733ac79e7be226e443183938051f1f2b.ctex"
+uid="uid://b87yam17ts5cy"
+path="res://.godot/imported/PierceIcon.png-6a74c97824dfac120d3ba59d8163a9df.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Art/temporary_sprite/Guard_Icon.png"
-dest_files=["res://.godot/imported/Guard_Icon.png-733ac79e7be226e443183938051f1f2b.ctex"]
+source_file="res://Art/CombatDiceIcon/PierceIcon.png"
+dest_files=["res://.godot/imported/PierceIcon.png-6a74c97824dfac120d3ba59d8163a9df.ctex"]
 
 [params]
 

@@ -1,6 +1,12 @@
 class_name CharacterCombatController
 extends Control
 
+# FLOW: 
+
+signal roll_value_changed(new_value: int)
+signal dice_list_changed(dice: Array[IDice])
+signal front_die_changed(die: IDice)
+
 @export var slot_controller: DiceSlotController
 @export var ability_controller: CharacterAbilityController
 
@@ -19,15 +25,21 @@ func initialize_combat(source_dice_slot: DiceSlotData):
 	active_dice.append_array(reserved_dice)
 	
 	front_die = active_dice[0]
+	
+	roll_value_changed.emit(roll_value)
+	dice_list_changed.emit(active_dice)
+	front_die_changed.emit(front_die)
 
 
 func roll_front_die():
 	roll_value = front_die.get_roll_value()
+	roll_value_changed.emit(roll_value)
 
 
 func pop_front_die():
 	active_dice.pop_front()
 	_update_front_dice()
+	dice_list_changed.emit(active_dice)
 
 
 func has_dice() -> bool:
@@ -45,3 +57,4 @@ func get_front_die() -> IDice:
 func _update_front_dice():
 	if active_dice:
 		front_die = active_dice[0]
+		front_die_changed.emit(front_die)
