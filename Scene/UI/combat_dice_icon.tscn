@@ -1,0 +1,80 @@
+[gd_scene load_steps=7 format=3 uid="uid://bi5i6uyv27o7w"]
+
+[ext_resource type="Script" uid="uid://dcj0lujc8n5w5" path="res://Scene/Character/Combat/combat_dice_icon.gd" id="1_iwan7"]
+[ext_resource type="Texture2D" uid="uid://b5yetv4ycwmxg" path="res://Art/CombatDiceIcon/Slash_Icon.png" id="2_ls3np"]
+
+[sub_resource type="SystemFont" id="SystemFont_iwan7"]
+font_names = PackedStringArray("Sans-Serif")
+subpixel_positioning = 0
+oversampling = 10.0
+
+[sub_resource type="LabelSettings" id="LabelSettings_2c30s"]
+resource_local_to_scene = true
+font = SubResource("SystemFont_iwan7")
+outline_size = 4
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="SystemFont" id="SystemFont_ls3np"]
+font_names = PackedStringArray("Sans-Serif")
+subpixel_positioning = 0
+oversampling = 10.0
+
+[sub_resource type="LabelSettings" id="LabelSettings_s7c3g"]
+font = SubResource("SystemFont_ls3np")
+font_size = 32
+outline_size = 4
+outline_color = Color(0, 0, 0, 1)
+
+[node name="CombatDiceIcon" type="Control" node_paths=PackedStringArray("icon", "range_label", "roll_label")]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 64.0
+offset_bottom = 64.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+script = ExtResource("1_iwan7")
+icon = NodePath("DiceTypeIcon")
+range_label = NodePath("DiceValueRangeLabel")
+roll_label = NodePath("DiceRollValueLabel2")
+
+[node name="DiceTypeIcon" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_ls3np")
+expand_mode = 1
+
+[node name="DiceValueRangeLabel" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -16.0
+offset_right = 16.0
+offset_bottom = 23.0
+grow_horizontal = 2
+text = "0 - 0"
+label_settings = SubResource("LabelSettings_2c30s")
+horizontal_alignment = 1
+
+[node name="DiceRollValueLabel2" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -4.0
+offset_top = -11.5
+offset_right = 4.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "?"
+label_settings = SubResource("LabelSettings_s7c3g")
+horizontal_alignment = 1
+vertical_alignment = 1

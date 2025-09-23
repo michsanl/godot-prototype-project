@@ -1,6 +1,8 @@
 class_name CharacterCombatController
 extends Control
 
+# FLOW: 
+
 signal roll_value_changed(new_value: int)
 signal dice_list_changed(dice: Array[IDice])
 signal front_die_changed(die: IDice)

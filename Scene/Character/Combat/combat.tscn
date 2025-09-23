@@ -2,14 +2,14 @@
 
 [ext_resource type="Script" uid="uid://23653me6nc14" path="res://Script/Character/Character Components/CharacterCombat/character_combat_controller.gd" id="1_riydl"]
 [ext_resource type="Script" uid="uid://dm1uwqwnxs8mj" path="res://Script/Character/Character Components/CharacterCombat/character_combat_view.gd" id="2_djtss"]
-[ext_resource type="Texture2D" uid="uid://b5yetv4ycwmxg" path="res://Art/temporary_sprite/Slash_Icon.png" id="2_t11o6"]
+[ext_resource type="PackedScene" uid="uid://bi5i6uyv27o7w" path="res://Scene/UI/combat_dice_icon.tscn" id="3_djtss"]
 
 [node name="CombatController" type="Control"]
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_riydl")
 
-[node name="CombatView" type="Panel" parent="." node_paths=PackedStringArray("combat_controller", "dice_icons")]
+[node name="CombatView" type="Panel" parent="." node_paths=PackedStringArray("combat_controller", "icon_container")]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -19,7 +19,8 @@ offset_right = 209.0
 grow_vertical = 0
 script = ExtResource("2_djtss")
 combat_controller = NodePath("..")
-dice_icons = [NodePath("MarginContainer/HBoxContainer/Icon"), NodePath("MarginContainer/HBoxContainer/Icon2"), NodePath("MarginContainer/HBoxContainer/Icon3")]
+dice_icon = ExtResource("3_djtss")
+icon_container = NodePath("MarginContainer/HBoxContainer")
 
 [node name="MarginContainer" type="MarginContainer" parent="CombatView"]
 layout_mode = 1
@@ -36,29 +37,11 @@ theme_override_constants/margin_bottom = 5
 [node name="HBoxContainer" type="HBoxContainer" parent="CombatView/MarginContainer"]
 layout_mode = 2
 
-[node name="Icon" type="TextureRect" parent="CombatView/MarginContainer/HBoxContainer"]
-visible = false
-custom_minimum_size = Vector2(64, 64)
+[node name="CombatDiceIcon" parent="CombatView/MarginContainer/HBoxContainer" instance=ExtResource("3_djtss")]
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-texture = ExtResource("2_t11o6")
-expand_mode = 1
 
-[node name="Icon2" type="TextureRect" parent="CombatView/MarginContainer/HBoxContainer"]
-visible = false
-custom_minimum_size = Vector2(64, 64)
+[node name="CombatDiceIcon2" parent="CombatView/MarginContainer/HBoxContainer" instance=ExtResource("3_djtss")]
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-texture = ExtResource("2_t11o6")
-expand_mode = 1
 
-[node name="Icon3" type="TextureRect" parent="CombatView/MarginContainer/HBoxContainer"]
-visible = false
-custom_minimum_size = Vector2(64, 64)
+[node name="CombatDiceIcon3" parent="CombatView/MarginContainer/HBoxContainer" instance=ExtResource("3_djtss")]
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-texture = ExtResource("2_t11o6")
-expand_mode = 1
