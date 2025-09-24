@@ -1,50 +1,59 @@
 class_name DiceSlotView
 extends Control
 
-signal button_pressed(index: int)
+signal right_mouse_pressed(index: int)
+signal left_mouse_pressed(index: int)
+signal hover_entered(index: int)
+signal hover_exited(index: int)
 
 var index: int
 
-func initialize(dice_slot: DiceSlotData, new_index: int):
+
+func initialize(new_index: int):
 	index = new_index
-	dice_slot.speed_value_changed.connect(update_speed_value)
-	dice_slot.state_changed.connect(update_state)
-	dice_slot.target_slot_changed.connect(update_target)
-	update_speed_value(dice_slot.speed_value)
-	update_state(dice_slot.state)
-	update_target(dice_slot.target_dice_slot)
+	hide()
 
 
-func update_speed_value(new_value: int):
-	$ValueLabel.text = str(new_value)
+func _gui_input(event: InputEvent) -> void:
+	if event is InputEventMouseButton and event.pressed:
+		if event.button_index == MOUSE_BUTTON_LEFT:
+			left_mouse_pressed.emit(index)
+		elif event.button_index == MOUSE_BUTTON_RIGHT:
+			right_mouse_pressed.emit(index)
 
 
-func update_target(new_target: DiceSlotData):
-	if new_target != null:
-		$Trajectory.draw_trajectory(new_target.view.global_position)
+func _on_mouse_entered() -> void:
+	hover_entered.emit(index)
+
+
+func _on_mouse_exited() -> void:
+	hover_exited.emit(index)
+
+
+func update_speed_value(new_text: String):
+	$ValueLabel.text = new_text
+
+
+func update_target_trajectory(target_pos: Vector2):
+	if target_pos != Vector2.ZERO:
+		$Trajectory.draw_trajectory(target_pos)
 	else:
 		$Trajectory.clear_trajectory()
 
 
-func draw_trajectory_to_mouse(condition: bool):
+func update_mouse_trajectory(condition: bool):
 	$Trajectory.set_trajectory_to_mouse(condition)
 
 
-func _on_button_pressed() -> void:
-	button_pressed.emit(index)
+func update_highlight(condition: bool):
+	if condition:
+		$Icon.modulate = Color(1, 1, 0.5)
+	else:
+		$Icon.modulate = Color(1, 1, 1) 
 
 
-func update_state(new_state: DiceSlotData.DiceSlotState):
-	match new_state:
-		DiceSlotData.DiceSlotState.INACTIVE:
-			self.visible = false
-			#$Icon.modulate = Color(1, 1, 1) # normal
-		DiceSlotData.DiceSlotState.ACTIVE:
-			self.visible = true
-			#$Icon.modulate = Color(1, 1, 1) # normal
-		DiceSlotData.DiceSlotState.HIGHLIGHT:
-			self.visible = true
-			#$Icon.modulate = Color(1, 1, 0.5) # yellow glow tint
-		DiceSlotData.DiceSlotState.STUNNED:
-			self.visible = true
-			#$Icon.modulate = Color(0.5, 0.5, 0.5) # gray out
+func update_visibility(condition: bool):
+	if condition:
+		show()
+	else:
+		hide()

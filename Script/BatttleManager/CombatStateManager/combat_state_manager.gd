@@ -42,7 +42,7 @@ func _initialize_combat_phase():
 	_matchmaker.initialize(_combat_ready_dice_slot_pool)
 
 
-func _execute_combat_phase_loop():	
+func _execute_combat_phase_loop():
 	while _has_combat_ready_dice_slot(_combat_ready_dice_slot_pool):
 		print("Has combat ready slot, starting combat!")
 		_combat_data = _matchmaker.resolve(_combat_ready_dice_slot_pool)

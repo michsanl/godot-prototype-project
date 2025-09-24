@@ -8,7 +8,8 @@ signal resolve_ended
 
 func handle_initialize_battle_enter() -> void:
 	for character in characters:
-		var dice_slots = character.dice_slot_controller.clear_all_dice_slot_data()
+		character.clear_active_slots_data()
+		
 		
 	resolve_ended.emit()
 

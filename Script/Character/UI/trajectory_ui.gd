@@ -10,10 +10,6 @@ var follow_mouse_trajectory: bool = false
 var line: Line2D = self
 
 
-func _ready() -> void:
-	Global.combat_started.connect(clear_trajectory)
-
-
 func _process(_delta: float) -> void:
 	if follow_mouse_trajectory == true:
 		_draw_trajectory_to_mouse()
@@ -49,9 +45,8 @@ func draw_trajectory(target_pos: Vector2):
 
 func _draw_trajectory_to_mouse():
 	clear_trajectory()
-	_setup_trajectory_coordinate()
 	
-	var a = get_parent().position
+	var a = position
 	for i in range(trajectory_segments + 1):
 		var b = _get_mouse_position()
 		var t := i / float(trajectory_segments) 

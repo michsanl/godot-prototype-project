@@ -3,6 +3,6 @@ extends Control
 
 @export var health_bar: ProgressBar
 
-func update_health(current: int, max: int):
-	health_bar.max_value = max
-	health_bar.value = current
+func update_health(current_health: int, max_health: int):
+	health_bar.max_value = max_health
+	health_bar.value = current_health

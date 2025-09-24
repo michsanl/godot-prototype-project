@@ -15,20 +15,13 @@ func _ready() -> void:
 func initialize():
 	data = TargetingData.new()
 	view.initialize(data)
-	view.button_pressed.connect(_on_ability_button_pressed)
 	
 	player_characters.append_array(character_manager.get_player_characters())
 	enemy_characters.append_array(character_manager.get_enemy_characters())
 	
-	for player in player_characters:
-		player.get_slot_controller().dice_slot_pressed.connect(_on_player_slot_pressed)
-	for enemy in enemy_characters:
-		enemy.get_slot_controller().dice_slot_pressed.connect(_on_enemy_slot_pressed)
-
-
-func _on_player_slot_pressed(dice_slot: DiceSlotData):
-	data.set_player_selected_slot(dice_slot)
-	view.show()
+	view.button_pressed.connect(_on_ability_button_pressed)
+	EventBus.slot_focus_entered.connect(_on_slot_focus_entered)
+	EventBus.slot_focus_exited.connect(_on_on_slot_focus_exited)
 
 
 func _on_ability_button_pressed(index: int):
@@ -38,9 +31,13 @@ func _on_ability_button_pressed(index: int):
 	view.hide()
 
 
-func _on_enemy_slot_pressed(dice_slot: DiceSlotData):
-	data.set_enemy_selected_slot(dice_slot)
-	finalize_targeting()
+func _on_slot_focus_entered(dice_slot: DiceSlotData):
+	data.set_player_selected_slot(dice_slot)
+	view.show()
+
+
+func _on_on_slot_focus_exited():
+	data.set_enemy_selected_slot(null)
 
 
 func finalize_targeting():

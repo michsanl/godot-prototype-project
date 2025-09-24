@@ -5,41 +5,54 @@
 
 [node name="DiceSlots" type="Control" node_paths=PackedStringArray("views")]
 layout_mode = 3
-anchors_preset = 0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
 mouse_filter = 1
 script = ExtResource("1_wbbs4")
-views = [NodePath("DiceSlotViewContainer/DiceSlotView"), NodePath("DiceSlotViewContainer/DiceSlotView2"), NodePath("DiceSlotViewContainer/DiceSlotView3"), NodePath("DiceSlotViewContainer/DiceSlotView4")]
+views = [NodePath("Control/DiceSlotViewContainer/DiceSlotView"), NodePath("Control/DiceSlotViewContainer/DiceSlotView2"), NodePath("Control/DiceSlotViewContainer/DiceSlotView3"), NodePath("Control/DiceSlotViewContainer/DiceSlotView4")]
 
-[node name="DiceSlotViewContainer" type="HBoxContainer" parent="."]
+[node name="Control" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="DiceSlotViewContainer" type="HBoxContainer" parent="Control"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -66.0
-offset_right = 66.0
+offset_left = -86.0
+offset_top = -20.0
+offset_right = 46.0
+offset_bottom = -20.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 44
 alignment = 1
 
-[node name="DiceSlotView" parent="DiceSlotViewContainer" instance=ExtResource("2_s04fn")]
+[node name="DiceSlotView" parent="Control/DiceSlotViewContainer" instance=ExtResource("2_s04fn")]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="DiceSlotView2" parent="DiceSlotViewContainer" instance=ExtResource("2_s04fn")]
+[node name="DiceSlotView2" parent="Control/DiceSlotViewContainer" instance=ExtResource("2_s04fn")]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="DiceSlotView3" parent="DiceSlotViewContainer" instance=ExtResource("2_s04fn")]
+[node name="DiceSlotView3" parent="Control/DiceSlotViewContainer" instance=ExtResource("2_s04fn")]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="DiceSlotView4" parent="DiceSlotViewContainer" instance=ExtResource("2_s04fn")]
+[node name="DiceSlotView4" parent="Control/DiceSlotViewContainer" instance=ExtResource("2_s04fn")]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4

@@ -22,6 +22,15 @@ func _ready() -> void:
 	_initial_position = self.position
 
 
+func _initialize_childs():
+	sprite.initialize(self)
+	movement.initialize(self)
+	ability_controller.initialize(self)
+	action_controller.initialize(self)
+	dice_slot_controller.initialize(self, _initial_slot_amount)
+	health_controller.initialize(self, 100)
+
+
 #region GETTER Methods
 func get_character_name() -> String:
 	return char_name
@@ -77,10 +86,55 @@ func execute_front_die_draw(target: CharacterController) -> void:
 
 func get_roll_value() -> int:
 	return combat_controller.get_roll_value()
+#endregion
 
+
+#region Dice Slot Controller API
+func roll_slot_speed(index: int):
+	dice_slot_controller.roll_dice_slot_speed(index)
+
+func clear_slot_speed(index: int):
+	dice_slot_controller.clear_dice_slot_speed(index)
+
+func set_slot_system_visibility(condition: bool):
+	dice_slot_controller.set_system_visibility(condition)
+
+func set_slot_ability(index: int, new_ability: AbilityData):
+	if new_ability:
+		dice_slot_controller.select_dice_slot_ability(index, new_ability)
+	else:
+		dice_slot_controller.deselect_dice_slot_ability(index)
+
+func set_slot_target(index: int, new_target: DiceSlotData):
+	if new_target:
+		dice_slot_controller.select_dice_slot_target(index, new_target)
+	else:
+		dice_slot_controller.deselect_dice_slot_target(index)
+
+func clear_active_slots_data():
+	dice_slot_controller.clear_active_slots_data()
+
+func get_dice_slot(index: int) -> DiceSlotData:
+	return dice_slot_controller.get_dice_slot(index)
+
+func get_random_dice_slot() -> DiceSlotData:
+	return dice_slot_controller.get_random_active_dice_slot()
 
 func get_dice_slots() -> Array[DiceSlotData]:
 	return dice_slot_controller.get_dice_slots()
+
+func get_active_slots() -> Array[DiceSlotData]:
+	var active_slots: Array[DiceSlotData]
+	for slot in dice_slot_controller.get_dice_slots():
+		if slot.state != DiceSlotData.DiceSlotState.INACTIVE:
+			active_slots.append(slot)
+	return active_slots
+#endregion
+
+
+#region Ability Controller API
+func get_random_ability() -> AbilityData:
+	return ability_controller.get_random_ability()
 #endregion
 
 
@@ -111,12 +165,3 @@ func reset_position():
 
 func reset_visual():
 	sprite.change_to_default_sprite()
-
-
-func _initialize_childs():
-	sprite.initialize(self)
-	movement.initialize(self)
-	ability_controller.initialize(self)
-	action_controller.initialize(self)
-	dice_slot_controller.initialize(self, _initial_slot_amount)
-	health_controller.initialize(self, 100)

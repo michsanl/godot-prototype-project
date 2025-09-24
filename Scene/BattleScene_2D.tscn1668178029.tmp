@@ -1,21 +1,20 @@
-[gd_scene load_steps=23 format=3 uid="uid://do3uwy2gicsls"]
+[gd_scene load_steps=22 format=3 uid="uid://do3uwy2gicsls"]
 
 [ext_resource type="Texture2D" uid="uid://c8sf5t0u0e5qn" path="res://Art/temporary_sprite/KeterFloorBattleStage.jpg" id="1_mtylr"]
-[ext_resource type="Script" uid="uid://cp3damr7qm5t3" path="res://Script/Autoload/event_bus.gd" id="1_uowwx"]
+[ext_resource type="Script" uid="uid://cvhcgjpd2u1h" path="res://Script/UnusedScripts/global.gd" id="1_xdkpq"]
 [ext_resource type="Script" uid="uid://ca131f6h2pd4o" path="res://Script/BatttleManager/battle_manager.gd" id="2_mtm51"]
-[ext_resource type="Script" uid="uid://bvrwg04i2xlyn" path="res://Script/BatttleManager/InitializeStateManager/initialize_battle_manager.gd" id="3_8qtd0"]
+[ext_resource type="Script" uid="uid://bvrwg04i2xlyn" path="res://Script/BatttleManager/StateManager/initialize_battle_manager.gd" id="3_8qtd0"]
 [ext_resource type="Script" uid="uid://cnr7hvxe7rc8n" path="res://Script/Debug/battle_scene_debug_manager.gd" id="3_8rj7f"]
-[ext_resource type="Script" uid="uid://c4mwu4ngi61wx" path="res://Script/BatttleManager/StrategyStateManager/strategy_state_manager.gd" id="3_t0dor"]
-[ext_resource type="Script" uid="uid://bmp3a5hkmsqv0" path="res://Script/BatttleManager/CombatStateManager/combat_state_manager.gd" id="4_xdkpq"]
-[ext_resource type="Script" uid="uid://bcfkj2hoo15nt" path="res://Script/BatttleManager/StrategyStateManager/strategy_post_roll_debug.gd" id="7_5i8bp"]
+[ext_resource type="Script" uid="uid://c4mwu4ngi61wx" path="res://Script/BatttleManager/StateManager/strategy_state_manager.gd" id="3_t0dor"]
+[ext_resource type="Script" uid="uid://bmp3a5hkmsqv0" path="res://Script/BatttleManager/StateManager/CombatStateManager/combat_state_manager.gd" id="4_xdkpq"]
 [ext_resource type="PackedScene" uid="uid://cfhmlqlj0hrdq" path="res://Scene/UI/StrategyPhase/strategy_view.tscn" id="8_8rj7f"]
-[ext_resource type="Script" uid="uid://cqq87jimtumef" path="res://Script/BatttleManager/CombatStateManager/CombatHandler/clash_handler.gd" id="9_2bjfd"]
-[ext_resource type="Script" uid="uid://dgs7y4if2cys0" path="res://Script/BatttleManager/ResolveStateManager/resolve_state_manager.gd" id="9_4v0j5"]
+[ext_resource type="Script" uid="uid://cqq87jimtumef" path="res://Script/BatttleManager/StateManager/CombatStateManager/CombatHandler/clash_handler.gd" id="9_2bjfd"]
+[ext_resource type="Script" uid="uid://dgs7y4if2cys0" path="res://Script/BatttleManager/StateManager/resolve_state_manager.gd" id="9_4v0j5"]
 [ext_resource type="PackedScene" uid="uid://c2xahj8fxn508" path="res://Scene/UI/Debug/battle_scene_debug_view.tscn" id="9_8qtd0"]
-[ext_resource type="Script" uid="uid://md1ms16f4pbd" path="res://Script/BatttleManager/CombatStateManager/CombatHandler/Clash/two_sided_clash.gd" id="10_2bjfd"]
-[ext_resource type="Script" uid="uid://dsiednejsstx6" path="res://Script/BatttleManager/CombatStateManager/CombatHandler/Clash/one_sided_attacker_clash.gd" id="11_3rs5h"]
+[ext_resource type="Script" uid="uid://md1ms16f4pbd" path="res://Script/BatttleManager/StateManager/CombatStateManager/CombatHandler/Clash/two_sided_clash.gd" id="10_2bjfd"]
+[ext_resource type="Script" uid="uid://dsiednejsstx6" path="res://Script/BatttleManager/StateManager/CombatStateManager/CombatHandler/Clash/one_sided_attacker_clash.gd" id="11_3rs5h"]
 [ext_resource type="Script" uid="uid://ciyby0kpaaauy" path="res://Script/Character/character_manager.gd" id="12_7qkga"]
-[ext_resource type="Script" uid="uid://c5xkadxboty1m" path="res://Script/BatttleManager/CombatStateManager/CombatHandler/Clash/one_sided_defender_clash.gd" id="12_uowwx"]
+[ext_resource type="Script" uid="uid://c5xkadxboty1m" path="res://Script/BatttleManager/StateManager/CombatStateManager/CombatHandler/Clash/one_sided_defender_clash.gd" id="12_uowwx"]
 [ext_resource type="PackedScene" uid="uid://c8puoopbxmfog" path="res://Scene/UI/StrategyPhase/ability_view.tscn" id="15_3rs5h"]
 [ext_resource type="PackedScene" uid="uid://b3whippw3cwep" path="res://Scene/Character/Unit/player_character.tscn" id="15_uowwx"]
 [ext_resource type="PackedScene" uid="uid://yc6lu5cla58x" path="res://Scene/Character/Unit/enemy_character.tscn" id="16_5i8bp"]
@@ -35,7 +34,7 @@ cache/0/16/0/scale = 1.0
 default_font = SubResource("FontFile_8rj7f")
 
 [node name="BattleScene_2D" type="Node2D"]
-script = ExtResource("1_uowwx")
+script = ExtResource("1_xdkpq")
 
 [node name="KeterFloorBattleStage" type="Sprite2D" parent="."]
 y_sort_enabled = true
@@ -60,15 +59,11 @@ resolve_state_manager = NodePath("ResolveStateManager")
 [node name="InitializeBattleManager" type="Node" parent="BattleSceneManager"]
 script = ExtResource("3_8qtd0")
 
-[node name="StrategyStateManager" type="Node" parent="BattleSceneManager" node_paths=PackedStringArray("player_characters", "enemy_characters", "view", "strategy_post_roll")]
+[node name="StrategyStateManager" type="Node" parent="BattleSceneManager" node_paths=PackedStringArray("player_characters", "enemy_characters", "view")]
 script = ExtResource("3_t0dor")
 player_characters = [NodePath("../../CharacterManager/PlayerCharacter")]
 enemy_characters = [NodePath("../../CharacterManager/EnemyCharacter")]
 view = NodePath("../../CanvasLayer/UI/MarginContainer/StrategyView")
-strategy_post_roll = NodePath("StrategyPostRollDebug")
-
-[node name="StrategyPostRollDebug" type="Node" parent="BattleSceneManager/StrategyStateManager"]
-script = ExtResource("7_5i8bp")
 
 [node name="CombatStateManager" type="Node" parent="BattleSceneManager" node_paths=PackedStringArray("player_characters", "enemy_characters", "clash_handler")]
 script = ExtResource("4_xdkpq")
