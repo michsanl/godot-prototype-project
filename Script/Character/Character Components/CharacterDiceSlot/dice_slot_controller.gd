@@ -34,39 +34,6 @@ func initialize_views():
 		views[i].initialize(i)
 
 
-func connect_views():
-	for view in views:
-		view.left_mouse_pressed.connect(_on_left_mouse_pressed)
-		view.right_mouse_pressed.connect(_on_right_mouse_pressed)
-		view.hover_entered.connect(_on_hover_entered)
-		view.hover_exited.connect(_on_hover_exited)
-
-
-func _on_left_mouse_pressed(index: int):
-	models[index].set_state(DiceSlotData.DiceSlotState.FOCUS)
-	views[index].update_highlight(true)
-	EventBus.slot_focus_entered.emit(index)
-
-func _on_right_mouse_pressed(index: int):
-	models[index].set_state(DiceSlotData.DiceSlotState.DEFAULT)
-	views[index].update_highlight(false)
-	EventBus.slot_focus_exited.emit(index)
-
-func _on_hover_entered(index: int):
-	if models[index].state == DiceSlotData.DiceSlotState.FOCUS:
-		return
-	
-	models[index].set_state(DiceSlotData.DiceSlotState.HIGHLIGHT)
-	views[index].update_highlight(true)
-
-func _on_hover_exited(index: int):
-	if models[index].state == DiceSlotData.DiceSlotState.FOCUS:
-		return
-	
-	models[index].set_state(DiceSlotData.DiceSlotState.DEFAULT)
-	views[index].update_highlight(false)
-
-
 func update_active_slots(active_amount: int):
 	for i in range(models.size()):
 		if i < active_amount:
@@ -77,6 +44,64 @@ func update_active_slots(active_amount: int):
 		else:
 			models[i].set_state(DiceSlotData.DiceSlotState.INACTIVE)
 			views[i].update_visibility(false)
+
+
+func connect_views():
+	for view in views:
+		view.left_mouse_hover_pressed.connect(_on_left_mouse_hover_pressed)
+		view.right_mouse_hover_pressed.connect(_on_right_mouse_hover_pressed)
+		view.mouse_hover_entered.connect(_on_mouse_hover_entered)
+		view.mouse_hover_exited.connect(_on_mouse_hover_exited)
+
+
+#region UI Input Listener
+func _on_left_mouse_hover_pressed(index: int):
+	focus_slot(index)
+	EventBus.slot_focus_entered.emit(self, index)
+
+
+func _on_right_mouse_hover_pressed(index: int):
+	unfocus_slot(index)
+	EventBus.slot_focus_exited.emit(self, index)
+
+
+func _on_mouse_hover_entered(index: int):
+	highlight_slot(index)
+	EventBus.slot_highlight_entered.emit(self, index)
+
+
+func _on_mouse_hover_exited(index: int):
+	unhighlight_slot(index)
+	EventBus.slot_highlight_exited.emit(self, index)
+#endregion
+
+
+func highlight_slot(index: int):
+	if models[index].state == DiceSlotData.DiceSlotState.FOCUS:
+		return
+	
+	models[index].set_state(DiceSlotData.DiceSlotState.HIGHLIGHT)
+	views[index].update_highlight(true)
+
+
+func unhighlight_slot(index: int):
+	if models[index].state == DiceSlotData.DiceSlotState.FOCUS:
+		return
+	
+	models[index].set_state(DiceSlotData.DiceSlotState.DEFAULT)
+	views[index].update_highlight(false)
+
+
+func focus_slot(index: int):
+	# Enter Focus
+	models[index].set_state(DiceSlotData.DiceSlotState.FOCUS)
+	views[index].update_highlight(true)
+
+
+func unfocus_slot(index: int):
+	# Exit Focus
+	models[index].set_state(DiceSlotData.DiceSlotState.DEFAULT)
+	views[index].update_highlight(false)
 
 
 func set_system_visibility(condition: bool):
@@ -126,6 +151,10 @@ func clear_active_slots_data():
 		
 		views[index].update_speed_value("?")
 		views[index].update_target_trajectory(Vector2.ZERO)
+
+
+func get_owner_unit() -> CharacterController:
+	return owner_unit
 
 
 func get_dice_slot(index: int) -> DiceSlotData:

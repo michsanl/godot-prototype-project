@@ -15,7 +15,7 @@ extends Node2D
 
 # FIXME: 
 var _initial_position: Vector2
-var _initial_slot_amount: int = 1
+var _initial_slot_amount: int = 2
 
 func _ready() -> void:
 	_initialize_childs()

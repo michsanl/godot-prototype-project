@@ -1,10 +1,10 @@
 class_name DiceSlotView
 extends Control
 
-signal right_mouse_pressed(index: int)
-signal left_mouse_pressed(index: int)
-signal hover_entered(index: int)
-signal hover_exited(index: int)
+signal right_mouse_hover_pressed(index: int)
+signal left_mouse_hover_pressed(index: int)
+signal mouse_hover_entered(index: int)
+signal mouse_hover_exited(index: int)
 
 var index: int
 
@@ -17,17 +17,17 @@ func initialize(new_index: int):
 func _gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.pressed:
 		if event.button_index == MOUSE_BUTTON_LEFT:
-			left_mouse_pressed.emit(index)
+			left_mouse_hover_pressed.emit(index)
 		elif event.button_index == MOUSE_BUTTON_RIGHT:
-			right_mouse_pressed.emit(index)
+			right_mouse_hover_pressed.emit(index)
 
 
 func _on_mouse_entered() -> void:
-	hover_entered.emit(index)
+	mouse_hover_entered.emit(index)
 
 
 func _on_mouse_exited() -> void:
-	hover_exited.emit(index)
+	mouse_hover_exited.emit(index)
 
 
 func update_speed_value(new_text: String):
