@@ -45,28 +45,28 @@ func perform_default_action(duration: float = default_duration):
 	sprite_controller.change_to_default_sprite()
 
 
-func perform_slash_action(opponent: CharacterController, is_draw: bool = false, duration: float = default_duration):
-	sprite_controller.change_to_slash_sprite()
-	vfx_controller.change_to_slash_vfx()
-	await get_tree().create_timer(duration).timeout
-	sprite_controller.change_to_default_sprite()
-	vfx_controller.clear_vfx()
-
-
-func perform_pierce_action(opponent: CharacterController, is_draw: bool = false, duration: float = default_duration):
-	sprite_controller.change_to_pierce_sprite()
-	vfx_controller.change_to_pierce_vfx()
-	await get_tree().create_timer(duration).timeout
-	sprite_controller.change_to_default_sprite()
-	vfx_controller.clear_vfx()
-
-
-func perform_blunt_action(opponent: CharacterController, is_draw: bool = false, duration: float = default_duration):
-	sprite_controller.change_to_blunt_sprite()
-	vfx_controller.change_to_blunt_vfx()
-	await get_tree().create_timer(duration).timeout
-	sprite_controller.change_to_default_sprite()
-	vfx_controller.clear_vfx()
+#func perform_slash_action(opponent: CharacterController, is_draw: bool = false, duration: float = default_duration):
+	#sprite_controller.change_to_slash_sprite()
+	#vfx_controller.change_to_slash_vfx()
+	#await get_tree().create_timer(duration).timeout
+	#sprite_controller.change_to_default_sprite()
+	#vfx_controller.clear_vfx()
+#
+#
+#func perform_pierce_action(opponent: CharacterController, is_draw: bool = false, duration: float = default_duration):
+	#sprite_controller.change_to_pierce_sprite()
+	#vfx_controller.change_to_pierce_vfx()
+	#await get_tree().create_timer(duration).timeout
+	#sprite_controller.change_to_default_sprite()
+	#vfx_controller.clear_vfx()
+#
+#
+#func perform_blunt_action(opponent: CharacterController, is_draw: bool = false, duration: float = default_duration):
+	#sprite_controller.change_to_blunt_sprite()
+	#vfx_controller.change_to_blunt_vfx()
+	#await get_tree().create_timer(duration).timeout
+	#sprite_controller.change_to_default_sprite()
+	#vfx_controller.clear_vfx()
 
 
 func perform_guard_action(duration: float = default_duration):
