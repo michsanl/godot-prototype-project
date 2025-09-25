@@ -56,36 +56,23 @@ func set_system_visibility(condition: bool):
 
 func connect_views():
 	for view in views:
-		view.left_mouse_hover_pressed.connect(_on_left_mouse_hover_pressed)
-		view.right_mouse_hover_pressed.connect(_on_right_mouse_hover_pressed)
-		view.mouse_hover_entered.connect(_on_mouse_hover_entered)
-		view.mouse_hover_exited.connect(_on_mouse_hover_exited)
+		view.slot_inputs.connect(_on_slot_input)
 
 
-#region GUI Input Listener
-func _on_left_mouse_hover_pressed(index: int):
-	focus_slot(index)
-	EventBus.slot_left_mouse_pressed.emit(self, index)
-	EventBus.slot_inputs.emit(self, index, EventBus.SlotAction.LEFT_MOUSE_PRESSED)
-
-
-func _on_right_mouse_hover_pressed(index: int):
-	unselect_slot_target(index)
-	EventBus.slot_right_mouse_pressed.emit(self, index)
-	EventBus.slot_inputs.emit(self, index, EventBus.SlotAction.RIGHT_MOUSE_PRESSED)
-
-
-func _on_mouse_hover_entered(index: int):
-	highlight_slot(index)
-	EventBus.slot_hover_entered.emit(self, index)
-	EventBus.slot_inputs.emit(self, index, EventBus.SlotAction.HOVER_ENTERED)
-
-
-func _on_mouse_hover_exited(index: int):
-	unhighlight_slot(index)
-	EventBus.slot_hover_exited.emit(self, index)
-	EventBus.slot_inputs.emit(self, index, EventBus.SlotAction.HOVER_EXITED)
-#endregion
+func _on_slot_input(index: int, action: int):
+	match action:
+		SlotActions.Action.LEFT_MOUSE_PRESSED:
+			focus_slot(index)
+			EventBus.slot_inputs.emit(self, index, EventBus.SlotAction.LEFT_MOUSE_PRESSED)
+		SlotActions.Action.RIGHT_MOUSE_PRESSED:
+			unselect_slot_target(index)
+			EventBus.slot_inputs.emit(self, index, EventBus.SlotAction.RIGHT_MOUSE_PRESSED)
+		SlotActions.Action.HOVER_ENTERED:
+			highlight_slot(index)
+			EventBus.slot_inputs.emit(self, index, EventBus.SlotAction.HOVER_ENTERED)
+		SlotActions.Action.HOVER_EXITED:
+			unhighlight_slot(index)
+			EventBus.slot_inputs.emit(self, index, EventBus.SlotAction.HOVER_EXITED)
 
 
 #region GUI Input Methods
@@ -99,7 +86,6 @@ func unfocus_slot(index: int):
 
 
 func highlight_slot(index: int):
-	models[index].set_state(DiceSlotData.DiceSlotState.HIGHLIGHT)
 	views[index].update_highlight(true)
 
 
@@ -127,6 +113,7 @@ func select_slot_target(index: int, target_index: int, target_contr: DiceSlotCon
 
 
 func unselect_slot_target(index: int):
+	models[index].set_state(DiceSlotData.DiceSlotState.DEFAULT)
 	models[index].set_target_slot(null)
 	views[index].clear_all()
 #endregion

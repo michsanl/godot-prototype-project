@@ -1,10 +1,7 @@
 class_name DiceSlotView
 extends Control
 
-signal right_mouse_hover_pressed(index: int)
-signal left_mouse_hover_pressed(index: int)
-signal mouse_hover_entered(index: int)
-signal mouse_hover_exited(index: int)
+signal slot_inputs(source_index: int, SlotAction: int)
 
 var index: int
 
@@ -16,17 +13,17 @@ func initialize(new_index: int):
 func _gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.pressed:
 		if event.button_index == MOUSE_BUTTON_LEFT:
-			left_mouse_hover_pressed.emit(index)
+			slot_inputs.emit(index, SlotActions.Action.LEFT_MOUSE_PRESSED)
 		elif event.button_index == MOUSE_BUTTON_RIGHT:
-			right_mouse_hover_pressed.emit(index)
+			slot_inputs.emit(index, SlotActions.Action.RIGHT_MOUSE_PRESSED)
 
 
 func _on_mouse_entered() -> void:
-	mouse_hover_entered.emit(index)
+	slot_inputs.emit(index, SlotActions.Action.HOVER_ENTERED)
 
 
 func _on_mouse_exited() -> void:
-	mouse_hover_exited.emit(index)
+	slot_inputs.emit(index, SlotActions.Action.HOVER_EXITED)
 
 
 func clear_all():

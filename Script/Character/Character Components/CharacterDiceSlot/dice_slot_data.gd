@@ -2,7 +2,7 @@ class_name DiceSlotData
 extends RefCounted
 
 enum DiceSlotState { 
-	DEFAULT, HIGHLIGHT, FOCUS, AIM, TARGET_SET, INACTIVE 
+	DEFAULT, FOCUS, AIM, TARGET_SET, INACTIVE 
 }
 
 signal state_changed(new_state: String)
@@ -41,8 +41,6 @@ func set_state(new_state: DiceSlotState):
 	match state:
 		DiceSlotState.DEFAULT:
 			print("DEFAULT")
-		DiceSlotState.HIGHLIGHT:
-			print("HIGHLIGHT")
 		DiceSlotState.FOCUS:
 			print("FOCUS")
 		DiceSlotState.AIM:

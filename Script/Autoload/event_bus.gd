@@ -12,18 +12,6 @@ signal remove_ability_button_pressed
 
 signal slot_inputs(source: DiceSlotController, index: int, SlotAction: int)
 
-
-signal focus_selection_added(controller: DiceSlotController, index: int)
-signal focus_selection_removed(controller: DiceSlotController, index: int)
-signal highlight_selection_added(controller: DiceSlotController, index: int)
-signal highlight_selection_removed(controller: DiceSlotController, index: int)
-
-signal slot_left_mouse_pressed(controller: DiceSlotController, index: int)
-signal slot_focus_exited(controller: DiceSlotController, index: int)
-signal slot_hover_entered(controller: DiceSlotController, index: int)
-signal slot_hover_exited(controller: DiceSlotController, index: int)
-signal slot_right_mouse_pressed(controller: DiceSlotController, index: int)
-
 signal enemy_slot_left_mouse_pressed(controller: DiceSlotController, index: int)
 signal enemy_slot_focus_exited(controller: DiceSlotController, index: int)
 signal enemy_slot_hover_entered(controller: DiceSlotController, index: int)
