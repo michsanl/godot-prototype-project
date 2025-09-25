@@ -27,7 +27,6 @@ func _on_mouse_exited() -> void:
 
 
 func clear_all():
-	update_speed_value("?")
 	update_focus(false)
 	update_highlight(false)
 	update_target_lock(false)

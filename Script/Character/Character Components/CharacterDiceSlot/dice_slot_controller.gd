@@ -62,16 +62,16 @@ func connect_views():
 func _on_slot_input(index: int, action: int):
 	match action:
 		SlotActions.Action.LEFT_MOUSE_PRESSED:
-			focus_slot(index)
+			#focus_slot(index)
 			EventBus.slot_inputs.emit(self, index, EventBus.SlotAction.LEFT_MOUSE_PRESSED)
 		SlotActions.Action.RIGHT_MOUSE_PRESSED:
-			unselect_slot_target(index)
+			#unselect_slot_target(index)
 			EventBus.slot_inputs.emit(self, index, EventBus.SlotAction.RIGHT_MOUSE_PRESSED)
 		SlotActions.Action.HOVER_ENTERED:
-			highlight_slot(index)
+			#highlight_slot(index)
 			EventBus.slot_inputs.emit(self, index, EventBus.SlotAction.HOVER_ENTERED)
 		SlotActions.Action.HOVER_EXITED:
-			unhighlight_slot(index)
+			#unhighlight_slot(index)
 			EventBus.slot_inputs.emit(self, index, EventBus.SlotAction.HOVER_EXITED)
 
 
