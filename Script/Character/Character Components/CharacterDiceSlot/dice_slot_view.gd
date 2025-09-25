@@ -11,7 +11,6 @@ var index: int
 
 func initialize(new_index: int):
 	index = new_index
-	hide()
 
 
 func _gui_input(event: InputEvent) -> void:
@@ -45,11 +44,18 @@ func update_mouse_trajectory(condition: bool):
 	$Trajectory.set_trajectory_to_mouse(condition)
 
 
+func update_focus(condition: bool):
+	if condition:
+		$FocusIcon.modulate = Color(1, 1, 0.5)
+	else:
+		$FocusIcon.modulate = Color(1, 1, 1) 
+
+
 func update_highlight(condition: bool):
 	if condition:
-		$Icon.modulate = Color(1, 1, 0.5)
+		$HighlightIcon.show()
 	else:
-		$Icon.modulate = Color(1, 1, 1) 
+		$HighlightIcon.hide()
 
 
 func update_visibility(condition: bool):

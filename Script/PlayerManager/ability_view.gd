@@ -1,13 +1,9 @@
 class_name AbilityView
 extends Control
 
-signal ability_button_pressed(index: int)
-
 @export var buttons: Array[AbilityButton] = []
-var button_dict: Dictionary = {}
 
-
-func initialize():
+func _init() -> void:
 	initialize_children()
 	self.hide()
 
@@ -18,13 +14,20 @@ func initialize_children():
 		buttons[i].ability_button_pressed.connect(_on_button_pressed)
 
 
+func _input(event: InputEvent) -> void:
+	if event is InputEventMouseButton and event.pressed:
+		if event.button_index == MOUSE_BUTTON_RIGHT:
+			_on_global_right_click()
+
+func _on_global_right_click():
+	EventBus.remove_ability_button_pressed.emit()
+
 func _on_button_pressed(index: int):
-	ability_button_pressed.emit(index)
-	self.hide()
+	EventBus.ability_button_pressed.emit(index)
 
 
-func update_ability_buttons_icon(abilities: Array[AbilityData]):
-	for i in range(abilities.size()):
+func update_button_icon(abilities: Array[AbilityData]):
+	for i in range(buttons.size()):
 		buttons[i].update_icon(abilities[i].get_icon())
 
 

@@ -9,10 +9,12 @@ func execute(players: Array[CharacterController], enemies: Array[CharacterContro
 	
 
 func randomize_slots_target(selections: Array[CharacterController], targets: Array[CharacterController]):
+	
 	for selection: CharacterController in selections:
 		for i in range(selection.get_active_slots().size()):
-			var rand_slot = targets.pick_random().get_random_dice_slot()
-			selection.set_slot_target(i, rand_slot)
+			var rand_slot_contr = targets.pick_random().get_slot_controller()
+			var rand_slot_index = selection.get_active_slots().size()
+			selection.set_slot_target(i, rand_slot_index, rand_slot_contr)
 	
 
 

@@ -101,15 +101,15 @@ func set_slot_system_visibility(condition: bool):
 
 func set_slot_ability(index: int, new_ability: AbilityData):
 	if new_ability:
-		dice_slot_controller.select_dice_slot_ability(index, new_ability)
+		dice_slot_controller.select_slot_ability(index, new_ability)
 	else:
-		dice_slot_controller.deselect_dice_slot_ability(index)
+		dice_slot_controller.deselect_slot_ability(index)
 
-func set_slot_target(index: int, new_target: DiceSlotData):
-	if new_target:
-		dice_slot_controller.select_dice_slot_target(index, new_target)
+func set_slot_target(index: int, target_index: int, target_contr: DiceSlotController):
+	if target_contr:
+		dice_slot_controller.select_slot_target(index, target_index, target_contr)
 	else:
-		dice_slot_controller.deselect_dice_slot_target(index)
+		dice_slot_controller.deselect_slot_target(index)
 
 func clear_active_slots_data():
 	dice_slot_controller.clear_active_slots_data()
