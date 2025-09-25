@@ -36,9 +36,9 @@ func initialize_views():
 	print(views)
 
 func update_active_slots(active_amount: int):
+	active_models.clear()
 	for i in range(models.size()):
 		if i < active_amount:
-			active_models.clear()
 			active_models.append(models[i])
 			models[i].set_state(DiceSlotData.DiceSlotState.DEFAULT)
 			views[i].update_visibility(true)
