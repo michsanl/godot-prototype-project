@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="AbilityData" load_steps=17 format=3 uid="uid://ddt7y2wpi6618"]
+[gd_resource type="Resource" script_class="AbilityData" load_steps=16 format=3 uid="uid://ddt7y2wpi6618"]
 
 [ext_resource type="Script" uid="uid://dlmk3rr22mobs" path="res://Script/Character/Character Components/CharacterAbility/AbilityDice/i_dice.gd" id="2_8m2vg"]
 [ext_resource type="Script" uid="uid://owd46cw2kp0k" path="res://Script/Character/Character Components/CharacterAbility/AbilityDice/slash_dice.gd" id="3_16lnj"]
@@ -6,7 +6,6 @@
 [ext_resource type="Script" uid="uid://vk8bwbjohqh3" path="res://Script/Character/Character Components/CharacterAbility/AbilityDice/pierce_dice.gd" id="4_gpy3a"]
 [ext_resource type="Texture2D" uid="uid://c8rs0nmfwbhpj" path="res://Art/VFX/강한 종베기2.png" id="4_i41as"]
 [ext_resource type="Script" uid="uid://bwegkm4j0e3x4" path="res://Script/Character/Character Components/CharacterAbility/AbilityDice/blunt_dice.gd" id="5_i41as"]
-[ext_resource type="Texture2D" uid="uid://b24kpi4ovgye8" path="res://Art/CombatDiceIcon/Evade_Icon.png" id="6_8m2vg"]
 [ext_resource type="Script" uid="uid://2ytid1uivak6" path="res://Script/Character/Character Components/CharacterAbility/ability_data.gd" id="6_kgukl"]
 [ext_resource type="Texture2D" uid="uid://b87yam17ts5cy" path="res://Art/CombatDiceIcon/PierceIcon.png" id="6_xry3b"]
 [ext_resource type="Texture2D" uid="uid://dqhfsash3sypx" path="res://Art/CombatDiceIcon/BluntIcon.png" id="8_65341"]
@@ -48,5 +47,5 @@ metadata/_custom_type_script = "uid://bwegkm4j0e3x4"
 script = ExtResource("6_kgukl")
 dices = Array[ExtResource("2_8m2vg")]([SubResource("Resource_6vgpe"), SubResource("Resource_8m2vg"), SubResource("Resource_16lnj")])
 ability_name = "Strike"
-icon = ExtResource("6_8m2vg")
+icon = ExtResource("3_i41as")
 metadata/_custom_type_script = "uid://2ytid1uivak6"

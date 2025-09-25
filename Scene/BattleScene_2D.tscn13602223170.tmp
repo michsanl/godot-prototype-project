@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://do3uwy2gicsls"]
+[gd_scene load_steps=24 format=3 uid="uid://do3uwy2gicsls"]
 
 [ext_resource type="Texture2D" uid="uid://c8sf5t0u0e5qn" path="res://Art/temporary_sprite/KeterFloorBattleStage.jpg" id="1_mtylr"]
 [ext_resource type="Script" uid="uid://cp3damr7qm5t3" path="res://Script/Autoload/event_bus.gd" id="1_uowwx"]
@@ -20,6 +20,7 @@
 [ext_resource type="PackedScene" uid="uid://b3whippw3cwep" path="res://Scene/Character/Unit/player_character.tscn" id="15_uowwx"]
 [ext_resource type="PackedScene" uid="uid://yc6lu5cla58x" path="res://Scene/Character/Unit/enemy_character.tscn" id="16_5i8bp"]
 [ext_resource type="Script" uid="uid://bdhbr4t36fd50" path="res://Script/PlayerManager/player_slot_selection_manager.gd" id="19_5i8bp"]
+[ext_resource type="Script" uid="uid://dyhedxt5yvc71" path="res://Script/PlayerManager/enemy_slot_selection_manager.gd" id="19_ptf43"]
 
 [sub_resource type="FontFile" id="FontFile_8rj7f"]
 subpixel_positioning = 0
@@ -110,11 +111,13 @@ scale = Vector2(0.5, 0.5)
 position = Vector2(343, 55)
 scale = Vector2(0.5, 0.5)
 
-[node name="PlayerSlotSelectionManager" type="Node" parent="." node_paths=PackedStringArray("view")]
+[node name="PlayerSlotSelectionManager" type="Node" parent="." node_paths=PackedStringArray("character_manager")]
 script = ExtResource("19_5i8bp")
-view = NodePath("../CanvasLayer/UI/MarginContainer/AbilityView")
+character_manager = NodePath("../CharacterManager")
 
-[node name="EnemySlotSelectionManager" type="Node" parent="."]
+[node name="EnemySlotSelectionManager" type="Node" parent="." node_paths=PackedStringArray("character_manager")]
+script = ExtResource("19_ptf43")
+character_manager = NodePath("../CharacterManager")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 

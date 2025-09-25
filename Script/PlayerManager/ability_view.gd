@@ -11,16 +11,7 @@ func _ready() -> void:
 func initialize_children():
 	for i in range(buttons.size()):
 		buttons[i].initialize(i)
-		buttons[i].ability_button_pressed.connect(_on_button_pressed)
 
-
-func _input(event: InputEvent) -> void:
-	if event is InputEventMouseButton and event.pressed:
-		if event.button_index == MOUSE_BUTTON_RIGHT:
-			_on_global_right_click()
-
-func _on_global_right_click():
-	EventBus.remove_ability_button_pressed.emit()
 
 func _on_button_pressed(index: int):
 	EventBus.ability_button_pressed.emit(index)

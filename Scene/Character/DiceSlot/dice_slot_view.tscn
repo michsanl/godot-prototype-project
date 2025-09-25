@@ -1,8 +1,8 @@
 [gd_scene load_steps=7 format=3 uid="uid://dpcrnh04ab5w4"]
 
-[ext_resource type="Script" uid="uid://jgnd4tga04yw" path="res://Script/Character/Character Components/CharacterDiceSlot/dice_slot_view.gd" id="1_l7bkc"]
-[ext_resource type="Texture2D" uid="uid://jmxggqej4haq" path="res://Art/HexagonTile.png" id="2_oetgj"]
-[ext_resource type="Script" uid="uid://bdshlelctktgb" path="res://Script/Character/UI/trajectory_ui.gd" id="3_31u0r"]
+[ext_resource type="Script" uid="uid://jgnd4tga04yw" path="res://Script/Character/Character Components/CharacterDiceSlot/dice_slot_view.gd" id="1_7r5xr"]
+[ext_resource type="Script" uid="uid://bdshlelctktgb" path="res://Script/Character/UI/trajectory_ui.gd" id="2_d3y6g"]
+[ext_resource type="Texture2D" uid="uid://jmxggqej4haq" path="res://Art/Icon/HexagonTile.png" id="3_wi5ce"]
 
 [sub_resource type="Curve" id="Curve_31u0r"]
 _data = [Vector2(0, 0.8754864), 0.0, 0.0, 0, 0, Vector2(0.2725, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.28404677), 0.0, 0.0, 0, 0]
@@ -23,12 +23,12 @@ outline_color = Color(0, 0, 0, 1)
 layout_mode = 3
 anchors_preset = 0
 mouse_filter = 1
-script = ExtResource("1_l7bkc")
+script = ExtResource("1_7r5xr")
 
 [node name="Trajectory" type="Line2D" parent="."]
 width_curve = SubResource("Curve_31u0r")
 default_color = Color(0.899908, 0.975091, 7.70092e-07, 1)
-script = ExtResource("3_31u0r")
+script = ExtResource("2_d3y6g")
 
 [node name="HighlightIcon" type="TextureRect" parent="."]
 visible = false
@@ -45,10 +45,10 @@ offset_right = 36.0
 offset_bottom = 36.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("2_oetgj")
+texture = ExtResource("3_wi5ce")
 expand_mode = 1
 
-[node name="FocusIcon" type="TextureRect" parent="."]
+[node name="BaseIcon" type="TextureRect" parent="."]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -61,7 +61,43 @@ offset_right = 32.0
 offset_bottom = 32.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("2_oetgj")
+texture = ExtResource("3_wi5ce")
+expand_mode = 1
+
+[node name="FocusIcon" type="TextureRect" parent="."]
+visible = false
+modulate = Color(1, 1, 0, 1)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -32.0
+offset_top = -32.0
+offset_right = 32.0
+offset_bottom = 32.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_wi5ce")
+expand_mode = 1
+
+[node name="TargetSetIcon" type="TextureRect" parent="."]
+visible = false
+modulate = Color(1, 0, 0, 1)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -32.0
+offset_top = -32.0
+offset_right = 32.0
+offset_bottom = 32.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_wi5ce")
 expand_mode = 1
 
 [node name="ValueLabel" type="Label" parent="."]

@@ -22,6 +22,7 @@ var selected_slot: DiceSlotData
 func initialize_combat(source_dice_slot: DiceSlotData):
 	selected_slot = source_dice_slot
 	selected_ability = source_dice_slot.get_selected_ability()
+	print(selected_ability)
 	active_dice.append_array(selected_ability.get_dice_pool())
 	active_dice.append_array(reserved_dice)
 	front_die = active_dice[0]

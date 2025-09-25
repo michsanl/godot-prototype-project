@@ -1,10 +1,13 @@
-class_name PlayerSlotSelectionData
+class_name SlotSelectionData
 extends RefCounted
 
+var ability_data: AbilityData
 var focused_slot_controller: DiceSlotController
 var highlighted_slot_controller: DiceSlotController
+var target_slot_controller: DiceSlotController
 var focused_slot_index: int
 var highlighted_slot_index: int
+var target_slot_index: int
 
 func _init(
 	focused_contr = null,
@@ -18,22 +21,29 @@ func _init(
 	highlighted_slot_index = highlighted_index
 
 
+func set_slot_ability(ability: AbilityData):
+	ability_data = ability
+
+
 func set_focused_slot_controller(controller: DiceSlotController):
 	focused_slot_controller = controller
-	print("Focused controller: ", controller)
 
 
 func set_focused_slot_index(index: int):
 	focused_slot_index = index
-	print("Focused slot: ", index)
 
 
 func set_highlighted_slot_controller(controller: DiceSlotController):
 	highlighted_slot_controller = controller
-	print("Focused controller: ", controller)
 
 
 func set_highlighted_slot_index(index: int):
 	highlighted_slot_index = index
-	print("Focused slot: ", index)
-	
+
+
+func set_target_slot_controller(controller: DiceSlotController):
+	target_slot_controller = controller
+
+
+func set_target_slot_index(index: int):
+	target_slot_index = index

@@ -25,7 +25,6 @@ func initialize(new_owner, active_size = 2, min_val = 1, max_val = 7):
 func initialize_models():
 	models.resize(max_model_size)
 	active_models.resize(active_model_size)
-	
 	for i in range(models.size()):
 		if i < active_model_size:
 			models[i] = DiceSlotData.new()
@@ -48,6 +47,13 @@ func initialize_views():
 			views[i].update_visibility(false)
 
 
+func set_system_visibility(condition: bool):
+	if condition:
+		show()
+	else:
+		hide()
+
+
 func connect_views():
 	for view in views:
 		view.left_mouse_hover_pressed.connect(_on_left_mouse_hover_pressed)
@@ -59,30 +65,26 @@ func connect_views():
 #region GUI Input Listener
 func _on_left_mouse_hover_pressed(index: int):
 	focus_slot(index)
-	EventBus.slot_focus_entered.emit(self, index)
+	EventBus.slot_left_mouse_pressed.emit(self, index)
+	EventBus.slot_inputs.emit(self, index, EventBus.SlotAction.LEFT_MOUSE_PRESSED)
 
 
 func _on_right_mouse_hover_pressed(index: int):
-	unfocus_slot(index)
-	EventBus.slot_focus_exited.emit(self, index)
+	unselect_slot_target(index)
+	EventBus.slot_right_mouse_pressed.emit(self, index)
+	EventBus.slot_inputs.emit(self, index, EventBus.SlotAction.RIGHT_MOUSE_PRESSED)
 
 
 func _on_mouse_hover_entered(index: int):
 	highlight_slot(index)
-	EventBus.slot_highlight_entered.emit(self, index)
+	EventBus.slot_hover_entered.emit(self, index)
+	EventBus.slot_inputs.emit(self, index, EventBus.SlotAction.HOVER_ENTERED)
 
 
 func _on_mouse_hover_exited(index: int):
 	unhighlight_slot(index)
-	EventBus.slot_highlight_exited.emit(self, index)
-
-
-func _on_current_focus_slot_selected(index: int):
-	focus_slot(index)
-
-
-func _on_current_focus_slot_removed(index: int):
-	unfocus_slot(index)
+	EventBus.slot_hover_exited.emit(self, index)
+	EventBus.slot_inputs.emit(self, index, EventBus.SlotAction.HOVER_EXITED)
 #endregion
 
 
@@ -93,7 +95,6 @@ func focus_slot(index: int):
 
 
 func unfocus_slot(index: int):
-	models[index].set_state(DiceSlotData.DiceSlotState.DEFAULT)
 	views[index].update_focus(false)
 
 
@@ -103,48 +104,31 @@ func highlight_slot(index: int):
 
 
 func unhighlight_slot(index: int):
-	models[index].set_state(DiceSlotData.DiceSlotState.DEFAULT)
 	views[index].update_highlight(false)
 
 
-func aim_slot(index: int):
-	models[index].set_state(DiceSlotData.DiceSlotState.AIM)
-	views[index].update_mouse_trajectory(true)
-
-
-func unaim_slot(index: int):
-	models[index].set_state(DiceSlotData.DiceSlotState.DEFAULT)
-	views[index].update_mouse_trajectory(false)
-#endregion
-
-
-func set_system_visibility(condition: bool):
-	if condition:
-		show()
-	else:
-		hide()
-
-
-#region Targeting Manager Methods
 func select_slot_ability(index: int, ability: AbilityData):
+	models[index].set_state(DiceSlotData.DiceSlotState.AIM)
 	models[index].set_selected_ability(ability)
 	views[index].update_mouse_trajectory(true)
 
 
-func deselect_slot_ability(index: int):
+func unselect_slot_ability(index: int):
 	models[index].set_selected_ability(null)
 	views[index].update_mouse_trajectory(false)
 
 
 func select_slot_target(index: int, target_index: int, target_contr: DiceSlotController):
+	models[index].set_state(DiceSlotData.DiceSlotState.TARGET_SET)
 	var target_slot = target_contr.get_active_dice_slot(index)
 	models[index].set_target_slot(target_slot)
-	views[index].update_mouse_trajectory(false)
+	views[index].update_target_lock(true)
+	views[index].update_target_trajectory(target_contr.views[target_index].global_position)
 
 
-func deselect_slot_target(index: int):
+func unselect_slot_target(index: int):
 	models[index].set_target_slot(null)
-	views[index].update_mouse_trajectory(false)
+	views[index].clear_all()
 #endregion
 
 
@@ -162,12 +146,8 @@ func clear_dice_slot_speed(index: int):
 
 func clear_active_slots_data():
 	for index in range(active_models.size()):
-		active_models[index].set_speed_value(-1)
-		active_models[index].set_target_slot(null)
-		active_models[index].set_selected_ability(null)
-		
-		views[index].update_speed_value("?")
-		views[index].update_target_trajectory(Vector2.ZERO)
+		active_models[index].clear_data()
+		views[index].clear_all()
 
 
 func get_owner_unit() -> CharacterController:
