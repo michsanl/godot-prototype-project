@@ -1,6 +1,7 @@
 class_name CharacterController
 extends Node2D
 
+@export var is_player: bool
 @export var char_name: String
 @export var data: CharacterData
 @export var stats: CharacterStats
@@ -15,7 +16,7 @@ extends Node2D
 
 # FIXME: 
 var _initial_position: Vector2
-var _initial_slot_amount: int = 1
+var _initial_slot_amount: int = 2
 
 func _ready() -> void:
 	_initialize_childs()
@@ -57,6 +58,9 @@ func get_combat_controller() -> CharacterCombatController:
 
 #region Combat Controller API
 func initialize_combat(dice_slot: DiceSlotData):
+	if dice_slot == null:
+		push_warning("Initiating combat with null slot")
+		
 	combat_controller.initialize_combat(dice_slot)
 
 
@@ -101,40 +105,37 @@ func set_slot_system_visibility(condition: bool):
 
 func set_slot_ability(index: int, new_ability: AbilityData):
 	if new_ability:
-		dice_slot_controller.select_dice_slot_ability(index, new_ability)
+		dice_slot_controller.select_slot_ability(index, new_ability)
 	else:
-		dice_slot_controller.deselect_dice_slot_ability(index)
+		dice_slot_controller.unselect_slot_ability(index)
 
-func set_slot_target(index: int, new_target: DiceSlotData):
-	if new_target:
-		dice_slot_controller.select_dice_slot_target(index, new_target)
+func set_slot_target(index: int, target_index: int, target_contr: DiceSlotController):
+	if target_contr:
+		dice_slot_controller.select_slot_target(index, target_index, target_contr)
 	else:
-		dice_slot_controller.deselect_dice_slot_target(index)
+		dice_slot_controller.unselect_slot_target(index)
 
 func clear_active_slots_data():
 	dice_slot_controller.clear_active_slots_data()
 
-func get_dice_slot(index: int) -> DiceSlotData:
-	return dice_slot_controller.get_dice_slot(index)
+func get_active_dice_slot(index: int) -> DiceSlotData:
+	return dice_slot_controller.get_active_dice_slot(index)
 
-func get_random_dice_slot() -> DiceSlotData:
+func get_random_active_dice_slot() -> DiceSlotData:
 	return dice_slot_controller.get_random_active_dice_slot()
 
-func get_dice_slots() -> Array[DiceSlotData]:
-	return dice_slot_controller.get_dice_slots()
-
-func get_active_slots() -> Array[DiceSlotData]:
-	var active_slots: Array[DiceSlotData]
-	for slot in dice_slot_controller.get_dice_slots():
-		if slot.state != DiceSlotData.DiceSlotState.INACTIVE:
-			active_slots.append(slot)
-	return active_slots
+func get_active_dice_slots() -> Array[DiceSlotData]:
+	return dice_slot_controller.get_active_dice_slots()
 #endregion
 
 
 #region Ability Controller API
 func get_random_ability() -> AbilityData:
 	return ability_controller.get_random_ability()
+func get_ability(index: int) -> AbilityData:
+	return ability_controller.get_ability(index)
+func get_abilities() -> Array[AbilityData]:
+	return ability_controller.get_abilities()
 #endregion
 
 

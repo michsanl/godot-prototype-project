@@ -31,6 +31,7 @@ func clear_trajectory():
 	line.clear_points()
 
 func draw_trajectory(target_pos: Vector2):
+	follow_mouse_trajectory = false
 	start_point = self.position
 	end_point = to_local(target_pos)
 	clear_trajectory()

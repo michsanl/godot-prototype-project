@@ -1,37 +1,62 @@
 class_name DiceSlotView
 extends Control
 
-signal right_mouse_pressed(index: int)
-signal left_mouse_pressed(index: int)
-signal hover_entered(index: int)
-signal hover_exited(index: int)
+signal slot_inputs(source_index: int, SlotAction: int)
 
 var index: int
 
 
 func initialize(new_index: int):
 	index = new_index
-	hide()
 
 
 func _gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.pressed:
 		if event.button_index == MOUSE_BUTTON_LEFT:
-			left_mouse_pressed.emit(index)
+			slot_inputs.emit(index, SlotActions.Action.LEFT_MOUSE_PRESSED)
 		elif event.button_index == MOUSE_BUTTON_RIGHT:
-			right_mouse_pressed.emit(index)
+			slot_inputs.emit(index, SlotActions.Action.RIGHT_MOUSE_PRESSED)
 
 
 func _on_mouse_entered() -> void:
-	hover_entered.emit(index)
+	slot_inputs.emit(index, SlotActions.Action.HOVER_ENTERED)
 
 
 func _on_mouse_exited() -> void:
-	hover_exited.emit(index)
+	slot_inputs.emit(index, SlotActions.Action.HOVER_EXITED)
+
+
+func clear_all():
+	update_focus(false)
+	update_highlight(false)
+	update_target_lock(false)
+	update_mouse_trajectory(false)
+	update_target_trajectory(Vector2.ZERO)
 
 
 func update_speed_value(new_text: String):
 	$ValueLabel.text = new_text
+
+
+func update_highlight(condition: bool):
+	if condition:
+		$HighlightIcon.show()
+	else:
+		$HighlightIcon.hide()
+
+
+func update_focus(condition: bool):
+	if condition:
+		$FocusIcon.show()
+	else:
+		$FocusIcon.hide()
+
+
+func update_target_lock(condition: bool):
+	if condition:
+		$TargetSetIcon.show()
+	else:
+		$TargetSetIcon.hide()
 
 
 func update_target_trajectory(target_pos: Vector2):
@@ -42,14 +67,11 @@ func update_target_trajectory(target_pos: Vector2):
 
 
 func update_mouse_trajectory(condition: bool):
-	$Trajectory.set_trajectory_to_mouse(condition)
-
-
-func update_highlight(condition: bool):
 	if condition:
-		$Icon.modulate = Color(1, 1, 0.5)
+		$Trajectory.set_trajectory_to_mouse(condition)
 	else:
-		$Icon.modulate = Color(1, 1, 1) 
+		$Trajectory.set_trajectory_to_mouse(condition)
+		$Trajectory.clear_trajectory()
 
 
 func update_visibility(condition: bool):

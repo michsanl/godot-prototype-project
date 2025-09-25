@@ -43,14 +43,18 @@ layout_mode = 2
 size_flags_horizontal = 4
 theme_override_constants/separation = 125
 
-[node name="AbilityButton" parent="Panel/MarginContainer/HBoxContainer" instance=ExtResource("2_wqnpt")]
+[node name="AbilityButton" parent="Panel/MarginContainer/HBoxContainer" node_paths=PackedStringArray("view") instance=ExtResource("2_wqnpt")]
 layout_mode = 2
+view = NodePath("../../../..")
 
-[node name="AbilityButton2" parent="Panel/MarginContainer/HBoxContainer" instance=ExtResource("2_wqnpt")]
+[node name="AbilityButton2" parent="Panel/MarginContainer/HBoxContainer" node_paths=PackedStringArray("view") instance=ExtResource("2_wqnpt")]
 layout_mode = 2
+view = NodePath("../../../..")
 
-[node name="AbilityButton3" parent="Panel/MarginContainer/HBoxContainer" instance=ExtResource("2_wqnpt")]
+[node name="AbilityButton3" parent="Panel/MarginContainer/HBoxContainer" node_paths=PackedStringArray("view") instance=ExtResource("2_wqnpt")]
 layout_mode = 2
+view = NodePath("../../../..")
 
-[node name="AbilityButton4" parent="Panel/MarginContainer/HBoxContainer" instance=ExtResource("2_wqnpt")]
+[node name="AbilityButton4" parent="Panel/MarginContainer/HBoxContainer" node_paths=PackedStringArray("view") instance=ExtResource("2_wqnpt")]
 layout_mode = 2
+view = NodePath("../../../..")

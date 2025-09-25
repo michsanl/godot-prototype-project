@@ -1,0 +1,8 @@
+class_name SlotActions
+
+enum Action {
+	LEFT_MOUSE_PRESSED,
+	RIGHT_MOUSE_PRESSED,
+	HOVER_ENTERED,
+	HOVER_EXITED
+}

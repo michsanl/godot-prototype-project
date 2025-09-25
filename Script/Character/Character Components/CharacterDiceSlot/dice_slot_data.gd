@@ -1,7 +1,9 @@
 class_name DiceSlotData
 extends RefCounted
 
-enum DiceSlotState { DEFAULT, HIGHLIGHT, FOCUS, AIM, INACTIVE }
+enum DiceSlotState { 
+	DEFAULT, FOCUS, AIM, TARGET_SET, INACTIVE 
+}
 
 signal state_changed(new_state: String)
 signal target_slot_changed(new_target: DiceSlotData)
@@ -27,7 +29,6 @@ func set_speed_value(new_value: int):
 func set_target_slot(new_target: DiceSlotData):
 	target_dice_slot = new_target
 	target_slot_changed.emit(new_target)
-	print(self, " setting target: ", new_target)
 
 
 func set_selected_ability(new_ability: AbilityData):
@@ -37,11 +38,21 @@ func set_selected_ability(new_ability: AbilityData):
 
 func set_state(new_state: DiceSlotState):
 	state = new_state
+	match state:
+		DiceSlotState.DEFAULT:
+			print("DEFAULT")
+		DiceSlotState.FOCUS:
+			print("FOCUS")
+		DiceSlotState.AIM:
+			print("AIM")
+		DiceSlotState.TARGET_SET:
+			print("TARGET_SET")
+			
 	state_changed.emit(new_state)
 
 
 func clear_data():
-	speed_value = 0
+	set_speed_value(0)
 	set_target_slot(null)
 	set_selected_ability(null)
 

@@ -19,7 +19,7 @@
 [ext_resource type="PackedScene" uid="uid://c8puoopbxmfog" path="res://Scene/UI/StrategyPhase/ability_view.tscn" id="15_3rs5h"]
 [ext_resource type="PackedScene" uid="uid://b3whippw3cwep" path="res://Scene/Character/Unit/player_character.tscn" id="15_uowwx"]
 [ext_resource type="PackedScene" uid="uid://yc6lu5cla58x" path="res://Scene/Character/Unit/enemy_character.tscn" id="16_5i8bp"]
-[ext_resource type="Script" uid="uid://bdhbr4t36fd50" path="res://Script/PlayerManager/player_slot_selection_manager.gd" id="19_5i8bp"]
+[ext_resource type="Script" uid="uid://bdhbr4t36fd50" path="res://Script/PlayerManager/targeting_manager.gd" id="19_5i8bp"]
 
 [sub_resource type="FontFile" id="FontFile_8rj7f"]
 subpixel_positioning = 0
@@ -104,17 +104,14 @@ enemy_characters = [NodePath("EnemyCharacter")]
 
 [node name="PlayerCharacter" parent="CharacterManager" instance=ExtResource("15_uowwx")]
 position = Vector2(-297, 58)
-scale = Vector2(0.5, 0.5)
 
 [node name="EnemyCharacter" parent="CharacterManager" instance=ExtResource("16_5i8bp")]
 position = Vector2(343, 55)
-scale = Vector2(0.5, 0.5)
 
-[node name="PlayerSlotSelectionManager" type="Node" parent="." node_paths=PackedStringArray("view")]
+[node name="TargetingManager" type="Node" parent="." node_paths=PackedStringArray("character_manager", "view")]
 script = ExtResource("19_5i8bp")
+character_manager = NodePath("../CharacterManager")
 view = NodePath("../CanvasLayer/UI/MarginContainer/AbilityView")
-
-[node name="EnemySlotSelectionManager" type="Node" parent="."]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 

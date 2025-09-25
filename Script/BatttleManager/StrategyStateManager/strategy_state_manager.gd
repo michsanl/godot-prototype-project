@@ -43,12 +43,12 @@ func _on_roll_button_pressed():
 	roll_slots(enemy_characters)
 	
 	# Temporary Methods
-	strategy_post_roll.execute(player_characters, enemy_characters)
+	#strategy_post_roll.execute(player_characters, enemy_characters)
 
 
 func roll_slots(characters: Array[CharacterController]):
 	for character: CharacterController in characters:
-		for i in range(character.get_active_slots().size()):
+		for i in range(character.get_active_dice_slots().size()):
 			character.roll_slot_speed(i)
 
 

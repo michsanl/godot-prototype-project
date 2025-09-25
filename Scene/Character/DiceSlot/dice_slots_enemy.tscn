@@ -1,0 +1,50 @@
+[gd_scene load_steps=3 format=3 uid="uid://bxgxe7teu1eoa"]
+
+[ext_resource type="Script" uid="uid://b2b67xkmd03t6" path="res://Script/Character/Character Components/CharacterDiceSlot/enemy_slot_controller.gd" id="1_pej2r"]
+[ext_resource type="PackedScene" uid="uid://b2twado7rgfrp" path="res://Scene/Character/DiceSlot/dice_slot_enemy_view.tscn" id="2_pej2r"]
+
+[node name="DiceSlots" type="Control" node_paths=PackedStringArray("views")]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+script = ExtResource("1_pej2r")
+views = [NodePath("Control/DiceSlotViewContainer/DiceSlotEnemyView"), NodePath("Control/DiceSlotViewContainer/DiceSlotEnemyView2"), NodePath("Control/DiceSlotViewContainer/DiceSlotEnemyView3"), NodePath("Control/DiceSlotViewContainer/DiceSlotEnemyView4")]
+
+[node name="Control" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="DiceSlotViewContainer" type="HBoxContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -86.0
+offset_top = -20.0
+offset_right = 46.0
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 44
+alignment = 1
+
+[node name="DiceSlotEnemyView" parent="Control/DiceSlotViewContainer" instance=ExtResource("2_pej2r")]
+layout_mode = 2
+
+[node name="DiceSlotEnemyView2" parent="Control/DiceSlotViewContainer" instance=ExtResource("2_pej2r")]
+layout_mode = 2
+
+[node name="DiceSlotEnemyView3" parent="Control/DiceSlotViewContainer" instance=ExtResource("2_pej2r")]
+layout_mode = 2
+
+[node name="DiceSlotEnemyView4" parent="Control/DiceSlotViewContainer" instance=ExtResource("2_pej2r")]
+layout_mode = 2
