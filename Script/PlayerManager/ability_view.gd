@@ -3,7 +3,7 @@ extends Control
 
 @export var buttons: Array[AbilityButton] = []
 
-func _init() -> void:
+func _ready() -> void:
 	initialize_children()
 	self.hide()
 

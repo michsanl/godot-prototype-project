@@ -31,6 +31,8 @@ ability_controller = NodePath("Abilities")
 action_controller = NodePath("Actions")
 combat_controller = NodePath("Combat")
 
+[node name="Camera2D" type="Camera2D" parent="."]
+
 [node name="Actions" type="Node" parent="." node_paths=PackedStringArray("sprite_controller", "vfx_controller")]
 script = ExtResource("2_8fd8j")
 sprite_controller = NodePath("../Sprite")

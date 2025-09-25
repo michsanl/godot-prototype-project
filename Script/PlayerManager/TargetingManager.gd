@@ -3,15 +3,15 @@ extends Node
 
 @export var view: AbilityView
 
+var ability_index: int
 var focused_slot_controller: DiceSlotController
 var highlighted_slot_controller: DiceSlotController
 var focused_slot_index: int
 var highlighted_slot_index: int
-var ability_index: int
 
 func _ready() -> void:
 	EventBus.ability_button_pressed.connect(_on_ability_button_pressed)
-	EventBus.remove_ability_button_pressed.connect(_on_ability_button_pressed)
+	EventBus.remove_ability_button_pressed.connect(_on_remove_ability_button_pressed)
 	
 	EventBus.focus_selection_added.connect(_on_focus_selection_added)
 	EventBus.focus_selection_removed.connect(_on_focus_selection_removed)
@@ -32,6 +32,8 @@ func _on_remove_ability_button_pressed():
 func _on_focus_selection_added(controller: DiceSlotController, index: int):
 	focused_slot_controller = controller
 	focused_slot_index = index
+	
+	view.update_button_icon(controller.owner_unit.get_ability_controller().get_abilities())
 	view.show()
 
 
@@ -45,13 +47,14 @@ func _on_highlight_selection_added(controller: DiceSlotController, index: int):
 	if focused_slot_controller != null:
 		return
 	
+	view.update_button_icon(controller.owner_unit.get_ability_controller().get_abilities())
 	view.show()
 
 
 func _on_highlight_selection_removed(controller: DiceSlotController, index: int):
 	if focused_slot_controller != null:
 		return
-		
+	
 	view.hide()
 
 

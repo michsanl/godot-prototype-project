@@ -67,7 +67,7 @@ func _has_combat_ready_dice_slot(dice_slot_pool: Array[DiceSlotData]) -> bool:
 
 func _collect_combat_ready_dice_slots(character_pool: Array[CharacterController]):
 	for character in character_pool:
-		var dice_slot_pool = character.get_dice_slots()
+		var dice_slot_pool = character.get_active_dice_slots()
 		for dice_slot in dice_slot_pool:
 			if dice_slot.target_dice_slot != null:
 				_combat_ready_dice_slot_pool.append(dice_slot)

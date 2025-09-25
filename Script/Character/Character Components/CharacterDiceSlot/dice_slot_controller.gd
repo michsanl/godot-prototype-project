@@ -3,47 +3,48 @@ extends Control
 
 @export var views: Array[DiceSlotView] = []
 
+var owner_unit: CharacterController
 var models: Array[DiceSlotData] = []
 var active_models: Array[DiceSlotData] = []
-var owner_unit: CharacterController
-var max_slot_amount: int = 4
+var active_model_size: int = 2
+var max_model_size: int = 4
 var min_speed_value: int
 var max_speed_value: int
 
-func initialize(new_owner, active_size, min_val = 1, max_val = 7):
+func initialize(new_owner, active_size = 2, min_val = 1, max_val = 7):
 	owner_unit = new_owner
+	active_model_size = active_size
 	min_speed_value = min_val
 	max_speed_value = max_val
 	
-	initialize_models(owner_unit)
+	initialize_models()
 	initialize_views()
 	connect_views()
-	update_active_slots(active_size)
 
 
-
-func initialize_models(new_owner: CharacterController):
-	models.resize(max_slot_amount)
+func initialize_models():
+	models.resize(max_model_size)
+	active_models.resize(active_model_size)
 	
 	for i in range(models.size()):
-		models[i] = DiceSlotData.new()
-		models[i].initialize(new_owner)
+		if i < active_model_size:
+			models[i] = DiceSlotData.new()
+			models[i].initialize(owner_unit)
+			active_models[i] = models[i]
+		else:
+			models[i] = DiceSlotData.new()
+			models[i].initialize(owner_unit)
 
 
 func initialize_views():
 	for i in range(views.size()):
 		views[i].initialize(i)
-	print(views)
-
-func update_active_slots(active_amount: int):
-	active_models.clear()
-	for i in range(models.size()):
-		if i < active_amount:
-			active_models.append(models[i])
-			models[i].set_state(DiceSlotData.DiceSlotState.DEFAULT)
+	
+	for i in range(max_model_size):
+		views[i].initialize(i)
+		if i < active_model_size:
 			views[i].update_visibility(true)
 		else:
-			models[i].set_state(DiceSlotData.DiceSlotState.INACTIVE)
 			views[i].update_visibility(false)
 
 
@@ -136,16 +137,14 @@ func deselect_slot_ability(index: int):
 
 
 func select_slot_target(index: int, target_index: int, target_contr: DiceSlotController):
-	var target_slot = target_contr.get_dice_slot(index)
+	var target_slot = target_contr.get_active_dice_slot(index)
 	models[index].set_target_slot(target_slot)
 	views[index].update_mouse_trajectory(false)
-	views[index].update_target_trajectory(target_contr.views[index].global_position)
 
 
 func deselect_slot_target(index: int):
 	models[index].set_target_slot(null)
 	views[index].update_mouse_trajectory(false)
-	views[index].update_target_trajectory(Vector2.ZERO)
 #endregion
 
 
@@ -175,12 +174,12 @@ func get_owner_unit() -> CharacterController:
 	return owner_unit
 
 
-func get_dice_slot(index: int) -> DiceSlotData:
-	return models[index]
+func get_active_dice_slot(index: int) -> DiceSlotData:
+	return active_models[index]
 
 
-func get_dice_slots() -> Array[DiceSlotData]:
-	return models
+func get_active_dice_slots() -> Array[DiceSlotData]:
+	return active_models
 
 
 func get_random_active_dice_slot() -> DiceSlotData:

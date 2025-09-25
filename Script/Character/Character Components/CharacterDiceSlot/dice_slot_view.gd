@@ -37,11 +37,16 @@ func update_target_trajectory(target_pos: Vector2):
 	if target_pos != Vector2.ZERO:
 		$Trajectory.draw_trajectory(target_pos)
 	else:
+		$Trajectory.draw_trajectory(target_pos)
 		$Trajectory.clear_trajectory()
 
 
 func update_mouse_trajectory(condition: bool):
-	$Trajectory.set_trajectory_to_mouse(condition)
+	if condition:
+		$Trajectory.set_trajectory_to_mouse(condition)
+	else:
+		$Trajectory.set_trajectory_to_mouse(condition)
+		$Trajectory.clear_trajectory()
 
 
 func update_focus(condition: bool):

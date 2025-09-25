@@ -114,21 +114,14 @@ func set_slot_target(index: int, target_index: int, target_contr: DiceSlotContro
 func clear_active_slots_data():
 	dice_slot_controller.clear_active_slots_data()
 
-func get_dice_slot(index: int) -> DiceSlotData:
-	return dice_slot_controller.get_dice_slot(index)
+func get_active_dice_slot(index: int) -> DiceSlotData:
+	return dice_slot_controller.get_active_dice_slot(index)
 
-func get_random_dice_slot() -> DiceSlotData:
+func get_random_active_dice_slot() -> DiceSlotData:
 	return dice_slot_controller.get_random_active_dice_slot()
 
-func get_dice_slots() -> Array[DiceSlotData]:
-	return dice_slot_controller.get_dice_slots()
-
-func get_active_slots() -> Array[DiceSlotData]:
-	var active_slots: Array[DiceSlotData]
-	for slot in dice_slot_controller.get_dice_slots():
-		if slot.state != DiceSlotData.DiceSlotState.INACTIVE:
-			active_slots.append(slot)
-	return active_slots
+func get_active_dice_slots() -> Array[DiceSlotData]:
+	return dice_slot_controller.get_active_dice_slots()
 #endregion
 
 
