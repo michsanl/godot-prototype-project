@@ -95,6 +95,10 @@ script = ExtResource("12_uowwx")
 script = ExtResource("9_4v0j5")
 characters = [NodePath("../../CharacterManager/PlayerCharacter"), NodePath("../../CharacterManager/EnemyCharacter")]
 
+[node name="ResolveStateManager" type="Node" parent="BattleSceneManager/ResolveStateManager" node_paths=PackedStringArray("characters")]
+script = ExtResource("9_4v0j5")
+characters = [NodePath("../../../CharacterManager/PlayerCharacter"), NodePath("../../../CharacterManager/EnemyCharacter")]
+
 [node name="FinalizeBattleManager" type="Node" parent="BattleSceneManager"]
 
 [node name="CharacterManager" type="Node2D" parent="." node_paths=PackedStringArray("player_characters", "enemy_characters")]

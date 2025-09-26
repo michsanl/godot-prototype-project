@@ -1,14 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://yc6lu5cla58x"]
+[gd_scene load_steps=2 format=3 uid="uid://yc6lu5cla58x"]
 
 [ext_resource type="PackedScene" uid="uid://bek3derprev18" path="res://Scene/Character/Unit/character_base.tscn" id="1_gy3kx"]
-[ext_resource type="Script" uid="uid://2ytid1uivak6" path="res://Script/Character/Character Components/CharacterAbility/ability_data.gd" id="2_ulf5s"]
-[ext_resource type="Resource" uid="uid://ddt7y2wpi6618" path="res://Resource/Ability Stats/strike_ability_stats.tres" id="3_1opnb"]
-[ext_resource type="Resource" uid="uid://c6ynhr5w11cos" path="res://Resource/Ability Stats/pierce_ability_stats.tres" id="4_evpq2"]
-[ext_resource type="Resource" uid="uid://b8f8g2akyrop" path="res://Resource/Ability Stats/blunt_ability_stats.tres" id="5_6pykk"]
 
 [node name="EnemyCharacter" instance=ExtResource("1_gy3kx")]
 is_player = true
 char_name = "Enemy"
-
-[node name="Abilities" parent="." index="6"]
-ability_list = Array[ExtResource("2_ulf5s")]([ExtResource("3_1opnb"), ExtResource("4_evpq2"), ExtResource("5_6pykk"), ExtResource("3_1opnb")])

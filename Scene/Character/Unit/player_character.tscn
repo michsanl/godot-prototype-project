@@ -1,10 +1,6 @@
-[gd_scene load_steps=6 format=3 uid="uid://b3whippw3cwep"]
+[gd_scene load_steps=2 format=3 uid="uid://b3whippw3cwep"]
 
 [ext_resource type="PackedScene" uid="uid://bek3derprev18" path="res://Scene/Character/Unit/character_base.tscn" id="1_1x2aq"]
-[ext_resource type="Script" uid="uid://2ytid1uivak6" path="res://Script/Character/Character Components/CharacterAbility/ability_data.gd" id="2_ndrky"]
-[ext_resource type="Resource" uid="uid://ddt7y2wpi6618" path="res://Resource/Ability Stats/strike_ability_stats.tres" id="3_klyy7"]
-[ext_resource type="Resource" uid="uid://c6ynhr5w11cos" path="res://Resource/Ability Stats/pierce_ability_stats.tres" id="4_2afse"]
-[ext_resource type="Resource" uid="uid://b8f8g2akyrop" path="res://Resource/Ability Stats/blunt_ability_stats.tres" id="5_np3pg"]
 
 [node name="PlayerCharacter" instance=ExtResource("1_1x2aq")]
 is_player = true
@@ -20,6 +16,3 @@ flip_h = true
 
 [node name="VFX" parent="." index="4"]
 flip_h = true
-
-[node name="Abilities" parent="." index="6"]
-ability_list = Array[ExtResource("2_ndrky")]([ExtResource("3_klyy7"), ExtResource("4_2afse"), ExtResource("5_np3pg"), ExtResource("3_klyy7")])
