@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="AbilityData" load_steps=12 format=3 uid="uid://c6ynhr5w11cos"]
 
-[ext_resource type="Script" uid="uid://dlmk3rr22mobs" path="res://Script/Character/Character Components/CharacterAbility/AbilityDice/i_dice.gd" id="1_34xn8"]
+[ext_resource type="Script" uid="uid://dlmk3rr22mobs" path="res://Script/Character/Character Components/CharacterAbility/AbilityDice/base_dice.gd" id="1_34xn8"]
 [ext_resource type="Script" uid="uid://owd46cw2kp0k" path="res://Script/Character/Character Components/CharacterAbility/AbilityDice/slash_dice.gd" id="2_8m5xw"]
 [ext_resource type="Texture2D" uid="uid://b5yetv4ycwmxg" path="res://Art/CombatDiceIcon/Slash_Icon.png" id="3_uayor"]
 [ext_resource type="Texture2D" uid="uid://c8rs0nmfwbhpj" path="res://Art/VFX/강한 종베기2.png" id="4_phxgm"]
