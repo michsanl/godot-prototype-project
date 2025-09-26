@@ -19,7 +19,7 @@ func perform_forward_movement(final_pos: Vector2):
 		"position", 
 		final_pos, 
 		move_duration_standard
-	).set_ease(Tween.EASE_IN_OUT)
+	)
 	await tween.finished
 
 
@@ -30,4 +30,4 @@ func perform_backward_movement(final_pos: Vector2):
 		"position", 
 		final_pos, 
 		backward_move_duration
-	).set_ease(Tween.EASE_OUT)
+	).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)

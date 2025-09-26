@@ -25,6 +25,7 @@ func _init(
 func set_focused_slot(controller: DiceSlotController, index: int):
 	focused_slot_controller = controller
 	focused_slot_index = index
+	Debug.log("Focus set.")
 
 
 func clear_focus():
@@ -44,6 +45,7 @@ func clear_highlight():
 
 func set_slot_ability(ability: AbilityData):
 	ability_data = ability
+	Debug.log("Ability set.")
 
 
 func clear_ability():
@@ -56,40 +58,10 @@ func clear_target():
 
 
 func reset():
-	focused_slot_controller = null
-	focused_slot_index = -1
-	highlighted_slot_controller = null
-	highlighted_slot_index = -1
-	target_slot_controller = null
-	target_slot_index = -1
-	ability_data = null
-
-
-
-
-
-func set_focused_slot_controller(controller: DiceSlotController):
-	focused_slot_controller = controller
-
-
-func set_focused_slot_index(index: int):
-	focused_slot_index = index
-
-
-func set_highlighted_slot_controller(controller: DiceSlotController):
-	highlighted_slot_controller = controller
-
-
-func set_highlighted_slot_index(index: int):
-	highlighted_slot_index = index
-
-
-func set_target_slot_controller(controller: DiceSlotController):
-	target_slot_controller = controller
-
-
-func set_target_slot_index(index: int):
-	target_slot_index = index
+	clear_focus()
+	clear_highlight()
+	clear_ability()
+	clear_target()
 
 
 func has_focus() -> bool:
