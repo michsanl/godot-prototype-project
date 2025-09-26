@@ -12,7 +12,7 @@ func randomize_slots_target(selections: Array[CharacterController], targets: Arr
 	for sources: CharacterController in selections:
 		for i in range(sources.get_active_dice_slots().size()):
 			var rand_slot_contr = targets.pick_random().get_slot_controller()
-			var rand_slot_index = randi_range(0, sources.get_active_dice_slots().size())
+			var rand_slot_index = randi_range(0, sources.get_active_dice_slots().size() -1)
 			sources.set_slot_target(i, rand_slot_index, rand_slot_contr)
 
 

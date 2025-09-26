@@ -32,12 +32,6 @@ func set_target_slot(new_target: DiceSlotData):
 	target_slot_changed.emit(new_target)
 	if new_target == null:
 		return
-	
-	print(owner_unit.char_name)
-	print(" target is: ")
-	print(target_dice_slot.owner_unit.char_name)
-	print(str(target_dice_slot.index))
-	print("==========")
 
 func set_selected_ability(new_ability: AbilityData):
 	selected_ability = new_ability
@@ -48,13 +42,13 @@ func set_state(new_state: DiceSlotState):
 	state = new_state
 	match state:
 		DiceSlotState.DEFAULT:
-			print("DEFAULT")
+			pass
 		DiceSlotState.FOCUS:
-			print("FOCUS")
+			pass
 		DiceSlotState.AIM:
-			print("AIM")
+			pass
 		DiceSlotState.TARGET_SET:
-			print("TARGET_SET")
+			pass
 			
 	state_changed.emit(new_state)
 

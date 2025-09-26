@@ -107,6 +107,7 @@ func handle_target_set(target_controller: DiceSlotController, target_index: int)
 	)
 	data.reset()
 	view.hide()
+	Debug.log("Target set.")
 
 
 func remove_target_slot(controller: DiceSlotController, index: int):

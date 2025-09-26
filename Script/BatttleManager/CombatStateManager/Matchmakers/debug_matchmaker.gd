@@ -10,8 +10,6 @@ func resolve(character_slots: Array[DiceSlotData]) -> CombatData:
 	# Get combat pair
 	var attacker_dice_slot = character_slots.front() as DiceSlotData
 	var defender_dice_slot = attacker_dice_slot.target_dice_slot as DiceSlotData
-	print(attacker_dice_slot, " target is ", attacker_dice_slot.target_dice_slot)
-	print(defender_dice_slot, " target is ", defender_dice_slot.target_dice_slot)
 	# Commit combat pair & initialize combat data
 	if defender_dice_slot.target_dice_slot == attacker_dice_slot:
 		print("Defender target is Attacker")
