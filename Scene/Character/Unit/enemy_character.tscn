@@ -8,6 +8,7 @@
 
 [node name="EnemyCharacter" instance=ExtResource("1_gy3kx")]
 is_player = true
+char_name = "Enemy"
 
 [node name="Abilities" parent="." index="6"]
 ability_list = Array[ExtResource("2_ulf5s")]([ExtResource("3_1opnb"), ExtResource("4_evpq2"), ExtResource("5_6pykk"), ExtResource("3_1opnb")])

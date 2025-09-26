@@ -13,8 +13,8 @@ extends CanvasLayer
 func _ready():
 	self.add_tab("Logs")
 
-func _process(delta):
-	self.log("FPS", "%.2f" % (1.0 / delta))
+#func _process(delta):
+	#self.log("FPS", "%.2f" % (1.0 / delta))
 
 func _input(event: InputEvent):
 	## Replace it with whatever you want
@@ -39,7 +39,7 @@ func log(
 	## The tab the log belong to, if theres no tab with that name, it will return the first tab
 	tab: String="",
 	## If this is set to false, it will create a new log without looking for pre-existing logs
-	unique: bool=true
+	unique: bool=false
 ):
 	if tabs.get_tab_count() <= 0:
 		printerr("Theres no tabs")

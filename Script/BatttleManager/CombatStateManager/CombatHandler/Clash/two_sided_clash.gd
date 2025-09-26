@@ -30,13 +30,13 @@ func _resolve_clash():
 	_defender_roll_value = _defender.get_roll_value()
 	
 	if _attacker_roll_value > _defender_roll_value:
-		print("Attacker win!")
+		Debug.log("Attacker win!")
 		await _attacker.execute_front_die(_defender)
 	elif _attacker_roll_value < _defender_roll_value:
-		print("Defender win!")
+		Debug.log("Defender win!")
 		await _defender.execute_front_die(_attacker)
 	else:
-		print("Draw!")
+		Debug.log("Draw!")
 		_attacker.execute_front_die_draw(_defender)
 		await _defender.execute_front_die_draw(_attacker)
 

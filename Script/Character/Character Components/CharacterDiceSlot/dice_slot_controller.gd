@@ -28,11 +28,11 @@ func initialize_models():
 	for i in range(models.size()):
 		if i < active_model_size:
 			models[i] = DiceSlotData.new()
-			models[i].initialize(owner_unit)
+			models[i].initialize(owner_unit, i)
 			active_models[i] = models[i]
 		else:
 			models[i] = DiceSlotData.new()
-			models[i].initialize(owner_unit)
+			models[i].initialize(owner_unit, i)
 
 
 func initialize_views():
@@ -106,7 +106,7 @@ func unselect_slot_ability(index: int):
 
 func select_slot_target(index: int, target_index: int, target_contr: DiceSlotController):
 	models[index].set_state(DiceSlotData.DiceSlotState.TARGET_SET)
-	var target_slot = target_contr.get_active_dice_slot(index)
+	var target_slot = target_contr.get_active_dice_slot(target_index)
 	models[index].set_target_slot(target_slot)
 	views[index].update_target_lock(true)
 	views[index].update_target_trajectory(target_contr.views[target_index].global_position)

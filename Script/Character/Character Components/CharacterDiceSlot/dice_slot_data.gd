@@ -15,10 +15,11 @@ var state: DiceSlotState
 var speed_value: int = 0
 var target_dice_slot: DiceSlotData
 var selected_ability: AbilityData
+var index: int
 
-
-func initialize(new_owner):
+func initialize(new_owner, new_index):
 	owner_unit = new_owner
+	index = new_index
 
 
 func set_speed_value(new_value: int):
@@ -29,7 +30,14 @@ func set_speed_value(new_value: int):
 func set_target_slot(new_target: DiceSlotData):
 	target_dice_slot = new_target
 	target_slot_changed.emit(new_target)
-
+	if new_target == null:
+		return
+	
+	print(owner_unit.char_name)
+	print(" target is: ")
+	print(target_dice_slot.owner_unit.char_name)
+	print(str(target_dice_slot.index))
+	print("==========")
 
 func set_selected_ability(new_ability: AbilityData):
 	selected_ability = new_ability
