@@ -1,0 +1,151 @@
+[gd_scene load_steps=23 format=3 uid="uid://do3uwy2gicsls"]
+
+[ext_resource type="Texture2D" uid="uid://c8sf5t0u0e5qn" path="res://Art/temporary_sprite/KeterFloorBattleStage.jpg" id="1_mtylr"]
+[ext_resource type="Script" uid="uid://cp3damr7qm5t3" path="res://Script/Autoload/event_bus.gd" id="1_uowwx"]
+[ext_resource type="Script" uid="uid://ca131f6h2pd4o" path="res://Script/BatttleManager/battle_manager.gd" id="2_mtm51"]
+[ext_resource type="Script" uid="uid://bvrwg04i2xlyn" path="res://Script/BatttleManager/InitializeStateManager/initialize_battle_manager.gd" id="3_8qtd0"]
+[ext_resource type="Script" uid="uid://cnr7hvxe7rc8n" path="res://Script/Debug/battle_scene_debug_manager.gd" id="3_8rj7f"]
+[ext_resource type="Script" uid="uid://c4mwu4ngi61wx" path="res://Script/BatttleManager/StrategyStateManager/strategy_state_manager.gd" id="3_t0dor"]
+[ext_resource type="Script" uid="uid://bmp3a5hkmsqv0" path="res://Script/BatttleManager/CombatStateManager/combat_state_manager.gd" id="4_xdkpq"]
+[ext_resource type="Script" uid="uid://bcfkj2hoo15nt" path="res://Script/BatttleManager/StrategyStateManager/strategy_post_roll_debug.gd" id="7_5i8bp"]
+[ext_resource type="PackedScene" uid="uid://cfhmlqlj0hrdq" path="res://Scene/UI/StrategyPhase/strategy_view.tscn" id="8_8rj7f"]
+[ext_resource type="Script" uid="uid://cqq87jimtumef" path="res://Script/BatttleManager/CombatStateManager/CombatHandler/clash_handler.gd" id="9_2bjfd"]
+[ext_resource type="Script" uid="uid://dgs7y4if2cys0" path="res://Script/BatttleManager/ResolveStateManager/resolve_state_manager.gd" id="9_4v0j5"]
+[ext_resource type="PackedScene" uid="uid://c2xahj8fxn508" path="res://Scene/UI/Debug/battle_scene_debug_view.tscn" id="9_8qtd0"]
+[ext_resource type="Script" uid="uid://md1ms16f4pbd" path="res://Script/BatttleManager/CombatStateManager/CombatHandler/Clash/two_sided_clash.gd" id="10_2bjfd"]
+[ext_resource type="Script" uid="uid://dsiednejsstx6" path="res://Script/BatttleManager/CombatStateManager/CombatHandler/Clash/one_sided_attacker_clash.gd" id="11_3rs5h"]
+[ext_resource type="Script" uid="uid://ciyby0kpaaauy" path="res://Script/Character/character_manager.gd" id="12_7qkga"]
+[ext_resource type="Script" uid="uid://c5xkadxboty1m" path="res://Script/BatttleManager/CombatStateManager/CombatHandler/Clash/one_sided_defender_clash.gd" id="12_uowwx"]
+[ext_resource type="PackedScene" uid="uid://c8puoopbxmfog" path="res://Scene/UI/StrategyPhase/ability_view.tscn" id="15_3rs5h"]
+[ext_resource type="PackedScene" uid="uid://b3whippw3cwep" path="res://Scene/Character/Unit/player_character.tscn" id="15_uowwx"]
+[ext_resource type="PackedScene" uid="uid://yc6lu5cla58x" path="res://Scene/Character/Unit/enemy_character.tscn" id="16_5i8bp"]
+[ext_resource type="Script" uid="uid://bdhbr4t36fd50" path="res://Script/PlayerManager/player_slot_selection_manager.gd" id="19_5i8bp"]
+
+[sub_resource type="FontFile" id="FontFile_8rj7f"]
+subpixel_positioning = 0
+msdf_pixel_range = 14
+msdf_size = 128
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
+
+[sub_resource type="Theme" id="Theme_4v0j5"]
+default_font = SubResource("FontFile_8rj7f")
+
+[node name="BattleScene_2D" type="Node2D"]
+script = ExtResource("1_uowwx")
+
+[node name="KeterFloorBattleStage" type="Sprite2D" parent="."]
+y_sort_enabled = true
+scale = Vector2(0.62, 0.62)
+texture = ExtResource("1_mtylr")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="DebugManager" type="Node" parent="." node_paths=PackedStringArray("scene_manager", "debug_view")]
+script = ExtResource("3_8rj7f")
+is_enable = false
+scene_manager = NodePath("../BattleSceneManager")
+debug_view = NodePath("../CanvasLayer/UI/MarginContainer/BattleSceneDebugView")
+
+[node name="BattleSceneManager" type="Node" parent="." node_paths=PackedStringArray("initialize_battle_manager", "strategy_state_manager", "combat_state_manager", "resolve_state_manager")]
+script = ExtResource("2_mtm51")
+initialize_battle_manager = NodePath("InitializeBattleManager")
+strategy_state_manager = NodePath("StrategyStateManager")
+combat_state_manager = NodePath("CombatStateManager")
+resolve_state_manager = NodePath("ResolveStateManager")
+
+[node name="InitializeBattleManager" type="Node" parent="BattleSceneManager"]
+script = ExtResource("3_8qtd0")
+
+[node name="StrategyStateManager" type="Node" parent="BattleSceneManager" node_paths=PackedStringArray("player_characters", "enemy_characters", "view", "strategy_post_roll")]
+script = ExtResource("3_t0dor")
+player_characters = [NodePath("../../CharacterManager/PlayerCharacter")]
+enemy_characters = [NodePath("../../CharacterManager/EnemyCharacter")]
+view = NodePath("../../CanvasLayer/UI/MarginContainer/StrategyView")
+strategy_post_roll = NodePath("StrategyPostRollDebug")
+
+[node name="StrategyPostRollDebug" type="Node" parent="BattleSceneManager/StrategyStateManager"]
+script = ExtResource("7_5i8bp")
+
+[node name="CombatStateManager" type="Node" parent="BattleSceneManager" node_paths=PackedStringArray("player_characters", "enemy_characters", "clash_handler")]
+script = ExtResource("4_xdkpq")
+player_characters = [NodePath("../../CharacterManager/PlayerCharacter")]
+enemy_characters = [NodePath("../../CharacterManager/EnemyCharacter")]
+clash_handler = NodePath("ClashHandler")
+
+[node name="ClashHandler" type="Node" parent="BattleSceneManager/CombatStateManager" node_paths=PackedStringArray("two_sided", "one_sided_attacker", "one_sided_defender")]
+script = ExtResource("9_2bjfd")
+two_sided = NodePath("TwoSidedClash")
+one_sided_attacker = NodePath("OneSidedAttackerClash")
+one_sided_defender = NodePath("OneSidedDefenderClash")
+
+[node name="TwoSidedClash" type="Node" parent="BattleSceneManager/CombatStateManager/ClashHandler"]
+script = ExtResource("10_2bjfd")
+
+[node name="OneSidedAttackerClash" type="Node" parent="BattleSceneManager/CombatStateManager/ClashHandler"]
+script = ExtResource("11_3rs5h")
+
+[node name="OneSidedDefenderClash" type="Node" parent="BattleSceneManager/CombatStateManager/ClashHandler"]
+script = ExtResource("12_uowwx")
+
+[node name="ResolveStateManager" type="Node" parent="BattleSceneManager" node_paths=PackedStringArray("characters")]
+script = ExtResource("9_4v0j5")
+characters = [NodePath("../../CharacterManager/PlayerCharacter"), NodePath("../../CharacterManager/EnemyCharacter")]
+
+[node name="FinalizeBattleManager" type="Node" parent="BattleSceneManager"]
+
+[node name="CharacterManager" type="Node2D" parent="." node_paths=PackedStringArray("player_characters", "enemy_characters")]
+script = ExtResource("12_7qkga")
+player_characters = [NodePath("PlayerCharacter")]
+enemy_characters = [NodePath("EnemyCharacter")]
+
+[node name="PlayerCharacter" parent="CharacterManager" instance=ExtResource("15_uowwx")]
+position = Vector2(-297, 58)
+scale = Vector2(0.5, 0.5)
+
+[node name="EnemyCharacter" parent="CharacterManager" instance=ExtResource("16_5i8bp")]
+position = Vector2(343, 55)
+scale = Vector2(0.5, 0.5)
+
+[node name="PlayerSlotSelectionManager" type="Node" parent="." node_paths=PackedStringArray("view")]
+script = ExtResource("19_5i8bp")
+view = NodePath("../CanvasLayer/UI/MarginContainer/AbilityView")
+
+[node name="EnemySlotSelectionManager" type="Node" parent="."]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="UI" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme = SubResource("Theme_4v0j5")
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/UI"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="AbilityView" parent="CanvasLayer/UI/MarginContainer" instance=ExtResource("15_3rs5h")]
+layout_mode = 2
+mouse_filter = 1
+
+[node name="StrategyView" parent="CanvasLayer/UI/MarginContainer" instance=ExtResource("8_8rj7f")]
+layout_mode = 2
+mouse_filter = 1
+
+[node name="BattleSceneDebugView" parent="CanvasLayer/UI/MarginContainer" instance=ExtResource("9_8qtd0")]
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 1

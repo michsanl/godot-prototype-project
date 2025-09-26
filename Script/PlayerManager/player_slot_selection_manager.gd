@@ -5,6 +5,7 @@ extends Node
 
 var data: SlotSelectionData
 
+
 func _ready() -> void:
 	initialize()
 
@@ -15,132 +16,120 @@ func initialize():
 	EventBus.slot_inputs.connect(_on_slot_input)
 
 
+#region Event Handlers
 func _on_ability_button_pressed(index: int):
-	set_slot_ability(index)
+	handle_ability_button_pressed(index)
 
 
-func _on_slot_input(source, index, action: int):
+func _on_slot_input(source: DiceSlotController, index: int, action: int):
 	match action:
 		SlotActions.Action.LEFT_MOUSE_PRESSED:
-			resolve_slot_input_left_mouse(source, index)
+			handle_left_click(source, index)
 		SlotActions.Action.RIGHT_MOUSE_PRESSED:
-			remove_slot_ability(source, index)
-			remove_target_slot(source, index)
+			handle_right_click(source, index)
 		SlotActions.Action.HOVER_ENTERED:
-			set_highlight_slot(source, index)
+			update_highlight(source, index, true)
 		SlotActions.Action.HOVER_EXITED:
-			remove_highlight_slot(source, index)
+			update_highlight(source, index, false)
+#endregion
 
-func resolve_slot_input_left_mouse(source: DiceSlotController, index: int):	
-	var current_slot = get_current_slot()
+
+#region Input Handling
+func handle_ability_button_pressed(index: int):
+	if data.has_focus():
+		set_slot_ability(index)
+
+
+func handle_left_click(source: DiceSlotController, index: int):
 	var new_slot = source.get_active_dice_slot(index)
 
-	if data.focused_slot_controller != null and data.ability_data != null:
-		# asd
-		set_target_slot(source, index)
-		finalize_targeting()
-		return
-
-	if data.focused_slot_controller != null and \
-	data.focused_slot_controller == source and \
-	data.focused_slot_index == index: 
-		# Focus slot present, same with the new one
-		remove_current_focus_slot()
-		return
-	
-	if data.focused_slot_controller != null and current_slot != new_slot:
-		# No focused slot
-		remove_current_focus_slot()
-		
-	if data.focused_slot_controller == null:
-		set_focus_slot(source, index)
+	if is_targeting():
+		handle_target_set(source, index)
+	elif is_toggling_focus(source, index):
+		update_focus(source, index, false)
+	elif is_switching_focus(new_slot):
+		update_focus(data.focused_slot_controller, data.focused_slot_index, false)
+		update_focus(source, index, true)
+	elif not data.has_focus():
+		update_focus(source, index, true)
 
 
-func remove_current_focus_slot():
-	remove_focus_slot(
-		data.focused_slot_controller, 
-		data.focused_slot_index
-	)
-
-#region Core Methods
-func finalize_targeting():
-	data.focused_slot_controller.select_slot_target(
-		data.focused_slot_index,
-		data.target_slot_index,
-		data.target_slot_controller, 
-	)
-	data = SlotSelectionData.new()
-	view.hide()
+func handle_right_click(source: DiceSlotController, index: int):
+	remove_slot_ability(source, index)
+	remove_target_slot(source, index)
+#endregion
 
 
-func set_focus_slot(controller: DiceSlotController, index: int):
-	controller.focus_slot(index)
-	data.set_focused_slot_controller(controller)
-	data.set_focused_slot_index(index)
-	
-	view.update_button_icon(controller.owner_unit.get_abilities())
-	view.show()
+#region Slot State Updates
+func update_focus(controller: DiceSlotController, index: int, focused: bool):
+	if focused:
+		controller.update_focus(index, true)
+		data.set_focused_slot(controller, index)
+		view.update_button_icon(controller.owner_unit.get_abilities())
+		view.show()
+	else:
+		controller.update_focus(index, false)
+		data.clear_focus()
+		view.hide()
 
 
-func remove_focus_slot(controller: DiceSlotController, index: int):
-	controller.unfocus_slot(index)
-	data.set_focused_slot_controller(null)
-	data.set_focused_slot_index(-1)
-	
-	view.hide()
+func update_highlight(controller: DiceSlotController, index: int, highlighted: bool):
+	if highlighted:
+		controller.update_highlight(index, true)
+		data.set_highlighted_slot(controller, index)
+	else:
+		controller.update_highlight(index, false)
+		data.clear_highlight()
+#endregion
 
 
-func set_highlight_slot(controller: DiceSlotController, index: int):
-	controller.highlight_slot(index)
-	data.set_highlighted_slot_controller(controller)
-	data.set_highlighted_slot_index(index)
-	
-	view.update_button_icon(controller.owner_unit.get_abilities())
-	view.show()
-
-
-func remove_highlight_slot(controller: DiceSlotController, index: int):
-	controller.unhighlight_slot(index)
-	data.set_highlighted_slot_controller(null)
-	data.set_highlighted_slot_index(-1)
-
-
-func set_target_slot(controller: DiceSlotController, index: int):
-	data.set_target_slot_controller(controller)
-	data.set_target_slot_index(index)
-
-
-func remove_target_slot(controller: DiceSlotController, index: int):
-	controller.unselect_slot_target(index)
-	data.set_target_slot_controller(null)
-	data.set_target_slot_index(-1)
-	data.set_slot_ability(null)
-
-
+#region Abilities & Targeting
 func set_slot_ability(ability_index: int):
-	var ability = data.focused_slot_controller.owner_unit.get_ability(ability_index)
 	var controller = data.focused_slot_controller
+	if controller == null:
+		return
+	var ability = controller.owner_unit.get_ability(ability_index)
 	controller.select_slot_ability(data.focused_slot_index, ability)
 	data.set_slot_ability(ability)
 
 
 func remove_slot_ability(controller: DiceSlotController, index: int):
 	controller.unselect_slot_ability(index)
-	data.set_slot_ability(null)
-	
+	data.clear_ability()
 	view.hide()
+
+
+func handle_target_set(target_controller: DiceSlotController, target_index: int):
+	data.focused_slot_controller.select_slot_target(
+		data.focused_slot_index,
+		target_index,
+		target_controller
+	)
+	data.reset()
+	view.hide()
+
+
+func remove_target_slot(controller: DiceSlotController, index: int):
+	controller.unselect_slot_target(index)
+	data.clear_target()
 #endregion
 
 
+#region Helpers
 func get_current_slot():
-	if data.focused_slot_controller == null:
+	if not data.has_focus():
 		return null
-	else:
-		return data.focused_slot_controller.get_active_dice_slot(data.focused_slot_index)
+	return data.focused_slot_controller.get_active_dice_slot(data.focused_slot_index)
 
 
-func get_selected_slot_controller() -> DiceSlotController:
-	return data.focused_slot_controller
+func is_targeting() -> bool:
+	return data.has_focus() and data.has_ability()
 
-func get_selected_slot_index() -> int:
-	return data.focused_slot_index
+
+func is_toggling_focus(source: DiceSlotController, index: int) -> bool:
+	return data.focused_slot_controller == source and data.focused_slot_index == index
+
+
+func is_switching_focus(new_slot) -> bool:
+	return data.has_focus() and get_current_slot() != new_slot
+#endregion
