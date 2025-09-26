@@ -28,6 +28,8 @@ func start_combat(combat_data :CombatData):
 			push_warning("No valid clash strategy found.")
 	
 	# TODO: Finalize - unfocus camera, hide dice UI
+	_attacker.finalize_combat()
+	_defender.finalize_combat()
 
 
 func _select_strategy() -> IClash:

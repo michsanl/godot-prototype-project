@@ -6,10 +6,10 @@ enum CombatRole { ATTACKER, DEFENDER }
 
 var clash_result: ClashResult
 var owner: CharacterController
-var owner_dice: IDice
+var owner_dice: BaseDice
 var owner_dice_value: int
 var opponent: CharacterController
-var opponent_dice: IDice
+var opponent_dice: BaseDice
 var opponent_dice_value: int
 
 

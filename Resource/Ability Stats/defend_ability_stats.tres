@@ -1,9 +1,0 @@
-[gd_resource type="Resource" script_class="AbilityData" load_steps=3 format=3 uid="uid://db0mt25wfatl4"]
-
-[ext_resource type="Script" uid="uid://dlmk3rr22mobs" path="res://Script/Character/Character Components/CharacterAbility/AbilityDice/i_dice.gd" id="2_o3f6v"]
-[ext_resource type="Script" uid="uid://2ytid1uivak6" path="res://Script/Character/Character Components/CharacterAbility/ability_data.gd" id="2_yul47"]
-
-[resource]
-script = ExtResource("2_yul47")
-ability_name = "Defend"
-dices = Array[ExtResource("2_o3f6v")]([null, null, null])

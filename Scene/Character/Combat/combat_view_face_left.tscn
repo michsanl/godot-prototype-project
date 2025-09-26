@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://d3fk4c5kgsmnv"]
+
+[ext_resource type="PackedScene" uid="uid://683e21qcm6t8" path="res://Scene/Character/Combat/combat_view.tscn" id="1_xap4c"]
+
+[node name="CombatViewFaceLeft" instance=ExtResource("1_xap4c")]
+
+[node name="Panel2" parent="." index="1"]
+visible = false

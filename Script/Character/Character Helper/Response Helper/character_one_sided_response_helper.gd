@@ -9,11 +9,11 @@ func _init(owner_chara: CharacterController = null) -> void:
 
 
 func resolve_one_sided_response(clash_data: ClashData):
-	var my_dice = clash_data.owner_dice.dice_type as IDice.DiceType
+	var my_dice = clash_data.owner_dice.dice_type as BaseDice.DiceType
 	match my_dice:
-		IDice.DiceType.SLASH:
+		BaseDice.DiceType.SLASH:
 			await owner.action_controller.perform_slash_action(clash_data.opponent)
-		IDice.DiceType.GUARD:
+		BaseDice.DiceType.GUARD:
 			await owner.action_controller.perform_guard_action()
-		IDice.DiceType.EVADE:
+		BaseDice.DiceType.EVADE:
 			await owner.action_controller.perform_default_action()
