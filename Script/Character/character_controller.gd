@@ -64,6 +64,10 @@ func initialize_combat(dice_slot: DiceSlotData):
 	combat_controller.initialize_combat(dice_slot)
 
 
+func finalize_combat():
+	combat_controller.finalize_combat()
+
+
 func update_front_die():
 	combat_controller.update_front_dice()
 

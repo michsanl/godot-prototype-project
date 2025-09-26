@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://bek3derprev18"]
+[gd_scene load_steps=20 format=3 uid="uid://bek3derprev18"]
 
 [ext_resource type="Script" uid="uid://c7c2x0t6jjupk" path="res://Script/Character/character_controller.gd" id="1_y5alb"]
 [ext_resource type="Script" uid="uid://bkyu1oyiksvly" path="res://Script/Character/Character Controller/character_action_controller.gd" id="2_8fd8j"]
@@ -7,7 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://pxur532t51ow" path="res://Art/character_sprite/argalia/Default.png" id="2_tjx60"]
 [ext_resource type="Script" uid="uid://di50c51to3xax" path="res://Script/Character/Character Components/CharacterStats/character_stats.gd" id="2_yop1s"]
 [ext_resource type="Script" uid="uid://dm4auyugtcvs4" path="res://Script/Character/Character Components/CharacterAbility/character_ability_controller.gd" id="3_ouw7k"]
-[ext_resource type="PackedScene" uid="uid://bm1yvwt78ukl0" path="res://Scene/Character/Combat/combat.tscn" id="4_484aj"]
+[ext_resource type="PackedScene" uid="uid://bm1yvwt78ukl0" path="res://Scene/Character/Combat/combat_controller.tscn" id="4_484aj"]
 [ext_resource type="Script" uid="uid://b18vpmxkm8dx0" path="res://Script/Character/Character Components/CharacterSprite/character_sprite.gd" id="4_g08oy"]
 [ext_resource type="Resource" uid="uid://bpoaj3qwoapyp" path="res://Resource/Character Sprite/argalia_sprite.tres" id="5_ylsyo"]
 [ext_resource type="Resource" uid="uid://cf4tijk5nlsau" path="res://Resource/CharacterVFX/argalia_vfx_resource.tres" id="6_co0rr"]
@@ -18,7 +18,6 @@
 [ext_resource type="Resource" uid="uid://c6ynhr5w11cos" path="res://Resource/Abilities/pierce_ability_stats.tres" id="14_oi43g"]
 [ext_resource type="PackedScene" uid="uid://gjvx5fdrqrkp" path="res://Scene/Character/Health/health_controller.tscn" id="15_484aj"]
 [ext_resource type="Resource" uid="uid://b8f8g2akyrop" path="res://Resource/Abilities/blunt_ability_stats.tres" id="15_kretg"]
-[ext_resource type="Resource" uid="uid://db0mt25wfatl4" path="res://Resource/Abilities/defend_ability_stats.tres" id="16_lq7yi"]
 [ext_resource type="Resource" uid="uid://1fm0x0bdkq1o" path="res://Resource/Abilities/evade_ability_stats.tres" id="17_dgdik"]
 
 [node name="CharacterController" type="Node2D" node_paths=PackedStringArray("stats", "sprite", "vfx", "movement", "health_controller", "dice_slot_controller", "ability_controller", "action_controller", "combat_controller")]
@@ -32,7 +31,7 @@ health_controller = NodePath("Health")
 dice_slot_controller = NodePath("DiceSlots")
 ability_controller = NodePath("Abilities")
 action_controller = NodePath("Actions")
-combat_controller = NodePath("Combat")
+combat_controller = NodePath("CombatController")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 visible = false
@@ -41,14 +40,6 @@ visible = false
 script = ExtResource("2_8fd8j")
 sprite_controller = NodePath("../Sprite")
 vfx_controller = NodePath("../VFX")
-
-[node name="Combat" parent="." node_paths=PackedStringArray("slot_controller", "ability_controller") instance=ExtResource("4_484aj")]
-offset_left = -38.0
-offset_top = -124.0
-offset_right = -38.0
-offset_bottom = -124.0
-slot_controller = NodePath("../DiceSlots")
-ability_controller = NodePath("../Abilities")
 
 [node name="Sprite" type="Sprite2D" parent="."]
 position = Vector2(0, -88)
@@ -68,7 +59,7 @@ script = ExtResource("2_ptqjd")
 
 [node name="Abilities" type="Node" parent="."]
 script = ExtResource("3_ouw7k")
-ability_list = Array[ExtResource("8_psia3")]([ExtResource("14_1ako7"), ExtResource("14_oi43g"), ExtResource("16_lq7yi"), ExtResource("17_dgdik"), ExtResource("15_kretg")])
+ability_list = Array[ExtResource("8_psia3")]([ExtResource("14_1ako7"), ExtResource("14_oi43g"), ExtResource("17_dgdik"), ExtResource("15_kretg")])
 
 [node name="Stats" type="Node" parent="."]
 script = ExtResource("2_yop1s")
@@ -87,3 +78,9 @@ metadata/_edit_use_anchors_ = true
 [node name="DiceSlots" parent="." instance=ExtResource("14_co0rr")]
 offset_top = -149.0
 offset_bottom = -149.0
+
+[node name="CombatController" parent="." node_paths=PackedStringArray("slot_controller", "ability_controller") instance=ExtResource("4_484aj")]
+offset_top = -208.365
+offset_bottom = -208.365
+slot_controller = NodePath("../DiceSlots")
+ability_controller = NodePath("../Abilities")

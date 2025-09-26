@@ -1,69 +1,28 @@
 class_name CharacterCombatView
-extends Panel
+extends Control
 
-# 
-
-@export var combat_controller: CharacterCombatController
 @export var dice_icon: PackedScene
 @export var icon_container: HBoxContainer
 
-var icons: Array[CombatDiceIcon]
+var icons: Array[CombatDiceIcon] = []
 
-func _ready() -> void:
-	combat_controller.dice_list_changed.connect(_on_dice_list_changed)
-	combat_controller.roll_value_changed.connect(_on_post_roll)
-	combat_controller.front_die_changed.connect(_on_pre_roll)
-	combat_controller.combat_initialized.connect(_on_combat_initialized)
-	combat_controller.combat_finalized.connect(_on_combat_finalized)
-	
-	hide()
-
-# FIXME: implement object pooling
-func _on_combat_initialized(dice: Array[BaseDice]):
-	icons.clear()
-	remove_all_children(icon_container)
-	for die in dice:
-		var new_icon = dice_icon.instantiate() as CombatDiceIcon
-		new_icon.show_icon(true)
-		new_icon.update_icon(die.get_icon())
-		new_icon.show_range_label(false)
-		new_icon.show_roll_label(false)
-		icons.append(new_icon)
-		icon_container.add_child(new_icon)
-		
-	show()
+func update_icons(dice: Array[BaseDice]):
+	_clear_icons()
+	_add_icons(dice)
 
 
-func _on_combat_finalized():
-	hide()
+func update_front_icon_post_roll(new_value: int):
+	var front_icon = icons[0]
+	front_icon.update_roll_label(str(new_value))
+	front_icon.show_icon(false)
 
 
-# FIXME: implement object pooling
-func _on_dice_list_changed(dice: Array[BaseDice]):
-	icons.clear()
-	remove_all_children(icon_container)
-	for die in dice:
-		var new_icon = dice_icon.instantiate() as CombatDiceIcon
-		new_icon.update_icon(die.get_icon())
-		new_icon.show_range_label(false)
-		new_icon.show_roll_label(false)
-		icons.append(new_icon)
-		icon_container.add_child(new_icon)
-
-
-func _on_pre_roll(die: BaseDice):
+func update_front_icon_pre_roll(die: BaseDice):
 	var front_icon = icons[0]
 	front_icon.show_range_label(true)
 	front_icon.show_roll_label(true)
 	front_icon.update_range_label(_get_value_range_text(die))
-	front_icon.update_roll_label("?")
-	pass
-
-
-func _on_post_roll(new_value: int):
-	var front_icon = icons[0]
-	front_icon.update_roll_label(str(new_value))
-	front_icon.show_icon(false)
+	front_icon.update_roll_label(" ")
 
 
 func _get_value_range_text(die: BaseDice) -> String:
@@ -72,8 +31,25 @@ func _get_value_range_text(die: BaseDice) -> String:
 	return str(min_val, "-", max_val)
 
 
-func remove_all_children(parent_node: Node):
+func _remove_all_children(parent_node: Node):
 	var children = parent_node.get_children()
 	for child in children:
 		parent_node.remove_child(child)
 		child.queue_free()
+
+
+func _clear_icons():
+	icons.clear()
+	_remove_all_children(icon_container)
+
+
+# FIXME: implement object pooling
+func _add_icons(dice: Array[BaseDice]):
+	for die in dice:
+		var new_icon = dice_icon.instantiate() as CombatDiceIcon
+		new_icon.show_icon(true)
+		new_icon.update_icon(die.get_icon())
+		new_icon.show_range_label(false)
+		new_icon.show_roll_label(false)
+		icons.append(new_icon)
+		icon_container.add_child(new_icon)
