@@ -6,13 +6,8 @@
 is_player = true
 char_name = "Player"
 
-[node name="Combat" parent="." index="2"]
-offset_left = -37.0
-offset_right = -37.0
-scale = Vector2(-1, 1)
-
-[node name="Sprite" parent="." index="3"]
+[node name="Sprite" parent="." index="2"]
 flip_h = true
 
-[node name="VFX" parent="." index="4"]
+[node name="VFX" parent="." index="3"]
 flip_h = true

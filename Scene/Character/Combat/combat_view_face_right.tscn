@@ -7,3 +7,6 @@ icon_container = NodePath("Panel2/MarginContainer/HBoxContainer")
 
 [node name="Panel" parent="." index="0"]
 visible = false
+
+[node name="HBoxContainer" parent="Panel2/MarginContainer" index="0"]
+layout_direction = 3

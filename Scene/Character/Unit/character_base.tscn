@@ -21,6 +21,7 @@
 [ext_resource type="Resource" uid="uid://1fm0x0bdkq1o" path="res://Resource/Abilities/evade_ability_stats.tres" id="17_dgdik"]
 
 [node name="CharacterController" type="Node2D" node_paths=PackedStringArray("stats", "sprite", "vfx", "movement", "health_controller", "dice_slot_controller", "ability_controller", "action_controller", "combat_controller")]
+scale = Vector2(0.75, 0.75)
 script = ExtResource("1_y5alb")
 data = ExtResource("2_h3o0s")
 stats = NodePath("Stats")
