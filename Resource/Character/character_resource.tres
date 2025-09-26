@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bye47dhspruri" path="res://Script/Character/character_data.gd" id="1_dxx8u"]
 [ext_resource type="Script" uid="uid://2ytid1uivak6" path="res://Script/Character/Character Components/CharacterAbility/ability_data.gd" id="1_o55m1"]
-[ext_resource type="Resource" uid="uid://ddt7y2wpi6618" path="res://Resource/Ability Stats/strike_ability_stats.tres" id="2_e1xvx"]
+[ext_resource type="Resource" uid="uid://ddt7y2wpi6618" path="res://Resource/Abilities/strike_ability_stats.tres" id="2_e1xvx"]
 
 [resource]
 script = ExtResource("1_dxx8u")

@@ -1,5 +1,5 @@
 class_name GuardDice
-extends IDice
+extends BaseDice
 
 func _init() -> void:
 	dice_type = DiceType.GUARD

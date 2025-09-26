@@ -4,18 +4,18 @@ extends Control
 # FLOW: 
 
 signal roll_value_changed(new_value: int)
-signal dice_list_changed(dice: Array[IDice])
-signal front_die_changed(die: IDice)
-signal combat_initialized(dice: Array[IDice])
+signal dice_list_changed(dice: Array[BaseDice])
+signal front_die_changed(die: BaseDice)
+signal combat_initialized(dice: Array[BaseDice])
 signal combat_finalized
 
 @export var slot_controller: DiceSlotController
 @export var ability_controller: CharacterAbilityController
 
 var roll_value: int
-var front_die: IDice
-var active_dice: Array[IDice] = []
-var reserved_dice: Array[IDice] = []
+var front_die: BaseDice
+var active_dice: Array[BaseDice] = []
+var reserved_dice: Array[BaseDice] = []
 var selected_ability: AbilityData
 var selected_slot: DiceSlotData
 
@@ -64,5 +64,5 @@ func get_roll_value() -> int:
 	return roll_value
 
 
-func get_front_die() -> IDice:
+func get_front_die() -> BaseDice:
 	return front_die

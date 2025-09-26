@@ -1,5 +1,5 @@
 class_name BluntDice
-extends IDice
+extends BaseDice
 
 func _init() -> void:
 	dice_type = DiceType.BLUNT

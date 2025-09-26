@@ -1,4 +1,4 @@
-class_name IDice
+class_name BaseDice
 extends Resource
 
 enum DiceType { SLASH, PIERCE, BLUNT, GUARD, EVADE }
@@ -12,15 +12,17 @@ enum DiceType { SLASH, PIERCE, BLUNT, GUARD, EVADE }
 
 var roll_val: int = 0
 var dice_type: DiceType
-var owner: CharacterController
+var owner_unit: CharacterController
 
 func initialize(new_owner: CharacterController):
-	owner = new_owner
+	owner_unit = new_owner
 
-func execute(owner: CharacterController, opponent: CharacterController):
+@warning_ignore("unused_parameter")
+func execute(new_owner: CharacterController, opponent: CharacterController):
 	assert(false, "execute() not implemented")
 
-func execute_draw(owner: CharacterController, opponent: CharacterController):
+@warning_ignore("unused_parameter")
+func execute_draw(new_owner: CharacterController, opponent: CharacterController):
 	assert(false, "execute() not implemented")
 
 

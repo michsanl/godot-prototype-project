@@ -19,7 +19,7 @@ func _ready() -> void:
 	hide()
 
 # FIXME: implement object pooling
-func _on_combat_initialized(dice: Array[IDice]):
+func _on_combat_initialized(dice: Array[BaseDice]):
 	icons.clear()
 	remove_all_children(icon_container)
 	for die in dice:
@@ -39,7 +39,7 @@ func _on_combat_finalized():
 
 
 # FIXME: implement object pooling
-func _on_dice_list_changed(dice: Array[IDice]):
+func _on_dice_list_changed(dice: Array[BaseDice]):
 	icons.clear()
 	remove_all_children(icon_container)
 	for die in dice:
@@ -51,7 +51,7 @@ func _on_dice_list_changed(dice: Array[IDice]):
 		icon_container.add_child(new_icon)
 
 
-func _on_pre_roll(die: IDice):
+func _on_pre_roll(die: BaseDice):
 	var front_icon = icons[0]
 	front_icon.show_range_label(true)
 	front_icon.show_roll_label(true)
@@ -66,7 +66,7 @@ func _on_post_roll(new_value: int):
 	front_icon.show_icon(false)
 
 
-func _get_value_range_text(die: IDice) -> String:
+func _get_value_range_text(die: BaseDice) -> String:
 	var min_val = die.get_min_val()
 	var max_val = die.get_max_val()
 	return str(min_val, "-", max_val)

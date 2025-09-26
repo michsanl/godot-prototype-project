@@ -14,7 +14,7 @@ func process_clash_response_new(clash_data: ClashData):
 
 
 func process_clash_win_response(clash_data: ClashData):
-	var owner_dice_type: IDice.DiceType = clash_data.owner_dice.dice_type
+	var owner_dice_type: BaseDice.DiceType = clash_data.owner_dice.dice_type
 	match owner_dice_type:
 		clash_data.owner_dice.DiceType.SLASH:
 			await process_attack_token_clash_response(clash_data)
@@ -27,7 +27,7 @@ func process_clash_win_response(clash_data: ClashData):
 
 #region Process Clash Response : Process Owner Token Type
 func process_clash_response(clash_data: ClashData):
-	var owner_dice_type: IDice.DiceType = clash_data.owner_dice.dice_type
+	var owner_dice_type: BaseDice.DiceType = clash_data.owner_dice.dice_type
 	match owner_dice_type:
 		clash_data.owner_dice.DiceType.SLASH:
 			await process_attack_token_clash_response(clash_data)

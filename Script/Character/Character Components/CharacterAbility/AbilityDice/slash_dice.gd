@@ -1,5 +1,5 @@
 class_name SlashDice
-extends IDice
+extends BaseDice
 
 func _init() -> void:
 	dice_type = DiceType.SLASH
