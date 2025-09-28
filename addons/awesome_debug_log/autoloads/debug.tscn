@@ -6,9 +6,6 @@
 
 [node name="Debug" type="CanvasLayer" node_paths=PackedStringArray("tabs")]
 process_mode = 3
-offset = Vector2(206.455, 95.15)
-transform = Transform2D(1, 0, 0, 1, 206.455, 95.15)
-follow_viewport_enabled = true
 script = ExtResource("1_0oms6")
 logs_cap = 5
 tabs = NodePath("MarginContainer/Tabs")
@@ -27,6 +24,4 @@ metadata/_edit_use_anchors_ = true
 [node name="Tabs" type="TabContainer" parent="MarginContainer"]
 custom_minimum_size = Vector2(300, 200)
 layout_mode = 2
-size_flags_horizontal = 8
-size_flags_vertical = 8
 mouse_filter = 0

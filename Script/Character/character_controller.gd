@@ -60,8 +60,10 @@ func get_combat_controller() -> CharacterCombatController:
 func initialize_combat(dice_slot: DiceSlotData):
 	if dice_slot == null:
 		push_warning("Initiating combat with null slot")
-		
-	combat_controller.initialize_combat(dice_slot)
+	
+	var target = dice_slot.get_target_slot().get_owner()
+	var facing_dir = _get_facing_direction(target)
+	combat_controller.initialize_combat(dice_slot, facing_dir)
 
 
 func finalize_combat():
@@ -146,7 +148,7 @@ func get_abilities() -> Array[AbilityData]:
 #region Action Controller
 func approach_target_one_sided(target: CharacterController):
 	await action_controller.perform_approach_one_sided_action(target)
-
+	
 
 func approach_target_two_sided(target: CharacterController):
 	await action_controller.perform_approach_two_sided_action(self, target)
@@ -170,3 +172,13 @@ func reset_position():
 
 func reset_visual():
 	sprite.change_to_default_sprite()
+
+
+func _get_facing_direction(target: CharacterController) -> Vector2:
+	var dir = target.position.x - self.position.x
+	var facing
+	if dir < 0:
+		facing = Vector2.LEFT
+	else:
+		facing = Vector2.RIGHT
+	return facing

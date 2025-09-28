@@ -63,6 +63,10 @@ func get_owner() -> CharacterController:
 	return owner_unit
 
 
+func get_target_slot() -> DiceSlotData:
+	return target_dice_slot
+
+
 func get_owner_global_position() -> Vector2:
 	return owner_unit.global_position
 

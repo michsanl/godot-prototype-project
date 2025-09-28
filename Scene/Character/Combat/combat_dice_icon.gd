@@ -9,7 +9,13 @@ func _ready() -> void:
 	show_roll_label(false)
 
 
-func update_icon(new_texture: Texture2D):
+func reset():
+	icon.texture = null
+	roll_label.text = ""
+	range_label.text = ""
+
+
+func update_icon_texture(new_texture: Texture2D):
 	icon.texture = new_texture
 
 
@@ -28,7 +34,7 @@ func show_range_label(condition: bool):
 		range_label.hide()
 
 
-func show_icon(condition: bool):
+func show_icon_texture(condition: bool):
 	if condition:
 		icon.show()
 	else:

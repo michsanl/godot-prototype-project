@@ -19,6 +19,7 @@ config/features=PackedStringArray("4.5", "Forward Plus")
 EventBus="*res://Script/Autoload/event_bus.gd"
 Global="*res://Script/UnusedScripts/global.gd"
 Debug="*res://addons/awesome_debug_log/autoloads/debug.tscn"
+PhantomCameraManager="*res://addons/phantom_camera/scripts/managers/phantom_camera_manager.gd"
 
 [display]
 
@@ -27,4 +28,4 @@ window/handheld/orientation=1
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/awesome_debug_log/plugin.cfg", "res://addons/codeandweb.texturepacker/plugin.cfg")
+enabled=PackedStringArray("res://addons/awesome_debug_log/plugin.cfg", "res://addons/codeandweb.texturepacker/plugin.cfg", "res://addons/phantom_camera/plugin.cfg")
