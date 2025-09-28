@@ -1,26 +1,19 @@
 class_name CharacterCombatView
 extends Control
 
-enum FacingDirection { FACE_LEFT, FACE_RIGHT }
-
 @export var dice_icon: PackedScene
 @export var icon_container: HBoxContainer
 @export var panel: Panel
 @export var icons: Array[CombatDiceIcon] = []
 
-var facing: FacingDirection
 var pool: Array[CombatDiceIcon] = []
 
-func _ready() -> void:
-	update_facing(FacingDirection.FACE_RIGHT)
 
-
-func update_facing(facing_direction: FacingDirection):
-	facing = facing_direction
+func update_facing(facing_direction: Vector2):
 	match facing_direction:
-		FacingDirection.FACE_LEFT:
+		Vector2.LEFT:
 			_face_left()
-		FacingDirection.FACE_RIGHT:
+		Vector2.RIGHT:
 			_face_right()
 
 

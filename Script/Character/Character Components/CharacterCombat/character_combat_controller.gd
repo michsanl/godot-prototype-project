@@ -1,7 +1,6 @@
 class_name CharacterCombatController
 extends Node
 
-@export var facing_left: bool
 @export var slot_controller: DiceSlotController
 @export var ability_controller: CharacterAbilityController
 @export var view: CharacterCombatView
@@ -17,7 +16,7 @@ func _ready() -> void:
 	view.hide()
 
 
-func initialize_combat(source_dice_slot: DiceSlotData):
+func initialize_combat(source_dice_slot: DiceSlotData, dir: Vector2):
 	selected_slot = source_dice_slot
 	selected_ability = source_dice_slot.get_selected_ability()
 	
@@ -26,6 +25,7 @@ func initialize_combat(source_dice_slot: DiceSlotData):
 	
 	front_die = active_dice[0]
 	
+	view.update_facing(dir)
 	view.update_icons(active_dice)
 	view.show()
 

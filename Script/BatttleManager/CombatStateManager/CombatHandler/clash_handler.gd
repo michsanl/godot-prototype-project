@@ -18,6 +18,8 @@ func start_combat(combat_data :CombatData):
 	# TODO: Initialize - focus camera, show dice UI
 	_attacker = combat_data.attacker
 	_defender = combat_data.defender
+	_attacker.initialize_combat(combat_data.attacker_dice_slot)
+	_defender.initialize_combat(combat_data.defender_dice_slot)
 	
 	# Core: resolve clash until no dice left
 	while _attacker.has_dice() or _defender.has_dice():
