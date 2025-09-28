@@ -1,13 +1,11 @@
 class_name CharacterCombatController
-extends Control
+extends Node
 
 @export var facing_left: bool
 @export var slot_controller: DiceSlotController
 @export var ability_controller: CharacterAbilityController
-@export var view_face_right: CharacterCombatView
-@export var view_face_left: CharacterCombatView
+@export var view: CharacterCombatView
 
-var view: CharacterCombatView
 var roll_value: int
 var front_die: BaseDice
 var active_dice: Array[BaseDice] = []
@@ -15,15 +13,8 @@ var reserved_dice: Array[BaseDice] = []
 var selected_ability: AbilityData
 var selected_slot: DiceSlotData
 
-
 func _ready() -> void:
-	if facing_left:
-		view = view_face_left
-	else:
-		view = view_face_right
-		
-	view_face_right.hide()
-	view_face_left.hide()
+	view.hide()
 
 
 func initialize_combat(source_dice_slot: DiceSlotData):
@@ -49,14 +40,6 @@ func finalize_combat():
 	view.hide()
 
 
-func roll_front_die():
-	if front_die == null: 
-		return
-	roll_value = front_die.get_roll_value()
-	
-	view.update_front_icon_post_roll(roll_value)
-
-
 func pop_front_die():
 	if active_dice.is_empty():
 		return
@@ -65,10 +48,25 @@ func pop_front_die():
 	view.update_icons(active_dice)
 
 
+func roll_front_die():
+	if front_die == null: 
+		return
+	roll_value = front_die.get_roll_value()
+	
+	view.update_roll_label(0, roll_value)
+	view.update_roll_label_visibility(0, true)
+	view.update_icon_texture_visibility(0, false)
+
+
 func update_front_dice():
 	if active_dice:
 		front_die = active_dice[0]
-		view.update_front_icon_pre_roll(front_die)
+		var min_val = front_die.get_min_val()
+		var max_val = front_die.get_max_val()
+		
+		view.update_range_label(0, min_val, max_val)
+		view.update_range_label_visibility(0, true)
+		view.update_roll_label_visibility(0, false)
 
 
 func has_dice() -> bool:

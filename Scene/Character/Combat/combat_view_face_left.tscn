@@ -3,6 +3,10 @@
 [ext_resource type="PackedScene" uid="uid://683e21qcm6t8" path="res://Scene/Character/Combat/combat_view.tscn" id="1_xap4c"]
 
 [node name="CombatViewFaceLeft" instance=ExtResource("1_xap4c")]
+offset_left = -576.0
+offset_top = -324.0
+offset_right = -576.0
+offset_bottom = -324.0
 
 [node name="Panel2" parent="." index="1"]
 visible = false

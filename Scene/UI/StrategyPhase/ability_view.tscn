@@ -58,3 +58,14 @@ view = NodePath("../../../..")
 [node name="AbilityButton4" parent="Panel/MarginContainer/HBoxContainer" node_paths=PackedStringArray("view") instance=ExtResource("2_wqnpt")]
 layout_mode = 2
 view = NodePath("../../../..")
+
+[node name="Label" type="Label" parent="Panel"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 23.0
+grow_horizontal = 2
+text = "Abilities"
