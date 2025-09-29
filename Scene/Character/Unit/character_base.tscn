@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://bek3derprev18"]
+[gd_scene load_steps=23 format=3 uid="uid://bek3derprev18"]
 
 [ext_resource type="Script" uid="uid://c7c2x0t6jjupk" path="res://Script/Character/character_controller.gd" id="1_y5alb"]
 [ext_resource type="Script" uid="uid://bkyu1oyiksvly" path="res://Script/Character/Character Controller/character_action_controller.gd" id="2_8fd8j"]
@@ -17,18 +17,24 @@
 [ext_resource type="Resource" uid="uid://c6ynhr5w11cos" path="res://Resource/Abilities/pierce_ability_stats.tres" id="14_oi43g"]
 [ext_resource type="Script" uid="uid://d378x6snlk8r2" path="res://Script/Character/Character Components/CharacterStats/health_controller.gd" id="15_7ndog"]
 [ext_resource type="Resource" uid="uid://b8f8g2akyrop" path="res://Resource/Abilities/blunt_ability_stats.tres" id="15_kretg"]
+[ext_resource type="Script" uid="uid://klhyg347pta4" path="res://Script/Character/Character Components/CharacterStats/stats_data.gd" id="16_kretg"]
 [ext_resource type="Script" uid="uid://23653me6nc14" path="res://Script/Character/Character Components/CharacterCombat/character_combat_controller.gd" id="18_7ndog"]
 [ext_resource type="PackedScene" uid="uid://683e21qcm6t8" path="res://Scene/Character/Combat/combat_view.tscn" id="19_7ndog"]
 [ext_resource type="PackedScene" uid="uid://coctoaswqcf8k" path="res://Scene/Character/Stats/stats_view.tscn" id="20_oi43g"]
 
-[node name="CharacterController" type="Node2D" node_paths=PackedStringArray("sprite", "vfx", "movement", "health_controller", "dice_slot_controller", "ability_controller", "action_controller", "combat_controller")]
+[sub_resource type="Resource" id="Resource_lq7yi"]
+script = ExtResource("16_kretg")
+_max_health = 50
+_max_stagger = 50
+metadata/_custom_type_script = "uid://klhyg347pta4"
+
+[node name="CharacterController" type="Node2D" node_paths=PackedStringArray("sprite", "vfx", "movement", "dice_slot_controller", "ability_controller", "action_controller", "combat_controller")]
 scale = Vector2(0.5, 0.5)
 script = ExtResource("1_y5alb")
 data = ExtResource("2_h3o0s")
 sprite = NodePath("Sprite")
 vfx = NodePath("VFX")
 movement = NodePath("Movement")
-health_controller = NodePath("")
 dice_slot_controller = NodePath("DiceSlotController")
 ability_controller = NodePath("Abilities")
 action_controller = NodePath("ActionController")
@@ -61,8 +67,10 @@ ability_list = Array[ExtResource("8_psia3")]([ExtResource("14_1ako7"), ExtResour
 offset_top = -149.0
 offset_bottom = -149.0
 
-[node name="StatsController" type="Node" parent="." node_paths=PackedStringArray("view")]
+[node name="StatsController" type="Node" parent="." node_paths=PackedStringArray("health", "view")]
 script = ExtResource("2_yop1s")
+stats_data = SubResource("Resource_lq7yi")
+health = NodePath("HealthController")
 view = NodePath("../UI/StatsView")
 
 [node name="HealthController" type="Node" parent="StatsController"]
