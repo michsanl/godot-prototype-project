@@ -16,12 +16,12 @@ func resolve(character_slots: Array[DiceSlotData]) -> CombatData:
 		print("Defender target is Attacker")
 		character_slots.erase(attacker_dice_slot)
 		character_slots.erase(defender_dice_slot)
-		#attacker_dice_slot.get_owner().initialize_combat(attacker_dice_slot)
-		#defender_dice_slot.get_owner().initialize_combat(defender_dice_slot)
+		attacker_dice_slot.get_owner().initialize_combat(attacker_dice_slot)
+		defender_dice_slot.get_owner().initialize_combat(defender_dice_slot)
 	else:
 		print("Defender target is NOT Attacker")
 		character_slots.erase(attacker_dice_slot)
-		#attacker_dice_slot.get_owner().initialize_combat(attacker_dice_slot)
+		attacker_dice_slot.get_owner().initialize_combat(attacker_dice_slot)
 	
 	# Create combat data
 	var combat_data = CombatData.new(attacker_dice_slot, defender_dice_slot)

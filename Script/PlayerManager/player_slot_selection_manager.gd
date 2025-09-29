@@ -55,6 +55,7 @@ func handle_left_click(source: DiceSlotController, index: int):
 
 
 func handle_right_click(source: DiceSlotController, index: int):
+	update_focus(source, index, false)
 	remove_slot_ability(source, index)
 	remove_target_slot(source, index)
 #endregion
@@ -100,6 +101,9 @@ func remove_slot_ability(controller: DiceSlotController, index: int):
 
 
 func handle_target_set(target_controller: DiceSlotController, target_index: int):
+	if is_targeting_self(target_controller):
+		return
+	
 	data.focused_slot_controller.select_slot_target(
 		data.focused_slot_index,
 		target_index,
@@ -133,4 +137,8 @@ func is_toggling_focus(source: DiceSlotController, index: int) -> bool:
 
 func is_switching_focus(new_slot) -> bool:
 	return data.has_focus() and get_current_slot() != new_slot
+	
+
+func is_targeting_self(target_controller: DiceSlotController) -> bool:
+	return data.focused_slot_controller == target_controller
 #endregion
