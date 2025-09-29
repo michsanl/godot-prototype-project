@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://bek3derprev18"]
+[gd_scene load_steps=24 format=3 uid="uid://bek3derprev18"]
 
 [ext_resource type="Script" uid="uid://c7c2x0t6jjupk" path="res://Script/Character/character_controller.gd" id="1_y5alb"]
 [ext_resource type="Script" uid="uid://bkyu1oyiksvly" path="res://Script/Character/Character Controller/character_action_controller.gd" id="2_8fd8j"]
@@ -19,6 +19,7 @@
 [ext_resource type="Resource" uid="uid://b8f8g2akyrop" path="res://Resource/Abilities/blunt_ability_stats.tres" id="15_kretg"]
 [ext_resource type="Script" uid="uid://klhyg347pta4" path="res://Script/Character/Character Components/CharacterStats/stats_data.gd" id="16_kretg"]
 [ext_resource type="Script" uid="uid://23653me6nc14" path="res://Script/Character/Character Components/CharacterCombat/character_combat_controller.gd" id="18_7ndog"]
+[ext_resource type="Script" uid="uid://cxyvbaq3hq5vh" path="res://Script/Character/Character Components/CharacterStats/stagger_controller.gd" id="18_lq7yi"]
 [ext_resource type="PackedScene" uid="uid://683e21qcm6t8" path="res://Scene/Character/Combat/combat_view.tscn" id="19_7ndog"]
 [ext_resource type="PackedScene" uid="uid://coctoaswqcf8k" path="res://Scene/Character/Stats/stats_view.tscn" id="20_oi43g"]
 
@@ -68,16 +69,18 @@ ability_list = Array[ExtResource("8_psia3")]([ExtResource("14_1ako7"), ExtResour
 offset_top = -149.0
 offset_bottom = -149.0
 
-[node name="StatsController" type="Node" parent="." node_paths=PackedStringArray("health", "view")]
+[node name="StatsController" type="Node" parent="." node_paths=PackedStringArray("health", "stagger", "view")]
 script = ExtResource("2_yop1s")
 stats_data = SubResource("Resource_lq7yi")
 health = NodePath("HealthController")
+stagger = NodePath("StaggerController")
 view = NodePath("../UI/StatsView")
 
 [node name="HealthController" type="Node" parent="StatsController"]
 script = ExtResource("15_7ndog")
 
 [node name="StaggerController" type="Node" parent="StatsController"]
+script = ExtResource("18_lq7yi")
 
 [node name="ActionController" type="Node" parent="." node_paths=PackedStringArray("sprite_controller", "vfx_controller")]
 script = ExtResource("2_8fd8j")

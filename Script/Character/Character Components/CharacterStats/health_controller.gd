@@ -1,8 +1,8 @@
 class_name HealthController
-extends Node   # Use Node, not Control, unless you want this in the UI tree
+extends Node 
 
 signal health_changed(current: int, max: int)
-signal on_died
+signal health_depleted
 
 var model: HealthModel
 var owner_unit: CharacterController
@@ -30,4 +30,4 @@ func _on_health_changed(current_health: int, max_health: int):
 
 
 func _on_health_depleted():
-	on_died.emit()
+	health_depleted.emit()
