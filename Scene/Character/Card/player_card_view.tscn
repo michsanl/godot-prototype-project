@@ -1,0 +1,51 @@
+[gd_scene load_steps=2 format=3 uid="uid://dm72n5n211mg4"]
+
+[ext_resource type="PackedScene" uid="uid://d0xhnvn7dq3k5" path="res://Scene/Character/Card/card.tscn" id="1_l4lpk"]
+
+[node name="PlayerCardView" type="Control"]
+layout_mode = 3
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+grow_vertical = 0
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -173.0
+offset_right = 385.0
+grow_vertical = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="Card" parent="Panel/MarginContainer/HBoxContainer" instance=ExtResource("1_l4lpk")]
+custom_minimum_size = Vector2(83.285, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="Card2" parent="Panel/MarginContainer/HBoxContainer" instance=ExtResource("1_l4lpk")]
+custom_minimum_size = Vector2(83.285, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="Card3" parent="Panel/MarginContainer/HBoxContainer" instance=ExtResource("1_l4lpk")]
+custom_minimum_size = Vector2(83.285, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="Card4" parent="Panel/MarginContainer/HBoxContainer" instance=ExtResource("1_l4lpk")]
+custom_minimum_size = Vector2(83.285, 0)
+layout_mode = 2
+size_flags_horizontal = 0

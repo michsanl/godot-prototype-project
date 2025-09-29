@@ -1,4 +1,4 @@
-class_name CharacterAbilityController
+class_name AbilityController
 extends Node
 
 @export var ability_list: Array[AbilityData]

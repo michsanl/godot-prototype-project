@@ -9,7 +9,7 @@ extends Node2D
 @export var vfx: VFXController
 @export var movement: CharacterMovement
 @export var dice_slot_controller: DiceSlotController
-@export var ability_controller: CharacterAbilityController
+@export var ability_controller: AbilityController
 @export var action_controller: CharacterActionController
 @export var combat_controller: CharacterCombatController
 
@@ -46,7 +46,7 @@ func get_movement() -> CharacterMovement:
 	return movement
 func get_slot_controller() -> DiceSlotController:
 	return dice_slot_controller
-func get_ability_controller() -> CharacterAbilityController:
+func get_ability_controller() -> AbilityController:
 	return ability_controller
 func get_action_controller() -> CharacterActionController:
 	return action_controller

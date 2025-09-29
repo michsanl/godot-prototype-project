@@ -14,7 +14,8 @@ func initialize(new_index: int):
 
 
 func update_icon(new_icon: Texture2D):
-	icon.texture = new_icon
+	#icon.texture = new_icon
+	pass
 
 
 func _on_button_pressed() -> void:

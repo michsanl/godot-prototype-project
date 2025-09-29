@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://do3uwy2gicsls"]
+[gd_scene load_steps=28 format=3 uid="uid://do3uwy2gicsls"]
 
 [ext_resource type="Texture2D" uid="uid://c8sf5t0u0e5qn" path="res://Art/temporary_sprite/KeterFloorBattleStage.jpg" id="1_mtylr"]
 [ext_resource type="Script" uid="uid://cp3damr7qm5t3" path="res://Script/Autoload/event_bus.gd" id="1_uowwx"]
@@ -22,6 +22,7 @@
 [ext_resource type="PackedScene" uid="uid://yc6lu5cla58x" path="res://Scene/Character/Unit/enemy_character.tscn" id="16_5i8bp"]
 [ext_resource type="Script" uid="uid://bdhbr4t36fd50" path="res://Script/PlayerManager/player_slot_selection_manager.gd" id="19_5i8bp"]
 [ext_resource type="Script" uid="uid://bhexx6mj1xv3q" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="21_ptf43"]
+[ext_resource type="PackedScene" uid="uid://dm72n5n211mg4" path="res://Scene/Character/Card/player_card_view.tscn" id="21_qib37"]
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="22_41gkq"]
 
 [sub_resource type="Resource" id="Resource_qib37"]
@@ -43,14 +44,20 @@ default_font = SubResource("FontFile_8rj7f")
 [node name="BattleScene_2D" type="Node2D"]
 script = ExtResource("1_uowwx")
 
-[node name="KeterFloorBattleStage" type="Sprite2D" parent="."]
-y_sort_enabled = true
-scale = Vector2(0.62, 0.62)
-texture = ExtResource("1_mtylr")
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(3, 5)
+zoom = Vector2(2, 2)
+editor_draw_limits = true
+
+[node name="PhantomCameraHost" type="Node" parent="Camera2D"]
+process_priority = 300
+process_physics_priority = 300
+script = ExtResource("5_41gkq")
+metadata/_custom_type_script = "uid://bd046eokvcnu2"
 
 [node name="PhantomCamera2D" type="Node2D" parent="." node_paths=PackedStringArray("follow_targets")]
 top_level = true
-position = Vector2(3.1775055, 1.0849991)
+position = Vector2(3.1775055, 4.584999)
 script = ExtResource("21_ptf43")
 follow_mode = 3
 follow_targets = [NodePath("../CharacterManager/PlayerCharacter"), NodePath("../CharacterManager/EnemyCharacter")]
@@ -67,22 +74,26 @@ auto_zoom_margin = Vector4(80.275, 1.785, 68.63, 3.375)
 draw_limits = true
 metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
 
-[node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(3, 1)
-zoom = Vector2(2, 2)
-editor_draw_limits = true
+[node name="KeterFloorBattleStage" type="Sprite2D" parent="."]
+y_sort_enabled = true
+scale = Vector2(0.62, 0.62)
+texture = ExtResource("1_mtylr")
 
-[node name="PhantomCameraHost" type="Node" parent="Camera2D"]
-process_priority = 300
-process_physics_priority = 300
-script = ExtResource("5_41gkq")
-metadata/_custom_type_script = "uid://bd046eokvcnu2"
+[node name="CharacterManager" type="Node2D" parent="." node_paths=PackedStringArray("player_characters", "enemy_characters")]
+script = ExtResource("12_7qkga")
+player_characters = [NodePath("PlayerCharacter")]
+enemy_characters = [NodePath("EnemyCharacter")]
+
+[node name="PlayerCharacter" parent="CharacterManager" instance=ExtResource("15_uowwx")]
+position = Vector2(-169, 44)
+
+[node name="EnemyCharacter" parent="CharacterManager" instance=ExtResource("16_5i8bp")]
+position = Vector2(187, 44)
 
 [node name="DebugManager" type="Node" parent="." node_paths=PackedStringArray("scene_manager", "debug_view")]
 script = ExtResource("3_8rj7f")
-is_enable = false
 scene_manager = NodePath("../BattleSceneManager")
-debug_view = NodePath("../CanvasLayer/UI/MarginContainer/BattleSceneDebugView")
+debug_view = NodePath("../CanvasLayer/UI/BattleSceneDebugView")
 
 [node name="BattleSceneManager" type="Node" parent="." node_paths=PackedStringArray("initialize_battle_manager", "strategy_state_manager", "combat_state_manager", "resolve_state_manager")]
 script = ExtResource("2_mtm51")
@@ -98,7 +109,7 @@ script = ExtResource("3_8qtd0")
 script = ExtResource("3_t0dor")
 player_characters = [NodePath("../../CharacterManager/PlayerCharacter")]
 enemy_characters = [NodePath("../../CharacterManager/EnemyCharacter")]
-view = NodePath("../../CanvasLayer/UI/MarginContainer/StrategyView")
+view = NodePath("../../CanvasLayer/UI/StrategyView")
 strategy_post_roll = NodePath("StrategyPostRollDebug")
 
 [node name="StrategyPostRollDebug" type="Node" parent="BattleSceneManager/StrategyStateManager"]
@@ -135,20 +146,9 @@ characters = [NodePath("../../../CharacterManager/PlayerCharacter"), NodePath(".
 
 [node name="FinalizeBattleManager" type="Node" parent="BattleSceneManager"]
 
-[node name="CharacterManager" type="Node2D" parent="." node_paths=PackedStringArray("player_characters", "enemy_characters")]
-script = ExtResource("12_7qkga")
-player_characters = [NodePath("PlayerCharacter")]
-enemy_characters = [NodePath("EnemyCharacter")]
-
-[node name="PlayerCharacter" parent="CharacterManager" instance=ExtResource("15_uowwx")]
-position = Vector2(-169, 44)
-
-[node name="EnemyCharacter" parent="CharacterManager" instance=ExtResource("16_5i8bp")]
-position = Vector2(187, 37)
-
 [node name="PlayerSlotSelectionManager" type="Node" parent="." node_paths=PackedStringArray("view")]
 script = ExtResource("19_5i8bp")
-view = NodePath("../CanvasLayer/UI/MarginContainer/AbilityView")
+view = NodePath("../CanvasLayer/UI/AbilityView")
 
 [node name="EnemySlotSelectionManager" type="Node" parent="."]
 
@@ -164,24 +164,42 @@ grow_vertical = 2
 mouse_filter = 2
 theme = SubResource("Theme_4v0j5")
 
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/UI"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-
-[node name="AbilityView" parent="CanvasLayer/UI/MarginContainer" instance=ExtResource("15_3rs5h")]
-layout_mode = 2
+[node name="AbilityView" parent="CanvasLayer/UI" instance=ExtResource("15_3rs5h")]
+layout_mode = 0
+anchors_preset = 0
+anchor_top = 0.0
+anchor_bottom = 0.0
+offset_top = 648.0
+offset_bottom = 648.0
+grow_vertical = 1
 mouse_filter = 1
 
-[node name="StrategyView" parent="CanvasLayer/UI/MarginContainer" instance=ExtResource("8_8rj7f")]
-layout_mode = 2
+[node name="StrategyView" parent="CanvasLayer/UI" instance=ExtResource("8_8rj7f")]
+layout_mode = 0
+anchors_preset = 0
+anchor_right = 0.0
+offset_right = 1152.0
+grow_horizontal = 1
 mouse_filter = 1
 
-[node name="BattleSceneDebugView" parent="CanvasLayer/UI/MarginContainer" instance=ExtResource("9_8qtd0")]
-layout_mode = 2
+[node name="BattleSceneDebugView" parent="CanvasLayer/UI" instance=ExtResource("9_8qtd0")]
+layout_mode = 0
+anchors_preset = 0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 1118.3
+offset_top = 324.0
+offset_right = 1152.0
+offset_bottom = 324.0
+grow_horizontal = 1
+grow_vertical = 1
 size_flags_vertical = 4
 mouse_filter = 1
+
+[node name="PlayerCardView" parent="CanvasLayer/UI" instance=ExtResource("21_qib37")]
+visible = false
+layout_mode = 1
+size_flags_horizontal = 4
+size_flags_vertical = 4

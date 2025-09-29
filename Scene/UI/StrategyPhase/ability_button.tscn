@@ -1,41 +1,30 @@
-[gd_scene load_steps=4 format=3 uid="uid://3wfeluw4lq0f"]
+[gd_scene load_steps=3 format=3 uid="uid://3wfeluw4lq0f"]
 
 [ext_resource type="Script" uid="uid://bl4euriyow2jg" path="res://Script/PlayerManager/ability_button.gd" id="1_iqi2j"]
-
-[sub_resource type="Gradient" id="Gradient_8jtg2"]
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_6xf2f"]
-gradient = SubResource("Gradient_8jtg2")
-fill_from = Vector2(0.803419, 0.230769)
+[ext_resource type="Texture2D" uid="uid://dffynxpe3giaa" path="res://Art/Texture/E.G.Ocard_Dummy_Left.png" id="2_3npvh"]
 
 [node name="AbilityButton" type="Control" node_paths=PackedStringArray("button", "icon")]
 layout_mode = 3
 anchors_preset = 0
 size_flags_horizontal = 4
 script = ExtResource("1_iqi2j")
-button = NodePath("Button")
-icon = NodePath("Button/Sprite2D")
+button = NodePath("")
+icon = NodePath("")
 
-[node name="Button" type="Button" parent="."]
-custom_minimum_size = Vector2(64, 64)
+[node name="TextureButton" type="TextureButton" parent="."]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -36.0
-offset_top = -36.0
-offset_right = 36.0
-offset_bottom = 36.0
+offset_left = -71.0
+offset_top = -72.0
+offset_right = 71.0
+offset_bottom = 72.0
 grow_horizontal = 2
 grow_vertical = 2
-size_flags_horizontal = 6
-size_flags_vertical = 0
-icon = SubResource("GradientTexture2D_6xf2f")
-
-[node name="Sprite2D" type="Sprite2D" parent="Button"]
-position = Vector2(36, 36)
-scale = Vector2(0.251953, 0.251953)
-
-[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
+toggle_mode = true
+texture_normal = ExtResource("2_3npvh")
+ignore_texture_size = true
+stretch_mode = 5

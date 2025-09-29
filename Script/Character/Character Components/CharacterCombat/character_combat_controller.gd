@@ -2,7 +2,7 @@ class_name CharacterCombatController
 extends Node
 
 @export var slot_controller: DiceSlotController
-@export var ability_controller: CharacterAbilityController
+@export var ability_controller: AbilityController
 @export var view: CharacterCombatView
 
 var roll_value: int
