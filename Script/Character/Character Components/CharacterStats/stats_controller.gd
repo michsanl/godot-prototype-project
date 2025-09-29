@@ -2,9 +2,9 @@ class_name StatsController
 extends Node
 
 @export var stats_data: StatsData
-@export var health: HealthController
-@export var stagger: StaggerController
 @export var view: StatsView
+@export var health: Stats
+@export var stagger: Stats
 
 var owner_unit: CharacterController
 var temporary_resistance: float = 0.5
@@ -12,10 +12,10 @@ var temporary_resistance: float = 0.5
 func initialize(new_owner: CharacterController):
 	owner_unit = new_owner
 	
-	health.health_changed.connect(_on_health_changed)
-	health.health_depleted.connect(_on_health_depleted)
-	stagger.stagger_changed.connect(_on_stagger_changed)
-	stagger.stagger_broken.connect(_on_stagger_broken)
+	health.value_changed.connect(_on_health_changed)
+	health.depleted.connect(_on_health_depleted)
+	stagger.value_changed.connect(_on_stagger_changed)
+	stagger.depleted.connect(_on_stagger_broken)
 	
 	health.initialize(new_owner, stats_data._max_health)
 	stagger.initialize(new_owner, stats_data._max_stagger)
@@ -29,7 +29,7 @@ func apply_damage(amount: int):
 # TODO: Health take reduced damage
 func process_health_damage(amount: int):
 	var final_amount = amount * 2
-	health.damage(final_amount)
+	health.decrease(final_amount)
 
 
 func process_stagger_damage(amount: int):
