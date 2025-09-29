@@ -5,7 +5,7 @@ func _init() -> void:
 	dice_type = DiceType.PIERCE
 
 func execute(owner: CharacterController, opponent: CharacterController):
-	opponent.get_health().damage(roll_val)
+	opponent.get_stats().apply_damage(roll_val)
 	var knockback_pos = get_knockback(owner, opponent, knockback_power * 3)
 	opponent.apply_knockback(knockback_pos)
 	owner.get_view().change_to_pierce_sprite()

@@ -13,12 +13,12 @@ func _init(max_health: int = 100):
 	_current_health = max_health
 
 
-func increase_health(amount: int):
+func increase_health(amount: float):
 	_current_health = min(_max_health, _current_health + amount)
 	health_changed.emit(_current_health, _max_health)
 
 
-func decrease_health(amount: int):
+func decrease_health(amount: float):
 	_current_health = max(0, _current_health - amount)
 	health_changed.emit(_current_health, _max_health)
 	if _current_health <= 0:

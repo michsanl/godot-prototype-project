@@ -4,8 +4,6 @@ extends Node   # Use Node, not Control, unless you want this in the UI tree
 signal health_changed(current: int, max: int)
 signal on_died
 
-@export var view: StatsView
-
 var model: HealthModel
 var owner_unit: CharacterController
 
@@ -19,11 +17,11 @@ func initialize(new_owner: CharacterController, max_health: int):
 	health_changed.emit(model.get_current_health(), model.get_max_health())
 
 
-func damage(amount: int):
+func damage(amount: float):
 	model.decrease_health(amount)
 
 
-func heal(amount: int):
+func heal(amount: float):
 	model.increase_health(amount)
 
 

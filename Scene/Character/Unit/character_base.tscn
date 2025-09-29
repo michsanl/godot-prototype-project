@@ -28,10 +28,11 @@ _max_health = 50
 _max_stagger = 50
 metadata/_custom_type_script = "uid://klhyg347pta4"
 
-[node name="CharacterController" type="Node2D" node_paths=PackedStringArray("sprite", "vfx", "movement", "dice_slot_controller", "ability_controller", "action_controller", "combat_controller")]
+[node name="CharacterController" type="Node2D" node_paths=PackedStringArray("stats", "sprite", "vfx", "movement", "dice_slot_controller", "ability_controller", "action_controller", "combat_controller")]
 scale = Vector2(0.5, 0.5)
 script = ExtResource("1_y5alb")
 data = ExtResource("2_h3o0s")
+stats = NodePath("StatsController")
 sprite = NodePath("Sprite")
 vfx = NodePath("VFX")
 movement = NodePath("Movement")

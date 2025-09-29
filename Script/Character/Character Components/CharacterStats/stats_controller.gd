@@ -16,13 +16,13 @@ func initialize(new_owner: CharacterController):
 	health.on_died.connect(_on_died)
 	
 
-# TODO: Health take reduced damage, Stager take full damage
 func apply_damage(amount: int):
 	process_health_damage(amount)
 
 
+# TODO: Health take reduced damage
 func process_health_damage(amount: int):
-	var final_amount =  amount * temporary_resistance
+	var final_amount =  amount
 	health.damage(final_amount)
 
 

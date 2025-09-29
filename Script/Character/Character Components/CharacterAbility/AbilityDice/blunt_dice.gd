@@ -5,7 +5,7 @@ func _init() -> void:
 	dice_type = DiceType.BLUNT
 
 func execute(source: CharacterController, opponent: CharacterController):
-	opponent.get_health().damage(roll_val)
+	opponent.get_stats().apply_damage(roll_val)
 	var knockback_pos = get_knockback(source, opponent, knockback_power * 3)
 	opponent.apply_knockback(knockback_pos)
 	source.get_view().change_to_blunt_sprite()

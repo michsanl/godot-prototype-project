@@ -8,7 +8,6 @@ extends Node2D
 @export var sprite: CharacterSprite
 @export var vfx: VFXController
 @export var movement: CharacterMovement
-@export var health_controller: HealthController
 @export var dice_slot_controller: DiceSlotController
 @export var ability_controller: CharacterAbilityController
 @export var action_controller: CharacterActionController
@@ -29,12 +28,14 @@ func _initialize_childs():
 	ability_controller.initialize(self)
 	action_controller.initialize(self)
 	dice_slot_controller.initialize(self, _initial_slot_amount)
-	health_controller.initialize(self, 100)
+	stats.initialize(self)
 
 
 #region GETTER Methods
 func get_character_name() -> String:
 	return char_name
+func get_stats() -> StatsController:
+	return stats
 func get_data() -> CharacterData:
 	return data
 func get_view() -> CharacterSprite:
@@ -43,8 +44,6 @@ func get_vfx() -> VFXController:
 	return vfx
 func get_movement() -> CharacterMovement:
 	return movement
-func get_health() -> HealthController:
-	return health_controller
 func get_slot_controller() -> DiceSlotController:
 	return dice_slot_controller
 func get_ability_controller() -> CharacterAbilityController:
