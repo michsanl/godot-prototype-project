@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://jy7o33i4rsey" path="res://Script/Character/Character Components/CharacterDiceSlot/dice_slot_controller.gd" id="1_wbbs4"]
 [ext_resource type="PackedScene" uid="uid://dpcrnh04ab5w4" path="res://Scene/Character/DiceSlot/dice_slot_view.tscn" id="2_s04fn"]
 
-[node name="DiceSlots" type="Control" node_paths=PackedStringArray("views")]
+[node name="DiceSlotController" type="Control" node_paths=PackedStringArray("views")]
 layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5

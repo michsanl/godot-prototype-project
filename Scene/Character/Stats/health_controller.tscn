@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://gjvx5fdrqrkp"]
+
+[ext_resource type="Script" uid="uid://d378x6snlk8r2" path="res://Script/Character/Character Components/CharacterStats/health_controller.gd" id="1_n1jk1"]
+
+[node name="HealthController" type="Control" node_paths=PackedStringArray("view")]
+layout_mode = 3
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+grow_horizontal = 2
+pivot_offset = Vector2(54, 0)
+script = ExtResource("1_n1jk1")
+view = NodePath("")

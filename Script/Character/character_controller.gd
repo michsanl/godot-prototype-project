@@ -4,7 +4,7 @@ extends Node2D
 @export var is_player: bool
 @export var char_name: String
 @export var data: CharacterData
-@export var stats: CharacterStats
+@export var stats: StatsController
 @export var sprite: CharacterSprite
 @export var vfx: VFXController
 @export var movement: CharacterMovement
