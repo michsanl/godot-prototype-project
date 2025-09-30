@@ -1,5 +1,5 @@
 class_name CharacterController
-extends Node2D
+extends CharacterBody2D
 
 @export var is_player: bool
 @export var char_name: String
@@ -13,13 +13,33 @@ extends Node2D
 @export var action_controller: CharacterActionController
 @export var combat_controller: CharacterCombatController
 
-# FIXME: 
+@export var knockback_force: float = 8000.0
+@export var knockback_decay: float = 4000
+@export var bounce_factor: float = 0.5
+
+var knockback_velocity: Vector2 = Vector2.ZERO
 var _initial_position: Vector2
 var _initial_slot_amount: int = 2
+
 
 func _ready() -> void:
 	_initialize_childs()
 	_initial_position = self.position
+
+
+func _physics_process(delta: float) -> void:
+	if knockback_velocity.length() > 0.1:
+		var collision = move_and_collide(knockback_velocity * delta)
+		if collision:
+			# Bounce off wall
+			knockback_velocity = knockback_velocity.bounce(collision.get_normal()) * bounce_factor
+
+		# Apply decay
+		knockback_velocity = knockback_velocity.move_toward(Vector2.ZERO, knockback_decay * delta)
+
+
+func apply_knockback_physics(direction: Vector2) -> void:
+	knockback_velocity = direction.normalized() * knockback_force
 
 
 func _initialize_childs():

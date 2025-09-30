@@ -41,7 +41,7 @@ cache/0/16/0/scale = 1.0
 default_font = SubResource("FontFile_8rj7f")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_41gkq"]
-size = Vector2(138.5, 386)
+size = Vector2(99, 386)
 
 [node name="BattleScene_2D" type="Node2D"]
 script = ExtResource("1_uowwx")
@@ -53,26 +53,26 @@ texture = ExtResource("1_mtylr")
 
 [node name="PhantomCamera2D" type="Node2D" parent="." node_paths=PackedStringArray("follow_targets")]
 top_level = true
-position = Vector2(10.1775055, -9.414999)
+position = Vector2(24.67752, 1.0849991)
 script = ExtResource("21_ptf43")
 follow_mode = 3
 follow_targets = [NodePath("../CharacterManager/PlayerCharacter"), NodePath("../CharacterManager/EnemyCharacter")]
-zoom = Vector2(2, 2)
+zoom = Vector2(1.2153116, 1.2153116)
 snap_to_pixel = true
 tween_resource = SubResource("Resource_qib37")
 inactive_update_mode = 1
 follow_offset = Vector2(0, -40.21)
 follow_damping = true
 follow_damping_value = Vector2(0.4, 0.4)
+auto_zoom = true
 auto_zoom_max = 2.0
 auto_zoom_margin = Vector4(80.275, 1.785, 68.63, 3.375)
 draw_limits = true
 metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
 
 [node name="Camera2D" type="Camera2D" parent="."]
-physics_interpolation_mode = 1
-position = Vector2(10, -9)
-zoom = Vector2(2, 2)
+position = Vector2(25, 1)
+zoom = Vector2(1.2153116, 1.2153116)
 editor_draw_limits = true
 
 [node name="PhantomCameraHost" type="Node" parent="Camera2D"]
@@ -134,7 +134,7 @@ characters = [NodePath("../../CharacterManager/PlayerCharacter"), NodePath("../.
 
 [node name="ResolveStateManager" type="Node" parent="BattleSceneManager/ResolveStateManager" node_paths=PackedStringArray("characters")]
 script = ExtResource("9_4v0j5")
-characters = [null, null]
+characters = [NodePath("../../../CharacterManager/PlayerCharacter"), NodePath("../../../CharacterManager/EnemyCharacter")]
 
 [node name="FinalizeBattleManager" type="Node" parent="BattleSceneManager"]
 
@@ -144,16 +144,13 @@ player_characters = [NodePath("PlayerCharacter")]
 enemy_characters = [NodePath("EnemyCharacter")]
 
 [node name="PlayerCharacter" parent="CharacterManager" instance=ExtResource("15_uowwx")]
-position = Vector2(-119, 30)
-knockback_force = 1000.0
-knockback_decay = 4000.0
-bounce_factor = 1.0
+visible = false
+position = Vector2(-169, 44)
 
 [node name="EnemyCharacter" parent="CharacterManager" instance=ExtResource("16_5i8bp")]
-position = Vector2(151, 30)
-knockback_force = 1000.0
-knockback_decay = 4000.0
-bounce_factor = 1.0
+position = Vector2(187, 37)
+collision_layer = 2
+collision_mask = 2
 
 [node name="PlayerSlotSelectionManager" type="Node" parent="." node_paths=PackedStringArray("view")]
 script = ExtResource("19_5i8bp")
@@ -198,9 +195,9 @@ collision_layer = 3
 collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2(-555, 3)
+position = Vector2(-318, -5)
 shape = SubResource("RectangleShape2D_41gkq")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2(547, 3)
+position = Vector2(304, 3)
 shape = SubResource("RectangleShape2D_41gkq")

@@ -5,7 +5,7 @@ enum DiceType { SLASH, PIERCE, BLUNT, GUARD, EVADE }
 
 @export var min_val: int = 0
 @export var max_val: int = 0
-@export var knockback_power: float = 50.0
+@export var knockback_power: float = 5000
 @export var duration: float = 0.5
 @export var vfx: AtlasTexture
 @export var type_icon: Texture2D
@@ -49,3 +49,8 @@ func get_knockback(actor: CharacterController, target: CharacterController, dist
 		.with_actor_pos(actor.global_position) \
 		.with_target_pos(target.global_position) \
 		.build()
+
+
+func _get_direction(opponent: CharacterController) -> Vector2:
+	var dir = opponent.position - self.owner_unit.position
+	return dir

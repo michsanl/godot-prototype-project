@@ -2,9 +2,9 @@ class_name StrategyPostRollDebug
 extends IStrategyPostRoll
 
 func execute(players: Array[CharacterController], enemies: Array[CharacterController]):
-	randomize_slots_ability(players)
+	#randomize_slots_ability(players)
 	randomize_slots_ability(enemies)
-	randomize_slots_target(players, enemies)
+	#randomize_slots_target(players, enemies)
 	randomize_slots_target(enemies, players)
 	
 

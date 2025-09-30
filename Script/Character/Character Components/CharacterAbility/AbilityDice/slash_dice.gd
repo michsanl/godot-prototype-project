@@ -6,8 +6,7 @@ func _init() -> void:
 
 func execute(owner: CharacterController, opponent: CharacterController):
 	opponent.get_stats().apply_damage(roll_val)
-	var knockback_pos = get_knockback(owner, opponent, knockback_power * 3)
-	opponent.apply_knockback(knockback_pos)
+	opponent.apply_knockback_physics(_get_direction(opponent))
 	owner.get_view().change_to_slash_sprite()
 	if vfx:
 		owner.get_vfx().set_sprite(vfx)
