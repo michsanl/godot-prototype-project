@@ -44,8 +44,8 @@ func _resolve_clash():
 
 
 func _execute_two_sided_approach_movement(attacker: CharacterController, defender: CharacterController):
-	attacker.approach_target_two_sided(defender)
-	await defender.approach_target_two_sided(attacker)
+	attacker.get_action_controller().perform_approach_two_sided_action(attacker, defender)
+	await defender.get_action_controller().perform_approach_two_sided_action(defender, attacker)
 
 
 func _wait_for_dice_roll():

@@ -11,7 +11,7 @@ func resolve(combat_data :CombatData):
 	_defender = combat_data.defender
 	_attacker.get_facing().resolve_and_update_facing(_defender)
 	_defender.get_facing().resolve_and_update_facing(_attacker)
-	await _defender.approach_target_one_sided(_attacker)
+	await _defender.get_action_controller().perform_approach_one_sided_action(_attacker)
 	_defender.update_front_die()
 	
 	# Core: roll dice phase

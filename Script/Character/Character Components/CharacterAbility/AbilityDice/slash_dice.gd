@@ -4,10 +4,13 @@ extends BaseDice
 func _init() -> void:
 	dice_type = DiceType.SLASH
 
+
 func execute(owner: CharacterController, opponent: CharacterController):
 	opponent.get_stats().apply_damage(roll_val)
-	var knockback_pos = get_knockback(owner, opponent, knockback_power * 3)
-	opponent.apply_knockback(knockback_pos)
+	#var knockback_pos = get_knockback(owner, opponent, knockback_power * 3)
+	#opponent.apply_knockback(knockback_pos)
+	var knockback_dir = get_knockback_dir(owner, opponent)
+	opponent.apply_knockback_physics(knockback_dir)
 	owner.get_view().change_to_slash_sprite()
 	if vfx:
 		owner.get_vfx().set_sprite(vfx)

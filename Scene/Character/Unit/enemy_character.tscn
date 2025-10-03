@@ -3,5 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://bek3derprev18" path="res://Scene/Character/Unit/character_base.tscn" id="1_gy3kx"]
 
 [node name="EnemyCharacter" instance=ExtResource("1_gy3kx")]
+collision_layer = 2
+collision_mask = 2
 is_player = true
 char_name = "Enemy"

@@ -49,3 +49,7 @@ func get_knockback(actor: CharacterController, target: CharacterController, dist
 		.with_actor_pos(actor.global_position) \
 		.with_target_pos(target.global_position) \
 		.build()
+
+
+func get_knockback_dir(attacker, target) -> Vector2:
+	return (target.position - attacker.position).normalized()

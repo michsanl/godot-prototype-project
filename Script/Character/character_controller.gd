@@ -1,5 +1,5 @@
 class_name CharacterController
-extends Node2D
+extends CharacterBody2D
 
 @export var is_player: bool
 @export var char_name: String
@@ -14,13 +14,45 @@ extends Node2D
 @export var action_controller: CharacterActionController
 @export var combat_controller: CharacterCombatController
 
+@export var knockback_force: float = 400.0
+@export var knockback_decay: float = 800.0
+@export var bounce_factor: float = 0.5
+
 # FIXME: 
 var _initial_position: Vector2
 var _initial_slot_amount: int = 2
+var knockback_velocity: Vector2 = Vector2.ZERO
 
 func _ready() -> void:
 	_initialize_childs()
 	_initial_position = self.position
+
+
+func _physics_process(delta: float) -> void:
+	if Input.is_action_just_pressed("ui_accept"): # "ui_accept" is usually SPACE/Enter by default
+		apply_knockback_physics(Vector2.RIGHT)
+	
+	if knockback_velocity.length() > 0.1:
+		var collision = move_and_collide(knockback_velocity * delta)
+		if collision:
+			# Bounce off wall
+			knockback_velocity = knockback_velocity.bounce(collision.get_normal()) * bounce_factor
+
+		# Apply decay
+		knockback_velocity = knockback_velocity.move_toward(Vector2.ZERO, knockback_decay * delta)
+
+
+func apply_knockback_physics(direction: Vector2) -> void:
+	knockback_velocity = direction.normalized() * knockback_force
+
+
+func apply_knockback(final_pos: Vector2):
+	movement.perform_backward_movement(final_pos)
+	action_controller.perform_damaged_action()
+
+
+func apply_draw_knockback(final_pos: Vector2):
+	movement.perform_backward_movement(final_pos)
 
 
 func _initialize_childs():
@@ -138,37 +170,6 @@ func get_active_dice_slots() -> Array[DiceSlotData]:
 #endregion
 
 
-#region Ability Controller API
-func get_random_ability() -> AbilityData:
-	return ability_controller.get_random_ability()
-func get_ability(index: int) -> AbilityData:
-	return ability_controller.get_ability(index)
-func get_abilities() -> Array[AbilityData]:
-	return ability_controller.get_abilities()
-#endregion
-
-
-#region Action Controller
-func approach_target_one_sided(target: CharacterController):
-	await action_controller.perform_approach_one_sided_action(target)
-	
-
-func approach_target_two_sided(target: CharacterController):
-	await action_controller.perform_approach_two_sided_action(self, target)
-#endregion
-
-
-#region Combat
-func apply_knockback(final_pos: Vector2):
-	movement.perform_backward_movement(final_pos)
-	action_controller.perform_damaged_action()
-
-
-func apply_draw_knockback(final_pos: Vector2):
-	movement.perform_backward_movement(final_pos)
-#endregion
-
-
 func reset_position():
 	self.position = _initial_position
 
@@ -179,9 +180,9 @@ func reset_visual():
 
 func _get_facing_direction(target: CharacterController) -> Vector2:
 	var dir = target.position.x - self.position.x
-	var facing
+	var facing_dir
 	if dir < 0:
-		facing = Vector2.LEFT
+		facing_dir = Vector2.LEFT
 	else:
-		facing = Vector2.RIGHT
-	return facing
+		facing_dir = Vector2.RIGHT
+	return facing_dir

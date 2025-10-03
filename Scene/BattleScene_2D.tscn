@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://do3uwy2gicsls"]
+[gd_scene load_steps=28 format=3 uid="uid://do3uwy2gicsls"]
 
 [ext_resource type="Texture2D" uid="uid://c8sf5t0u0e5qn" path="res://Art/temporary_sprite/KeterFloorBattleStage.jpg" id="1_mtylr"]
 [ext_resource type="Script" uid="uid://cp3damr7qm5t3" path="res://Script/Autoload/event_bus.gd" id="1_uowwx"]
@@ -40,6 +40,9 @@ cache/0/16/0/scale = 1.0
 [sub_resource type="Theme" id="Theme_4v0j5"]
 default_font = SubResource("FontFile_8rj7f")
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_41gkq"]
+size = Vector2(163, 456)
+
 [node name="BattleScene_2D" type="Node2D"]
 script = ExtResource("1_uowwx")
 
@@ -49,8 +52,10 @@ scale = Vector2(0.62, 0.62)
 texture = ExtResource("1_mtylr")
 
 [node name="Camera2D" type="Camera2D" parent="."]
+physics_interpolation_mode = 1
 position = Vector2(-8, 24)
 zoom = Vector2(2, 2)
+process_callback = 0
 editor_draw_limits = true
 
 [node name="PhantomCameraHost" type="Node" parent="Camera2D"]
@@ -189,3 +194,19 @@ mouse_filter = 1
 layout_mode = 2
 size_flags_vertical = 4
 mouse_filter = 1
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+collision_layer = 3
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(548.5, 30)
+shape = SubResource("RectangleShape2D_41gkq")
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="."]
+collision_layer = 3
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2"]
+position = Vector2(-551, 46)
+shape = SubResource("RectangleShape2D_41gkq")

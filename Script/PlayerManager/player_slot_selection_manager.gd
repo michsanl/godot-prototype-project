@@ -66,7 +66,7 @@ func update_focus(controller: DiceSlotController, index: int, focused: bool):
 	if focused:
 		controller.update_focus(index, true)
 		data.set_focused_slot(controller, index)
-		view.update_button_icon(controller.owner_unit.get_abilities())
+		view.update_button_icon(controller.owner_unit.get_ability_controller().get_abilities())
 		view.show()
 	else:
 		controller.update_focus(index, false)
@@ -89,7 +89,7 @@ func set_slot_ability(ability_index: int):
 	var controller = data.focused_slot_controller
 	if controller == null:
 		return
-	var ability = controller.owner_unit.get_ability(ability_index)
+	var ability = controller.owner_unit.get_ability_controller().get_ability(ability_index)
 	controller.select_slot_ability(data.focused_slot_index, ability)
 	data.set_slot_ability(ability)
 
