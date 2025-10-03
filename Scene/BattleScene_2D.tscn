@@ -96,8 +96,8 @@ script = ExtResource("3_8qtd0")
 
 [node name="StrategyStateManager" type="Node" parent="BattleSceneManager" node_paths=PackedStringArray("player_characters", "enemy_characters", "view", "strategy_post_roll")]
 script = ExtResource("3_t0dor")
-player_characters = [NodePath("../../CharacterManager/PlayerCharacter")]
-enemy_characters = [NodePath("../../CharacterManager/EnemyCharacter")]
+player_characters = [NodePath("../../CharacterManager/PlayerCharacter"), NodePath("../../CharacterManager/PlayerCharacter2")]
+enemy_characters = [NodePath("../../CharacterManager/EnemyCharacter"), NodePath("../../CharacterManager/EnemyCharacter2")]
 view = NodePath("../../CanvasLayer/UI/MarginContainer/StrategyView")
 strategy_post_roll = NodePath("StrategyPostRollDebug")
 
@@ -106,8 +106,8 @@ script = ExtResource("7_5i8bp")
 
 [node name="CombatStateManager" type="Node" parent="BattleSceneManager" node_paths=PackedStringArray("player_characters", "enemy_characters", "clash_handler")]
 script = ExtResource("4_xdkpq")
-player_characters = [NodePath("../../CharacterManager/PlayerCharacter")]
-enemy_characters = [NodePath("../../CharacterManager/EnemyCharacter")]
+player_characters = [NodePath("../../CharacterManager/PlayerCharacter"), NodePath("../../CharacterManager/PlayerCharacter2")]
+enemy_characters = [NodePath("../../CharacterManager/EnemyCharacter"), NodePath("../../CharacterManager/EnemyCharacter2")]
 clash_handler = NodePath("ClashHandler")
 
 [node name="ClashHandler" type="Node" parent="BattleSceneManager/CombatStateManager" node_paths=PackedStringArray("two_sided", "one_sided_attacker", "one_sided_defender")]
@@ -127,7 +127,7 @@ script = ExtResource("12_uowwx")
 
 [node name="ResolveStateManager" type="Node" parent="BattleSceneManager" node_paths=PackedStringArray("characters")]
 script = ExtResource("9_4v0j5")
-characters = [NodePath("../../CharacterManager/PlayerCharacter"), NodePath("../../CharacterManager/EnemyCharacter")]
+characters = [NodePath("../../CharacterManager/PlayerCharacter"), NodePath("../../CharacterManager/EnemyCharacter"), NodePath("../../CharacterManager/PlayerCharacter2"), NodePath("../../CharacterManager/EnemyCharacter2")]
 
 [node name="ResolveStateManager" type="Node" parent="BattleSceneManager/ResolveStateManager" node_paths=PackedStringArray("characters")]
 script = ExtResource("9_4v0j5")
@@ -137,14 +137,20 @@ characters = [NodePath("../../../CharacterManager/PlayerCharacter"), NodePath(".
 
 [node name="CharacterManager" type="Node2D" parent="." node_paths=PackedStringArray("player_characters", "enemy_characters")]
 script = ExtResource("12_7qkga")
-player_characters = [NodePath("PlayerCharacter")]
-enemy_characters = [NodePath("EnemyCharacter")]
+player_characters = [NodePath("PlayerCharacter"), NodePath("PlayerCharacter2")]
+enemy_characters = [NodePath("EnemyCharacter"), NodePath("EnemyCharacter2")]
 
 [node name="PlayerCharacter" parent="CharacterManager" instance=ExtResource("15_uowwx")]
-position = Vector2(-169, 44)
+position = Vector2(-192, 23)
+
+[node name="PlayerCharacter2" parent="CharacterManager" instance=ExtResource("15_uowwx")]
+position = Vector2(-88, 94)
 
 [node name="EnemyCharacter" parent="CharacterManager" instance=ExtResource("16_5i8bp")]
 position = Vector2(187, 37)
+
+[node name="EnemyCharacter2" parent="CharacterManager" instance=ExtResource("16_5i8bp")]
+position = Vector2(86, 104)
 
 [node name="PlayerSlotSelectionManager" type="Node" parent="." node_paths=PackedStringArray("view")]
 script = ExtResource("19_5i8bp")
