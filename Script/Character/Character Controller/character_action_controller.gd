@@ -3,6 +3,7 @@ extends Node
 
 @export var sprite_controller: CharacterSprite
 @export var vfx_controller: VFXController
+@export var facing_controller: FacingController
 @export var default_duration: float = 1.0
 @export var attack_duration: float = 1.0
 @export var damaged_duration: float = 1.0
@@ -17,12 +18,16 @@ func initialize(new_owner: CharacterController):
 
 #region Movement Methods
 func perform_movement_action(final_pos: Vector2):
+	#var facing_dir = _get_facing_direction(owner_character.position, final_pos)
+	#facing_controller.update_facing(facing_dir)
 	owner_character.sprite.change_to_move_sprite()
 	await owner_character.movement.perform_forward_movement(final_pos)
 	owner_character.sprite.change_to_default_sprite()
 
 
 func perform_approach_one_sided_action(target: CharacterController):
+	#var facing_dir = _get_facing_direction(owner_character.position, target.position)
+	#facing_controller.update_facing(facing_dir)
 	var final_pos: Vector2 = target.position + _get_adjacent_offset(owner_character, target)
 	owner_character.sprite.change_to_move_sprite()
 	await owner_character.movement.perform_forward_movement(final_pos)
@@ -30,6 +35,8 @@ func perform_approach_one_sided_action(target: CharacterController):
 
 
 func perform_approach_two_sided_action(actor: CharacterController, target: CharacterController):
+	#var facing_dir = _get_facing_direction(actor.position, target.position)
+	#facing_controller.update_facing(facing_dir)
 	var final_pos: Vector2 = _get_meeting_position(actor, target) + _get_fractional_adjacent_offset(actor, target, 0.5)
 	owner_character.sprite.change_to_move_sprite()
 	await owner_character.movement.perform_forward_movement(final_pos)
@@ -89,6 +96,10 @@ func perform_damaged_action(duration: float = default_duration):
 
 
 #region Helper Methods
+func _get_facing_direction(self_pos: Vector2, target_pos: Vector2) -> Vector2:
+	return (target_pos - self_pos).normalized()
+
+
 func _get_meeting_position(actor: CharacterController, target: CharacterController) -> Vector2:
 	return actor.position.lerp(target.position, 0.5)
 

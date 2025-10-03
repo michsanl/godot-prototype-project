@@ -10,6 +10,8 @@ func resolve(combat_data :CombatData):
 	# Initialize: approach movement phase
 	_attacker = combat_data.attacker
 	_defender = combat_data.defender
+	_attacker.get_facing().resolve_and_update_facing(_defender)
+	_defender.get_facing().resolve_and_update_facing(_attacker)
 	await _execute_two_sided_approach_movement(_attacker, _defender)
 	_attacker.update_front_die()
 	_defender.update_front_die()

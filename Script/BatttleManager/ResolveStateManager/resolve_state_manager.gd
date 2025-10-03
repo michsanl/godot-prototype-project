@@ -9,6 +9,7 @@ signal resolve_ended
 func handle_initialize_battle_enter() -> void:
 	for character in characters:
 		character.clear_active_slots_data()
+		character.get_facing().reset_facing()
 		
 		
 	resolve_ended.emit()

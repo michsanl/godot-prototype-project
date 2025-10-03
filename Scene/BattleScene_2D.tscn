@@ -48,12 +48,23 @@ y_sort_enabled = true
 scale = Vector2(0.62, 0.62)
 texture = ExtResource("1_mtylr")
 
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(-8, 24)
+zoom = Vector2(2, 2)
+editor_draw_limits = true
+
+[node name="PhantomCameraHost" type="Node" parent="Camera2D"]
+process_priority = 300
+process_physics_priority = 300
+script = ExtResource("5_41gkq")
+metadata/_custom_type_script = "uid://bd046eokvcnu2"
+
 [node name="PhantomCamera2D" type="Node2D" parent="." node_paths=PackedStringArray("follow_targets")]
 top_level = true
-position = Vector2(3.1775055, 1.0849991)
+position = Vector2(-8.322479, 24.085)
 script = ExtResource("21_ptf43")
 follow_mode = 3
-follow_targets = [NodePath("../CharacterManager/PlayerCharacter"), NodePath("../CharacterManager/EnemyCharacter")]
+follow_targets = [NodePath("../CharacterManager/PlayerCharacter"), NodePath("../CharacterManager/EnemyCharacter"), NodePath("../CharacterManager/PlayerCharacter2"), NodePath("../CharacterManager/EnemyCharacter2")]
 zoom = Vector2(2, 2)
 snap_to_pixel = true
 tween_resource = SubResource("Resource_qib37")
@@ -66,17 +77,6 @@ auto_zoom_max = 2.0
 auto_zoom_margin = Vector4(80.275, 1.785, 68.63, 3.375)
 draw_limits = true
 metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
-
-[node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(3, 1)
-zoom = Vector2(2, 2)
-editor_draw_limits = true
-
-[node name="PhantomCameraHost" type="Node" parent="Camera2D"]
-process_priority = 300
-process_physics_priority = 300
-script = ExtResource("5_41gkq")
-metadata/_custom_type_script = "uid://bd046eokvcnu2"
 
 [node name="DebugManager" type="Node" parent="." node_paths=PackedStringArray("scene_manager", "debug_view")]
 script = ExtResource("3_8rj7f")
@@ -155,8 +155,6 @@ position = Vector2(86, 104)
 [node name="PlayerSlotSelectionManager" type="Node" parent="." node_paths=PackedStringArray("view")]
 script = ExtResource("19_5i8bp")
 view = NodePath("../CanvasLayer/UI/MarginContainer/AbilityView")
-
-[node name="EnemySlotSelectionManager" type="Node" parent="."]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 

@@ -7,6 +7,7 @@ extends Node2D
 @export var stats: StatsController
 @export var sprite: CharacterSprite
 @export var vfx: VFXController
+@export var facing: FacingController
 @export var movement: CharacterMovement
 @export var dice_slot_controller: DiceSlotController
 @export var ability_controller: CharacterAbilityController
@@ -29,6 +30,7 @@ func _initialize_childs():
 	action_controller.initialize(self)
 	dice_slot_controller.initialize(self, _initial_slot_amount)
 	stats.initialize(self)
+	facing.initialize(self)
 
 
 #region GETTER Methods
@@ -42,6 +44,8 @@ func get_view() -> CharacterSprite:
 	return sprite
 func get_vfx() -> VFXController:
 	return vfx
+func get_facing() -> FacingController:
+	return facing
 func get_movement() -> CharacterMovement:
 	return movement
 func get_slot_controller() -> DiceSlotController:

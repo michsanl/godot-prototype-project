@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://bek3derprev18"]
+[gd_scene load_steps=25 format=3 uid="uid://bek3derprev18"]
 
 [ext_resource type="Script" uid="uid://c7c2x0t6jjupk" path="res://Script/Character/character_controller.gd" id="1_y5alb"]
 [ext_resource type="Script" uid="uid://bkyu1oyiksvly" path="res://Script/Character/Character Controller/character_action_controller.gd" id="2_8fd8j"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://dateptc72flsb" path="res://Script/Character/Character Components/CharacterMovement/character_movement.gd" id="2_ptqjd"]
 [ext_resource type="Texture2D" uid="uid://pxur532t51ow" path="res://Art/character_sprite/argalia/Default.png" id="2_tjx60"]
 [ext_resource type="Script" uid="uid://di50c51to3xax" path="res://Script/Character/Character Components/CharacterStats/stats_controller.gd" id="2_yop1s"]
+[ext_resource type="Script" uid="uid://bwysw2mie1vho" path="res://Script/Character/Character Components/CharacterFacing/facing_controller.gd" id="3_dgdik"]
 [ext_resource type="Script" uid="uid://dm4auyugtcvs4" path="res://Script/Character/Character Components/CharacterAbility/character_ability_controller.gd" id="3_ouw7k"]
 [ext_resource type="Script" uid="uid://b18vpmxkm8dx0" path="res://Script/Character/Character Components/CharacterSprite/character_sprite.gd" id="4_g08oy"]
 [ext_resource type="Resource" uid="uid://bpoaj3qwoapyp" path="res://Resource/Character Sprite/argalia_sprite.tres" id="5_ylsyo"]
@@ -29,21 +30,24 @@ _max_health = 50
 _max_stagger = 50
 metadata/_custom_type_script = "uid://klhyg347pta4"
 
-[node name="CharacterController" type="Node2D" node_paths=PackedStringArray("stats", "sprite", "vfx", "movement", "dice_slot_controller", "ability_controller", "action_controller", "combat_controller")]
+[node name="CharacterController" type="Node2D" node_paths=PackedStringArray("stats", "sprite", "vfx", "facing", "movement", "dice_slot_controller", "ability_controller", "action_controller", "combat_controller")]
 scale = Vector2(0.5, 0.5)
 script = ExtResource("1_y5alb")
+is_player = null
+char_name = null
 data = ExtResource("2_h3o0s")
 stats = NodePath("StatsController")
 sprite = NodePath("Sprite")
 vfx = NodePath("VFX")
+facing = NodePath("FacingController")
 movement = NodePath("Movement")
 dice_slot_controller = NodePath("DiceSlotController")
 ability_controller = NodePath("Abilities")
 action_controller = NodePath("ActionController")
 combat_controller = NodePath("CombatController")
 
-[node name="Camera2D" type="Camera2D" parent="."]
-visible = false
+[node name="FacingController" type="Node" parent="."]
+script = ExtResource("3_dgdik")
 
 [node name="Sprite" type="Sprite2D" parent="."]
 position = Vector2(0, -88)
@@ -82,10 +86,11 @@ script = ExtResource("15_7ndog")
 [node name="StaggerController" type="Node" parent="StatsController"]
 script = ExtResource("18_lq7yi")
 
-[node name="ActionController" type="Node" parent="." node_paths=PackedStringArray("sprite_controller", "vfx_controller")]
+[node name="ActionController" type="Node" parent="." node_paths=PackedStringArray("sprite_controller", "vfx_controller", "facing_controller")]
 script = ExtResource("2_8fd8j")
 sprite_controller = NodePath("../Sprite")
 vfx_controller = NodePath("../VFX")
+facing_controller = NodePath("../FacingController")
 
 [node name="CombatController" type="Node" parent="." node_paths=PackedStringArray("slot_controller", "ability_controller", "view")]
 script = ExtResource("18_7ndog")
