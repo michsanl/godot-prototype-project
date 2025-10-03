@@ -6,8 +6,5 @@
 is_player = true
 char_name = "Player"
 
-[node name="Sprite" parent="." index="2"]
-flip_h = true
-
-[node name="VFX" parent="." index="3"]
-flip_h = true
+[node name="FacingController" parent="." index="0"]
+is_player = true
