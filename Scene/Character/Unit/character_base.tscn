@@ -69,12 +69,12 @@ ability_list = Array[ExtResource("8_psia3")]([ExtResource("14_1ako7"), ExtResour
 offset_top = -149.0
 offset_bottom = -149.0
 
-[node name="StatsController" type="Node" parent="." node_paths=PackedStringArray("health", "stagger", "view")]
+[node name="StatsController" type="Node" parent="." node_paths=PackedStringArray("view", "health", "stagger")]
 script = ExtResource("2_yop1s")
 stats_data = SubResource("Resource_lq7yi")
+view = NodePath("../UI/StatsView")
 health = NodePath("HealthController")
 stagger = NodePath("StaggerController")
-view = NodePath("../UI/StatsView")
 
 [node name="HealthController" type="Node" parent="StatsController"]
 script = ExtResource("15_7ndog")
