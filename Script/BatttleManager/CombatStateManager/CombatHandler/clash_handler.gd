@@ -14,10 +14,13 @@ enum ClashState {
 var _attacker: CharacterController
 var _defender: CharacterController
 
+@onready var camera = $"../../../PhantomCamera2D"
+
 func start_combat(combat_data :CombatData):
 	# TODO: Initialize - focus camera, show dice UI
 	_attacker = combat_data.attacker
 	_defender = combat_data.defender
+	camera.set_follow_targets(combat_data.combatant)
 	
 	# Core: resolve clash until no dice left
 	while _attacker.has_dice() or _defender.has_dice():
